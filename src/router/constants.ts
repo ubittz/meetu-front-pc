@@ -6,4 +6,5 @@ export const PAGES = {
   MAIN: '/',
   MEETING: '/meeting',
   PURCHASE: '/purchase',
+  MYPAGE: '/mypage',
 } as const;
