@@ -5,4 +5,5 @@ export const PAGES = {
   REGISTER: '/register',
   MAIN: '/',
   MEETING: '/meeting',
+  PURCHASE: '/purchase',
 } as const;
