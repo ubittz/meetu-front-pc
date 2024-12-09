@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import { PAGES } from '@@router/constants';
@@ -10,21 +12,21 @@ function Meeting() {
         <div className='inner'>
           <div className='inner_l'>
             <h1 className='logo'>
-              <a href={pathGenerator(PAGES.MAIN)}>meetu</a>
+              <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
             </h1>
             <nav id='navi'>
               <ul>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING)}>모임 탐색</a>
+                  <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
+                  <Link to='javascript:void(0);'>호스트 소개</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>공지사항</a>
+                  <Link to='javascript:void(0);'>공지사항</Link>
                 </li>
                 <li className='active'>
-                  <a href={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</a>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
                 </li>
               </ul>
             </nav>
@@ -32,10 +34,10 @@ function Meeting() {
           <div className='inner_r'>
             <ul>
               <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
+                <Link to='javascript:void(0);'>로그아웃</Link>
               </li>
               <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
+                <Link to='javascript:void(0);'>마이페이지</Link>
               </li>
             </ul>
           </div>
@@ -51,15 +53,15 @@ function Meeting() {
               </div>
 
               <div className='mv_tab_area'>
-                <a href='#' className='btn active'>
+                <Link to='#' className='btn active'>
                   상세정보
-                </a>
-                <a href='#' className='btn'>
+                </Link>
+                <Link to='#' className='btn'>
                   리뷰
-                </a>
-                <a href='#' className='btn'>
+                </Link>
+                <Link to='#' className='btn'>
                   문의
-                </a>
+                </Link>
               </div>
               {/* <!-- 상세정보 --> */}
               <div className='mv_detail'>
@@ -222,25 +224,25 @@ function Meeting() {
                     </li>
                   </ul>
                   <div className='paging'>
-                    <a href='jascript: void(0);' className='btn on'>
+                    <Link to='jascript: void(0);' className='btn on'>
                       1
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       2
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       3
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       4
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       5
-                    </a>
+                    </Link>
                     <span>...</span>
-                    <a href='jascript: void(0);' className='btn'>
+                    <Link to='jascript: void(0);' className='btn'>
                       7
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -307,25 +309,25 @@ function Meeting() {
                     </li>
                   </ul>
                   <div className='paging'>
-                    <a href='jascript: void(0);' className='btn'>
+                    <Link to='jascript: void(0);' className='btn'>
                       1
-                    </a>
+                    </Link>
                     <span>...</span>
-                    <a href='jascript: void(0);' className='btn on'>
+                    <Link to='jascript: void(0);' className='btn on'>
                       4
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       5
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       6
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       7
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       8
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -403,20 +405,22 @@ function Meeting() {
                   <div className='info_area'>
                     <h4>호스트명 또는 닉네임</h4>
                     <div className='infoBox'>
-                      <a href='../mypage/InfoHost.html' className='ib'>
+                      {/* TODO: 마이페이지 - info host 링크 추가 */}
+                      <Link to='../mypage/InfoHost.html' className='ib'>
                         <p className='tit'>운영중인 모임</p>
                         <p className='txt'>
                           <strong>N</strong>
                           <span> 개</span>
                         </p>
-                      </a>
-                      <a href='../mypage/InfoUser.html' className='ib'>
+                      </Link>
+                      {/* TODO: 마이페이지 - info user 링크 추가 */}
+                      <Link to='../mypage/InfoUser.html' className='ib'>
                         <p className='tit'>리뷰</p>
                         <p className='txt'>
                           <strong>N</strong>
                           <span> 건</span>
                         </p>
-                      </a>
+                      </Link>
                     </div>
                     <dl>
                       <dt>호스트 소개</dt>

@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+
+// TODO: Detail 화면에 id값 전달하도록 수정 필요
 
 function MeetingList() {
   return (
@@ -11,21 +15,21 @@ function MeetingList() {
           <div className='inner'>
             <div className='inner_l'>
               <h1 className='logo'>
-                <a href={pathGenerator(PAGES.MAIN)}>meetu</a>
+                <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
               </h1>
               <nav id='navi'>
                 <ul>
                   <li>
-                    <a href={pathGenerator(PAGES.MEETING)}>모임 탐색</a>
+                    <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
                   </li>
                   <li>
-                    <a href='javascript:void(0);'>호스트 소개</a>
+                    <Link to='javascript:void(0);'>호스트 소개</Link>
                   </li>
                   <li>
-                    <a href='javascript:void(0);'>공지사항</a>
+                    <Link to='javascript:void(0);'>공지사항</Link>
                   </li>
                   <li className='active'>
-                    <a href={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</a>
+                    <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
                   </li>
                 </ul>
               </nav>
@@ -33,10 +37,10 @@ function MeetingList() {
             <div className='inner_r'>
               <ul>
                 <li className='logout'>
-                  <a href='javascript:void(0);'>로그아웃</a>
+                  <Link to='javascript:void(0);'>로그아웃</Link>
                 </li>
                 <li className='mypage'>
-                  <a href='javascript:void(0);'>마이페이지</a>
+                  <Link to='javascript:void(0);'>마이페이지</Link>
                 </li>
               </ul>
             </div>
@@ -85,7 +89,7 @@ function MeetingList() {
             <div className='list_wrap'>
               <ul>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -100,10 +104,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -118,10 +122,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>35,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -136,10 +140,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>45,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -154,10 +158,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -172,10 +176,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -190,10 +194,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>30,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -208,10 +212,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>40,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -226,10 +230,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>55,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -244,10 +248,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>60,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -262,10 +266,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>40,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -280,10 +284,10 @@ function MeetingList() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -298,7 +302,7 @@ function MeetingList() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

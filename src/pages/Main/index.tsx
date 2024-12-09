@@ -1,4 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import images from '@@assets/images';
+import Footer from '@@components/Footer';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 function Main() {
   return (
@@ -8,21 +13,22 @@ function Main() {
           <div className='inner'>
             <div className='inner_l'>
               <h1 className='logo'>
-                <a href='../main/Main.html'>meetu</a>
+                <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
               </h1>
               <nav id='navi'>
                 <ul>
                   <li>
-                    <a href='../'>모임 탐색</a>
+                    <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
                   </li>
                   <li>
-                    <a href="javascript:alert('서비스 준비 중입니다.');">호스트 소개</a>
+                    <Link to='javascript:alert("서비스 준비 중입니다.");'>호스트 소개</Link>
                   </li>
                   <li>
-                    <a href="javascript:alert('서비스 준비 중입니다.');">공지사항</a>
+                    <Link to='javascript:alert("서비스 준비 중입니다.");'>공지사항</Link>
                   </li>
                   <li className='active'>
-                    <a href='../mypage/MypageMain.html'>마이페이지</a>
+                    {/* TODO: 마이페이지 링크 추가 */}
+                    <Link to='../mypage/MypageMain.html'>마이페이지</Link>
                   </li>
                 </ul>
               </nav>
@@ -30,10 +36,10 @@ function Main() {
             <div className='inner_r'>
               <ul>
                 <li className='logout'>
-                  <a href='javascript:void(0);'>로그아웃</a>
+                  <Link to='javascript:void(0);'>로그아웃</Link>
                 </li>
                 <li className='mypage'>
-                  <a href='javascript:void(0);'>마이페이지</a>
+                  <Link to='javascript:void(0);'>마이페이지</Link>
                 </li>
               </ul>
             </div>
@@ -82,9 +88,9 @@ function Main() {
               <button type='button' className='btn'>
                 와인
               </button>
-              <a href='./MeetingList.html' className='btn'>
+              <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
                 모두보기
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -178,7 +184,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -193,10 +199,10 @@ function Main() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -211,10 +217,10 @@ function Main() {
                       </p>
                       <p className='price'>35,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -229,10 +235,10 @@ function Main() {
                       </p>
                       <p className='price'>45,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -247,10 +253,10 @@ function Main() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -265,7 +271,7 @@ function Main() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -280,7 +286,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -295,10 +301,10 @@ function Main() {
                       </p>
                       <p className='price'>35,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -313,10 +319,10 @@ function Main() {
                       </p>
                       <p className='price'>45,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -331,10 +337,10 @@ function Main() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -349,10 +355,10 @@ function Main() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -367,7 +373,7 @@ function Main() {
                       </p>
                       <p className='price'>35,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -382,7 +388,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -397,10 +403,10 @@ function Main() {
                       </p>
                       <p className='price'>45,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -415,10 +421,10 @@ function Main() {
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -433,10 +439,10 @@ function Main() {
                       </p>
                       <p className='price'>70,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -451,10 +457,10 @@ function Main() {
                       </p>
                       <p className='price'>35,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <a href='/meeting' className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -469,7 +475,7 @@ function Main() {
                       </p>
                       <p className='price'>45,000원</p>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -484,9 +490,9 @@ function Main() {
               이외에 참여하고 싶은 모임이 있다면? <br />
               모임을 직접 개설하고, 새로운 만남을 시작하세요.
             </h3>
-            <a href='/meeting/create' className='btn'>
+            <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn'>
               모임 직접 개설하기
-            </a>
+            </Link>
           </div>
         </section>
         {/* <!-- 모임 개설 안내 종료 --> */}
@@ -522,58 +528,7 @@ function Main() {
         </section>
         {/* <!-- 메인 하단 이미지 정보 영역 종료 --> */}
       </main>
-
-      <footer className='footer'>
-        <div className='inner'>
-          <div className='inner_l'>
-            <h4>
-              새로운 만남 소소한 행복찾기, <br />
-              밋유
-            </h4>
-            <ul className='co_info_list'>
-              <li>
-                <p className='info_l'>(주)루나스타</p>
-                <p className='info_r'>
-                  <strong>문의전화</strong>
-                  <span>1588-1688</span>
-                </p>
-              </li>
-              <li>
-                <p className='info_l'>대표이사 송정원</p>
-                <p className='info_r'>
-                  <strong>사업자 등록번호</strong>
-                  <span>
-                    698-30-01098
-                    <a href='javascript:void(0)' className='btn'>
-                      사업자 정보 확인
-                    </a>
-                  </span>
-                </p>
-              </li>
-              <li>
-                <p className='info_l'>경기도 이천시 애련청로 67-39, 1024호</p>
-                <p className='info_r'>
-                  <strong>개인정보보호 책임자</strong>
-                  <span>송정원</span>
-                </p>
-              </li>
-            </ul>
-            <p className='copy'>Copyrightⓒ 2024 LUNASTAR. ALL RIGHTS REServed.</p>
-          </div>
-          <dl className='inner_r'>
-            <dt>고객센터</dt>
-            <dd className='active'>
-              <a href='javascript:void(0)'>개인정보처리방침</a>
-            </dd>
-            <dd>
-              <a href='javascript:void(0)'>FAQ</a>
-            </dd>
-            <dd>
-              <a href='javascript:void(0)'>공지사항</a>
-            </dd>
-          </dl>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

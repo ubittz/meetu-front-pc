@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 function MeetingCreate() {
   return (
@@ -7,21 +11,21 @@ function MeetingCreate() {
         <div className='inner'>
           <div className='inner_l'>
             <h1 className='logo'>
-              <a href='../main/Main.html'>meetu</a>
+              <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
             </h1>
             <nav id='navi'>
               <ul>
                 <li>
-                  <a href='../main/MeetingList.html'>모임 탐색</a>
+                  <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
+                  <Link to='javascript:void(0);'>호스트 소개</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>공지사항</a>
+                  <Link to='javascript:void(0);'>공지사항</Link>
                 </li>
                 <li className='active'>
-                  <a href='../main/MeetingCreate.html'>모임 개설하기</a>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
                 </li>
               </ul>
             </nav>
@@ -29,10 +33,10 @@ function MeetingCreate() {
           <div className='inner_r'>
             <ul>
               <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
+                <Link to='javascript:void(0);'>로그아웃</Link>
               </li>
               <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
+                <Link to='javascript:void(0);'>마이페이지</Link>
               </li>
             </ul>
           </div>
@@ -145,9 +149,9 @@ function MeetingCreate() {
                 {/* <!-- //정보입력 영역 종료 --> */}
 
                 <div className='btn_area type_02'>
-                  <a href='../main/Main.html' className='btn form02'>
+                  <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
                     취소
-                  </a>
+                  </Link>
                   <button type='submit' className='btn'>
                     모임등록
                   </button>
@@ -169,9 +173,9 @@ function MeetingCreate() {
                 <button type='button' className='btn form02'>
                   닫기
                 </button>
-                <a href='../main/Main.html' className='btn'>
+                <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
                   홈으로
-                </a>
+                </Link>
               </div>
             </div>
           </div>
