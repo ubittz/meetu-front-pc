@@ -1,45 +1,48 @@
-import styled from 'styled-components';
+import React from 'react';
 
-import { ATTR_BY_HEADER_ALIGN } from '@@components/Header/constants';
-import { HeaderAlignment, HeaderProps } from '@@components/Header/types';
-import { ArrowLeftIcon } from '@@constants/icons';
+import { Link } from 'react-router-dom';
 
-const BUTTON_SIZE = 24;
+import { PAGES } from '@@router/constants'; // 페이지 상수 import
+import { pathGenerator } from '@@router/utils'; // 경로 생성 유틸 import
 
-const StyledHeader = styled.div<{ $hiddenBack: boolean; $align: HeaderAlignment }>`
-  display: flex;
-  justify-content: ${({ $hiddenBack, $align }) => (!$hiddenBack ? 'space-between' : ATTR_BY_HEADER_ALIGN[$align])};
-  align-items: center;
-
-  .header__back_icon_wrap {
-    display: ${({ $hiddenBack }) => ($hiddenBack ? 'none' : 'flex')};
-    justify-content: center;
-    align-items: center;
-    width: ${BUTTON_SIZE}px;
-    height: ${BUTTON_SIZE}px;
-  }
-
-  .header__title {
-  }
-
-  .header__blank_box {
-    display: ${({ $hiddenBack }) => ($hiddenBack ? 'none' : 'flex')};
-    width: ${BUTTON_SIZE}px;
-  }
-`;
-
-function Header({ children, titleAlign = 'center', hiddenBack = false, onBack, className, ...props }: HeaderProps) {
+const Header: React.FC = () => {
   return (
-    <StyledHeader {...props} className={`header ${className}`} $hiddenBack={hiddenBack} $align={titleAlign}>
-      {!hiddenBack && (
-        <div className='header__back_icon_wrap' onClick={onBack}>
-          <ArrowLeftIcon />
+    <header className='header'>
+      <div className='inner'>
+        <div className='inner_l'>
+          <h1 className='logo'>
+            <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
+          </h1>
+          <nav id='navi'>
+            <ul>
+              <li>
+                <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
+              </li>
+              <li>
+                <Link to='javascript:void(0);'>호스트 소개</Link>
+              </li>
+              <li>
+                <Link to='javascript:void(0);'>공지사항</Link>
+              </li>
+              <li className='active'>
+                <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
+              </li>
+            </ul>
+          </nav>
         </div>
-      )}
-      <div className='header__title'>{children}</div>
-      <div className='header__blank_box'></div>
-    </StyledHeader>
+        <div className='inner_r'>
+          <ul>
+            <li className='logout'>
+              <Link to='javascript:void(0);'>로그아웃</Link>
+            </li>
+            <li className='mypage'>
+              <Link to='javascript:void(0);'>마이페이지</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
   );
-}
+};
 
 export default Header;

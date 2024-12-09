@@ -2,51 +2,14 @@ import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
+import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function Main() {
   return (
     <div id='wrap'>
-      <header className='header'>
-        {
-          <div className='inner'>
-            <div className='inner_l'>
-              <h1 className='logo'>
-                <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
-              </h1>
-              <nav id='navi'>
-                <ul>
-                  <li>
-                    <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
-                  </li>
-                  <li>
-                    <Link to='javascript:alert("서비스 준비 중입니다.");'>호스트 소개</Link>
-                  </li>
-                  <li>
-                    <Link to='javascript:alert("서비스 준비 중입니다.");'>공지사항</Link>
-                  </li>
-                  <li className='active'>
-                    {/* TODO: 마이페이지 링크 추가 */}
-                    <Link to='../mypage/MypageMain.html'>마이페이지</Link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div className='inner_r'>
-              <ul>
-                <li className='logout'>
-                  <Link to='javascript:void(0);'>로그아웃</Link>
-                </li>
-                <li className='mypage'>
-                  <Link to='javascript:void(0);'>마이페이지</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        }
-      </header>
-
+      <Header />
       <main className='container'>
         {<section className='main_visual'>새로운 만남 소소한 행복찾기, 밋유 meetu</section>}
         {/* 메인 배너 종료 */}
