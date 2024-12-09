@@ -73,12 +73,10 @@ function Register() {
                 </button>
               </div>
               <div className='btn_area btn_sub'>
-                <a href='../member/IdSrch.html' className='btn'>
-                  아이디 찾기
-                </a>
-                <a href='../member/PwSrch.html' className='btn'>
+                <Link to={pathGenerator(PAGES.LOGIN) + '/IdSrch'} className="btn">아이디 찾기</Link>
+                <Link to={pathGenerator(PAGES.LOGIN) + '/PWSrch'} className="btn">
                   비밀번호 찾기
-                </a>
+                </Link>
               </div>
             </fieldset>
           </form>
@@ -89,7 +87,6 @@ function Register() {
             </p>
             <div className='btn_area'>
               <Link to={pathGenerator(PAGES.REGISTER)} className="btn">
-              {/* <a href='../member/Join01.html' className='btn'> */}
                 회원가입 후 이용하기
               </Link>
               <a href='#' className='btn kakao'>

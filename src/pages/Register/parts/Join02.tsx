@@ -1,49 +1,14 @@
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
+import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function Join02() {
   return (
     <div id='wrap'>
-      {/* <!-- header 영역 시작 --> */}
-      <header className='header'>
-        <div className='inner'>
-          <div className='inner_l'>
-            <h1 className='logo'>
-              <a href='../main/Main.html'>meetu</a>
-            </h1>
-            <nav id='navi'>
-              <ul>
-                <li>
-                  <a href='../main/MeetingList.html'>모임 탐색</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>공지사항</a>
-                </li>
-                <li className='active'>
-                  <a href='../main/MeetingCreate.html'>모임 개설하기</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className='inner_r'>
-            <ul>
-              <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
-              </li>
-              <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
-      {/* <!-- //header 영역 종료 --> */}
+      <Header/>
 
       {/* <!-- container 영역 시작 --> */}
       <main className='container'>
@@ -125,17 +90,19 @@ function Join02() {
                   </div>
                 </div>
                 {/* <!-- //정보입력 영역 종료 --> */}
+
                 <div className='btn_area type_02'>
                   <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
                     취소
                   </Link>
-                  <button type='submit' className='btn'>
+                  <Link to={pathGenerator(PAGES.REGISTER) + '/complete'} className='btn'>
                     회원가입
-                  </button>
+                  </Link>
                 </div>
               </div>
             </fieldset>
           </form>
+          {/* <!-- 회원가입 정보입력 form 영역 종료 --> */}
         </div>
       </main>
       <Footer/>

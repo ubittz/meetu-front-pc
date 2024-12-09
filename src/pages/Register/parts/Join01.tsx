@@ -1,51 +1,14 @@
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
+import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function Join01() {
   return (
     <div id='wrap'>
-      {/* <!-- header 영역 시작 --> */}
-      <header className='header'>
-        <div className='inner'>
-          <div className='inner_l'>
-            <h1 className='logo'>
-              <a href='../main/Main.html'>meetu</a>
-            </h1>
-            <nav id='navi'>
-              <ul>
-                <li>
-                  <a href='../main/MeetingList.html'>모임 탐색</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>공지사항</a>
-                </li>
-                <li className='active'>
-                  <a href='../main/MeetingCreate.html'>모임 개설하기</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className='inner_r'>
-            <ul>
-              <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
-              </li>
-              <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
-      {/* <!-- //header 영역 종료 --> */}
-
-      {/* <!-- container 영역 시작 --> */}
+      <Header />
       <main className='container'>
         <div className='member_inner'>
           <h2>회원가입</h2>
@@ -83,7 +46,7 @@ function Join01() {
                       <a href='javascript:void(0)' className='btn active'>
                         보기
                       </a>
-                      <p className='txt_area'style={{ display: 'block' }}>
+                      <p className='txt_area' style={{ display: 'block' }}>
                         제1조(목적) <br />
                         이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
                         “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
@@ -146,10 +109,10 @@ function Join01() {
                 <div className='btn_area type_02'>
                   <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
                     이전
-                    </Link> 
+                  </Link>
                   <Link to={pathGenerator(PAGES.REGISTER) + '/1'} className='btn'>
                     다음
-                    </Link>
+                  </Link>
                   {/* </button> */}
                 </div>
               </div>
@@ -157,7 +120,7 @@ function Join01() {
           </form>
         </div>
       </main>
-     <Footer/>
+      <Footer />
     </div>
   );
 }
