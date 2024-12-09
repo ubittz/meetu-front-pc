@@ -6,6 +6,8 @@ import Main from '@@pages/Main';
 import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
+import MyPage from '@@pages/MyPage';
+import PaymentList from '@@pages/MyPage/PaymentList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
@@ -19,11 +21,17 @@ function Router() {
       <Route path={pathGenerator(PAGES.LOGIN)} element={<Login />} />
       <Route path={pathGenerator(PAGES.REGISTER)} element={<Register />} />
       <Route path={pathGenerator(PAGES.MAIN)} element={<Main />} />
+
+      {/* 모임 */}
       <Route path={pathGenerator(PAGES.MEETING)} element={<MeetingList />} />
       <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail />} />
       <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
+      {/* 결제 */}
       <Route path={pathGenerator(PAGES.PURCHASE)} element={<Purchase />} />
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
+      {/* 마이페이지 */}
+      <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
