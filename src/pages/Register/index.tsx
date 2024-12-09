@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-
-const StyledRegister = styled.div``;
+import Join01 from './parts/Join01';
 
 function Register() {
-  console.log('수정 했어요');
-  return <StyledRegister>회원가입 화면입니다.</StyledRegister>;
+  return (
+    <>
+      <Join01 />
+    </>
+  );
 }
 
 export default Register;

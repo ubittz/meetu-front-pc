@@ -11,6 +11,7 @@ import PaymentList from '@@pages/MyPage/PaymentList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
+import Join02 from '@@pages/Register/parts/Join02';
 import { PAGES, ROUTE_PREFIX } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
@@ -20,6 +21,7 @@ function Router() {
       <Route path='/' element={<Navigate to={ROUTE_PREFIX} />} />
       <Route path={pathGenerator(PAGES.LOGIN)} element={<Login />} />
       <Route path={pathGenerator(PAGES.REGISTER)} element={<Register />} />
+      <Route path={pathGenerator(PAGES.REGISTER) + '/:id'} element={<Join02 />} />
       <Route path={pathGenerator(PAGES.MAIN)} element={<Main />} />
 
       {/* 모임 */}
