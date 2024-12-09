@@ -333,7 +333,7 @@ function Main() {
                       </div>
                       <h4 className='tit'>미식가들의 쿠킹 클래스</h4>
                       <p className='txt'>
-                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.
+                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. ���식가들의 만남을 통해 새로운 레시피도 얻어가세요.
                       </p>
                       <p className='price'>50,000원</p>
                     </div>
@@ -451,7 +451,7 @@ function Main() {
                         <span className='hot'>HOT</span>
                         <span className='location'>BUSAN</span>
                       </div>
-                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥��주 모임</h4>
+                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
                       <p className='txt'>
                         다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
                       </p>
