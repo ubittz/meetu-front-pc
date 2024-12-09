@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Error from '@@pages/Error';
 import Login from '@@pages/Login';
 import Main from '@@pages/Main';
+import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
 import Register from '@@pages/Register';
@@ -18,7 +19,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MAIN)} element={<Main />} />
       <Route path={pathGenerator(PAGES.MEETING)} element={<MeetingList />} />
       <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail />} />
-      {/* <Route path={pathGenerator(PAGES.MEETING_LIST) + '/create'} element={<MeetingCreate />} /> */}
+      <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );

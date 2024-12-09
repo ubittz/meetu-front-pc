@@ -1,30 +1,46 @@
+import { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-function Meeting() {
+function MeetingDetail() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    console.log('openPopup');
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    console.log('closePopup');
+    setIsPopupOpen(false);
+  };
+
   return (
     <div id='wrap'>
       <header className='header'>
         <div className='inner'>
           <div className='inner_l'>
             <h1 className='logo'>
-              <a href={pathGenerator(PAGES.MAIN)}>meetu</a>
+              <Link to={pathGenerator(PAGES.MAIN)}>meetu</Link>
             </h1>
             <nav id='navi'>
               <ul>
                 <li>
-                  <a href={pathGenerator(PAGES.MEETING)}>모임 탐색</a>
+                  <Link to={pathGenerator(PAGES.MEETING)}>모임 탐색</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
+                  <Link to='javascript:void(0);'>호스트 소개</Link>
                 </li>
                 <li>
-                  <a href='javascript:void(0);'>공지사항</a>
+                  <Link to='javascript:void(0);'>공지사항</Link>
                 </li>
                 <li className='active'>
-                  <a href={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</a>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
                 </li>
               </ul>
             </nav>
@@ -32,10 +48,10 @@ function Meeting() {
           <div className='inner_r'>
             <ul>
               <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
+                <Link to='javascript:void(0);'>로그아웃</Link>
               </li>
               <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
+                <Link to='javascript:void(0);'>마이페이지</Link>
               </li>
             </ul>
           </div>
@@ -51,15 +67,15 @@ function Meeting() {
               </div>
 
               <div className='mv_tab_area'>
-                <a href='#' className='btn active'>
+                <Link to='#' className='btn active'>
                   상세정보
-                </a>
-                <a href='#' className='btn'>
+                </Link>
+                <Link to='#' className='btn'>
                   리뷰
-                </a>
-                <a href='#' className='btn'>
+                </Link>
+                <Link to='#' className='btn'>
                   문의
-                </a>
+                </Link>
               </div>
               {/* <!-- 상세정보 --> */}
               <div className='mv_detail'>
@@ -222,25 +238,25 @@ function Meeting() {
                     </li>
                   </ul>
                   <div className='paging'>
-                    <a href='jascript: void(0);' className='btn on'>
+                    <Link to='jascript: void(0);' className='btn on'>
                       1
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       2
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       3
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       4
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       5
-                    </a>
+                    </Link>
                     <span>...</span>
-                    <a href='jascript: void(0);' className='btn'>
+                    <Link to='jascript: void(0);' className='btn'>
                       7
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -307,25 +323,25 @@ function Meeting() {
                     </li>
                   </ul>
                   <div className='paging'>
-                    <a href='jascript: void(0);' className='btn'>
+                    <Link to='jascript: void(0);' className='btn'>
                       1
-                    </a>
+                    </Link>
                     <span>...</span>
-                    <a href='jascript: void(0);' className='btn on'>
+                    <Link to='jascript: void(0);' className='btn on'>
                       4
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       5
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       6
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       7
-                    </a>
-                    <a href='jascript: void(0);' className='btn'>
+                    </Link>
+                    <Link to='jascript: void(0);' className='btn'>
                       8
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -374,7 +390,7 @@ function Meeting() {
               </ul>
               {/* <!-- 2단 버튼 영역 --> */}
               <div className='btn_area type_02'>
-                <button type='button' className='btn form02'>
+                <button type='button' className='btn form02' onClick={openPopup}>
                   호스트 정보
                 </button>
                 <button type='button' className='btn'>
@@ -390,45 +406,51 @@ function Meeting() {
             </div>
 
             {/* <!-- 호스트 정보 팝업 시작 --> */}
-            <div className='popup_layer'>
-              {/* <!-- 기본 숨김처리, 노출 시 style="display: block" 추가 --> */}
-              <div className='popup_bg'></div>
-              <div className='popup_inner'>
-                <h3 className='popup_tit'>호스트 정보</h3>
-                <button className='btn close'>팝업 닫기</button>
-                <div className='host_area'>
-                  <div className='img_area'>
-                    <img src={images.meeting_img04} alt='호스트 이미지' />
-                  </div>
-                  <div className='info_area'>
-                    <h4>호스트명 또는 닉네임</h4>
-                    <div className='infoBox'>
-                      <a href='../mypage/InfoHost.html' className='ib'>
-                        <p className='tit'>운영중인 모임</p>
-                        <p className='txt'>
-                          <strong>N</strong>
-                          <span> 개</span>
-                        </p>
-                      </a>
-                      <a href='../mypage/InfoUser.html' className='ib'>
-                        <p className='tit'>리뷰</p>
-                        <p className='txt'>
-                          <strong>N</strong>
-                          <span> 건</span>
-                        </p>
-                      </a>
+            {isPopupOpen && (
+              <div className='popup_layer'>
+                {/* <!-- 기본 숨김처리, 노출 시 style="display: block" 추가 --> */}
+                <div className='popup_bg' onClick={closePopup}></div>
+                <div className='popup_inner'>
+                  <h3 className='popup_tit'>호스트 정보</h3>
+                  <button className='btn close' onClick={closePopup}>
+                    팝업 닫기
+                  </button>
+                  <div className='host_area'>
+                    <div className='img_area'>
+                      <img src={images.meeting_img04} alt='호스트 이미지' />
                     </div>
-                    <dl>
-                      <dt>호스트 소개</dt>
-                      <dd>
-                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요. 최대
-                        4줄까지 노출됩니다. 4줄 이상은 ...으로 대체됩니다. 최대 4줄까지 노출됩니다. 4줄 이상은 ...으로 대체됩니다.
-                      </dd>
-                    </dl>
+                    <div className='info_area'>
+                      <h4>호스트명 또는 닉네임</h4>
+                      <div className='infoBox'>
+                        {/* TODO: 마이페이지 - info host 링크 추가 */}
+                        <Link to='../mypage/InfoHost.html' className='ib'>
+                          <p className='tit'>운영중인 모임</p>
+                          <p className='txt'>
+                            <strong>N</strong>
+                            <span> 개</span>
+                          </p>
+                        </Link>
+                        {/* TODO: 마이페이지 - info user 링크 추가 */}
+                        <Link to='../mypage/InfoUser.html' className='ib'>
+                          <p className='tit'>리뷰</p>
+                          <p className='txt'>
+                            <strong>N</strong>
+                            <span> 건</span>
+                          </p>
+                        </Link>
+                      </div>
+                      <dl>
+                        <dt>호스트 소개</dt>
+                        <dd>
+                          새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요. 최대
+                          4줄까지 노출됩니다. 4줄 이상은 ...으로 대체됩니다.
+                        </dd>
+                      </dl>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
             {/* <!-- 호스트 정보 팝업 종료 --> */}
           </div>
         </section>
@@ -438,4 +460,4 @@ function Meeting() {
   );
 }
 
-export default Meeting;
+export default MeetingDetail;
