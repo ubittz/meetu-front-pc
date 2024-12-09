@@ -184,7 +184,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/0'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -202,7 +202,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -220,7 +220,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/2'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -238,7 +238,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -256,7 +256,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/2'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -286,7 +286,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/3'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -304,7 +304,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/4'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -322,7 +322,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/5'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -340,7 +340,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/6'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -358,7 +358,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/7'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -388,7 +388,7 @@ function Main() {
             <div className='list_wrap swiper-container'>
               <ul className='swiper-wrapper'>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/8'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
@@ -406,7 +406,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/9'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img04} alt='상품 이미지4' />
                     </div>
@@ -424,7 +424,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/10'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img01} alt='상품 이미지1' />
                     </div>
@@ -442,7 +442,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/11'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img02} alt='상품 이미지2' />
                     </div>
@@ -460,7 +460,7 @@ function Main() {
                   </Link>
                 </li>
                 <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING)} className='list_link'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/12'} className='list_link'>
                     <div className='img_area'>
                       <img src={images.good_img03} alt='상품 이미지3' />
                     </div>
