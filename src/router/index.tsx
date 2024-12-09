@@ -7,6 +7,7 @@ import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
 import Purchase from '@@pages/Purchase';
+import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
 import { PAGES, ROUTE_PREFIX } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
@@ -22,6 +23,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail />} />
       <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
       <Route path={pathGenerator(PAGES.PURCHASE)} element={<Purchase />} />
+      <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
