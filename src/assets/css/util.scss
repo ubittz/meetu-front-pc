@@ -1,0 +1,25 @@
+// 변수
+$gray01: #ededed;
+$gray02: #bbb;
+$gray03: #c1c1c1;
+$gray04: #d9d9d9;
+$orange01: #FF641A;
+$red: #e3594e;
+$black01: #212121;
+$black02: #555;
+$black03: #434656;
+$kakao: #F8E143;
+$white01: #fbfbfb;
+$white02: #fff;
+$white03: #f8f8f8;
+
+// 반응형 화면 크기
+$desktop: 1024px;
+$desktopMax: 1520px;
+
+// 반응형, 브라우저 크기가 1024px 이상 1520px 이하일때
+@mixin desktop{
+  @media (min-width: $desktop) and (max-width: $desktopMax){
+    @content;
+  }
+}

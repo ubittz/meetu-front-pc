@@ -6,22 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- For PWA -->
     <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" sizes="180x180" />
-    <link rel="mask-icon" href="/mask-icon.svg" color="#FFFFFF">
+    <link rel="mask-icon" href="/mask-icon.svg" color="#FFFFFF" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <title>Ubittz React Template</title>
+
+    <link rel="stylesheet" href="src/assets/css/common.css" />
+    <link rel="stylesheet" href="src/assets/css/font.css" />
+    <link rel="stylesheet" href="src/assets/css/general.css" />
+    <link rel="stylesheet" href="src/assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="src/assets/css/layout.css" />
+    <link rel="stylesheet" href="src/assets/css/main.css" />
+    <link rel="stylesheet" href="src/assets/css/member.css" />
+    <link rel="stylesheet" href="src/assets/css/mypage.css" />
+    <link rel="stylesheet" href="src/assets/css/swiper.min.css" />
+    <link rel="stylesheet" href="src/assets/css/util.css" />
+    <link rel="stylesheet" href="src/assets/css/meeting.css" />
   </head>
   <body>
     <div id="root"></div>
+    <div id="image-container"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
         // Register a service worker hosted at the root of the
         navigator.serviceWorker
           .register('/sw.js')
-          .then(registration => {
+          .then((registration) => {
             console.log('Service worker registration succeeded:', registration);
           })
-          .catch(err => {
+          .catch((err) => {
             console.log('Service worker registration failed:', err);
           });
       } else {
