@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
@@ -5,6 +7,16 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MeetingCreate() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div id='wrap'>
       <header className='header'>
@@ -152,7 +164,7 @@ function MeetingCreate() {
                   <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
                     취소
                   </Link>
-                  <button type='submit' className='btn'>
+                  <button type='submit' className='btn' onClick={openPopup}>
                     모임등록
                   </button>
                 </div>
@@ -161,24 +173,28 @@ function MeetingCreate() {
           </form>
           {/* <!-- 모임 개설 정보입력 form 영역 종료 -->
           <!-- 모임 개설 완료 팝업 시작 --> */}
-          <div className='popup_layer'>
-            <div className='popup_bg'></div>
-            <div className='popup_inner'>
-              <h3 className='popup_tit'>모임 개설</h3>
-              <button className='btn close'>팝업 닫기</button>
-              <div className='srch_result'>
-                <p>모임 개설 등록이 완료되었습니다.</p>
-              </div>
-              <div className='btn_area type_02'>
-                <button type='button' className='btn form02'>
-                  닫기
+          {isPopupOpen && (
+            <div className='popup_layer'>
+              <div className='popup_bg' onClick={closePopup}></div>
+              <div className='popup_inner'>
+                <h3 className='popup_tit'>모임 개설</h3>
+                <button className='btn close' onClick={closePopup}>
+                  팝업 닫기
                 </button>
-                <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
-                  홈으로
-                </Link>
+                <div className='srch_result'>
+                  <p>모임 개설 등록이 완료되었습니다.</p>
+                </div>
+                <div className='btn_area type_02'>
+                  <button type='button' className='btn form02' onClick={closePopup}>
+                    닫기
+                  </button>
+                  <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
+                    홈으로
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           {/* <!-- 모임 개설 완료 팝업 종료 --> */}
         </section>
         {/* <!-- 모임 개설 정보 입력 영역 종료 --> */}
