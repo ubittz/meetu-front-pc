@@ -6,6 +6,7 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
+import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import UserInfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
@@ -27,24 +28,7 @@ export default function MyPage() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <section className='mypage_top'>
-          <h2>마이페이지</h2>
-          <p className='caption'>
-            <Link to='../mypage/MypageMain.html' className='btn active'>
-              내 정보
-            </Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className='btn'>
-              결제 내역
-            </Link>
-            <Link to='../mypage/HostApp.html' className='btn'>
-              호스트 등록 신청
-            </Link>
-            <Link to='../mypage/MyMeetingHost.html' className='btn'>
-              내 모임
-            </Link>
-          </p>
-        </section>
-
+        <MyPageHeader />
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>

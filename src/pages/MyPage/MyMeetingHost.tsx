@@ -6,6 +6,7 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
+import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
@@ -20,23 +21,7 @@ function MyMeetingHost() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <section className='mypage_top'>
-          <p className='caption'>
-            <Link to={pathGenerator(PAGES.MYPAGE)} className='btn'>
-              내 정보
-            </Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className='btn'>
-              결제 내역
-            </Link>
-            {/* TODO: 호스트 등록 신청 페이지 path 교체하기 */}
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/host-application'} className='btn'>
-              호스트 등록 신청
-            </Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} className='btn active'>
-              내 모임
-            </Link>
-          </p>
-        </section>
+        <MyPageHeader />
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
