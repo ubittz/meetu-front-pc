@@ -6,7 +6,7 @@ import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-export default function HostAppWrite() {
+export default function HostAppApply() {
   return (
     <div id='wrap'>
       <Header />

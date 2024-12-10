@@ -111,7 +111,7 @@ export default function HostApp() {
               </div>
             </div>
             <div className='btn_area type_03'>
-              <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} className='btn'>
+              <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app/apply'} className='btn'>
                 호스트 신청하기
               </Link>
             </div>

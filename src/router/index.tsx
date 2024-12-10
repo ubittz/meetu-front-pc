@@ -12,7 +12,7 @@ import MeetingList from '@@pages/MeetingList';
 import MyPage from '@@pages/MyPage';
 import EditMyInfo from '@@pages/MyPage/EditMyInfo';
 import HostApp from '@@pages/MyPage/HostApp';
-import HostAppWrite from '@@pages/MyPage/HostAppWrite';
+import HostAppApply from '@@pages/MyPage/HostAppApply';
 import InfoHost from '@@pages/MyPage/InfoHost';
 import InfoHostReview from '@@pages/MyPage/InfoHostReview';
 import InfoUser from '@@pages/MyPage/InfoUser';
@@ -54,7 +54,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/edit'} element={<EditMyInfo />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app'} element={<HostApp />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} element={<HostAppWrite />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app/apply'} element={<HostAppApply />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
