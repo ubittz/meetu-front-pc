@@ -1,7 +1,12 @@
+import { Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
-export default function EditMyInfo() {
+function EditMyInfo() {
   return (
     <div id='wrap'>
       <Header />
@@ -64,9 +69,9 @@ export default function EditMyInfo() {
                 {/* <!-- //정보입력 영역 종료 --> */}
 
                 <div className='btn_area type_02'>
-                  <a href='../mypage/MypageMain.html' className='btn form02'>
+                  <Link to={pathGenerator(PAGES.MYPAGE)} className='btn form02'>
                     취소
-                  </a>
+                  </Link>
                   <button type='submit' className='btn'>
                     저장
                   </button>
@@ -76,24 +81,7 @@ export default function EditMyInfo() {
           </form>
           {/* <!-- 회원가입 정보입력 form 영역 종료 --> */}
           {/* <!-- 내정보 수정 결과 팝업 시작 --> */}
-          <div className='popup_layer'>
-            <div className='popup_bg'></div>
-            <div className='popup_inner'>
-              <h3 className='popup_tit'>내 정보 수정</h3>
-              <button className='btn close'>팝업 닫기</button>
-              <div className='srch_result'>
-                <p>내 정보 변경이 완료되었습니다.</p>
-              </div>
-              <div className='btn_area type_02'>
-                <a href='../main/Main.html' className='btn form02'>
-                  홈으로
-                </a>
-                <a href='../mypage/MypageMain.html' className='btn'>
-                  확인
-                </a>
-              </div>
-            </div>
-          </div>
+          <ResultPopup title='내 정보 수정' message='내 정보 변경이 완료되었습니다.' />
           {/* <!-- 내정보 수정 결과 팝업 종료 --> */}
         </div>
       </main>
@@ -103,3 +91,4 @@ export default function EditMyInfo() {
   );
 }
 
+export default EditMyInfo;
