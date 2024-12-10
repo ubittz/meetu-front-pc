@@ -10,9 +10,9 @@ import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
 import MyPage from '@@pages/MyPage';
+import ApplyHost from '@@pages/MyPage/ApplyHost';
+import ApplyHostWrite from '@@pages/MyPage/ApplyHostWrite';
 import EditMyInfo from '@@pages/MyPage/EditMyInfo';
-import HostApp from '@@pages/MyPage/HostApp';
-import HostAppApply from '@@pages/MyPage/HostAppApply';
 import InfoHost from '@@pages/MyPage/InfoHost';
 import InfoHostReview from '@@pages/MyPage/InfoHostReview';
 import InfoUser from '@@pages/MyPage/InfoUser';
@@ -53,8 +53,8 @@ function Router() {
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/edit'} element={<EditMyInfo />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app'} element={<HostApp />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app/apply'} element={<HostAppApply />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host'} element={<ApplyHost />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host/write'} element={<ApplyHostWrite />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />

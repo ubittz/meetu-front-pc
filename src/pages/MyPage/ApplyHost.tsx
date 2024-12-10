@@ -11,7 +11,7 @@ import { pathGenerator } from '@@router/utils';
 
 import InfoPopup from './parts/InfoPopup';
 
-export default function HostApp() {
+export default function ApplyHost() {
   const type = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
@@ -65,7 +65,7 @@ export default function HostApp() {
               </div>
             </div>
             <div className='btn_area type_03'>
-              <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app/apply'} className='btn'>
+              <Link to={pathGenerator(PAGES.MYPAGE) + '/apply-host/write'} className='btn'>
                 호스트 신청하기
               </Link>
             </div>

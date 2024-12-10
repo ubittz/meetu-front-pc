@@ -20,7 +20,7 @@ export default function MyPageHeader({ type, activeTab }: MyPageHeaderProps) {
         <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className={`btn ${activeTab === 'payment' ? 'active' : ''}`}>
           결제 내역
         </Link>
-        <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app'} className={`btn ${activeTab === 'host-app' ? 'active' : ''}`}>
+        <Link to={pathGenerator(PAGES.MYPAGE) + '/apply-host'} className={`btn ${activeTab === 'host-app' ? 'active' : ''}`}>
           호스트 등록 신청
         </Link>
         <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/' + type} className={`btn ${activeTab === 'my-meeting' ? 'active' : ''}`}>
