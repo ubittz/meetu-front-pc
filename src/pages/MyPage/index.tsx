@@ -212,9 +212,9 @@ export default function MyPage() {
             {/* <!-- 내 모임 --> */}
             <h3 className='main_tit'>
               내 모임
-              <a href='../mypage/MyMeetingHost.html' className='btn'>
+              <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} className='btn'>
                 더 보기
-              </a>
+              </Link>
             </h3>
 
             <div className='list_wrap swiper-container'>
