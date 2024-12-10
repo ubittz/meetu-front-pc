@@ -49,7 +49,7 @@ function InfoHost() {
                 </Link>
               </li>
               <li className='info02'>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-2'} className='btn'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} className='btn'>
                   <i className='link_ico'></i>
                   <strong>리뷰</strong>
                   <strong className='number'>
@@ -74,7 +74,7 @@ function InfoHost() {
                 <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host'} className='btn active'>
                   모임
                 </Link>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-2'} className='btn'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} className='btn'>
                   리뷰
                 </Link>
               </div>
