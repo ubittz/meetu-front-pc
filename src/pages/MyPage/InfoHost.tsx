@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-function MyMeetingHost() {
+import HostInfoPopup from './parts/HostInfoPopup';
+
+function InfoHost() {
   const [isHostInfoPopupOpen, setIsHostInfoPopupOpen] = useState(false);
 
   const handleOpenHostInfoPopup = () => {
@@ -20,24 +21,7 @@ function MyMeetingHost() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <section className='mypage_top'>
-          <p className='caption'>
-            <Link to={pathGenerator(PAGES.MYPAGE)} className='btn'>
-              내 정보
-            </Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className='btn'>
-              결제 내역
-            </Link>
-            {/* TODO: 호스트 등록 신청 페이지 path 교체하기 */}
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/host-application'} className='btn'>
-              호스트 등록 신청
-            </Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} className='btn active'>
-              내 모임
-            </Link>
-          </p>
-        </section>
-        <section className='dashboard_wrap'>
+        <section className='dashboard_wrap type_info'>
           <div className='d_inner'>
             <div className='host_area'>
               <button type='button' className='btn' onClick={handleOpenHostInfoPopup}>
@@ -49,34 +33,28 @@ function MyMeetingHost() {
                   <em>홍길동 님</em>
                 </span>
               </button>
-              <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
+              <p className='caption'>
+                홍길동님의 소개글입니다. 소개글이 나오는 영역입니다. <br />
+                소개글이나오는영역입니다. 소개글이나오는 영역입니다. 소개글이나오는영역입니다.
+              </p>
             </div>
             <ul className='link_area'>
-              <li className='edit'>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/info-edit'} className='btn'>
+              <li className='info01'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host'} className='btn'>
                   <i className='link_ico'></i>
-                  <strong>내 정보 수정</strong>
-                </Link>
-              </li>
-              <li className='guide'>
-                <a href='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>
-                    모임만들기 <br />
-                    가이드
+                  <strong>운영중인 모임</strong>
+                  <strong className='number'>
+                    <span>N</span>개
                   </strong>
-                </a>
-              </li>
-              <li className='intro'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>밋유 소개</strong>
                 </Link>
               </li>
-              <li className='center'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
+              <li className='info02'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-2'} className='btn'>
                   <i className='link_ico'></i>
-                  <strong>고객센터</strong>
+                  <strong>리뷰</strong>
+                  <strong className='number'>
+                    <span>N</span>건
+                  </strong>
                 </Link>
               </li>
             </ul>
@@ -86,32 +64,19 @@ function MyMeetingHost() {
           {isHostInfoPopupOpen && <HostInfoPopup />}
           {/* <!-- 호스트 정보 팝업 종료 --> */}
         </section>
-        {/* <!-- 마이페이지 대시보드 종료 --> */}
+        {/* <!-- 호스트 정보 대시보드 종료 --> */}
 
-        {/* <!-- 호스트_내모임 시작 --> */}
+        {/* <!-- 호스트 정보 모임영역 시작 -->  */}
         <section className='mypage_content'>
           <div className='mc_inner'>
-            <h3 className='main_tit'>
-              내 모임 (총 <strong>N</strong>개)
-              <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                모임 만들기
-              </Link>
-            </h3>
-
-            <div className='list_sort'>
-              <div className='sort_inner'>
-                <button type='button' className='btn active'>
-                  전체
-                </button>
-                <button type='button' className='btn'>
-                  진행 예정
-                </button>
-                <button type='button' className='btn'>
-                  모임 확정
-                </button>
-                <button type='button' className='btn'>
-                  진행 완료
-                </button>
+            <div className='meeting_btn'>
+              <div className='btn_wrap'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host'} className='btn active'>
+                  모임
+                </Link>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host-2'} className='btn'>
+                  리뷰
+                </Link>
               </div>
             </div>
 
@@ -131,14 +96,6 @@ function MyMeetingHost() {
                     </p>
                     <p className='price'>70,000원</p>
                   </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
-                  </div>
                 </li>
                 <li>
                   <div className='img_area'>
@@ -153,14 +110,6 @@ function MyMeetingHost() {
                       다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
                     </p>
                     <p className='price'>35,000원</p>
-                  </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
                   </div>
                 </li>
                 <li>
@@ -177,14 +126,6 @@ function MyMeetingHost() {
                     </p>
                     <p className='price'>45,000원</p>
                   </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
-                  </div>
                 </li>
                 <li>
                   <div className='img_area'>
@@ -200,13 +141,20 @@ function MyMeetingHost() {
                     </p>
                     <p className='price'>50,000원</p>
                   </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
+                </li>
+                <li>
+                  <div className='img_area'>
+                    <img src={images.good_img01} alt='상품 이미지1' />
+                  </div>
+                  <div className='txt_area'>
+                    <div className='sort'>
+                      <span className='location'>SEOUL</span>
+                    </div>
+                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
+                    <p className='txt'>
+                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
+                    </p>
+                    <p className='price'>70,000원</p>
                   </div>
                 </li>
                 <li>
@@ -223,14 +171,6 @@ function MyMeetingHost() {
                     </p>
                     <p className='price'>70,000원</p>
                   </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
-                  </div>
                 </li>
                 <li>
                   <div className='img_area'>
@@ -246,14 +186,6 @@ function MyMeetingHost() {
                     </p>
                     <p className='price'>70,000원</p>
                   </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
-                  </div>
                 </li>
                 <li>
                   <div className='img_area'>
@@ -268,37 +200,6 @@ function MyMeetingHost() {
                       와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
                     </p>
                     <p className='price'>70,000원</p>
-                  </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
-                      수정하기
-                    </Link>
-                    <button type='button' className='btn'>
-                      삭제
-                    </button>
                   </div>
                 </li>
               </ul>
@@ -311,4 +212,4 @@ function MyMeetingHost() {
   );
 }
 
-export default MyMeetingHost;
+export default InfoHost;
