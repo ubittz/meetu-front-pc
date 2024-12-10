@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
-import UserInfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MyMeetingUser() {
-  const [isUserInfoPopupOpen, setIsUserInfoPopupOpen] = useState(false);
+  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
-  const handleOpenUserInfoPopup = () => {
-    setIsUserInfoPopupOpen(true);
+  const handleOpenInfoPopup = () => {
+    setIsShowInfoPopup(true);
   };
 
   return (
@@ -27,7 +27,7 @@ function MyMeetingUser() {
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
-              <button type='button' className='btn' onClick={handleOpenUserInfoPopup}>
+              <button type='button' className='btn' onClick={handleOpenInfoPopup}>
                 <span className='img_area'>
                   <img src={images.user_img} alt='이용자 이미지' />
                 </span>
@@ -68,7 +68,7 @@ function MyMeetingUser() {
               </li>
             </ul>
           </div>
-          {isUserInfoPopupOpen && <UserInfoPopup />}
+          {isShowInfoPopup && <InfoPopup type={'user'} />}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
 

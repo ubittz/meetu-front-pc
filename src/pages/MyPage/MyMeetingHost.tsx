@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
+import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MyMeetingHost() {
-  const [isHostInfoPopupOpen, setIsHostInfoPopupOpen] = useState(false);
+  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
-  const handleOpenHostInfoPopup = () => {
-    setIsHostInfoPopupOpen(true);
+  const handleOpenInfoPopup = () => {
+    setIsShowInfoPopup(true);
   };
 
   return (
@@ -25,7 +25,7 @@ function MyMeetingHost() {
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
-              <button type='button' className='btn' onClick={handleOpenHostInfoPopup}>
+              <button type='button' className='btn' onClick={handleOpenInfoPopup}>
                 <span className='img_area'>
                   <img src={images.meeting_img04} alt='호스트 이미지' />
                 </span>
@@ -67,9 +67,7 @@ function MyMeetingHost() {
             </ul>
           </div>
 
-          {/* <!-- 호스트 정보 팝업 시작 --> */}
-          {isHostInfoPopupOpen && <HostInfoPopup />}
-          {/* <!-- 호스트 정보 팝업 종료 --> */}
+          {isShowInfoPopup && <InfoPopup type={'host'} />}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
 

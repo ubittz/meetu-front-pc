@@ -5,16 +5,15 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-import HostInfoPopup from './parts/HostInfoPopup';
-
 function InfoHost() {
-  const [isHostInfoPopupOpen, setIsHostInfoPopupOpen] = useState(false);
+  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   const handleOpenHostInfoPopup = () => {
-    setIsHostInfoPopupOpen(true);
+    setIsShowInfoPopup(true);
   };
 
   return (
@@ -61,7 +60,7 @@ function InfoHost() {
           </div>
 
           {/* <!-- 호스트 정보 팝업 시작 --> */}
-          {isHostInfoPopupOpen && <HostInfoPopup />}
+          {isShowInfoPopup && <InfoPopup type='host' />}
           {/* <!-- 호스트 정보 팝업 종료 --> */}
         </section>
         {/* <!-- 호스트 정보 대시보드 종료 --> */}

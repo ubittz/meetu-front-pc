@@ -5,23 +5,18 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
+import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
-import UserInfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 // TODO:- Slider 추가 및 적용 필요
 export default function MyPage() {
-  const [isHostInfoPopup, setIsHostInfoPopup] = useState(false);
-  const [isUserInfoPopup, setIsUserInfoPopup] = useState(false);
+  const type = 'host';
+  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
-  const handleInfoPopup = (type: 'host' | 'user') => {
-    if (type === 'host') {
-      setIsHostInfoPopup(true);
-    } else {
-      setIsUserInfoPopup(true);
-    }
+  const handleInfoPopup = () => {
+    setIsShowInfoPopup(true);
   };
 
   return (
@@ -32,7 +27,7 @@ export default function MyPage() {
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
-              <button type='button' className='btn' onClick={() => handleInfoPopup('host')}>
+              <button type='button' className='btn' onClick={handleInfoPopup}>
                 {/* user인 경우, user 타입 넣어줘야함 */}
                 <span className='img_area'>
                   <img src={images.meeting_img04} alt='호스트 이미지' />
@@ -75,8 +70,7 @@ export default function MyPage() {
             </ul>
           </div>
 
-          {isHostInfoPopup && <HostInfoPopup />}
-          {isUserInfoPopup && <UserInfoPopup />}
+          {isShowInfoPopup && <InfoPopup type={type} />}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
 

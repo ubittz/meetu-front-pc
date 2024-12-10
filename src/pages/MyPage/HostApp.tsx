@@ -9,19 +9,14 @@ import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-import HostInfoPopup from './parts/HostInfoPopup';
-import UserInfoPopup from './parts/UserInfoPopup';
+import InfoPopup from './parts/InfoPopup';
 
 export default function HostApp() {
-  const [isHostInfoPopup, setIsHostInfoPopup] = useState(false);
-  const [isUserInfoPopup, setIsUserInfoPopup] = useState(false);
+  const type = 'host';
+  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
-  const handleInfoPopup = (type: 'host' | 'user') => {
-    if (type === 'host') {
-      setIsHostInfoPopup(true);
-    } else {
-      setIsUserInfoPopup(true);
-    }
+  const handleInfoPopup = () => {
+    setIsShowInfoPopup(true);
   };
 
   return (
@@ -35,7 +30,7 @@ export default function HostApp() {
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
-              <button type='button' className='btn' onClick={() => handleInfoPopup('host')}>
+              <button type='button' className='btn' onClick={handleInfoPopup}>
                 {/* user인 경우, user 타입 넣어줘야함 */}
                 <span className='img_area'>
                   <img src={images.meeting_img04} alt='호스트 이미지' />
@@ -77,12 +72,7 @@ export default function HostApp() {
               </li>
             </ul>
           </div>
-
-          {/* <!-- 호스트 정보 팝업 시작 --> */}
-          {isHostInfoPopup && <HostInfoPopup />}
-
-          {/* <!-- 이용자 정보 팝업 시작 --> */}
-          {isUserInfoPopup && <UserInfoPopup />}
+          {isShowInfoPopup && <InfoPopup type={type} />}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
 
