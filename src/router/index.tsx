@@ -10,6 +10,7 @@ import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
 import MyPage from '@@pages/MyPage';
+import InfoUser from '@@pages/MyPage/InfoUser';
 import MyMeetingHost from '@@pages/MyPage/MyMeetingHost';
 import MyMeetingUser from '@@pages/MyPage/MyMeetingUser';
 import PaymentList from '@@pages/MyPage/PaymentList';
@@ -47,6 +48,7 @@ function Router() {
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/user'} element={<MyMeetingUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} element={<MyMeetingHost />} />
       <Route path='*' element={<Error />} />
