@@ -11,6 +11,9 @@ import MeetingDetail from '@@pages/MeetingDetail';
 import MeetingList from '@@pages/MeetingList';
 import MyPage from '@@pages/MyPage';
 import InfoHost from '@@pages/MyPage/InfoHost';
+import EditMyInfo from '@@pages/MyPage/EditMyInfo';
+import HostApp from '@@pages/MyPage/HostApp';
+import HostAppWrite from '@@pages/MyPage/HostAppWrite';
 import InfoUser from '@@pages/MyPage/InfoUser';
 import MyMeetingHost from '@@pages/MyPage/MyMeetingHost';
 import MyMeetingUser from '@@pages/MyPage/MyMeetingUser';
@@ -48,6 +51,9 @@ function Router() {
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/edit-myinfo'} element={<EditMyInfo />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app'} element={<HostApp />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} element={<HostAppWrite />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />

@@ -8,7 +8,6 @@ import { pathGenerator } from '@@router/utils';
 
 function PWSrch() {
   return (
-    <body>
       <div id='wrap'>
         <Header />
         <main className='container'>
@@ -62,7 +61,6 @@ function PWSrch() {
         </main>
         <Footer />
       </div>
-    </body>
   );
 }
 
