@@ -6,11 +6,14 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import MyMeetingListItem from '@@pages/MyPage/parts/MyMeetingListItem';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
+import { UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MyMeetingUser() {
+  const type: UserType = 'user';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   const handleOpenInfoPopup = () => {
@@ -98,126 +101,93 @@ function MyMeetingUser() {
 
             <div className='list_wrap type_my'>
               <ul>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img02} alt='상품 이미지2' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>BUSAN</span>
-                    </div>
-                    <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
-                    <p className='txt'>
-                      다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
-                    </p>
-                    <p className='price'>35,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img03} alt='상품 이미지3' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>CHUNCHEON</span>
-                    </div>
-                    <h4 className='tit'>빛으로 담는 순간, 포토그래피 클래스</h4>
-                    <p className='txt'>
-                      사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.
-                    </p>
-                    <p className='price'>45,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img04} alt='상품 이미지4' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>미식가들의 쿠킹 클래스</h4>
-                    <p className='txt'>
-                      새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.
-                    </p>
-                    <p className='price'>50,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                </li>
-                <li>
-                  <div className='img_area'>
-                    <img src={images.good_img01} alt='상품 이미지1' />
-                  </div>
-                  <div className='txt_area'>
-                    <div className='sort'>
-                      <span className='location'>SEOUL</span>
-                    </div>
-                    <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                    <p className='txt'>
-                      와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                    </p>
-                    <p className='price'>70,000원</p>
-                  </div>
-                </li>
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 1,
+                    title: '와인과 사람, 무제한 와인 파티',
+                    location: 'SEOUL',
+                    price: 70000,
+                    description:
+                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 2,
+                    title: '리듬 속에 빠져들다, 음악 즉흥연주 모임',
+                    location: 'BUSAN',
+                    price: 35000,
+                    description:
+                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 3,
+                    title: '빛으로 담는 순간, 포토그래피 클래스',
+                    location: 'CHUNCHEON',
+                    price: 45000,
+                    description: '사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 4,
+                    title: '미식가들의 쿠킹 클래스',
+                    location: 'SEOUL',
+                    price: 50000,
+                    description:
+                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 5,
+                    title: '미식가들의 쿠킹 클래스',
+                    location: 'SEOUL',
+                    price: 50000,
+                    description:
+                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 6,
+                    title: '미식가들의 쿠킹 클래스',
+                    location: 'SEOUL',
+                    price: 50000,
+                    description:
+                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 7,
+                    title: '미식가들의 쿠킹 클래스',
+                    location: 'SEOUL',
+                    price: 50000,
+                    description:
+                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
+                  }}
+                />
+                <MyMeetingListItem
+                  type={type}
+                  meeting={{
+                    id: 8,
+                    title: '미식가들의 쿠킹 클래스',
+                    location: 'SEOUL',
+                    price: 50000,
+                    description:
+                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
+                  }}
+                />
               </ul>
             </div>
           </div>
