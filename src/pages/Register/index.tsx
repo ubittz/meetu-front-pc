@@ -1,9 +1,9 @@
-import Join01 from './parts/Join01';
+import AgreementScreen from './parts/AgreementScreen';
 
 function Register() {
   return (
     <>
-      <Join01 />
+      <AgreementScreen/>
     </>
   );
 }
