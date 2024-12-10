@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 
 const StyledSliderNavigation = styled.div`
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 4px;
+  margin-top: 11px;
 
   .slider_dot {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     border-radius: 3px;
 
-    background: #eee;
+    background: #C9CBCF;
 
     &.slider_dot-active {
-      background: #999;
+      background: #0C0C0E;
     }
   }
 `;
