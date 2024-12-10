@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import HostInfoPopup from '@@pages/MyPage/parts/HostInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
@@ -82,7 +83,7 @@ function MyMeetingHost() {
           </div>
 
           {/* <!-- 호스트 정보 팝업 시작 --> */}
-          {/* {isHostInfoPopupOpen && <HostInfoPopup />} */}
+          {isHostInfoPopupOpen && <HostInfoPopup />}
           {/* <!-- 호스트 정보 팝업 종료 --> */}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
