@@ -1,5 +1,6 @@
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
 
 export default function HostAppWrite() {
   return (
@@ -168,24 +169,7 @@ export default function HostAppWrite() {
           </form>
           {/* <!-- 호스트 등록 신청 정보입력 form 영역 종료 --> */}
           {/* <!-- 호스트 등록 신청 결과 팝업 시작 --> */}
-          <div className='popup_layer'>
-            <div className='popup_bg'></div>
-            <div className='popup_inner'>
-              <h3 className='popup_tit'>호스트 등록 신청</h3>
-              <button className='btn close'>팝업 닫기</button>
-              <div className='srch_result'>
-                <p>호스트 등록 신청이 완료되었습니다.</p>
-              </div>
-              <div className='btn_area type_02'>
-                <a href='../main/Main.html' className='btn form02'>
-                  홈으로
-                </a>
-                <button type='button' className='btn'>
-                  확인
-                </button>
-              </div>
-            </div>
-          </div>
+          <ResultPopup title='호스트 등록 신청' message='호스트 등록 신청이 완료되었습니다.' />
           {/* <!-- 호스트 등록 신청 결과 팝업 종료 --> */}
         </div>
       </main>
