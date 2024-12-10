@@ -52,7 +52,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/edit-myinfo'} element={<EditMyInfo />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/edit'} element={<EditMyInfo />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app'} element={<HostApp />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} element={<HostAppWrite />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
