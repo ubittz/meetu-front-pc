@@ -14,6 +14,7 @@ import EditMyInfo from '@@pages/MyPage/EditMyInfo';
 import HostApp from '@@pages/MyPage/HostApp';
 import HostAppWrite from '@@pages/MyPage/HostAppWrite';
 import InfoHost from '@@pages/MyPage/InfoHost';
+import InfoHostReview from '@@pages/MyPage/InfoHostReview';
 import InfoUser from '@@pages/MyPage/InfoUser';
 import MyMeetingHost from '@@pages/MyPage/MyMeetingHost';
 import MyMeetingUser from '@@pages/MyPage/MyMeetingUser';
@@ -59,7 +60,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/user'} element={<MyMeetingUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} element={<MyMeetingHost />} />
-      {/* <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host/review'} element={<InfoHostReview />} /> */}
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} element={<InfoHostReview />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
