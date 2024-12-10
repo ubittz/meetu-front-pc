@@ -59,13 +59,13 @@ function MyMeetingHost() {
                 </Link>
               </li>
               <li className='guide'>
-                <a href='javascript:alert("서비스 준비 중입니다.");' className='btn'>
+                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
                   <i className='link_ico'></i>
                   <strong>
                     모임만들기 <br />
                     가이드
                   </strong>
-                </a>
+                </Link>
               </li>
               <li className='intro'>
                 <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
