@@ -2,9 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Error from '@@pages/Error';
 import Login from '@@pages/Login';
-import IdSrch from '@@pages/Login/part/IdSrch';
-import PWSrch from '@@pages/Login/part/PWSrch';
-import PWSrch02 from '@@pages/Login/part/PWSrch02';
+import ChangePassword from '@@pages/Login/part/ChangePassword';
+import FindId from '@@pages/Login/part/FindId';
+import FindPassword from '@@pages/Login/part/FindPassword';
 import Main from '@@pages/Main';
 import MeetingCreate from '@@pages/MeetingCreate';
 import MeetingDetail from '@@pages/MeetingDetail';
@@ -32,9 +32,9 @@ function Router() {
     <Routes>
       <Route path='/' element={<Navigate to={ROUTE_PREFIX} />} />
       <Route path={pathGenerator(PAGES.LOGIN)} element={<Login />} />
-      <Route path={pathGenerator(PAGES.LOGIN) + '/PWSrch'} element={<PWSrch />} />
-      <Route path={pathGenerator(PAGES.LOGIN) + '/IdSrch'} element={<IdSrch />} />
-      <Route path={pathGenerator(PAGES.LOGIN) + '/PWSrch02'} element={<PWSrch02 />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/password'} element={<FindPassword />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/id'} element={<FindId />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/password/change'} element={<ChangePassword />} />
 
       <Route path={pathGenerator(PAGES.REGISTER)} element={<Register />} />
       <Route path={pathGenerator(PAGES.REGISTER) + '/:id'} element={<Join02 />} />
