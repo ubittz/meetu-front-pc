@@ -6,7 +6,23 @@ import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import MeetingSwipeList from './parts/MeetingSwipeList';
 function Main() {
+  const meetings = [];
+
+  // dummy items
+  for (let i = 0; i < 7; i++) {
+    meetings.push({
+      id: i,
+      title: `와인과 사람, 무제한 와인 파티 ${i + 1}`,
+      description: '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
+      price: 70000,
+      imageUrl: images.good_img01,
+      location: 'seoul',
+      isHot: i % 2 === 0, // 짝수 인덱스에만 isHot 설정
+    });
+  }
+
   return (
     <div id='wrap'>
       <Header />
@@ -138,311 +154,30 @@ function Main() {
 
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
-          {/* 지금 핫한 모임 */}
-          <div className='meeting_inner'>
-            <h3 className='main_tit'>
-              지금 <strong>핫</strong>한 모임<strong>.</strong>
-            </h3>
-
-            <div className='list_wrap swiper-container'>
-              <ul className='swiper-wrapper'>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/0'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img01} alt='상품 이미지1' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                      <p className='txt'>
-                        와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                      </p>
-                      <p className='price'>70,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img02} alt='상품 이미지2' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>BUSAN</span>
-                      </div>
-                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
-                      <p className='txt'>
-                        다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
-                      </p>
-                      <p className='price'>35,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/2'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img03} alt='상품 이미지3' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>CHUNCHEON</span>
-                      </div>
-                      <h4 className='tit'>빛으로 담는 순간, 포토그래피 클래스</h4>
-                      <p className='txt'>
-                        사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.
-                      </p>
-                      <p className='price'>45,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/1'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img04} alt='상품 이미지4' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>미식가들의 쿠킹 클래스</h4>
-                      <p className='txt'>
-                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.
-                      </p>
-                      <p className='price'>50,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/2'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img01} alt='상품 이미지1' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                      <p className='txt'>
-                        와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                      </p>
-                      <p className='price'>70,000원</p>
-                    </div>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* 방금 만들어진 새로운 모임 */}
-          <div className='meeting_inner'>
-            <h3 className='main_tit'>
-              방금 만들어진 <strong>새로운</strong> 모임<strong>.</strong>
-            </h3>
-
-            <div className='list_wrap swiper-container'>
-              <ul className='swiper-wrapper'>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/3'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img02} alt='상품 이미지2' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='new'>NEW</span>
-                        <span className='location'>BUSAN</span>
-                      </div>
-                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
-                      <p className='txt'>
-                        다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
-                      </p>
-                      <p className='price'>35,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/4'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img03} alt='상품 이미지3' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='new'>NEW</span>
-                        <span className='location'>CHUNCHEON</span>
-                      </div>
-                      <h4 className='tit'>빛으로 담는 순간, 포토그래피 클래스</h4>
-                      <p className='txt'>
-                        사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.
-                      </p>
-                      <p className='price'>45,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/5'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img04} alt='상품 이미지4' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='new'>NEW</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>미식가들의 쿠킹 클래스</h4>
-                      <p className='txt'>
-                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. ���식가들의 만남을 통해 새로운 레시피도 얻어가세요.
-                      </p>
-                      <p className='price'>50,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/6'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img01} alt='상품 이미지1' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='new'>NEW</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                      <p className='txt'>
-                        와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                      </p>
-                      <p className='price'>70,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/7'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img02} alt='상품 이미지2' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='new'>NEW</span>
-                        <span className='location'>BUSAN</span>
-                      </div>
-                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
-                      <p className='txt'>
-                        다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
-                      </p>
-                      <p className='price'>35,000원</p>
-                    </div>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* 실시간 인기 모임 */}
-          <div className='meeting_inner'>
-            <h3 className='main_tit'>
-              <strong>실시간</strong> 인기 모임<strong>.</strong>
-            </h3>
-
-            <div className='list_wrap swiper-container'>
-              <ul className='swiper-wrapper'>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/8'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img03} alt='상품 이미지3' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>CHUNCHEON</span>
-                      </div>
-                      <h4 className='tit'>빛으로 담는 순간, 포토그래피 클래스</h4>
-                      <p className='txt'>
-                        사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.
-                      </p>
-                      <p className='price'>45,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/9'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img04} alt='상품 이미지4' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>미식가들의 쿠킹 클래스</h4>
-                      <p className='txt'>
-                        새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.
-                      </p>
-                      <p className='price'>50,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/10'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img01} alt='상품 이미지1' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>SEOUL</span>
-                      </div>
-                      <h4 className='tit'>와인과 사람, 무제한 와인 파티</h4>
-                      <p className='txt'>
-                        와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.
-                      </p>
-                      <p className='price'>70,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/11'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img02} alt='상품 이미지2' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>BUSAN</span>
-                      </div>
-                      <h4 className='tit'>리듬 속에 빠져들다, 음악 즉흥연주 모임</h4>
-                      <p className='txt'>
-                        다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.
-                      </p>
-                      <p className='price'>35,000원</p>
-                    </div>
-                  </Link>
-                </li>
-                <li className='swiper-slide'>
-                  <Link to={pathGenerator(PAGES.MEETING) + '/12'} className='list_link'>
-                    <div className='img_area'>
-                      <img src={images.good_img03} alt='상품 이미지3' />
-                    </div>
-                    <div className='txt_area'>
-                      <div className='sort'>
-                        <span className='hot'>HOT</span>
-                        <span className='location'>CHUNCHEON</span>
-                      </div>
-                      <h4 className='tit'>빛으로 담는 순간, 포토그래피 클래스</h4>
-                      <p className='txt'>
-                        사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.
-                      </p>
-                      <p className='price'>45,000원</p>
-                    </div>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <MeetingSwipeList
+            title={
+              <>
+                <strong>지금</strong> 핫한 모임<strong>.</strong>
+              </>
+            }
+            meetings={meetings}
+          />
+          <MeetingSwipeList
+            title={
+              <>
+                <strong>방금 만들어진</strong> 새로운 모임<strong>.</strong>
+              </>
+            }
+            meetings={meetings}
+          />
+          <MeetingSwipeList
+            title={
+              <>
+                <strong>실시간</strong> 인기 모임<strong>.</strong>
+              </>
+            }
+            meetings={meetings}
+          />
         </section>
         {/* <!-- 메인 모임 영역 종료 --> */}
 
