@@ -24,14 +24,13 @@ export default function HostApp() {
       <Header />
       {/* <!-- container 영역 시작 --> */}
       <main className='container'>
-        <MyPageHeader />
+        <MyPageHeader type={type} activeTab='host-app' />
 
         {/* <!-- 마이페이지 대시보드 시작 --> */}
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
               <button type='button' className='btn' onClick={handleInfoPopup}>
-                {/* user인 경우, user 타입 넣어줘야함 */}
                 <span className='img_area'>
                   <img src={images.meeting_img04} alt='호스트 이미지' />
                 </span>

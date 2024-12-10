@@ -7,8 +7,10 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
+import { UserType } from '@@pages/MyPage/types';
 
 export default function PaymentList() {
+  const type: UserType = 'user';
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -19,7 +21,7 @@ export default function PaymentList() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader />
+        <MyPageHeader type={type} activeTab='payment' />
 
         {/* <!-- 마이페이지 대시보드 시작 --> */}
         <section className='dashboard_wrap'>

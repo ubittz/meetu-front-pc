@@ -25,7 +25,7 @@ function MyMeetingHost() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader />
+        <MyPageHeader type={type} activeTab='my-meeting' />
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>

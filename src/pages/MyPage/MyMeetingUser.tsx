@@ -24,7 +24,7 @@ function MyMeetingUser() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader />
+        <MyPageHeader type={type} activeTab='my-meeting' />
 
         {/* <!-- 마이페이지 대시보드 시작 --> */}
         <section className='dashboard_wrap'>

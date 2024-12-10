@@ -25,7 +25,7 @@ export default function MyPage() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader />
+        <MyPageHeader type={type} activeTab='info' />
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
