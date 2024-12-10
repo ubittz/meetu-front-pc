@@ -1,5 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 export default function HostAppWrite() {
   return (
@@ -156,9 +160,7 @@ export default function HostAppWrite() {
                 {/* <!-- 개인정보 수집 및 이용동의 시작 --> */}
 
                 <div className='btn_area type_02'>
-                  <a href='../mypage/MypageMain.html' className='btn form02'>
-                    취소
-                  </a>
+                    <Link to={pathGenerator(PAGES.MYPAGE)} className='btn form02'>취소</Link>
                   <button type='submit' className='btn'>
                     신청
                   </button>
@@ -177,9 +179,7 @@ export default function HostAppWrite() {
                 <p>호스트 등록 신청이 완료되었습니다.</p>
               </div>
               <div className='btn_area type_02'>
-                <a href='../main/Main.html' className='btn form02'>
-                  홈으로
-                </a>
+                <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>홈으로</Link>
                 <button type='button' className='btn'>
                   확인
                 </button>
