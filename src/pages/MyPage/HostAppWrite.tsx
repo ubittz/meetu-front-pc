@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 export default function HostAppWrite() {
   return (
@@ -157,9 +161,9 @@ export default function HostAppWrite() {
                 {/* <!-- 개인정보 수집 및 이용동의 시작 --> */}
 
                 <div className='btn_area type_02'>
-                  <a href='../mypage/MypageMain.html' className='btn form02'>
+                  <Link to={pathGenerator(PAGES.MYPAGE)} className='btn form02'>
                     취소
-                  </a>
+                  </Link>
                   <button type='submit' className='btn'>
                     신청
                   </button>
