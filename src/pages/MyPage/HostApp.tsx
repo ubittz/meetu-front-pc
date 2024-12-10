@@ -44,7 +44,7 @@ export default function HostApp() {
             </div>
             <ul className='link_area'>
               <li className='edit'>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/edit'} className='btn'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/edit'} className='btn'>
                   <i className='link_ico'></i>
                   <strong>내 정보 수정</strong>
                 </Link>
