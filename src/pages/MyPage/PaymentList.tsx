@@ -8,7 +8,7 @@ import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
 import { UserType } from '@@pages/MyPage/types';
 
-export default function PaymentList() {
+function PaymentList() {
   const type: UserType = 'user';
   const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
   const [isPaymentDetailOpen, setIsPaymentDetailOpen] = useState(false);
@@ -127,3 +127,5 @@ export default function PaymentList() {
     </div>
   );
 }
+
+export default PaymentList;

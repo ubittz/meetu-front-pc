@@ -11,7 +11,7 @@ import { pathGenerator } from '@@router/utils';
 
 import InfoPopup from './parts/InfoPopup';
 
-export default function ApplyHost() {
+function ApplyHost() {
   const type = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
@@ -78,3 +78,5 @@ export default function ApplyHost() {
     </div>
   );
 }
+
+export default ApplyHost;

@@ -10,7 +10,7 @@ interface MyMeetingListItemProps {
   meeting: MeetingItem;
 }
 
-export default function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
+function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
   return (
     <li>
       <div className='img_area'>
@@ -37,3 +37,5 @@ export default function MyMeetingListItem({ type, meeting }: MyMeetingListItemPr
     </li>
   );
 }
+
+export default MyMeetingListItem;

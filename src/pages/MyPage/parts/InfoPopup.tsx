@@ -4,7 +4,7 @@ interface InfoPopupProps {
   type: 'host' | 'user';
 }
 
-export default function InfoPopup({ type }: InfoPopupProps) {
+function InfoPopup({ type }: InfoPopupProps) {
   return (
     <div className='popup_layer'>
       {/* 기본 숨김처리, 노출 시 style="display: block" 추가 */}
@@ -49,3 +49,5 @@ export default function InfoPopup({ type }: InfoPopupProps) {
     </div>
   );
 }
+
+export default InfoPopup;

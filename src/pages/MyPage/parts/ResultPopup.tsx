@@ -8,7 +8,7 @@ interface ResultPopupProps {
   message: string;
 }
 
-export default function ResultPopup({ title, message }: ResultPopupProps) {
+function ResultPopup({ title, message }: ResultPopupProps) {
   return (
     <div className='popup_layer'>
       <div className='popup_bg'></div>
@@ -30,3 +30,5 @@ export default function ResultPopup({ title, message }: ResultPopupProps) {
     </div>
   );
 }
+
+export default ResultPopup;

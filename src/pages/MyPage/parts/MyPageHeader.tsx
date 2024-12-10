@@ -9,7 +9,7 @@ interface MyPageHeaderProps {
   activeTab: 'info' | 'payment' | 'host-app' | 'my-meeting';
 }
 
-export default function MyPageHeader({ type, activeTab }: MyPageHeaderProps) {
+function MyPageHeader({ type, activeTab }: MyPageHeaderProps) {
   return (
     <section className='mypage_top'>
       <h2>마이페이지</h2>
@@ -30,3 +30,5 @@ export default function MyPageHeader({ type, activeTab }: MyPageHeaderProps) {
     </section>
   );
 }
+
+export default MyPageHeader;

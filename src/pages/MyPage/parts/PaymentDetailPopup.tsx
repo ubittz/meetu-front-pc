@@ -1,5 +1,6 @@
 import images from '@@assets/images';
-export default function PaymentDetailPopup() {
+
+function PaymentDetailPopup() {
   return (
     <div className='popup_layer type_02'>
       {/* <!-- 기본 숨김처리, 노출 시 style="display: block" 추가 --> */}
@@ -110,3 +111,5 @@ export default function PaymentDetailPopup() {
     </div>
   );
 }
+
+export default PaymentDetailPopup;

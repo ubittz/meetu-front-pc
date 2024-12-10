@@ -6,7 +6,7 @@ import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-export default function EditMyInfo() {
+function EditMyInfo() {
   return (
     <div id='wrap'>
       <Header />
@@ -90,3 +90,5 @@ export default function EditMyInfo() {
     </div>
   );
 }
+
+export default EditMyInfo;

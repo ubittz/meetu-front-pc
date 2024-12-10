@@ -9,7 +9,7 @@ interface MeetingListItemProps {
   meeting: MeetingItem;
 }
 
-export default function MeetingListItem({ meeting }: MeetingListItemProps) {
+function MeetingListItem({ meeting }: MeetingListItemProps) {
   return (
     <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.id}`} className='list_link'>
       <div className='img_area'>
@@ -27,3 +27,5 @@ export default function MeetingListItem({ meeting }: MeetingListItemProps) {
     </Link>
   );
 }
+
+export default MeetingListItem;

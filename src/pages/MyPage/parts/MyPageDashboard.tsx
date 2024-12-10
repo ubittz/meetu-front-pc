@@ -9,7 +9,7 @@ interface MyPageDashboardProps {
   profileButtonAction: () => void;
 }
 
-export default function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
+function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
   return (
     <section className='dashboard_wrap'>
       <div className='d_inner'>
@@ -58,3 +58,5 @@ export default function MyPageDashboard({ type, profileButtonAction }: MyPageDas
     </section>
   );
 }
+
+export default MyPageDashboard;

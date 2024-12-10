@@ -1,24 +1,13 @@
 import { useState } from 'react';
 
 import images from '@@assets/images';
-
-interface ReviewItem {
-  id: number;
-  title: string; // 모임으로 대체 필요 (모임명)
-  rating: number;
-  content: string;
-  createdAt: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
+import { ReviewItem } from '@@pages/MyPage/types';
 
 interface ReviewListItemProps {
   review: ReviewItem;
 }
 
-export default function ReviewListItem({ review }: ReviewListItemProps) {
+function ReviewListItem({ review }: ReviewListItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
@@ -64,3 +53,5 @@ export default function ReviewListItem({ review }: ReviewListItemProps) {
     </li>
   );
 }
+
+export default ReviewListItem;

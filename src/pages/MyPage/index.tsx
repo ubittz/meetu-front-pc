@@ -13,7 +13,7 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 // TODO:- Slider 추가 및 적용 필요
-export default function MyPage() {
+function MyPage() {
   const type: UserType = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
@@ -205,3 +205,4 @@ export default function MyPage() {
     </div>
   );
 }
+export default MyPage;
