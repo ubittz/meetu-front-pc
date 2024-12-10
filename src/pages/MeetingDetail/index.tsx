@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 function MeetingDetail() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -387,16 +389,14 @@ function MeetingDetail() {
                     <div className='info_area'>
                       <h4>호스트명 또는 닉네임</h4>
                       <div className='infoBox'>
-                        {/* TODO: 마이페이지 - info host 링크 추가 */}
-                        <Link to='../mypage/InfoHost.html' className='ib'>
+                        <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host'} className='ib'>
                           <p className='tit'>운영중인 모임</p>
                           <p className='txt'>
                             <strong>N</strong>
                             <span> 개</span>
                           </p>
                         </Link>
-                        {/* TODO: 마이페이지 - info user 링크 추가 */}
-                        <Link to='../mypage/InfoUser.html' className='ib'>
+                        <Link to={pathGenerator(PAGES.MYPAGE) + '/info/user'} className='ib'>
                           <p className='tit'>리뷰</p>
                           <p className='txt'>
                             <strong>N</strong>
