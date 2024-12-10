@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import Footer from "@@components/Footer";
-import { PAGES } from "@@router/constants";
-import { pathGenerator } from "@@router/utils";
+import Footer from '@@components/Footer';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 function Register() {
   console.log('수정 했어요');
@@ -73,8 +73,10 @@ function Register() {
                 </button>
               </div>
               <div className='btn_area btn_sub'>
-                <Link to={pathGenerator(PAGES.LOGIN) + '/IdSrch'} className="btn">아이디 찾기</Link>
-                <Link to={pathGenerator(PAGES.LOGIN) + '/PWSrch'} className="btn">
+                <Link to={pathGenerator(PAGES.LOGIN) + '/find/id'} className='btn'>
+                  아이디 찾기
+                </Link>
+                <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn'>
                   비밀번호 찾기
                 </Link>
               </div>
@@ -86,7 +88,7 @@ function Register() {
               <span>or</span>
             </p>
             <div className='btn_area'>
-              <Link to={pathGenerator(PAGES.REGISTER)} className="btn">
+              <Link to={pathGenerator(PAGES.REGISTER)} className='btn'>
                 회원가입 후 이용하기
               </Link>
               <a href='#' className='btn kakao'>
@@ -96,7 +98,7 @@ function Register() {
           </div>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
