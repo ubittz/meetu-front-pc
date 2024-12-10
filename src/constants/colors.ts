@@ -1,4 +1,4 @@
-export const COLORS = {
+export const  COLORS = {
   MAIN_050: '#FDFBED',
   MAIN_400: '#FBB037',
   MAIN_700: '#965E03',
@@ -13,4 +13,8 @@ export const COLORS = {
   GRAY_SCALE_700: '#484B51',
   GRAY_SCALE_800: '#303236',
   GRAY_SCALE_900: '#0C0C0E',
+  WHITE: '#ffffff',
+  BORDER:'#EDEDED',
+  MAIN: '#FF641A'
+
 } as const;

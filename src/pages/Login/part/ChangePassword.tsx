@@ -1,10 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
+import { Link, useNavigate } from 'react-router-dom';
+
+import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import Popup from '@@components/Popup';
+import Typography from '@@components/Typography';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 function ChangePassword() {
+  const navigate = useNavigate()
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const handleOpenPopup = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
+
+
+  const handleConfirm1 = () => {
+    navigate(pathGenerator(PAGES.MAIN))
+  };
+
+  const handleConfirm2  = () => {
+    navigate(pathGenerator(PAGES.LOGIN))
+  };
+
   return (
     <body>
       <div id='wrap'>
@@ -45,32 +71,27 @@ function ChangePassword() {
                   </div>
 
                   <div className='btn_area'>
-                    <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
+                    <button className='btn' onClick={handleOpenPopup}>
                       확인
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </fieldset>
             </form>
 
-            <div className='popup_layer'>
-              <div className='popup_bg'></div>
-              <div className='popup_inner'>
-                <h3 className='popup_tit'>비밀번호 찾기</h3>
-                <button className='btn close'>팝업 닫기</button>
-                <div className='srch_result'>
-                  <p>비밀번호 변경이 완료되었습니다.</p>
-                </div>
-                <div className='btn_area type_02'>
-                  <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
-                    홈으로
-                  </Link>
-                  <Link to={pathGenerator(PAGES.LOGIN)} className='btn'>
-                    로그인 하기
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Popup
+              visible={isPopupVisible}
+              onConfirm1={handleConfirm1}
+              onConfirm2={handleConfirm2}
+              confirmText1='홈으로'
+              confirmText2='로그인 하기'
+              title='비밀번호 찾기'
+              onCancel={handleClosePopup}
+            >
+              <Flex.Horizontal gap={4}>
+                <Typography.SmallTitle>비밀번호 변경이 완료되었습니다.</Typography.SmallTitle>
+              </Flex.Horizontal>
+            </Popup>
           </div>
         </main>
         <Footer />

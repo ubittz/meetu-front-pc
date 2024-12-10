@@ -1,11 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
+import { Link, useNavigate } from 'react-router-dom';
+
+import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import Popup from '@@components/Popup';
+import Typography from '@@components/Typography';
+import { COLORS } from '@@constants/colors';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function FindId() {
+  const navigate = useNavigate()
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const handleOpenPopup = (e: React.MouseEvent) => {
+    e.preventDefault(); 
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
+
+  const handleConfirm1 = () => {
+    navigate(pathGenerator(PAGES.LOGIN) + '/find/password ')
+  };
+
+  const handleConfirm2  = () => {
+    navigate(pathGenerator(PAGES.LOGIN))
+  };
   return (
     <body>
       <div id='wrap'>
@@ -54,7 +79,7 @@ function FindId() {
                   </div>
 
                   <div className='btn_area'>
-                    <button type='submit' className='btn'>
+                    <button type='submit' className='btn' onClick={handleOpenPopup}>
                       확인
                     </button>
                   </div>
@@ -62,26 +87,21 @@ function FindId() {
               </fieldset>
             </form>
 
-            <div className='popup_layer'>
-              <div className='popup_bg'></div>
-              <div className='popup_inner'>
-                <h3 className='popup_tit'>아이디 찾기</h3>
-                <button className='btn close'>팝업 닫기</button>
-                <div className='srch_result'>
-                  <p>
-                    홍길동 회원님의 아이디는 <strong>ho*******ng</strong> 입니다.
-                  </p>
-                </div>
-                <div className='btn_area type_02'>
-                  <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn form02'>
-                    비밀번호 찾기
-                  </Link>
-                  <Link to={pathGenerator(PAGES.LOGIN)} className='btn'>
-                    로그인 하기
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Popup
+                    visible={isPopupVisible}
+                    onConfirm1={handleConfirm1}
+                    onConfirm2={handleConfirm2}
+                    confirmText1='비밀번호 찾기'
+                    confirmText2='로그인 하기'
+                    title='아이디 찾기'
+                    onCancel={handleClosePopup}
+                  >
+                    <Flex.Horizontal gap={4}>
+                      <Typography.SmallTitle>홍길동 회원님의 아이디는</Typography.SmallTitle>
+                      <Typography.SmallTitle color={COLORS.MAIN}>ho*******ng</Typography.SmallTitle>
+                      <Typography.SmallTitle>입니다.</Typography.SmallTitle>
+                    </Flex.Horizontal>
+                  </Popup>
           </div>
         </main>
         <Footer />
