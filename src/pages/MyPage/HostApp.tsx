@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
@@ -15,7 +15,7 @@ export default function HostApp() {
   const type = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
-  const handleInfoPopup = () => {
+  const handleShowInfoPopup = () => {
     setIsShowInfoPopup(true);
   };
 
@@ -26,54 +26,8 @@ export default function HostApp() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='host-app' />
 
-        {/* <!-- 마이페이지 대시보드 시작 --> */}
-        <section className='dashboard_wrap'>
-          <div className='d_inner'>
-            <div className='host_area'>
-              <button type='button' className='btn' onClick={handleInfoPopup}>
-                <span className='img_area'>
-                  <img src={images.meeting_img04} alt='호스트 이미지' />
-                </span>
-                <span className='txt_area'>
-                  <strong>HOST</strong>
-                  <em>홍길동 님</em>
-                </span>
-              </button>
-              <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
-            </div>
-            <ul className='link_area'>
-              <li className='edit'>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/edit'} className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>내 정보 수정</strong>
-                </Link>
-              </li>
-              <li className='guide'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>
-                    모임만들기 <br />
-                    가이드
-                  </strong>
-                </Link>
-              </li>
-              <li className='intro'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>밋유 소개</strong>
-                </Link>
-              </li>
-              <li className='center'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>고객센터</strong>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          {isShowInfoPopup && <InfoPopup type={type} />}
-        </section>
-        {/* <!-- 마이페이지 대시보드 종료 --> */}
+        <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
+        {isShowInfoPopup && <InfoPopup type={type} />}
 
         {/* <!-- 마이페이지 결제내역 시작 -->  */}
         <section className='mypage_content'>

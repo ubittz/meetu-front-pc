@@ -1,20 +1,24 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
 import { UserType } from '@@pages/MyPage/types';
 
 export default function PaymentList() {
   const type: UserType = 'user';
-  const [isOpen, setIsOpen] = useState(false);
+  const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
+  const [isPaymentDetailOpen, setIsPaymentDetailOpen] = useState(false);
 
-  const handleOpen = () => {
-    setIsOpen(true);
+  const handleShowInfoPopup = () => {
+    setIsShowInfoOpen(!isShowInfoPopup);
+  };
+
+  const handlePaymentDetailPopup = () => {
+    setIsPaymentDetailOpen(!isPaymentDetailOpen);
   };
 
   return (
@@ -23,52 +27,7 @@ export default function PaymentList() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='payment' />
 
-        {/* <!-- 마이페이지 대시보드 시작 --> */}
-        <section className='dashboard_wrap'>
-          <div className='d_inner'>
-            <div className='host_area'>
-              <button type='button' className='btn'>
-                <span className='img_area'>
-                  <img src={images.meeting_img04} alt='호스트 이미지' />
-                </span>
-                <span className='txt_area'>
-                  <strong>HOST</strong>
-                  <em>홍길동 님</em>
-                </span>
-              </button>
-              <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
-            </div>
-            <ul className='link_area'>
-              <li className='edit'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>내 정보 수정</strong>
-                </Link>
-              </li>
-              <li className='guide'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>
-                    모임만들기 <br />
-                    가이드
-                  </strong>
-                </Link>
-              </li>
-              <li className='intro'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>밋유 소개</strong>
-                </Link>
-              </li>
-              <li className='center'>
-                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
-                  <i className='link_ico'></i>
-                  <strong>고객센터</strong>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
 
         {/* <!-- 마이페이지 결제내역 시작 --> */}
         <section className='mypage_content'>
@@ -109,7 +68,7 @@ export default function PaymentList() {
                 </div>
                 <p className='tb_price'>50,000원</p>
                 <div className='tb_choice'>
-                  <button type='button' className='btn' onClick={handleOpen}>
+                  <button type='button' className='btn' onClick={handlePaymentDetailPopup}>
                     결제 상세 보기
                   </button>
                 </div>
@@ -136,7 +95,7 @@ export default function PaymentList() {
                 </div>
                 <p className='tb_price'>60,000원</p>
                 <div className='tb_choice'>
-                  <button type='button' className='btn' onClick={handleOpen}>
+                  <button type='button' className='btn' onClick={handlePaymentDetailPopup}>
                     결제 상세 보기
                   </button>
                 </div>
@@ -162,7 +121,7 @@ export default function PaymentList() {
           </div>
         </section>
 
-        {isOpen && <PaymentDetailPopup />}
+        {isPaymentDetailOpen && <PaymentDetailPopup />}
       </main>
       <Footer />
     </div>
