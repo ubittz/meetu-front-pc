@@ -12,8 +12,10 @@ const StyledSlider = styled.div<{ $currentIndex: number; $size?: number }>`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  .slider__slick_wrap {
-    ${({ $size }) => $size && `width: ${$size}px;`}
+
+
+  .slick-dots {
+    display: none !important;
   }
 `;
 
@@ -27,7 +29,7 @@ const StyledSlick = styled(Slick)<{ gap: number }>`
   }
 `;
 
-function Slider({ items, gap = 0, itemSize, sliderProps, ...props }: SliderProps) {
+function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...props }: SliderProps & { slidesToShow?: number }) {
   const [index, setIndex] = useState<number>(0);
 
   const dots = sliderProps?.dots ?? true;
@@ -40,6 +42,8 @@ function Slider({ items, gap = 0, itemSize, sliderProps, ...props }: SliderProps
           dots={false}
           infinite={false}
           arrows={false}
+          slidesToShow={slidesToShow}
+          slidesToScroll={1}
           {...sliderProps}
           beforeChange={(currentIndex, nextIndex) => {
             setIndex(nextIndex);
@@ -48,8 +52,8 @@ function Slider({ items, gap = 0, itemSize, sliderProps, ...props }: SliderProps
         >
           {items}
         </StyledSlick>
+        {dots && <SliderNavigation currentIndex={index} length={items.length} />}
       </div>
-      {dots && <SliderNavigation currentIndex={index} length={items.length} />}
     </StyledSlider>
   );
 }

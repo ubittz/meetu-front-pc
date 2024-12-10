@@ -1,4 +1,5 @@
 export interface MeetingItem {
+  imageUrl: string | undefined;
   id: number;
   image?: string;
   title: string;

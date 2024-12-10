@@ -3,7 +3,7 @@ export interface Meeting {
   title: string;
   description: string;
   price: number;
-  imageUrl?: string;
+  imageUrl: string;
   location: string;
   isHot?: boolean;
 }

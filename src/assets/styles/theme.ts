@@ -28,9 +28,9 @@ export const theme: DefaultTheme = {
   },
   typography: {
     [TYPOGRAPHY_THEME.LARGE_TITLE]: 'font-size: 36px; font-weight: 800;',
-    [TYPOGRAPHY_THEME.MEDIUM_TITLE]: 'font-size: 22px; font-weight: 800;',
+    [TYPOGRAPHY_THEME.MEDIUM_TITLE]: 'font-size: 24px; font-weight: 700;',
     [TYPOGRAPHY_THEME.SMALL_TITLE]: 'font-size: 20px; font-weight: 700;',
-    [TYPOGRAPHY_THEME.LARGE_SUBTITLE]: 'font-size: 18px; font-weight: 800;',
+    [TYPOGRAPHY_THEME.LARGE_SUBTITLE]: 'font-size: 28px; font-weight: 700;',
     [TYPOGRAPHY_THEME.MEDIUM_SUBTITLE]: 'font-size: 16px; font-weight: 600;',
     [TYPOGRAPHY_THEME.SMALL_SUBTITLE]: 'font-size: 14px; font-weight: 600;',
     [TYPOGRAPHY_THEME.LARGE_BODY]: 'font-size: 20px; font-weight: 400;',
