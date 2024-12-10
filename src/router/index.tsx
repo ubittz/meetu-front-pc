@@ -22,8 +22,8 @@ import PaymentList from '@@pages/MyPage/PaymentList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
-import Join02 from '@@pages/Register/parts/Join02';
 import JoinComplete from '@@pages/Register/parts/JoinComplete';
+import UserInfoInput from '@@pages/Register/parts/UserInfoInput';
 import { PAGES, ROUTE_PREFIX } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
@@ -37,7 +37,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.LOGIN) + '/find/password/change'} element={<ChangePassword />} />
 
       <Route path={pathGenerator(PAGES.REGISTER)} element={<Register />} />
-      <Route path={pathGenerator(PAGES.REGISTER) + '/:id'} element={<Join02 />} />
+      <Route path={pathGenerator(PAGES.REGISTER) + '/:id'} element={<UserInfoInput />} />
       <Route path={pathGenerator(PAGES.REGISTER) + '/complete'} element={<JoinComplete />} />
 
       <Route path={pathGenerator(PAGES.MAIN)} element={<Main />} />
@@ -52,7 +52,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/edit-myinfo'} element={<EditMyInfo />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/edit'} element={<EditMyInfo />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app'} element={<HostApp />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} element={<HostAppWrite />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />

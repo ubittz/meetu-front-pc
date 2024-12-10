@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
@@ -5,11 +7,26 @@ import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-function Join02() {
+function UserInfoInput() {
+  const [idError, setIdError] = useState<string | null>(null);  
+  const [id, setId] = useState<string>(''); 
+
+  const checkIdAvailability = (id: string) => {
+    if (id === 'takenId') {  
+      setIdError('이미 가입된 아이디입니다.');
+    } else {
+      setIdError(null);
+    }
+  };
+
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+    setIdError(null);  
+  };
+
   return (
     <div id='wrap'>
       <Header/>
-
       {/* <!-- container 영역 시작 --> */}
       <main className='container'>
         <div className='member_inner'>
@@ -27,13 +44,19 @@ function Join02() {
                 <h3 className='join_tit'>기본정보</h3>
                 {/* <!-- 정보입력 영역 시작 --> */}
                 <div className='input_wrap'>
-                  <div className='input_area input_btn'>
+                   <div className='input_area input_btn'>
                     <label htmlFor='member_id'>아이디</label>
-                    <input type='text' name='member_id' id='member_id' placeholder='아이디를 입력해주세요.' className='error' />
-                    <p className='txt_error' style={{ display: 'block' }}>
-                      이미 가입된 아이디입니다.
-                    </p>
-                    <button type='button' className='btn'>
+                    <input
+                      type='text'
+                      name='member_id'
+                      id='member_id'
+                      placeholder='아이디를 입력해주세요.'
+                      className={idError ? 'error' : ''}
+                      value={id}
+                      onChange={handleIdChange}
+                    />
+                    {idError && <p className='txt_error' style={{ display: 'block' }}>{idError}</p>}
+                    <button type='button' className='btn' onClick={() => checkIdAvailability(id)}>
                       중복체크
                     </button>
                   </div>
@@ -110,4 +133,4 @@ function Join02() {
   );
 }
 
-export default Join02;
+export default UserInfoInput;

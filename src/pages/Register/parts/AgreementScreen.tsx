@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
@@ -5,7 +7,23 @@ import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-function Join01() {
+function AgreementScreen() {
+  const [showTerms, setShowTerms] = useState<{
+    [key: string]: boolean;
+  }>({
+    terms02: false,
+    terms03: false,
+    terms04: false,
+    terms05: false,
+  });
+
+  const handleLinkClick = (term: string) => {
+    setShowTerms((prevState) => ({
+      ...prevState,
+      [term]: !prevState[term],
+    }));
+  };
+
   return (
     <div id='wrap'>
       <Header />
@@ -43,9 +61,9 @@ function Join01() {
                     <div className='chk_area'>
                       <input type='checkbox' name='termsChk' id='termsChk02' />
                       <label htmlFor='termsChk02'>이용약관 동의(필수)</label>
-                      <a href='javascript:void(0)' className='btn active'>
+                      <Link to='javascript:void(0)' className='btn'>
                         보기
-                      </a>
+                      </Link>
                       <p className='txt_area' style={{ display: 'block' }}>
                         제1조(목적) <br />
                         이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
@@ -67,41 +85,50 @@ function Join01() {
                     <div className='chk_area'>
                       <input type='checkbox' name='termsChk' id='termsChk03' />
                       <label htmlFor='termsChk03'>개인정보 수집 및 이용 (필수)</label>
-                      <a href='javascript:void(0)' className='btn'>
+                      <Link to='javascript:void(0)' className='btn' onClick={() => handleLinkClick('terms03')}>
                         보기
-                      </a>
-                      <p className='txt_area'>
-                        제1조(목적) <br />
-                        이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                        “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                        &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
-                      </p>
+                      </Link>
+                      {showTerms.terms03 && (
+                        <p className='txt_area' style={{ display: 'block' }}>
+                          제1조(목적) <br />
+                          이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
+                          “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br />{' '}
+                          <br />
+                          &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
+                        </p>
+                      )}
                     </div>
                     <div className='chk_area'>
                       <input type='checkbox' name='termsChk' id='termsChk04' />
                       <label htmlFor='termsChk04'>개인정보 취급위탁 (선택)</label>
-                      <a href='javascript:void(0)' className='btn'>
+                      <Link to='javascript:void(0)' className='btn' onClick={() => handleLinkClick('terms04')}>
                         보기
-                      </a>
-                      <p className='txt_area'>
-                        제1조(목적) <br />
-                        이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                        “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                        &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
-                      </p>
+                      </Link>
+                      {showTerms.terms04 && (
+                        <p className='txt_area' style={{ display: 'block' }}>
+                          제1조(목적) <br />
+                          이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
+                          “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br />{' '}
+                          <br />
+                          &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
+                        </p>
+                      )}
                     </div>
                     <div className='chk_area'>
                       <input type='checkbox' name='termsChk' id='termsChk05' />
                       <label htmlFor='termsChk05'>마케팅 정보 활용 (선택)</label>
-                      <a href='javascript:void(0)' className='btn'>
+                      <Link to='javascript:void(0)' className='btn' onClick={() => handleLinkClick('terms05')}>
                         보기
-                      </a>
-                      <p className='txt_area'>
-                        제1조(목적) <br />
-                        이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                        “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                        &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
-                      </p>
+                      </Link>
+                      {showTerms.terms05 && (
+                        <p className='txt_area' style={{ display: 'block' }}>
+                          제1조(목적) <br />
+                          이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
+                          “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br />{' '}
+                          <br />
+                          &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -125,4 +152,4 @@ function Join01() {
   );
 }
 
-export default Join01;
+export default AgreementScreen;

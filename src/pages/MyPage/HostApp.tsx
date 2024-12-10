@@ -1,33 +1,45 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
+import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import HostInfoPopup from './parts/HostInfoPopup';
+import UserInfoPopup from './parts/UserInfoPopup';
+
 export default function HostApp() {
+  const [isHostInfoPopup, setIsHostInfoPopup] = useState(false);
+  const [isUserInfoPopup, setIsUserInfoPopup] = useState(false);
+
+  const handleInfoPopup = (type: 'host' | 'user') => {
+    if (type === 'host') {
+      setIsHostInfoPopup(true);
+    } else {
+      setIsUserInfoPopup(true);
+    }
+  };
+
   return (
     <div id='wrap'>
       <Header />
       {/* <!-- container 영역 시작 --> */}
       <main className='container'>
-        <section className='mypage_top'>
-          <h2>마이페이지</h2>
-          <p className='caption'>
-            <Link to={pathGenerator(PAGES.MYPAGE)} className='btn'>내 정보</Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className='btn'>결제 내역</Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app'} className='btn active'>호스트 등록 신청</Link>
-            <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/user'} className='btn'>내 모임</Link>
-          </p>
-        </section>
+        <MyPageHeader />
 
         {/* <!-- 마이페이지 대시보드 시작 --> */}
         <section className='dashboard_wrap'>
           <div className='d_inner'>
             <div className='host_area'>
-              <button type='button' className='btn'>
-                {/* <span className="img_area"> */}
-                {/* <img src="../images/sub/meeting_img04.jpg" alt="호스트 이미지"></span> */}
+              <button type='button' className='btn' onClick={() => handleInfoPopup('host')}>
+                {/* user인 경우, user 타입 넣어줘야함 */}
+                <span className='img_area'>
+                  <img src={images.meeting_img04} alt='호스트 이미지' />
+                </span>
                 <span className='txt_area'>
                   <strong>HOST</strong>
                   <em>홍길동 님</em>
@@ -37,42 +49,40 @@ export default function HostApp() {
             </div>
             <ul className='link_area'>
               <li className='edit'>
-                <a href='../mypage/InfoEdit.html' className='btn'>
+                <Link to={pathGenerator(PAGES.MYPAGE) + '/info/edit'} className='btn'>
                   <i className='link_ico'></i>
                   <strong>내 정보 수정</strong>
-                </a>
+                </Link>
               </li>
               <li className='guide'>
-                <a href="javascript:alert('서비스 준비 중입니다.');" className='btn'>
+                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
                   <i className='link_ico'></i>
                   <strong>
                     모임만들기 <br />
                     가이드
                   </strong>
-                </a>
+                </Link>
               </li>
               <li className='intro'>
-                <a href="javascript:alert('서비스 준비 중입니다.');" className='btn'>
+                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
                   <i className='link_ico'></i>
                   <strong>밋유 소개</strong>
-                </a>
+                </Link>
               </li>
               <li className='center'>
-                <a href="javascript:alert('서비스 준비 중입니다.');" className='btn'>
+                <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
                   <i className='link_ico'></i>
                   <strong>고객센터</strong>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* <!-- 호스트 정보 팝업 시작 --> */}
-
-          {/* <!-- 호스트 정보 팝업 종료 --> */}
+          {isHostInfoPopup && <HostInfoPopup />}
 
           {/* <!-- 이용자 정보 팝업 시작 --> */}
-
-          {/* <!-- 이용자 정보 팝업 종료 --> */}
+          {isUserInfoPopup && <UserInfoPopup />}
         </section>
         {/* <!-- 마이페이지 대시보드 종료 --> */}
 
@@ -112,7 +122,9 @@ export default function HostApp() {
               </div>
             </div>
             <div className='btn_area type_03'>
-                <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} className='btn'>호스트 신청하기</Link>
+              <Link to={pathGenerator(PAGES.MYPAGE) + '/host-app-write'} className='btn'>
+                호스트 신청하기
+              </Link>
             </div>
           </div>
         </section>
