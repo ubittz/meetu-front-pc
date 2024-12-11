@@ -16,8 +16,7 @@ import EditMyInfo from '@@pages/MyPage/EditMyInfo';
 import InfoHost from '@@pages/MyPage/InfoHost';
 import InfoHostReview from '@@pages/MyPage/InfoHostReview';
 import InfoUser from '@@pages/MyPage/InfoUser';
-import MyMeetingHost from '@@pages/MyPage/MyMeetingHost';
-import MyMeetingUser from '@@pages/MyPage/MyMeetingUser';
+import MyMeeting from '@@pages/MyPage/MyMeeting';
 import PaymentList from '@@pages/MyPage/PaymentList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
@@ -58,8 +57,8 @@ function Router() {
       <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/user'} element={<MyMeetingUser />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} element={<MyMeetingHost />} />
+      {/* :type에 host 혹은 user가 들어감 */}
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/:type'} element={<MyMeeting />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} element={<InfoHostReview />} />
       <Route path='*' element={<Error />} />
     </Routes>

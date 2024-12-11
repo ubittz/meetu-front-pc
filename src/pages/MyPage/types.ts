@@ -1,4 +1,6 @@
-interface MeetingItem {
+type MeetingStatus = 'upcoming' | 'confirmed' | 'completed'; // 전체, 진행 예정, 모임 확정, 진행 완료
+
+interface Meeting {
   imageUrl: string | undefined;
   id: number;
   image?: string;
@@ -7,6 +9,7 @@ interface MeetingItem {
   price: number;
   description: string;
   isHot?: boolean;
+  status: MeetingStatus;
 }
 
 interface ReviewItem {
@@ -35,4 +38,4 @@ interface PaymentMethod {
 
 type UserType = 'user' | 'host';
 
-export type { MeetingItem, ReviewItem, Discount, PaymentMethod, UserType };
+export type { Meeting, MeetingStatus, ReviewItem, Discount, PaymentMethod, UserType };

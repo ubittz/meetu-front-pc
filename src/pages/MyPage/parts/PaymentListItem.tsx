@@ -1,10 +1,10 @@
-import { MeetingItem } from '@@pages/MyPage/types';
+import { Meeting } from '@@pages/MyPage/types';
 
 interface PaymentListItemProps {
   orderNumber: string;
   orderDate: Date;
   purchasePrice: number; // 총 결제 금액
-  meeting: MeetingItem;
+  meeting: Meeting;
 
   handlePaymentDetailPopup: () => void;
 }
