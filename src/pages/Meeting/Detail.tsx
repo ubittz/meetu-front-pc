@@ -5,10 +5,32 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import QnaList from '@@pages/Meeting/parts/QnaList';
+import ReviewList from '@@pages/Meeting/parts/ReviewList';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { getDummyQnaList, getDummyReviewList } from './dummys';
+
 function MeetingDetail() {
+  // TODO: - dummy data 교체
+  const reviews = getDummyReviewList();
+  const qnaList = getDummyQnaList();
+
+  const [currentReviewPage, setCurrentReviewPage] = useState(1); // 현재 페이지 상태 추가
+  const [currentQnaPage, setCurrentQnaPage] = useState(1); // 현재 페이지 상태 추가
+
+  const totalReviewPages = 7; // 총 review 페이지 수 (예시로 설정)
+  const totalQnaPages = 7; // 총 qna 페이지 수 (예시로 설정)
+
+  const handleReviewPageChange = (page: number) => {
+    setCurrentReviewPage(page); // 페이지 변경 핸들러
+  };
+
+  const handleQnaPageChange = (page: number) => {
+    setCurrentQnaPage(page); // 페이지 변경 핸들러
+  };
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
@@ -82,236 +104,9 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 리뷰 --> */}
-              <div className='mv_detail'>
-                <div className='detail_top'>
-                  <h4>
-                    Meet new people 리뷰 <em>(9)</em>
-                  </h4>
-                  <div className='star_area'>
-                    <span className='star' style={{ width: '100%' }}></span>
-                  </div>
-                </div>
-                <div className='detail_list'>
-                  <ul>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>4.5</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '90%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>3.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '60%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img01} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img02} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className='paging'>
-                    <Link to='jascript: void(0);' className='btn on'>
-                      1
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      2
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      3
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      4
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      5
-                    </Link>
-                    <span>...</span>
-                    <Link to='jascript: void(0);' className='btn'>
-                      7
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
+              <ReviewList reviews={reviews} currentPage={currentReviewPage} totalPages={totalReviewPages} onPageChange={handleReviewPageChange} />
               {/* <!-- 문의 --> */}
-              <div className='mv_detail'>
-                <div className='detail_top'>
-                  <h4>
-                    Meet new people 문의 <em>(3)</em>
-                  </h4>
-                  <button className='btn'>문의글 작성하기</button>
-                </div>
-                <div className='detail_list'>
-                  <ul>
-                    <li>
-                      <div className='list_top'>
-                        <p className='answer complete'>답변 완료</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p className='answer lock'>비밀글 입니다.</p>
-                        <p className='name'>kimj****</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <p className='answer'>답변 대기</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p className='answer'>문의사항 입니다.</p>
-                        <p className='name'>kimj****</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <p className='answer complete'>답변 완료</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p className='answer lock'>비밀글 입니다.</p>
-                        <p className='name'>kimj****</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <p className='answer complete'>답변 완료</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p className='answer lock'>비밀글 입니다.</p>
-                        <p className='name'>kimj****</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <p className='answer complete'>답변 완료</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p className='answer lock'>비밀글 입니다.</p>
-                        <p className='name'>kimj****</p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className='paging'>
-                    <Link to='jascript: void(0);' className='btn'>
-                      1
-                    </Link>
-                    <span>...</span>
-                    <Link to='jascript: void(0);' className='btn on'>
-                      4
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      5
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      6
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      7
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      8
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <QnaList qnaList={qnaList} currentPage={currentQnaPage} totalPages={totalQnaPages} onPageChange={handleQnaPageChange} />
             </div>
 
             {/* <!-- 모임 신청 영역 --> */}
