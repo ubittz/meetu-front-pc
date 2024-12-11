@@ -1,15 +1,19 @@
 import { useState } from 'react';
 
-import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import { getDummyPaymentList } from '@@pages/MyPage/dummy';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
+import PaymentListItem from '@@pages/MyPage/parts/PaymentListItem';
 import { UserType } from '@@pages/MyPage/types';
 
 function PaymentList() {
   const type: UserType = 'user';
+  // TODO: - dummy items 교체
+  const dummyPaymentList = getDummyPaymentList();
+
   const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
   const [isPaymentDetailOpen, setIsPaymentDetailOpen] = useState(false);
 
@@ -36,7 +40,6 @@ function PaymentList() {
               결제내역
               <span className='txt'>1년 이후 내역은 고객센터 (0000 - 0000)으로 문의해 주시기 바랍니다.</span>
             </h3>
-
             <ul className='list_table'>
               {/* <!-- 결제내역 테이블 헤더 --> */}
               <li className='list_header'>
@@ -44,62 +47,17 @@ function PaymentList() {
                 <p className='tb_price'>주문 결제 금액</p>
                 <p className='tb_choice'>선택</p>
               </li>
-
               {/* <!-- 결제내역 테이블 리스트 --> */}
-              <li>
-                <div className='tb_info'>
-                  <div className='img_area'>
-                    <img src={images.meeting_img01} alt='호스트 이미지' />
-                  </div>
-                  <ul className='info_list'>
-                    <li>
-                      <p className='tit'>결제 번호</p>
-                      <p className='txt'>20020725P074416</p>
-                    </li>
-                    <li>
-                      <p className='tit'>결제 일자</p>
-                      <p className='txt'>2024. 07. 26</p>
-                    </li>
-                    <li>
-                      <p className='tit'>모임명</p>
-                      <p className='txt'>미식가들의 쿠킹 클래스</p>
-                    </li>
-                  </ul>
-                </div>
-                <p className='tb_price'>50,000원</p>
-                <div className='tb_choice'>
-                  <button type='button' className='btn' onClick={handlePaymentDetailPopup}>
-                    결제 상세 보기
-                  </button>
-                </div>
-              </li>
-              <li>
-                <div className='tb_info'>
-                  <div className='img_area'>
-                    <img src={images.meeting_img01} alt='호스트 이미지' />
-                  </div>
-                  <ul className='info_list'>
-                    <li>
-                      <p className='tit'>결제 번호</p>
-                      <p className='txt'>20020725P074416</p>
-                    </li>
-                    <li>
-                      <p className='tit'>결제 일자</p>
-                      <p className='txt'>2024. 07. 25</p>
-                    </li>
-                    <li>
-                      <p className='tit'>모임명</p>
-                      <p className='txt'>미식가들의 쿠킹 클래스</p>
-                    </li>
-                  </ul>
-                </div>
-                <p className='tb_price'>60,000원</p>
-                <div className='tb_choice'>
-                  <button type='button' className='btn' onClick={handlePaymentDetailPopup}>
-                    결제 상세 보기
-                  </button>
-                </div>
-              </li>
+              {dummyPaymentList.map((payment) => (
+                <PaymentListItem
+                  key={payment.orderNumber}
+                  orderNumber={payment.orderNumber}
+                  orderDate={payment.orderDate}
+                  purchasePrice={payment.purchasePrice}
+                  meeting={payment.meeting}
+                  handlePaymentDetailPopup={handlePaymentDetailPopup}
+                />
+              ))}
             </ul>
             <div className='notice_wrap'>
               <div className='notice'>
