@@ -15,3 +15,16 @@ export function getDummyMeetingList() {
   }
   return meetings;
 }
+
+export function getDummyPaymentList() {
+  const payments = [];
+  for (let i = 0; i < 7; i++) {
+    payments.push({
+      orderNumber: `20020725P074416${i}`,
+      orderDate: new Date(),
+      purchasePrice: 70000,
+      meeting: getDummyMeetingList()[i],
+    });
+  }
+  return payments;
+}

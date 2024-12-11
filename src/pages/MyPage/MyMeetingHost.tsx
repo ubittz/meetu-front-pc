@@ -22,7 +22,7 @@ function MyMeetingHost() {
   const handleShowInfoPopup = () => {
     setIsShowInfoPopup(!isShowInfoPopup);
   };
-  // dummy items
+  // TODO: - dummy items 교체
   const meetings = getDummyMeetingList();
 
   return (
