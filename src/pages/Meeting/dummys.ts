@@ -1,6 +1,22 @@
 import images from '@@assets/images';
 
-import { Qna, Review } from './types';
+import { Meeting, Qna, Review } from './types';
+
+function getDummyMeetingList(): Meeting[] {
+  return [
+    { id: 1, title: '모임 제목 1', location: 'SEOUL', price: 10000, description: '모임 내용 1', isHot: true, type: 'art' },
+    { id: 2, title: '모임 제목 2', location: 'BUSAN', price: 20000, description: '모임 내용 2', isHot: false, type: 'reading' },
+    { id: 3, title: '모임 제목 3', location: 'DAEGU', price: 30000, description: '모임 내용 3', isHot: true, type: 'cooking' },
+    { id: 4, title: '모임 제목 4', location: 'DAEGU', price: 30000, description: '모임 내용 4', isHot: false, type: 'cycling' },
+    { id: 5, title: '모임 제목 5', location: 'SEOUL', price: 30000, description: '모임 내용 5', isHot: true, type: 'exercise' },
+    { id: 6, title: '모임 제목 6', location: 'DAEGU', price: 30000, description: '모임 내용 6', isHot: false, type: 'hiking' },
+    { id: 7, title: '모임 제목 7', location: 'SEOUL', price: 30000, description: '모임 내용 7', isHot: true, type: 'music' },
+    { id: 8, title: '모임 제목 8', location: 'DAEGU', price: 30000, description: '모임 내용 8', isHot: false, type: 'photography' },
+    { id: 9, title: '모임 제목 9', location: 'SEOUL', price: 30000, description: '모임 내용 9', isHot: true, type: 'technology' },
+    { id: 10, title: '모임 제목 10', location: 'BUSAN', price: 30000, description: '모임 내용 10', isHot: false, type: 'wine' },
+    { id: 11, title: '모임 제목 11', location: 'DAEGU', price: 30000, description: '모임 내용 11', isHot: true, type: 'art' },
+  ];
+}
 
 function getDummyReviewList(): Review[] {
   return [
@@ -46,4 +62,4 @@ function getDummyQnaList(): Qna[] {
   ];
 }
 
-export { getDummyReviewList, getDummyQnaList };
+export { getDummyReviewList, getDummyQnaList, getDummyMeetingList };
