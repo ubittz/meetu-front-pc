@@ -6,4 +6,7 @@ export interface Meeting {
   imageUrl: string;
   location: string;
   isHot?: boolean;
+  type: MeetingType;
 }
+
+export type MeetingType = 'art' | 'reading' | 'cooking' | 'cycling' | 'exercise' | 'hiking' | 'music' | 'photography' | 'technology' | 'wine';
