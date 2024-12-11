@@ -11,7 +11,6 @@ function ReviewListItem({ review }: ReviewListItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
-    console.log('toggleOpen');
     setIsOpen(!isOpen);
   };
 
@@ -21,7 +20,7 @@ function ReviewListItem({ review }: ReviewListItemProps) {
         <img src={images.good_img02} alt='상품 이미지1' />
       </div>
       <div className='txt_area'>
-        <h4 className='tit'>{review.title}</h4>
+        <h4 className='tit'>{review.meetingTitle}</h4>
         <div className='star_wrap'>
           <strong>{review.rating}</strong>
           <div className='star_area'>

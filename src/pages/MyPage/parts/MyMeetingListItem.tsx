@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
-import { Meeting, UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { Meeting } from '@@types/meeting';
+import { UserType } from '@@types/user';
 
 interface MyMeetingListItemProps {
   type?: UserType;
@@ -14,7 +15,7 @@ function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
   return (
     <li>
       <div className='img_area'>
-        <img src={meeting.image || images.good_img01} alt={`상품 이미지${meeting.id}`} />
+        <img src={meeting.imageUrl || images.good_img01} alt={`상품 이미지${meeting.id}`} />
       </div>
       <div className='txt_area'>
         <div className='sort'>

@@ -8,9 +8,9 @@ import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MeetingListItem from '@@pages/MyPage/parts/MeetingListItem';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
-import { UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { UserType } from '@@types/user';
 
 import { getDummyMeetingList } from './dummy';
 

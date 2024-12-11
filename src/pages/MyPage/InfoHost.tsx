@@ -6,11 +6,11 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import MyMeetingListItem from '@@pages/MyPage/parts/MyMeetingListItem';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 import { getDummyMeetingList } from './dummy';
-import MyMeetingListItem from './parts/MyMeetingListItem';
 
 function InfoHost() {
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);

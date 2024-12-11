@@ -1,7 +1,8 @@
 import images from '@@assets/images';
+import { UserType } from '@@types/user';
 
 interface InfoPopupProps {
-  type: 'host' | 'user';
+  type: UserType;
 }
 
 function InfoPopup({ type }: InfoPopupProps) {

@@ -1,4 +1,4 @@
-import { Meeting } from '@@pages/MyPage/types';
+import { Meeting } from '@@types/meeting';
 
 interface PaymentListItemProps {
   orderNumber: string;
@@ -9,7 +9,7 @@ interface PaymentListItemProps {
   handlePaymentDetailPopup: () => void;
 }
 
-const PaymentListItem: React.FC<PaymentListItemProps> = ({ orderNumber, orderDate, purchasePrice, meeting, handlePaymentDetailPopup }) => {
+const PaymentListItem = ({ orderNumber, orderDate, purchasePrice, meeting, handlePaymentDetailPopup }: PaymentListItemProps) => {
   return (
     <li>
       <div className='tb_info'>

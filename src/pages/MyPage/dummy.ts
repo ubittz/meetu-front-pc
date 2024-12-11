@@ -1,5 +1,6 @@
 import images from '@@assets/images';
-import { Meeting } from '@@pages/MyPage/types';
+import { ReviewItem } from '@@pages/MyPage/types';
+import { Meeting } from '@@types/meeting';
 
 export function getDummyMeetingList() {
   const meetings: Meeting[] = [];
@@ -13,6 +14,8 @@ export function getDummyMeetingList() {
       location: 'seoul',
       isHot: i % 2 === 0, // 짝수 인덱스에만 isHot 설정
       status: i % 2 === 0 ? 'upcoming' : 'confirmed',
+      createdAt: new Date(),
+      type: i % 2 === 0 ? 'wine' : 'reading',
     });
   }
   return meetings;
@@ -29,4 +32,23 @@ export function getDummyPaymentList() {
     });
   }
   return payments;
+}
+
+export function getDummyReviewList() {
+  const reviews: ReviewItem[] = [];
+
+  for (let i = 0; i < 7; i++) {
+    reviews.push({
+      id: i,
+      meetingTitle: '모임명입니다.',
+      rating: 5,
+      content: '리뷰 내용입니다.',
+      createdAt: '2024. 09. 20',
+      user: {
+        id: i,
+        nickname: 'kimj12345',
+      },
+    });
+  }
+  return reviews;
 }

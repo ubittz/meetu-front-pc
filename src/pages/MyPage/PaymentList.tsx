@@ -7,7 +7,7 @@ import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
 import PaymentListItem from '@@pages/MyPage/parts/PaymentListItem';
-import { UserType } from '@@pages/MyPage/types';
+import { UserType } from '@@types/user';
 
 function PaymentList() {
   const type: UserType = 'user';

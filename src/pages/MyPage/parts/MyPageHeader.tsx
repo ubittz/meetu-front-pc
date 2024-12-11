@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { UserType } from '@@types/user';
 
 interface MyPageHeaderProps {
   type: UserType;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -7,11 +7,19 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import ReviewListItem from '@@pages/MyPage/parts/ReviewListItem';
+import { ReviewItem } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { getDummyReviewList } from './dummy';
+
 function InfoHostReview() {
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
+
+  useEffect(() => {
+    setReviews(getDummyReviewList());
+  }, []);
 
   const handleOpenInfoPopup = () => {
     setIsShowInfoPopup(true);
@@ -83,100 +91,9 @@ function InfoHostReview() {
 
             <div className='list_wrap type_my02'>
               <ul>
-                <ReviewListItem
-                  review={{
-                    id: 1,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content: '리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 2,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content: '리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 3,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content: '리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 4,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content: '리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 5,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content:
-                      '리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 6,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content:
-                      '리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
-                <ReviewListItem
-                  review={{
-                    id: 7,
-                    title: '모임명입니다.',
-                    rating: 5,
-                    content:
-                      '리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.리뷰 내용입니다.',
-                    createdAt: '2024. 09. 20',
-                    user: {
-                      id: 1,
-                      nickname: 'kimj12345',
-                    },
-                  }}
-                />
+                {reviews.map((review) => (
+                  <ReviewListItem key={review.id} review={review} />
+                ))}
               </ul>
             </div>
           </div>

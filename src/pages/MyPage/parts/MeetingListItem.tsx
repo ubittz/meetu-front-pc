@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
-import { Meeting } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { Meeting } from '@@types/meeting';
 
 interface MeetingListItemProps {
   meeting: Meeting;

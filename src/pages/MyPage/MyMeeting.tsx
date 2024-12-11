@@ -8,11 +8,10 @@ import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyMeetingListItem from '@@pages/MyPage/parts/MyMeetingListItem';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
-import { UserType } from '@@pages/MyPage/types';
-import { Meeting } from '@@pages/MyPage/types';
-import { MeetingStatus } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { Meeting, MeetingStatus } from '@@types/meeting';
+import { UserType } from '@@types/user';
 
 import { getDummyMeetingList } from './dummy';
 
