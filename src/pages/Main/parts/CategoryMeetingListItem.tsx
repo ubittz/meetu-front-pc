@@ -1,6 +1,5 @@
 import images from '@@assets/images';
-
-import { Meeting } from '../types';
+import { Meeting } from '@@types/meeting';
 
 interface CategoryMeetingListItemProps {
   meeting: Meeting;

@@ -7,10 +7,9 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import CategoryMeetingListItem from '@@pages/Main/parts/CategoryMeetingListItem';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
-import { Meeting } from '@@pages/Main/types';
-import { MeetingType } from '@@pages/Meeting/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { Meeting, MeetingType } from '@@types/meeting';
 
 import getDummyMeetingList from './dummys';
 

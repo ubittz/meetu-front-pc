@@ -1,6 +1,5 @@
 import images from '@@assets/images';
-
-import { Meeting } from './types';
+import { Meeting } from '@@types/meeting';
 
 function getDummyMeetingList() {
   const meetings: Meeting[] = [];
@@ -16,6 +15,8 @@ function getDummyMeetingList() {
       location: 'seoul',
       isHot: i % 2 === 0, // 짝수 인덱스에만 isHot 설정
       type: i % 2 === 0 ? 'wine' : 'art',
+      status: 'upcoming',
+      createdAt: new Date(),
     });
   }
   return meetings;
