@@ -8,7 +8,19 @@ import Header from '@@components/Header';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { getDummyReviewList } from './dummys';
+import ReviewList from './parts/ReviewList';
+
 function MeetingDetail() {
+  // TODO: - dummy data 교체
+  const reviews = getDummyReviewList();
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
+  const totalPages = 7; // 총 페이지 수 (예시로 설정)
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page); // 페이지 변경 핸들러
+  };
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
@@ -82,152 +94,7 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 리뷰 --> */}
-              <div className='mv_detail'>
-                <div className='detail_top'>
-                  <h4>
-                    Meet new people 리뷰 <em>(9)</em>
-                  </h4>
-                  <div className='star_area'>
-                    <span className='star' style={{ width: '100%' }}></span>
-                  </div>
-                </div>
-                <div className='detail_list'>
-                  <ul>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>4.5</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '90%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>3.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '60%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img01} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img02} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className='list_top'>
-                        <div className='star_wrap'>
-                          <strong>5.0</strong>
-                          <div className='star_area'>
-                            <span className='star' style={{ width: '100%' }}></span>
-                          </div>
-                        </div>
-                        <p className='name'>kimj****</p>
-                        <p className='date'>2024. 09. 20</p>
-                      </div>
-                      <div className='list_content'>
-                        <p>
-                          # 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#{' '}
-                          <br />
-                          리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용# 리뷰내용#
-                        </p>
-                        <div className='img_area'>
-                          <img src={images.meeting_img03} alt='리뷰 이미지' />
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className='paging'>
-                    <Link to='jascript: void(0);' className='btn on'>
-                      1
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      2
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      3
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      4
-                    </Link>
-                    <Link to='jascript: void(0);' className='btn'>
-                      5
-                    </Link>
-                    <span>...</span>
-                    <Link to='jascript: void(0);' className='btn'>
-                      7
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
+              <ReviewList reviews={reviews} currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
               {/* <!-- 문의 --> */}
               <div className='mv_detail'>
                 <div className='detail_top'>
