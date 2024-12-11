@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
-import { MeetingItem, UserType } from '@@pages/MyPage/types';
+import { Meeting, UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 interface MyMeetingListItemProps {
   type?: UserType;
-  meeting: MeetingItem;
+  meeting: Meeting;
 }
 
 function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {

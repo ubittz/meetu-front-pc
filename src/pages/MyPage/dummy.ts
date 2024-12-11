@@ -1,7 +1,8 @@
 import images from '@@assets/images';
+import { Meeting } from '@@pages/MyPage/types';
 
 export function getDummyMeetingList() {
-  const meetings = [];
+  const meetings: Meeting[] = [];
   for (let i = 0; i < 7; i++) {
     meetings.push({
       id: i,
@@ -11,6 +12,7 @@ export function getDummyMeetingList() {
       imageUrl: images.good_img01,
       location: 'seoul',
       isHot: i % 2 === 0, // 짝수 인덱스에만 isHot 설정
+      status: i % 2 === 0 ? 'upcoming' : 'confirmed',
     });
   }
   return meetings;

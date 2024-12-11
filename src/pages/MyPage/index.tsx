@@ -39,7 +39,7 @@ function MyPage() {
             {/* <!-- 최근 본 모임 --> */}
             <h3 className='main_tit'>
               최근 본 모임
-              <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/' + type} className='btn'>
+              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/${type}`} className='btn'>
                 더 보기
               </Link>
             </h3>
@@ -62,7 +62,7 @@ function MyPage() {
             {/* <!-- 내 모임 --> */}
             <h3 className='main_tit'>
               내 모임
-              <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/host'} className='btn'>
+              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/`} className='btn'>
                 더 보기
               </Link>
             </h3>

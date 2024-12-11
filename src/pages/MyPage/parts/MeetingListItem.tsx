@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
-import { MeetingItem } from '@@pages/MyPage/types';
+import { Meeting } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 interface MeetingListItemProps {
-  meeting: MeetingItem;
+  meeting: Meeting;
 }
 
 function MeetingListItem({ meeting }: MeetingListItemProps) {
