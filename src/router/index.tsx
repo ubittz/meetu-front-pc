@@ -17,7 +17,7 @@ import InfoHost from '@@pages/MyPage/InfoHost';
 import InfoHostReview from '@@pages/MyPage/InfoHostReview';
 import InfoUser from '@@pages/MyPage/InfoUser';
 import MyMeeting from '@@pages/MyPage/MyMeeting';
-import PaymentList from '@@pages/MyPage/PaymentList';
+import OrderList from '@@pages/MyPage/OrderList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
@@ -54,7 +54,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MYPAGE) + '/edit'} element={<EditMyInfo />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host'} element={<ApplyHost />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host/write'} element={<ApplyHostWrite />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/payment-list'} element={<PaymentList />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/order'} element={<OrderList />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
       {/* :type에 host 혹은 user가 들어감 */}
