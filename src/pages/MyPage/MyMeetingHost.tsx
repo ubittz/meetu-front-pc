@@ -12,6 +12,8 @@ import { UserType } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { getDummyMeetingList } from './dummy';
+
 function MyMeetingHost() {
   const type: UserType = 'host';
 
@@ -20,6 +22,8 @@ function MyMeetingHost() {
   const handleShowInfoPopup = () => {
     setIsShowInfoPopup(!isShowInfoPopup);
   };
+  // dummy items
+  const meetings = getDummyMeetingList();
 
   return (
     <div id='wrap'>
@@ -58,93 +62,9 @@ function MyMeetingHost() {
 
             <div className='list_wrap type_my'>
               <ul>
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 1,
-                    title: '와인과 사람, 무제한 와인 파티',
-                    location: 'SEOUL',
-                    price: 70000,
-                    description:
-                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 2,
-                    title: '리듬 속에 빠져들다, 음악 즉흥연주 모임',
-                    location: 'BUSAN',
-                    price: 35000,
-                    description:
-                      '다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 3,
-                    title: '빛으로 담는 순간, 포토그래피 클래스',
-                    location: 'CHUNCHEON',
-                    price: 45000,
-                    description: '사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 4,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 5,
-                    title: '와인과 사람, 무제한 와인 파티',
-                    location: 'SEOUL',
-                    price: 70000,
-                    description:
-                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 6,
-                    title: '와인과 사람, 무제한 와인 파티',
-                    location: 'SEOUL',
-                    price: 70000,
-                    description:
-                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 7,
-                    title: '와인과 사람, 무제한 와인 파티',
-                    location: 'SEOUL',
-                    price: 70000,
-                    description:
-                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  type={type}
-                  meeting={{
-                    id: 8,
-                    title: '와인과 사람, 무제한 와인 파티',
-                    location: 'SEOUL',
-                    price: 70000,
-                    description:
-                      '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-                  }}
-                />
+                {meetings.map((meeting) => (
+                  <MyMeetingListItem key={meeting.id} meeting={meeting} />
+                ))}
               </ul>
             </div>
           </div>

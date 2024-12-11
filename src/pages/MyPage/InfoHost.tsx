@@ -9,6 +9,7 @@ import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { getDummyMeetingList } from './dummy';
 import MyMeetingListItem from './parts/MyMeetingListItem';
 
 function InfoHost() {
@@ -17,6 +18,9 @@ function InfoHost() {
   const handleOpenHostInfoPopup = () => {
     setIsShowInfoPopup(true);
   };
+
+  // TODO: - dummy items 교체
+  const meetings = getDummyMeetingList();
 
   return (
     <div id='wrap'>
@@ -83,85 +87,9 @@ function InfoHost() {
 
             <div className='list_wrap type_my'>
               <ul>
-                <MyMeetingListItem
-                  meeting={{
-                    id: 1,
-                    title: '리듬 속에 빠져들다, 음악 즉흥연주 모임',
-                    location: 'BUSAN',
-                    price: 35000,
-                    description:
-                      '다양한 악기와 함께 즉흥적으로 연주하며 음악을 나누는 즐거움. 초보자부터 전문가까지 모두 함께 연주를 즐길 수 있습니다.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 2,
-                    title: '빛으로 담는 순간, 포토그래피 클래스',
-                    location: 'CHUNCHEON',
-                    price: 45000,
-                    description: '사진 찍는 법을 배우고, 함께 촬영하면서 포토그래피에 대한 이해도를 높여보세요. 이론과 실습이 함께 진행됩니다.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 3,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 4,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 5,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 6,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 7,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
-                <MyMeetingListItem
-                  meeting={{
-                    id: 8,
-                    title: '미식가들의 쿠킹 클래스',
-                    location: 'SEOUL',
-                    price: 50000,
-                    description:
-                      '새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요.',
-                  }}
-                />
+                {meetings.map((meeting) => (
+                  <MyMeetingListItem key={meeting.id} meeting={meeting} />
+                ))}
               </ul>
             </div>
           </div>
