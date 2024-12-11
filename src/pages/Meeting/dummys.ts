@@ -1,6 +1,6 @@
 import images from '@@assets/images';
 
-import { Review } from './types';
+import { Qna, Review } from './types';
 
 function getDummyReviewList(): Review[] {
   return [
@@ -12,4 +12,38 @@ function getDummyReviewList(): Review[] {
   ];
 }
 
-export { getDummyReviewList };
+function getDummyQnaList(): Qna[] {
+  return [
+    {
+      answer: '답변 완료 내용입니다.1',
+      date: new Date(),
+      question: {
+        isLocked: true,
+        title: '문의사항 입니다 1',
+        content: '질문 내용입니다.1',
+      },
+      questionerId: 'kimj1234',
+    },
+    {
+      date: new Date(),
+      question: {
+        isLocked: false,
+        title: '문의사항 입니다 2',
+        content: '질문 내용입니다.2',
+      },
+      questionerId: 'kimj1234',
+    },
+    {
+      answer: '답변 완료 내용입니다.3',
+      date: new Date(),
+      question: {
+        isLocked: false,
+        title: '문의사항 입니다 3',
+        content: '질문 내용입니다.3',
+      },
+      questionerId: 'kimj1234',
+    },
+  ];
+}
+
+export { getDummyReviewList, getDummyQnaList };
