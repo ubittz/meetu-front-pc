@@ -4,7 +4,7 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import { getDummyMeetingList } from '@@pages/Meeting/dummys';
 import MeetingGrid from '@@pages/Meeting/parts/MeetingGrid';
-import { Meeting, MeetingType } from '@@pages/Meeting/types';
+import { Meeting, MeetingType } from '@@types/meeting';
 
 function MeetingList() {
   const meetings: Meeting[] = getDummyMeetingList();

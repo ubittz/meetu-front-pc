@@ -1,16 +1,3 @@
-type MeetingType = 'art' | 'reading' | 'cooking' | 'cycling' | 'exercise' | 'hiking' | 'music' | 'photography' | 'technology' | 'wine';
-
-interface Meeting {
-  id: number;
-  image?: string;
-  title: string;
-  location: string;
-  price: number;
-  description: string;
-  isHot?: boolean;
-  type: MeetingType;
-}
-
 interface Review {
   rating: number;
   name: string;
@@ -33,4 +20,4 @@ interface Question {
   content?: string;
 }
 
-export type { MeetingType, Meeting, Qna, Review };
+export type { Qna, Review };

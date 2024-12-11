@@ -1,4 +1,4 @@
-import { Qna } from '../types';
+import { Qna } from '@@pages/Meeting/types';
 
 interface QnaListItemProps {
   qna: Qna;
