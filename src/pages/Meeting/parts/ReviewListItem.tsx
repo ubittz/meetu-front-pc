@@ -25,7 +25,7 @@ const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
           {review.content}
         </p>
         <div className='img_area'>
-          <img src={review.img} alt='리뷰 이미지' />
+          <img src={review.image} alt='리뷰 이미지' />
         </div>
       </div>
     </li>

@@ -1,9 +1,9 @@
 interface Review {
-  rating: number;
+  rating: number; // 별점(평점)
   name: string;
   date: string;
-  content: string;
-  img: string;
+  content: string; // 리뷰 내용
+  image: string;
 }
 
 interface Qna {
@@ -15,9 +15,9 @@ interface Qna {
 }
 
 interface Question {
-  isLocked: boolean;
+  isLocked: boolean; // 비밀글 여부
   title: string;
-  content?: string;
+  content?: string; // 질문 내용
 }
 
 export type { Qna, Review };
