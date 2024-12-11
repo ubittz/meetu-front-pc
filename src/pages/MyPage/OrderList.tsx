@@ -2,27 +2,27 @@ import { useState } from 'react';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import { getDummyPaymentList } from '@@pages/MyPage/dummy';
+import { getDummyOrderList } from '@@pages/MyPage/dummy';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
-import PaymentDetailPopup from '@@pages/MyPage/parts/PaymentDetailPopup';
-import PaymentListItem from '@@pages/MyPage/parts/PaymentListItem';
+import OrderDetailPopup from '@@pages/MyPage/parts/OrderDetailPopup';
+import OrderListItem from '@@pages/MyPage/parts/OrderListItem';
 import { UserType } from '@@types/user';
 
-function PaymentList() {
+function OrderList() {
   const type: UserType = 'user';
   // TODO: - dummy items 교체
-  const dummyPaymentList = getDummyPaymentList();
+  const dummyOrderList = getDummyOrderList();
 
   const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
-  const [isPaymentDetailOpen, setIsPaymentDetailOpen] = useState(false);
+  const [isOrderDetailOpen, setIsOrderDetailOpen] = useState(false);
 
   const handleShowInfoPopup = () => {
     setIsShowInfoOpen(!isShowInfoPopup);
   };
 
-  const handlePaymentDetailPopup = () => {
-    setIsPaymentDetailOpen(!isPaymentDetailOpen);
+  const handleOrderDetailPopup = () => {
+    setIsOrderDetailOpen(!isOrderDetailOpen);
   };
 
   return (
@@ -48,15 +48,8 @@ function PaymentList() {
                 <p className='tb_choice'>선택</p>
               </li>
               {/* <!-- 결제내역 테이블 리스트 --> */}
-              {dummyPaymentList.map((payment) => (
-                <PaymentListItem
-                  key={payment.orderNumber}
-                  orderNumber={payment.orderNumber}
-                  orderDate={payment.orderDate}
-                  purchasePrice={payment.purchasePrice}
-                  meeting={payment.meeting}
-                  handlePaymentDetailPopup={handlePaymentDetailPopup}
-                />
+              {dummyOrderList.map((order) => (
+                <OrderListItem key={order.orderNumber} orderItem={order} handleOrderDetailPopup={handleOrderDetailPopup} />
               ))}
             </ul>
             <div className='notice_wrap'>
@@ -79,11 +72,11 @@ function PaymentList() {
           </div>
         </section>
 
-        {isPaymentDetailOpen && <PaymentDetailPopup />}
+        {isOrderDetailOpen && <OrderDetailPopup orderItem={dummyOrderList[0]} />}
       </main>
       <Footer />
     </div>
   );
 }
 
-export default PaymentList;
+export default OrderList;
