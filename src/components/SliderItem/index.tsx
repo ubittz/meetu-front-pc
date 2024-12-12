@@ -7,11 +7,11 @@ import { COLORS } from '@@constants/colors';
 const StyledSliderItem = styled(Flex.Vertical)<{ $imageHeight: number }>`
   overflow: hidden;
   background-size: cover;
-  height:665px;
-  width: 340px;
+  height:71.2vh;
+  width:17.7vw;
 
   .slider_item__image {
-    height: 430px;
+    height: 55vh;
     border-radius: 16px;
     overflow: hidden;
 
