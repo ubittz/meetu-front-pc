@@ -14,7 +14,7 @@ interface Review {
 }
 
 // 결제 목록
-interface OrderItem {
+interface Order {
   orderNumber: string; // 고유값 (id 역할)
   orderDate: Date; // 결제 일자
   finalPrice: number; // 최종 결제 금액
@@ -59,4 +59,4 @@ interface OrderUserInfo {
   email: string;
 }
 
-export type { Review, OrderItem, PaymentMethod, OrderDetail };
+export type { Review, Order, PaymentMethod, OrderDetail };

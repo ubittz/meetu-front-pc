@@ -1,6 +1,6 @@
 import images from '@@assets/images';
 import { Review } from '@@pages/MyPage/types';
-import { OrderItem } from '@@pages/MyPage/types';
+import { Order } from '@@pages/MyPage/types';
 import { Meeting } from '@@types/meeting';
 
 export function getDummyMeetingList() {
@@ -23,7 +23,7 @@ export function getDummyMeetingList() {
 }
 
 export function getDummyOrderList() {
-  const payments: OrderItem[] = [];
+  const payments: Order[] = [];
   for (let i = 0; i < 7; i++) {
     payments.push({
       orderNumber: `20020725P074416${i}`,
