@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import images from '@@assets/images';
-import { ReviewItem } from '@@pages/MyPage/types';
+import { Review } from '@@pages/MyPage/types';
 
 interface ReviewListItemProps {
-  review: ReviewItem;
+  review: Review;
 }
 
 function ReviewListItem({ review }: ReviewListItemProps) {
