@@ -1,0 +1,64 @@
+import { useState } from 'react';
+
+import styled from 'styled-components';
+
+import images from '@@assets/images';
+import Flex from '@@components/Flex';
+import Slider from '@@components/Slider';
+import CategorySliderItems from '@@components/SliderItem/CategorySliderItems';
+import Typography from '@@components/Typography';
+import { Meeting } from '@@types/meeting';
+
+interface CategoryMeetingListItemProps {
+  meeting: Meeting[];
+}
+
+const StyledSliderItem = styled.div`
+  .container {
+    position: relative;
+    width: 100%; 
+    height: 740px;
+    overflow: hidden; 
+  }
+`;
+
+function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
+  const [index, setIndex] = useState<number>(0);
+
+  const sliderItems = meeting.map((meeting, idx) => (
+    <CategorySliderItems
+      key={meeting.id}
+      image={meeting.imageUrl ?? images.good_img02}
+      title={meeting.title}
+      price={`${meeting.price.toLocaleString()}원`}
+      showContent={true}
+      isActive={idx === index}
+    >
+      {idx === index && ( 
+        <div className="txt_area">
+          <Typography.MediumTitle>{meeting.title}</Typography.MediumTitle>
+          <p className="txt">{meeting.description}</p>
+          <Typography.LargeSubtitle>{meeting.price.toLocaleString()}원</Typography.LargeSubtitle>
+        </div>
+      )}
+    </CategorySliderItems>
+  ));
+
+  return (
+    <StyledSliderItem>
+      <Flex.Vertical className="container tw-pl-[200px]">
+        <Slider
+          items={sliderItems}
+          slidesToShow={4}
+          sliderProps={{
+            beforeChange: (current, next) => {
+              setIndex(next);
+            }
+          }} 
+        />
+      </Flex.Vertical>
+    </StyledSliderItem>
+  );
+}
+
+export default CategoryMeetingSwiperList;

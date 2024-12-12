@@ -1,5 +1,6 @@
 import images from '@@assets/images';
 import { ReviewItem } from '@@pages/MyPage/types';
+import { OrderItem } from '@@pages/MyPage/types';
 import { Meeting } from '@@types/meeting';
 
 export function getDummyMeetingList() {
@@ -21,14 +22,38 @@ export function getDummyMeetingList() {
   return meetings;
 }
 
-export function getDummyPaymentList() {
-  const payments = [];
+export function getDummyOrderList() {
+  const payments: OrderItem[] = [];
   for (let i = 0; i < 7; i++) {
     payments.push({
       orderNumber: `20020725P074416${i}`,
       orderDate: new Date(),
-      purchasePrice: 70000,
+      finalPrice: 70000,
       meeting: getDummyMeetingList()[i],
+      detail: {
+        originalPrice: 70000,
+        discountInfo: {
+          productDiscount: '10000',
+          couponDiscount: '2000',
+          pointsUsed: '1000',
+          pointsEarned: '1000',
+        },
+        paymentMethod: 'card',
+        cardDetail: {
+          cardCompany: '카카오',
+          cardType: '체크카드',
+          cardNumber: '1234-1234-1234-1234',
+          cardPaymentType: '일시불',
+          cardApprovalDate: new Date(),
+          cardApprovalNumber: '1234567890',
+        },
+        orderUserInfo: {
+          name: '김길동',
+          phone: '01012341234',
+          email: 'testname@gmail.com',
+          birth: '1990-01-01',
+        },
+      },
     });
   }
   return payments;
