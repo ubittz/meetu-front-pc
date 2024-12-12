@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,8 @@ function MeetingDetail() {
 
   const [currentReviewPage, setCurrentReviewPage] = useState(1); // 현재 페이지 상태 추가
   const [currentQnaPage, setCurrentQnaPage] = useState(1); // 현재 페이지 상태 추가
+  const [top, setTop] = useState(100); // 초기 top 값 설정
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const totalReviewPages = 7; // 총 review 페이지 수 (예시로 설정)
   const totalQnaPages = 7; // 총 qna 페이지 수 (예시로 설정)
@@ -31,17 +33,26 @@ function MeetingDetail() {
     setCurrentQnaPage(page); // 페이지 변경 핸들러
   };
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const openPopup = () => {
-    console.log('openPopup');
     setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    console.log('closePopup');
     setIsPopupOpen(false);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const newTop = scrollY > 100 ? window.scrollY : 100;
+      setTop(Math.min(newTop, 4200));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div id='wrap'>
@@ -110,7 +121,7 @@ function MeetingDetail() {
             </div>
 
             {/* <!-- 모임 신청 영역 --> */}
-            <div className='mv_app'>
+            <div className='mv_app' style={{ top }}>
               <h3 className='title'>미식가들의 쿠킹 클래스</h3>
               <div className='host_area'>
                 <div className='img_area'>
