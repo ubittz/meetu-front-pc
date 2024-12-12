@@ -52,8 +52,6 @@ function FindId() {
     resetCertify();
   };
 
-  const navigateTo = (path: string) => () => navigate(path);
-
   return (
     <body>
       <div id='wrap'>
@@ -120,8 +118,8 @@ function FindId() {
 
             <Popup
               visible={isPopupVisible}
-              onConfirm1={navigateTo(pathGenerator(PAGES.LOGIN) + '/find/password')}
-              onConfirm2={navigateTo(pathGenerator(PAGES.LOGIN))}
+              onConfirm1={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
+              onConfirm2={() => navigate(pathGenerator(PAGES.LOGIN))}
               confirmText1='비밀번호 찾기'
               confirmText2='로그인 하기'
               title='아이디 찾기'
