@@ -8,5 +8,6 @@ export type SliderItemProps = PropsWithChildren<{
   buttonColor?: string;
   showContent: boolean;
   price?: string;
-  onClickButton?: MouseEventHandler<HTMLDivElement>;}>;
+  onClickButton?: MouseEventHandler<HTMLDivElement>;
+}>;
 

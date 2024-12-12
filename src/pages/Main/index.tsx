@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import CategoryMeetingListItem from '@@pages/Main/parts/CategoryMeetingListItem';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting, MeetingType } from '@@types/meeting';
 
 import getDummyMeetingList from './dummys';
+import CategoryMeetingSwiperList from './parts/CategoryMeetingSwiperList';
 
 function Main() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<MeetingType | ''>('');
 
-  const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
+  // const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
 
   useEffect(() => {
     setMeetings(getDummyMeetingList());
@@ -96,28 +96,11 @@ function Main() {
               </Link>
             </div>
           </div>
-
-          <div className='main_ctg_tab'>
-            {/* 카테고리별 모임*/}
-            <div className='ctg_tab' id='tab0'>
-              <div className='swiper ctg-swiper'>
-                <div className='swiper-wrapper'>
-                  {filteredMeetings.map((meeting) => (
-                    <CategoryMeetingListItem key={meeting.id} meeting={meeting} />
-                  ))}
-                </div>
-                <div className='ctg_box'>
-                  <div className='progress-box'>
-                    <div className='swiper-pagination'></div>
-                  </div>
-                  <div className='swiper-button-prev'></div>
-                  <div className='swiper-button-next'></div>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
-        {/* 카테고리별 모임 종료 */}
+        <CategoryMeetingSwiperList
+            meeting={meetings}
+          />
+
 
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
