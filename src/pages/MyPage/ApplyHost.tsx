@@ -8,11 +8,12 @@ import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { UserType } from '@@types/user';
 
 import InfoPopup from './parts/InfoPopup';
 
 function ApplyHost() {
-  const type = 'host';
+  const type: UserType = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   const handleShowInfoPopup = () => {

@@ -5,16 +5,16 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting } from '@@types/meeting';
 
-interface MeetingListItemProps {
+interface MeetingGridItemProps {
   meeting: Meeting;
 }
 
-function MeetingListItem({ meeting }: MeetingListItemProps) {
+function MeetingGridItem({ meeting }: MeetingGridItemProps) {
   return (
-    <li className='swiper-slide'>
+    <li>
       <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.id}`} className='list_link'>
         <div className='img_area'>
-          <img src={images.meeting_img01} alt='상품 이미지1' />
+          <img src={meeting.imageUrl ?? images.meeting_img01} alt='상품 이미지1' />
         </div>
         <div className='txt_area'>
           <div className='sort'>
@@ -30,4 +30,4 @@ function MeetingListItem({ meeting }: MeetingListItemProps) {
   );
 }
 
-export default MeetingListItem;
+export default MeetingGridItem;

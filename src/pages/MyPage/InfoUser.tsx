@@ -6,9 +6,11 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import { UserType } from '@@types/user';
 
 function InfoUser() {
-  const type = 'user';
+  const type: UserType = 'user';
+
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   const handleOpenInfoPopup = () => {

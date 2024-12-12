@@ -1,27 +1,27 @@
+import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import CategoryMeetingListItem from '@@pages/Main/parts/CategoryMeetingListItem';
+import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { Meeting, MeetingType } from '@@types/meeting';
 
-import MeetingSwipeList from './parts/MeetingSwipeList';
+import getDummyMeetingList from './dummys';
+
 function Main() {
-  const meetings = [];
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<MeetingType | ''>('');
 
-  // dummy items
-  for (let i = 0; i < 7; i++) {
-    meetings.push({
-      id: i,
-      title: `와인과 사람, 무제한 와인 파티 ${i + 1}`,
-      description: '와인의 매력을 탐험하며 다양한 사람들과 교류할 수 있는 무제한 와인 파티. 편안한 분위기에서 와인과 이야기를 즐겨보세요.',
-      price: 70000,
-      imageUrl: images.good_img01,
-      location: 'seoul',
-      isHot: i % 2 === 0, // 짝수 인덱스에만 isHot 설정
-    });
-  }
+  const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
+
+  useEffect(() => {
+    setMeetings(getDummyMeetingList());
+  }, []);
 
   return (
     <div id='wrap'>
@@ -37,103 +37,74 @@ function Main() {
               <strong>카테고리</strong>별 모임<strong>.</strong>
             </h3>
             <div className='ctg_tab_btn'>
-              <button type='button' className='btn active'>
+              <button type='button' className={`btn ${selectedCategory === 'art' ? 'active' : ''}`} onClick={() => setSelectedCategory('art')}>
                 아트
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'reading' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('reading')}
+              >
                 독서
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'cooking' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('cooking')}
+              >
                 쿠킹
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'cycling' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('cycling')}
+              >
                 사이클
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'exercise' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('exercise')}
+              >
                 운동
               </button>
-              <button type='button' className='btn'>
+              <button type='button' className={`btn ${selectedCategory === 'hiking' ? 'active' : ''}`} onClick={() => setSelectedCategory('hiking')}>
                 등산
               </button>
-              <button type='button' className='btn'>
+              <button type='button' className={`btn ${selectedCategory === 'music' ? 'active' : ''}`} onClick={() => setSelectedCategory('music')}>
                 음악
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'photography' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('photography')}
+              >
                 사진
               </button>
-              <button type='button' className='btn'>
+              <button
+                type='button'
+                className={`btn ${selectedCategory === 'technology' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('technology')}
+              >
                 기술
               </button>
-              <button type='button' className='btn'>
+              <button type='button' className={`btn ${selectedCategory === 'wine' ? 'active' : ''}`} onClick={() => setSelectedCategory('wine')}>
                 와인
               </button>
-              <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
+              <Link to={pathGenerator(PAGES.MEETING)} className='btn' onClick={() => setSelectedCategory('')}>
                 모두보기
               </Link>
             </div>
           </div>
 
           <div className='main_ctg_tab'>
-            {/* 카테고리별 모임_아트 */}
+            {/* 카테고리별 모임*/}
             <div className='ctg_tab' id='tab0'>
               <div className='swiper ctg-swiper'>
                 <div className='swiper-wrapper'>
-                  <div className='swiper-slide'>
-                    <picture className='img_area'>
-                      <source srcSet={images.ctg_img01} media='screen and (min-width: 981px)' />
-                      <img src={images.ctg_img01} alt='창의력을 깨우는 아트 워크숍' />
-                    </picture>
-                    <div className='txt_area'>
-                      <h4 className='tit'>창의력을 깨우는 아트 워크숍</h4>
-                      <p className='txt'>
-                        <span>자유롭게 그림을 그리고, 서로의 작품을 공유하며 창의적인 에너지를 나누는 아트 워크숍.</span>
-                        <span>초보자도 환영입니다!</span>
-                      </p>
-                      <p className='price'>40,000원</p>
-                    </div>
-                  </div>
-                  <div className='swiper-slide'>
-                    <picture className='img_area'>
-                      <source srcSet={images.ctg_img02} media='screen and (min-width: 981px)' />
-                      <img src={images.ctg_img02} alt='창의력을 깨우는 아트 워크숍' />
-                    </picture>
-                    <div className='txt_area'>
-                      <h4 className='tit'>창의력을 깨우는 아트 워크숍</h4>
-                      <p className='txt'>
-                        <span>자유롭게 그림을 그리고, 서로의 작품을 공유하며 창의적인 에너지를 나누는 아트 워크숍.</span>
-                        <span>초보자도 환영입니다!</span>
-                      </p>
-                      <p className='price'>50,000원</p>
-                    </div>
-                  </div>
-                  <div className='swiper-slide'>
-                    <picture className='img_area'>
-                      <source srcSet={images.ctg_img03} media='screen and (min-width: 981px)' />
-                      <img src={images.ctg_img03} alt='창의력을 깨우는 아트 워크숍' />
-                    </picture>
-                    <div className='txt_area'>
-                      <h4 className='tit'>창의력을 깨우는 아트 워크숍</h4>
-                      <p className='txt'>
-                        <span>자유롭게 그림을 그리고, 서로의 작품을 공유하며 창의적인 에너지를 나누는 아트 워크숍.</span>
-                        <span>초보자도 환영입니다!</span>
-                      </p>
-                      <p className='price'>60,000원</p>
-                    </div>
-                  </div>
-                  <div className='swiper-slide'>
-                    <picture className='img_area'>
-                      <source srcSet={images.ctg_img04} media='screen and (min-width: 981px)' />
-                      <img src={images.ctg_img04} alt='창의력을 깨우는 아트 워크숍' />
-                    </picture>
-                    <div className='txt_area'>
-                      <h4 className='tit'>창의력을 깨우는 아트 워크숍</h4>
-                      <p className='txt'>
-                        <span>자유롭게 그림을 그리고, 서로의 작품을 공유하며 창의적인 에너지를 나누는 아트 워크숍.</span>
-                        <span>초보자도 환영입니다!</span>
-                      </p>
-                      <p className='price'>70,000원</p>
-                    </div>
-                  </div>
+                  {filteredMeetings.map((meeting) => (
+                    <CategoryMeetingListItem key={meeting.id} meeting={meeting} />
+                  ))}
                 </div>
                 <div className='ctg_box'>
                   <div className='progress-box'>
@@ -144,10 +115,6 @@ function Main() {
                 </div>
               </div>
             </div>
-
-            {/* 카테고리별 모임_독서 */}
-
-            {/* 카테고리별 모임_쿠킹 */}
           </div>
         </section>
         {/* 카테고리별 모임 종료 */}

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
-import { UserType } from '@@pages/MyPage/types';
+import { UserType } from '@@types/user';
 
 interface MyPageDashboardProps {
   // TODO: - 유저 정보 받아야함
