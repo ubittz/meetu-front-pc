@@ -8,6 +8,7 @@ import Header from '@@components/Header';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { formatTime } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
@@ -18,38 +19,45 @@ function FindId() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isPopupVisible, setPopupVisible] = useState(false);
-  const { formattedCertifyTime, isCertifySend, isCertifyError, isIdFindable, handleCertifySend, handleCertifyNumberChange, validateCertifyNumber } =
-    useCertify();
+  const [foundId, setFoundId] = useState('');
+
+  const {
+    isCertifySend,
+    isCertifyError,
+    certifyTime,
+    isCertifyFill,
+    handleCertifySend,
+    handleCertifyNumberChange,
+    validateCertifyNumber,
+    resetCertify,
+  } = useCertify();
+
+  const isFormValid = () => name.trim() !== '' && email.trim() !== '' && isCertifySend && isCertifyFill && !isCertifyError;
 
   const handleFindId = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!isIdFindable(name, email)) {
-      return;
-    }
-    // 인증번호 검증 결과에 따라 팝업 또는 에러 처리
-    const isValid = validateCertifyNumber('123456');
-    if (isValid) {
+
+    if (!isFormValid()) return;
+
+    const dummyFoundId = 'ho*******ng';
+
+    if (validateCertifyNumber('123456')) {
+      setFoundId(dummyFoundId);
       setPopupVisible(true);
     }
   };
 
-  const handleClosePopup = () => {
+  const handlePopupClose = () => {
     setPopupVisible(false);
+    resetCertify();
   };
 
-  const handleFindPasswordPage = () => {
-    navigate(pathGenerator(PAGES.LOGIN) + '/find/password');
-  };
-
-  const handleLoginPage = () => {
-    navigate(pathGenerator(PAGES.LOGIN));
-  };
+  const navigateTo = (path: string) => () => navigate(path);
 
   return (
     <body>
       <div id='wrap'>
         <Header />
-
         <main className='container'>
           <div className='member_inner'>
             <h2>계정 찾기</h2>
@@ -71,20 +79,12 @@ function FindId() {
                   <div className='input_wrap'>
                     <div className='input_area'>
                       <label htmlFor='member_name'>이름</label>
-                      <input
-                        type='text'
-                        name='member_name'
-                        id='member_name'
-                        placeholder='이름을 입력해주세요.'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
+                      <input type='text' id='member_name' placeholder='이름을 입력해주세요.' value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div className='input_area input_btn'>
                       <label htmlFor='member_mail'>이메일</label>
                       <input
                         type='text'
-                        name='member_mail'
                         id='member_mail'
                         placeholder='이메일 주소를 입력해주세요.'
                         value={email}
@@ -99,19 +99,18 @@ function FindId() {
                         <label htmlFor='member_num'>인증번호</label>
                         <input
                           type='text'
-                          name='member_num'
                           id='member_num'
                           maxLength={6}
                           placeholder='6자리 인증번호를 입력해주세요.'
                           onChange={handleCertifyNumberChange}
                         />
-                        {isCertifySend && !isCertifyError && <p className='certify'>{formattedCertifyTime}</p>}
+                        {!isCertifyError && <p className='certify'>{formatTime(certifyTime)}</p>}
                         {isCertifyError && <p className='txt_error'>인증번호가 일치하지 않습니다.</p>}
                       </div>
                     )}
                   </div>
                   <div className='btn_area'>
-                    <button type='submit' className={`btn ${isIdFindable(name, email) ? '' : 'disabled'}`} onClick={handleFindId}>
+                    <button type='submit' className={`btn ${isFormValid() ? '' : 'disabled'}`} onClick={handleFindId}>
                       확인
                     </button>
                   </div>
@@ -121,16 +120,16 @@ function FindId() {
 
             <Popup
               visible={isPopupVisible}
-              onConfirm1={handleFindPasswordPage}
-              onConfirm2={handleLoginPage}
+              onConfirm1={navigateTo(pathGenerator(PAGES.LOGIN) + '/find/password')}
+              onConfirm2={navigateTo(pathGenerator(PAGES.LOGIN))}
               confirmText1='비밀번호 찾기'
               confirmText2='로그인 하기'
               title='아이디 찾기'
-              onCancel={handleClosePopup}
+              onCancel={handlePopupClose}
             >
               <Flex.Horizontal gap={4}>
-                <Typography.SmallTitle>홍길동 회원님의 아이디는</Typography.SmallTitle>
-                <Typography.SmallTitle color={COLORS.MAIN}>ho*******ng</Typography.SmallTitle>
+                <Typography.SmallTitle>{name} 회원님의 아이디는</Typography.SmallTitle>
+                <Typography.SmallTitle color={COLORS.MAIN}>{foundId}</Typography.SmallTitle>
                 <Typography.SmallTitle>입니다.</Typography.SmallTitle>
               </Flex.Horizontal>
             </Popup>
