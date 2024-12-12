@@ -1,5 +1,5 @@
 import images from '@@assets/images';
-import { ReviewItem } from '@@pages/MyPage/types';
+import { Review } from '@@pages/MyPage/types';
 import { OrderItem } from '@@pages/MyPage/types';
 import { Meeting } from '@@types/meeting';
 
@@ -60,7 +60,7 @@ export function getDummyOrderList() {
 }
 
 export function getDummyReviewList() {
-  const reviews: ReviewItem[] = [];
+  const reviews: Review[] = [];
 
   for (let i = 0; i < 7; i++) {
     reviews.push({

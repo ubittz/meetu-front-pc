@@ -1,6 +1,6 @@
 import { Meeting } from '@@types/meeting';
 
-interface ReviewItem {
+interface Review {
   id: number;
   meetingTitle: string; // 모임으로 대체 필요 (모임명)
   rating: number;
@@ -59,4 +59,4 @@ interface OrderUserInfo {
   email: string;
 }
 
-export type { ReviewItem, OrderItem, PaymentMethod, OrderDetail };
+export type { Review, OrderItem, PaymentMethod, OrderDetail };
