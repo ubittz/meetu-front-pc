@@ -5,13 +5,12 @@ import { SliderItemProps } from '@@components/SliderItem/types';
 
 const StyledCategorySliderItems = styled(Flex.Vertical)<{ $isActive: boolean }>`
   background-size: cover;
-  width: 740px;
-
+  width: 40vw;
   ${({ $isActive }) =>
     !$isActive &&
     `
-    transform: scale(0.6) translateX(320px);
-    padding-right:70px;
+    transform: scale(0.6) translateX(19vw);
+    padding-right:5vw;
   `}
 
   ${({ $isActive }) =>

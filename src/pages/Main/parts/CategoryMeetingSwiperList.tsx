@@ -17,8 +17,9 @@ const StyledSliderItem = styled.div`
   .container {
     position: relative;
     width: 100%; 
-    height: 740px;
+    height: 800px;
     overflow: hidden; 
+    padding-left: 10vw;
   }
 `;
 
@@ -34,7 +35,7 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
       showContent={true}
       isActive={idx === index}
     >
-      {idx === index && ( 
+      {idx === index && (
         <div className="txt_area">
           <Typography.MediumTitle>{meeting.title}</Typography.MediumTitle>
           <p className="txt">{meeting.description}</p>
@@ -46,15 +47,15 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
 
   return (
     <StyledSliderItem>
-      <Flex.Vertical className="container tw-pl-[200px]">
+      <Flex.Vertical className="container">
         <Slider
           items={sliderItems}
           slidesToShow={4}
           sliderProps={{
             beforeChange: (current, next) => {
-              setIndex(next);
+              setIndex(next); 
             }
-          }} 
+          }}
         />
       </Flex.Vertical>
     </StyledSliderItem>

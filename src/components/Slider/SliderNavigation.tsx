@@ -7,7 +7,7 @@ const StyledSliderNavigation = styled.div`
   height: 3px; 
   background: ${COLORS.BORDER};
   position: relative;
-  margin-top: 20px;
+  margin-top: 40px;
   border-radius: 3px;
 `;
 
