@@ -15,14 +15,13 @@ import { getDummyMeetingList, getDummyMoodList } from './dummys';
 
 function Main() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
-  const [moods, setMoods] = useState<Mood[]>([]);
+  const [moods, setMoods] = useState<Mood[]>(getDummyMoodList().sort((a, b) => a.index - b.index));
   const [selectedCategory, setSelectedCategory] = useState<MeetingType | ''>('');
 
   const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
 
   useEffect(() => {
     setMeetings(getDummyMeetingList());
-    setMoods(getDummyMoodList().sort((a, b) => a.index - b.index));
   }, []);
 
   return (
