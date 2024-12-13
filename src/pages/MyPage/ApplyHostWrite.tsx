@@ -1,12 +1,26 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
+import { Link, useNavigate } from 'react-router-dom';
+
+import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import ResultPopup from '@@pages/MyPage/parts/ResultPopup';
+import Popup from '@@components/Popup';
+import Typography from '@@components/Typography';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function ApplyHostWrite() {
+  const navigate = useNavigate();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
   return (
     <div id='wrap'>
       <Header />
@@ -164,20 +178,28 @@ function ApplyHostWrite() {
                   <Link to={pathGenerator(PAGES.MYPAGE)} className='btn form02'>
                     취소
                   </Link>
-                  <button type='submit' className='btn'>
+                  <button type='submit' className='btn' onClick={openPopup}>
                     신청
                   </button>
                 </div>
               </div>
             </fieldset>
           </form>
-          {/* <!-- 호스트 등록 신청 정보입력 form 영역 종료 --> */}
-          {/* <!-- 호스트 등록 신청 결과 팝업 시작 --> */}
-          <ResultPopup title='호스트 등록 신청' message='호스트 등록 신청이 완료되었습니다.' />
-          {/* <!-- 호스트 등록 신청 결과 팝업 종료 --> */}
+          <Popup
+            visible={isPopupOpen}
+            onConfirm1={() => navigate(pathGenerator(PAGES.MAIN))}
+            onConfirm2={closePopup}
+            confirmText1='홈으로'
+            confirmText2='확인'
+            title='호스트 등록 신청'
+            onCancel={closePopup}
+          >
+            <Flex.Horizontal className='tw-justify-center'>
+              <Typography.SmallTitle>호스트 등록 신청이 완료되었습니다.</Typography.SmallTitle>
+            </Flex.Horizontal>
+          </Popup>{' '}
         </div>
       </main>
-      {/* <!-- //container 영역 종료 --> */}
       <Footer />
     </div>
   );
