@@ -27,11 +27,8 @@ const StyledSlick = styled(Slick)<{ gap: number }>`
       padding: 0 ${({ gap }) => gap / 2}px;
     }
   }
-
 `;
 
-function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...props }: SliderProps & { slidesToShow?: number }) {
-  const [index, setIndex] = useState<number>(0);  
 function Slider({
   items,
   gap = 0,
