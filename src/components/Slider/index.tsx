@@ -30,6 +30,8 @@ const StyledSlick = styled(Slick)<{ gap: number }>`
 
 `;
 
+function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...props }: SliderProps & { slidesToShow?: number }) {
+  const [index, setIndex] = useState<number>(0);  
 function Slider({
   items,
   gap = 0,
@@ -93,7 +95,7 @@ function Slider({
           nextArrow={showArrows ? <RightArrow /> : undefined}
           {...sliderProps}
           beforeChange={(currentIndex, nextIndex) => {
-            setIndex(nextIndex);
+            setIndex(nextIndex);  
             sliderProps?.beforeChange?.(currentIndex, nextIndex);
           }}
         >

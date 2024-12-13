@@ -13,6 +13,21 @@ interface StyledSliderItemProps {
 const StyledSliderItem = styled(Flex.Vertical)<StyledSliderItemProps>`
   overflow: hidden;
   background-size: cover;
+  height:71.2vh;
+  width:17.7vw;
+
+  .slider_item__image {
+    height: 55vh;
+    border-radius: 16px;
+    overflow: hidden;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
   height: ${({ $height }) => $height || '71.2vh'}; 
   width: ${({ $width }) => $width || '17.7vw'};   
   
@@ -33,6 +48,10 @@ const StyledSliderItem = styled(Flex.Vertical)<StyledSliderItemProps>`
   }
 `;
 
+function SliderItem({ image, imageHeight = 400, children, showContent = false, onClickButton }: SliderItemProps) {
+  return (
+    <StyledSliderItem $imageHeight={imageHeight}>
+      <Flex.Horizontal className='slider_item__image' onClick={onClickButton}>
 function SliderItem({
   image,
   imageHeight = 400,

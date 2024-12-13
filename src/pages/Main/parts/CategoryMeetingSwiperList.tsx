@@ -49,6 +49,12 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
     <StyledSliderItem>
       <Flex.Vertical className="container">
         <Slider
+          items={sliderItems}
+          slidesToShow={4}
+          sliderProps={{
+            beforeChange: (current, next) => {
+              setIndex(next); 
+            }
           showArrows={true}
           items={sliderItems}
           slidesToShow={4}
