@@ -16,7 +16,6 @@ import { UserType } from '@@types/user';
 
 import MyPageSwiper from './parts/MyPageSwiper';
 
-// TODO:- Slider 추가 및 적용 필요
 function MyPage() {
   const type: UserType = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
@@ -26,7 +25,6 @@ function MyPage() {
     setIsShowInfoPopup(!isShowInfoPopup);
   };
 
-  // TODO: - dummy items 교체
   useEffect(() => {
     setMeetings(getDummyMeetingList());
   }, []);
