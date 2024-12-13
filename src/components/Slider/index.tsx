@@ -13,14 +13,12 @@ const StyledSlider = styled.div<{ $currentIndex: number; $size?: number }>`
   flex-direction: column;
   gap: 16px;
 
-
   .slick-dots {
     display: none !important;
   }
 `;
 
 const StyledSlick = styled(Slick)<{ gap: number }>`
-  /* Slider Item에게 Gap을 주기 위한 속성들 */
   .slick-list {
     margin: 0 -${({ gap }) => gap / 2}px;
     .slick-slide > div {
@@ -30,7 +28,7 @@ const StyledSlick = styled(Slick)<{ gap: number }>`
 `;
 
 function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...props }: SliderProps & { slidesToShow?: number }) {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState<number>(0);  
 
   const dots = sliderProps?.dots ?? true;
 
@@ -38,7 +36,7 @@ function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...pr
     <StyledSlider $currentIndex={index} $size={itemSize} {...props}>
       <div className='slider__slick_wrap'>
         <StyledSlick
-          gap={gap ?? 0}
+          gap={gap}
           dots={false}
           infinite={false}
           arrows={false}
@@ -46,11 +44,15 @@ function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...pr
           slidesToScroll={1}
           {...sliderProps}
           beforeChange={(currentIndex, nextIndex) => {
-            setIndex(nextIndex);
+            setIndex(nextIndex);  
             sliderProps?.beforeChange?.(currentIndex, nextIndex);
           }}
         >
-          {items}
+          {items.map((item, itemIndex) => (
+            <div key={itemIndex} className={itemIndex === index ? 'active-slide' : ''}>
+              {item}
+            </div>
+          ))}
         </StyledSlick>
         {dots && <SliderNavigation currentIndex={index} length={items.length} />}
       </div>
