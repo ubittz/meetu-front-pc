@@ -55,6 +55,18 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
             beforeChange: (current, next) => {
               setIndex(next); 
             }
+          showArrows={true}
+          items={sliderItems}
+          slidesToShow={4}
+          arrowStyles={{
+            left: { top: '80vh', left: '73vw' },
+            right: { top: '80vh', right: '23.5vh' },
+          }}
+          sliderProps={{
+            beforeChange: (current, next) => {
+              setIndex(next); 
+            },
+            dots:true
           }}
         />
       </Flex.Vertical>

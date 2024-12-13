@@ -8,6 +8,12 @@ const StyledSliderNavigation = styled.div`
   background: ${COLORS.BORDER};
   position: relative;
   margin-top: 40px;
+
+  width: 78%;
+  height: 2px;
+  background: ${COLORS.BORDER};
+  position: relative;
+  margin-top:60px;
   border-radius: 3px;
 `;
 
@@ -21,6 +27,7 @@ const StyledActiveLine = styled.div<{ width: number }>`
 
 function SliderNavigation({ currentIndex, length }: { currentIndex: number; length: number }) {
   const initialProgress = (currentIndex === 0 ? 1 : currentIndex); 
+
   const progress = (initialProgress / (length - 1)) * 100;
 
   return (

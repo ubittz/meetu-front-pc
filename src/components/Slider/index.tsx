@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import SliderNavigation from '@@components/Slider/SliderNavigation';
 import { SliderProps } from '@@components/Slider/types';
 
+import { Left, Right } from './icons';
+
 const StyledSlider = styled.div<{ $currentIndex: number; $size?: number }>`
   display: flex;
   flex-direction: column;
@@ -25,12 +27,60 @@ const StyledSlick = styled(Slick)<{ gap: number }>`
       padding: 0 ${({ gap }) => gap / 2}px;
     }
   }
+
 `;
 
 function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...props }: SliderProps & { slidesToShow?: number }) {
   const [index, setIndex] = useState<number>(0);  
+function Slider({
+  items,
+  gap = 0,
+  itemSize,
+  sliderProps,
+  slidesToShow = 1,
+  showArrows = false,
+  arrowStyles,
+  ...props
+}: SliderProps & {
+  slidesToShow?: number;
+  showArrows?: boolean;
+  arrowStyles?: { left?: React.CSSProperties; right?: React.CSSProperties };
+}) {
+  const [index, setIndex] = useState<number>(0);
 
-  const dots = sliderProps?.dots ?? true;
+  const LeftArrow = ({ onClick }: { onClick?: () => void }) => (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        cursor: 'pointer',
+        background: 'transparent',
+        border: 'none',
+        ...arrowStyles?.left,
+      }}
+    >
+      <Left />
+    </div>
+  );
+
+  const RightArrow = ({ onClick }: { onClick?: () => void }) => (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        cursor: 'pointer',
+        background: 'transparent',
+        border: 'none',
+        ...arrowStyles?.right,
+      }}
+    >
+      <Right />
+    </div>
+  );
 
   return (
     <StyledSlider $currentIndex={index} $size={itemSize} {...props}>
@@ -39,9 +89,10 @@ function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...pr
           gap={gap}
           dots={false}
           infinite={false}
-          arrows={false}
           slidesToShow={slidesToShow}
           slidesToScroll={1}
+          prevArrow={showArrows ? <LeftArrow /> : undefined}
+          nextArrow={showArrows ? <RightArrow /> : undefined}
           {...sliderProps}
           beforeChange={(currentIndex, nextIndex) => {
             setIndex(nextIndex);  
@@ -54,7 +105,7 @@ function Slider({ items, gap = 0, itemSize, sliderProps, slidesToShow = 4, ...pr
             </div>
           ))}
         </StyledSlick>
-        {dots && <SliderNavigation currentIndex={index} length={items.length} />}
+        {sliderProps?.dots && <SliderNavigation currentIndex={index} length={items.length} />}
       </div>
     </StyledSlider>
   );

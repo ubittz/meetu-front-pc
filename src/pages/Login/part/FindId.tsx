@@ -8,35 +8,54 @@ import Header from '@@components/Header';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { formatTime } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
+import { useCertify } from '../hooks';
+
 function FindId() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isPopupVisible, setPopupVisible] = useState(false);
+  const [foundId, setFoundId] = useState('');
 
-  const handleOpenPopup = (e: React.MouseEvent) => {
-    e.preventDefault(); 
-    setPopupVisible(true);
+  const {
+    isCertifySend,
+    isCertifyError,
+    certifyTime,
+    isCertifyFill,
+    handleCertifySend,
+    handleCertifyNumberChange,
+    validateCertifyNumber,
+    resetCertify,
+  } = useCertify();
+
+  const isFormValid = () => name.trim() !== '' && email.trim() !== '' && isCertifySend && isCertifyFill && !isCertifyError;
+
+  const handleFindId = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!isFormValid()) return;
+
+    const dummyFoundId = 'ho*******ng';
+
+    if (validateCertifyNumber('123456')) {
+      setFoundId(dummyFoundId);
+      setPopupVisible(true);
+    }
   };
 
-  const handleClosePopup = () => {
+  const handlePopupClose = () => {
     setPopupVisible(false);
+    resetCertify();
   };
 
-  const handleConfirm1 = () => {
-    navigate(pathGenerator(PAGES.LOGIN) + '/find/password ')
-  };
-
-  const handleConfirm2  = () => {
-    navigate(pathGenerator(PAGES.LOGIN))
-  };
   return (
     <body>
       <div id='wrap'>
         <Header />
-
-        {/* <!-- container 영역 시작 --> */}
         <main className='container'>
           <div className='member_inner'>
             <h2>계정 찾기</h2>
@@ -50,36 +69,46 @@ function FindId() {
                 비밀번호 찾기
               </Link>
             </div>
-            {/* <!-- 계정찾기 정보입력 form 영역 시작 --> */}
-            <form action='#' method='post'>
+
+            <form method='post'>
               <fieldset>
                 <legend>계정찾기 정보입력 영역</legend>
                 <div className='join_wrap type_srch'>
                   <div className='input_wrap'>
                     <div className='input_area'>
                       <label htmlFor='member_name'>이름</label>
-                      <input type='text' name='member_name' id='member_name' placeholder='이름을 입력해주세요.' />
-                      <p className='txt_error'>이름을 입력해주세요.</p>
+                      <input type='text' id='member_name' placeholder='이름을 입력해주세요.' value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div className='input_area input_btn'>
                       <label htmlFor='member_mail'>이메일</label>
-                      <input type='text' name='member_mail' id='member_mail' placeholder='이메일 주소를 입력해주세요.' />
-                      <p className='txt_error'>가입 이메일 주소를 입력해주세요.</p>
-                      <button type='button' className='btn'>
+                      <input
+                        type='text'
+                        id='member_mail'
+                        placeholder='이메일 주소를 입력해주세요.'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <button type='button' className='btn' onClick={() => handleCertifySend(email)}>
                         인증번호 발송
                       </button>
                     </div>
-
-                    <div className='input_area'>
-                      <label htmlFor='member_num'>인증번호</label>
-                      <input type='text' name='member_num' id='member_num' placeholder='6자리 인증번호를 입력해주세요.' />
-                      <p className='certify'>05:59</p>
-                      <p className='txt_error'>인증번호가 일치하지 않습니다.</p>
-                    </div>
+                    {isCertifySend && (
+                      <div className='input_area'>
+                        <label htmlFor='member_num'>인증번호</label>
+                        <input
+                          type='text'
+                          id='member_num'
+                          maxLength={6}
+                          placeholder='6자리 인증번호를 입력해주세요.'
+                          onChange={handleCertifyNumberChange}
+                        />
+                        {!isCertifyError && <p className='certify'>{formatTime(certifyTime)}</p>}
+                        {isCertifyError && <p className='txt_error'>인증번호가 일치하지 않습니다.</p>}
+                      </div>
+                    )}
                   </div>
-
                   <div className='btn_area'>
-                    <button type='submit' className='btn' onClick={handleOpenPopup}>
+                    <button type='submit' className={`btn ${isFormValid() ? '' : 'disabled'}`} onClick={handleFindId}>
                       확인
                     </button>
                   </div>
@@ -88,20 +117,20 @@ function FindId() {
             </form>
 
             <Popup
-                    visible={isPopupVisible}
-                    onConfirm1={handleConfirm1}
-                    onConfirm2={handleConfirm2}
-                    confirmText1='비밀번호 찾기'
-                    confirmText2='로그인 하기'
-                    title='아이디 찾기'
-                    onCancel={handleClosePopup}
-                  >
-                    <Flex.Horizontal gap={4}>
-                      <Typography.SmallTitle>홍길동 회원님의 아이디는</Typography.SmallTitle>
-                      <Typography.SmallTitle color={COLORS.MAIN}>ho*******ng</Typography.SmallTitle>
-                      <Typography.SmallTitle>입니다.</Typography.SmallTitle>
-                    </Flex.Horizontal>
-                  </Popup>
+              visible={isPopupVisible}
+              onConfirm1={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
+              onConfirm2={() => navigate(pathGenerator(PAGES.LOGIN))}
+              confirmText1='비밀번호 찾기'
+              confirmText2='로그인 하기'
+              title='아이디 찾기'
+              onCancel={handlePopupClose}
+            >
+              <Flex.Horizontal gap={4}>
+                <Typography.SmallTitle>{name} 회원님의 아이디는</Typography.SmallTitle>
+                <Typography.SmallTitle color={COLORS.MAIN}>{foundId}</Typography.SmallTitle>
+                <Typography.SmallTitle>입니다.</Typography.SmallTitle>
+              </Flex.Horizontal>
+            </Popup>
           </div>
         </main>
         <Footer />
