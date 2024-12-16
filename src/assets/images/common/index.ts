@@ -3,6 +3,7 @@ import arrow_down02 from './arrow_down02.png';
 import arrow_down03 from './arrow_down03.png';
 import arrow_right from './arrow_right.png';
 import arrow_right02 from './arrow_right02.png';
+import arrow_right03 from './arrow_right03.png';
 import btn_close from './btn_close.png';
 import btn_next from './btn_next.png';
 import btn_prev from './btn_prev.png';
@@ -34,6 +35,7 @@ export default {
   arrow_down03,
   arrow_right,
   arrow_right02,
+  arrow_right03,
   btn_close,
   btn_next,
   btn_prev,
