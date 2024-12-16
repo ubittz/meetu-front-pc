@@ -7,7 +7,7 @@ import { COLORS } from '@@constants/colors';
 
 import { Cancel } from './icon';
 
-const StyledPopup = styled.div<{ $visible: boolean }>`
+const StyledPopup = styled.div<{ $visible: boolean; $width: string; $height: string }>`
   position: fixed;
   display: ${({ $visible }) => ($visible ? 'block' : 'none')};
   top: 0;
@@ -16,55 +16,58 @@ const StyledPopup = styled.div<{ $visible: boolean }>`
   width: 100vw;
   height: 100vh;
   z-index: 1000;
+  max-height: none;
+  overflow-y: auto;
 
- 
   .popup_box {
-    position: absolute;
+    position: relative;
     top: 55%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 50%;
-    height: 620px;
+    transform: translateX(-50%) translateY(-35%);
+    width: ${({ $width }) => $width};
+    height: ${({ $height }) => $height};
     padding: 80px 100px;
     background: ${COLORS.WHITE};
     box-sizing: border-box;
 
-    .body{
-     border:1px solid ${COLORS.BORDER};
-     width:87%;
-     margin-left:56px;
-     margin-top:60px;
+
+    .body {
+      width: 87%;
+      margin-left: 56px;
+      margin-top: 60px;
     }
 
     .popup_box__content {
-      padding:24px;
+      padding: 24px;
     }
 
-  .title {
-    width: 85%;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 8%;
-  }
+    .title {
+      width: 85%;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 8%;
+    }
 
-  .popup_img {
-    width:302px;  
-    height: 360px;  
-    object-fit: cover; 
-    object-position: center;  
+    .popup_img {
+      width: 302px;
+      height: 360px;
+      object-fit: cover;
+      object-position: center;
+    }
   }
 `;
 
-function UserPopup({ visible, title, children, img, onCancel }: PopupProps) {
+function UserPopup({ visible, title, children, img, onCancel, width = '50%', height = '620px' }: PopupProps) {
   return (
-    <StyledPopup $visible={visible}>
+    <StyledPopup $visible={visible} $width={width} $height={height}>
       <Flex.Vertical className='popup_box'>
         <Flex.Horizontal className='title'>
           <Typography.LargeTitle className='popup_title'>{title}</Typography.LargeTitle>
           <Cancel onClick={onCancel} />
         </Flex.Horizontal>
+
         <Flex.Horizontal alignItems='center' className='body'>
-          <img src={img} className='popup_img' />
+          {img && <img src={img} className='popup_img' />}
           <Typography.SmallTitle className='popup_box__content'>{children}</Typography.SmallTitle>
         </Flex.Horizontal>
       </Flex.Vertical>

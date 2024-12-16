@@ -73,7 +73,7 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
         </ul>
       </div>
       <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
-        <InfoPopup type={'host'}/>
+        <InfoPopup type={type}/>
       </UserPopup>
     </section>
   );

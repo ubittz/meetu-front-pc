@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import { getDummyMeetingList } from '@@pages/MyPage/dummy';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
@@ -35,7 +34,6 @@ function MyPage() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='info' />
         <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
-        {isShowInfoPopup && <InfoPopup type={type} />}
 
         <section className='mypage_content'>
           <div className='mc_inner'>
