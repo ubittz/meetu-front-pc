@@ -63,32 +63,35 @@ const StyledPopup = styled.div<{ $visible: boolean }>`
       gap: 16px;
     }
   }
-    .title{
-     width:85%;
-     align-items:center;
-     justify-content:space-between;
-     margin-left:8%;
-    }
+  .title {
+    width: 85%;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 8%;
+  }
 `;
 
-function Popup({ visible, title, confirmText1, confirmText2, children, onConfirm1,onConfirm2, onCancel }: PopupProps) {
+function Popup({ visible, title, confirmTextLeft, confirmTextRight, children, onConfirmLeft, onConfirmRight, onCancel }: PopupProps) {
   return (
     <StyledPopup $visible={visible}>
       <Flex.Vertical className='popup_box'>
         <Flex.Horizontal className='title'>
           <Typography.LargeTitle className='popup_title'>{title}</Typography.LargeTitle>
-          <Cancel onClick={onCancel}/>
+          <Cancel onClick={onCancel} />
         </Flex.Horizontal>
         <Flex.Vertical alignItems='center'>
           <Typography.SmallTitle className='popup_box__content'>{children}</Typography.SmallTitle>
           <Flex.Horizontal className='popup_box__buttons'>
-            <Button.Small className='popup_box__button1' type='button' onClick={onConfirm1}>
-              {confirmText1}
-            </Button.Small>
-
-            <Button.Small className='popup_box__button2' type='button' onClick={onConfirm2}>
-              {confirmText2}
-            </Button.Small>
+            {onConfirmLeft && (
+              <Button.Small className='popup_box__button1' type='button' onClick={onConfirmLeft}>
+                {confirmTextLeft}
+              </Button.Small>
+            )}
+            {onConfirmRight && (
+              <Button.Small className='popup_box__button2' type='button' onClick={onConfirmRight}>
+                {confirmTextRight}
+              </Button.Small>
+            )}
           </Flex.Horizontal>
         </Flex.Vertical>
       </Flex.Vertical>
