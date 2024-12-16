@@ -9,4 +9,6 @@ export type PopupProps = PropsWithChildren<{
     onConfirmLeft?: () => void;
     onConfirmRight?: () => void;
     onCancel: () => void;
+    width?:string;
+    height?:string;
 }>;

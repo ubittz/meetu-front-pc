@@ -1,125 +1,161 @@
+import styled from 'styled-components';
+
 import images from '@@assets/images';
+import Flex from '@@components/Flex';
+import Typography from '@@components/Typography';
+import { COLORS } from '@@constants/colors';
 import { Order } from '@@pages/MyPage/types';
 
-interface OrderDetailPopupProps {
+interface InfoPopupProps {
   order: Order;
 }
 
-function OrderDetailPopup({ order }: OrderDetailPopupProps) {
+const StyledLine = styled.hr`
+  border: 1px solid #212121;
+  margin-top: 12px;
+`;
+
+const LightLine = styled.hr`
+  border: 1px solid #ededed;
+  margin-top: 12px;
+`;
+
+const StyledOrder = styled.div`
+  .table {
+    border: 1px solid ${COLORS.GRAY_SCALE_050};
+  }
+`;
+
+function OrderDetailPopup({ order }: InfoPopupProps) {
   const paymethodName = order.detail?.paymentMethod === 'card' ? '카드' : order.detail?.paymentMethod === 'bank' ? '은행' : '간편결제';
 
   return (
-    <div className='popup_layer type_02'>
-      {/* <!-- 기본 숨김처리, 노출 시 style="display: block" 추가 --> */}
-      <div className='popup_bg'></div>
-      <div className='popup_inner'>
-        <h3 className='popup_tit'>결제 상세</h3>
-        <button className='btn close'>팝업 닫기</button>
-        <div className='payment_info'>
-          <p className='tit'>제품 정보</p>
-          <div className='info_top'>
-            <div className='img_area'>
-              <img src={order.meeting.imageUrl ?? images.meeting_img01} alt='호스트 이미지' />
-            </div>
-            <div className='info_area'>
-              <h4>{order.meeting.title}</h4>
-              <dl className='info'>
-                <dt>주문 번호</dt>
-                <dd>{order.orderNumber}</dd>
-                <dt>주문 일자</dt>
-                <dd>{order.orderDate.toLocaleDateString()}</dd>
-              </dl>
-            </div>
-          </div>
+    <StyledOrder>
+      <Flex.Vertical>
+        {/* 제품 정보 */}
+        <Typography.Caption>제품 정보</Typography.Caption>
 
-          <p className='tit'>결제 정보</p>
-          <ul className='list_table'>
-            {/* <!-- 결제 정보 테이블 헤더 --> */}
-            <li className='list_header'>
-              <p className='tb_price'>정상가</p>
-              <p className='tb_info'>부가내역</p>
-              <p className='tb_info'>결제수단</p>
-              <p className='tb_price02'>최종 결제 금액</p>
-            </li>
+        <Flex.Vertical className='tw-bg-[#F8F8F8] tw-p-8 tw-w-[1000px] tw-mt-5'>
+          <Flex.Horizontal gap={20}>
+            <img src={order.meeting.imageUrl ?? images.meeting_img01} className='tw-w-44 tw-h-[100px] tw-rounded-xl' alt='제품 이미지' />
+            <Flex.Vertical gap={43}>
+              <Typography.Caption>{order.meeting.title}</Typography.Caption>
+              <Flex.Horizontal gap={24}>
+                <Typography.MediumBody color={COLORS.BACKGROUND}>주문번호</Typography.MediumBody>
+                <Typography.SmallBody>{order.orderNumber}</Typography.SmallBody>
+                <Typography.MediumBody color={COLORS.BACKGROUND} className='tw-ml-5'>
+                  주문 일자
+                </Typography.MediumBody>
+                <Typography.SmallBody>{order.orderDate.toLocaleDateString()}</Typography.SmallBody>
+              </Flex.Horizontal>
+            </Flex.Vertical>
+          </Flex.Horizontal>
+        </Flex.Vertical>
 
-            {/* <!-- 결제 정보 테이블 리스트 --> */}
-            <li>
-              <p className='tb_price'>{order.detail?.originalPrice.toLocaleString()}원</p>
-              <div className='tb_info'>
-                <ul className='info_list'>
-                  <li>
-                    <p className='tit'>상품 할인 금액</p>
-                    <p className='txt'>{order.detail?.discountInfo.productDiscount ?? '0'}원</p>
-                  </li>
-                  <li>
-                    <p className='tit'>쿠폰 적용 할인 금액</p>
-                    <p className='txt'>{order.detail?.discountInfo.couponDiscount ?? '0'}원</p>
-                  </li>
-                  <li>
-                    <p className='tit'>포인트 사용</p>
-                    <p className='txt'>{order.detail?.discountInfo.pointsUsed ?? '0'}P</p>
-                  </li>
-                  <li>
-                    <p className='tit'>적립 포인트</p>
-                    <p className='txt'>{order.detail?.discountInfo.pointsEarned ?? '0'}P</p>
-                  </li>
-                </ul>
-              </div>
-              <div className='tb_info'>
-                <p className='txt01'>{paymethodName}</p>
-                <p className='txt02'>
-                  {order.detail?.cardDetail.cardNumber} / {order.detail?.cardDetail.cardInstallmentPeriod}
-                </p>
-              </div>
-              <p className='tb_price02'>{order.finalPrice.toLocaleString()}원</p>
-            </li>
-          </ul>
+        {/* 결제 정보 */}
+        <Typography.Caption className='tw-mt-16'>결제 정보</Typography.Caption>
+        <StyledLine />
+        <Flex.Horizontal className='tw-justify-between tw-p-1 tw-pt-5 tw-pl-10 tw-pr-10'>
+          <Typography.MediumBody>정상가</Typography.MediumBody>
+          <Typography.MediumBody>부가내역</Typography.MediumBody>
+          <Typography.MediumBody>결제수단</Typography.MediumBody>
+          <Typography.MediumBody>최종 결제 금액</Typography.MediumBody>
+        </Flex.Horizontal>
+        <LightLine />
 
-          <p className='tit'>주문자 정보</p>
-          <div className='list_table'>
-            <dl>
-              <dt>이름</dt>
-              <dd>{order.detail?.orderUserInfo.name}</dd>
-              <dt>생년월일</dt>
-              <dd>{order.detail?.orderUserInfo.birth}</dd>
-            </dl>
-            <dl>
-              <dt>연락처</dt>
-              <dd>{order.detail?.orderUserInfo.phone}</dd>
-              <dt>이메일</dt>
-              <dd>{order.detail?.orderUserInfo.email}</dd>
-            </dl>
-          </div>
+        <Flex.Horizontal gap={100} className='tw-p-8' justifyContent='center' alignItems='center'>
+          <Typography.LargeButton>{order.detail?.originalPrice.toLocaleString()}원</Typography.LargeButton>
 
-          <p className='tit'>결제 내역</p>
-          <div className='list_table'>
-            <dl>
-              <dt>결제 수단 </dt>
-              <dd>{paymethodName}</dd>
-              <dt>결제 수단 번호</dt>
-              <dd>
-                {order.detail?.cardDetail.cardCompany} + {order.detail?.cardDetail.cardType}
-              </dd>
-            </dl>
-            <dl>
-              <dt>승인일시</dt>
-              <dd>{order.detail?.cardDetail.cardApprovalDate.toLocaleDateString()}</dd>
-              <dt>결제금액</dt>
-              <dd>{order.finalPrice.toLocaleString()}원</dd>
-            </dl>
-            <dl className='long'>
-              <dt>승인번호</dt>
-              <dd>{order.detail?.cardDetail.cardApprovalNumber}</dd>
-            </dl>
-          </div>
-        </div>
-        <div className='btn_area type_03'>
-          <button type='button' className='btn'>
-            확인
-          </button>
-        </div>
-      </div>
-    </div>
+          <Flex.Vertical className='tw-w-[262px]' gap={12}>
+            <Flex.Horizontal className='tw-justify-between'>
+              <Typography.MediumBody color={COLORS.BACKGROUND}>상품 할인 금액</Typography.MediumBody>
+              <Typography.MediumBody>{order.detail?.discountInfo.productDiscount ?? '0'}원</Typography.MediumBody>
+            </Flex.Horizontal>
+            <Flex.Horizontal className='tw-justify-between'>
+              <Typography.MediumBody color={COLORS.BACKGROUND}>쿠폰 적용 할인 금액</Typography.MediumBody>
+              <Typography.MediumBody>{order.detail?.discountInfo.couponDiscount ?? '0'}원</Typography.MediumBody>
+            </Flex.Horizontal>
+            <Flex.Horizontal className='tw-justify-between'>
+              <Typography.MediumBody color={COLORS.BACKGROUND}>포인트 사용</Typography.MediumBody>
+              <Typography.MediumBody>{order.detail?.discountInfo.pointsUsed ?? '0'}P</Typography.MediumBody>
+            </Flex.Horizontal>
+            <Flex.Horizontal className='tw-justify-between'>
+              <Typography.MediumBody color={COLORS.BACKGROUND}>적립 포인트</Typography.MediumBody>
+              <Typography.MediumBody>{order.detail?.discountInfo.pointsEarned ?? '0'}P</Typography.MediumBody>
+            </Flex.Horizontal>
+          </Flex.Vertical>
+
+          <Flex.Vertical gap={8}>
+            <Typography.MediumBody>{paymethodName}</Typography.MediumBody>
+            <Typography.SmallBody>
+              {order.detail?.cardDetail.cardNumber} / {order.detail?.cardDetail.cardInstallmentPeriod}
+            </Typography.SmallBody>
+          </Flex.Vertical>
+          <Typography.MediumBody color={COLORS.MAIN}>{order.finalPrice.toLocaleString()}원</Typography.MediumBody>
+        </Flex.Horizontal>
+        <LightLine />
+
+        {/* 주문자 정보 */}
+        <Typography.Caption className='tw-mt-16'>주문자 정보</Typography.Caption>
+        <StyledLine />
+        <Flex.Horizontal className='table' alignItems='center' gap={12}>
+          <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48 '>
+            이름
+          </Typography.MediumBody>
+          <Typography.MediumBody className='tw-w-[280px]'>{order.detail?.orderUserInfo.name}</Typography.MediumBody>
+          <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48'>
+            생년월일
+          </Typography.MediumBody>
+          <Typography.MediumBody>{order.detail?.orderUserInfo.birth}</Typography.MediumBody>
+        </Flex.Horizontal>
+
+        <Flex.Horizontal className='table' alignItems='center' gap={12}>
+          <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48 '>
+            연락처
+          </Typography.MediumBody>
+          <Typography.MediumBody className='tw-w-[280px]'>{order.detail?.orderUserInfo.phone}</Typography.MediumBody>
+          <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48'>
+            이메일
+          </Typography.MediumBody>
+          <Typography.MediumBody>{order.detail?.orderUserInfo.email}</Typography.MediumBody>
+        </Flex.Horizontal>
+      </Flex.Vertical>
+
+      {/* 결제 내역 */}
+      <Typography.Caption className='tw-mt-16'>결제 내역</Typography.Caption>
+      <StyledLine />
+      <Flex.Horizontal className='table' alignItems='center' gap={12}>
+        <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48 '>
+          결제 수단
+        </Typography.MediumBody>
+        <Typography.MediumBody className='tw-w-[280px]'>{paymethodName}</Typography.MediumBody>
+        <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48'>
+          결제 수단 번호
+        </Typography.MediumBody>
+        <Typography.MediumBody className='tw-ml-4'>
+          {order.detail?.cardDetail.cardCompany} {order.detail?.cardDetail.cardType}
+        </Typography.MediumBody>
+      </Flex.Horizontal>
+
+      <Flex.Horizontal className='table' alignItems='center' gap={12}>
+        <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48 '>
+          승인일시
+        </Typography.MediumBody>
+        <Typography.MediumBody className='tw-w-[280px]'>{order.detail?.cardDetail.cardApprovalDate.toLocaleDateString()}</Typography.MediumBody>
+
+        <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48'>
+          결제 금액
+        </Typography.MediumBody>
+        <Typography.MediumBody>{order.detail?.originalPrice.toLocaleString()}원</Typography.MediumBody>
+      </Flex.Horizontal>
+
+      <Flex.Horizontal className='table' alignItems='center' gap={12}>
+        <Typography.MediumBody color={COLORS.MAIN_400} className='tw-bg-[#F8F8F8] tw-p-4 tw-w-48 '>
+          승인번호
+        </Typography.MediumBody>
+        <Typography.MediumBody className='tw-w-[280px]'>{order.detail?.cardDetail.cardApprovalNumber}</Typography.MediumBody>
+      </Flex.Horizontal>
+    </StyledOrder>
   );
 }
 
