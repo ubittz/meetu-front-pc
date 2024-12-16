@@ -21,21 +21,6 @@ function FindPassword() {
     certify_number: '',
   };
 
-  const handleCertifyRequest = (email: string, setFieldError: (field: string, message: string) => void) => {
-    if (email.trim() === '') {
-      setFieldError('member_mail', '이메일을 입력해주세요.');
-      return;
-    }
-
-    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setFieldError('member_mail', '올바른 이메일 형식이 아닙니다.');
-      return;
-    }
-
-    startCertifyTimer();
-    // TODO: API 호출
-  };
-
   const handleSubmit = async (values: FindPasswordFormValues, { setFieldError }: FormikHelpers<FindPasswordFormValues>) => {
     // TODO: API 호출
     if (values.certify_number === '123456') {
@@ -45,7 +30,7 @@ function FindPassword() {
     }
   };
 
-  const renderForm = ({ values, isValid, setFieldError }: FormikProps<FindPasswordFormValues>) => (
+  const renderForm = ({ values, isValid, setFieldValue }: FormikProps<FindPasswordFormValues>) => (
     <Form>
       <fieldset>
         <legend>계정찾기 정보입력 영역</legend>
@@ -60,7 +45,14 @@ function FindPassword() {
               label='이메일'
               placeholder='이메일 주소를 입력해주세요.'
               additionalElement={
-                <button type='button' className='btn' onClick={() => handleCertifyRequest(values.member_mail, setFieldError)}>
+                <button
+                  type='button'
+                  className='btn'
+                  onClick={() => {
+                    values.member_mail !== '' && startCertifyTimer();
+                    setFieldValue('certify_number', '');
+                  }}
+                >
                   인증번호 발송
                 </button>
               }

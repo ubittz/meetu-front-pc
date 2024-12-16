@@ -53,7 +53,7 @@ function FindId() {
           </div>
 
           <Formik initialValues={initialValues} validationSchema={findIdSchema} onSubmit={handleSubmit}>
-            {({ setFieldValue }) => (
+            {({ values, setFieldValue }) => (
               <Form>
                 <fieldset>
                   <legend>계정찾기 정보입력 영역</legend>
@@ -70,7 +70,7 @@ function FindId() {
                             type='button'
                             className='btn'
                             onClick={() => {
-                              startCertifyTimer();
+                              values.member_mail !== '' && startCertifyTimer();
                               setFieldValue('certify_number', '');
                             }}
                           >
