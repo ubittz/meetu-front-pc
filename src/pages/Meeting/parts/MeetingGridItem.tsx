@@ -24,7 +24,6 @@ function MeetingGridItem({ meeting }: MeetingGridItemProps) {
           <h4 className='tit'>{meeting.title}</h4>
           <p className='txt'>{meeting.description}</p>
           <p className='price'>{meeting.price.toLocaleString()}원</p>
-          <p className='date'>{meeting.createdAt.toLocaleDateString()}</p>
         </div>
       </Link>
     </li>
