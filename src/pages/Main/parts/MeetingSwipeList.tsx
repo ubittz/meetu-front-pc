@@ -15,16 +15,16 @@ interface MeetingSwipeListProps {
 }
 
 const StyledSliderItem = styled.div`
-  .container{
-    padding-left:10vw;
-    padding-top:5vw;
+  .container {
+    padding-left: 10vw;
+    padding-top: 5vw;
   }
 `;
 
 function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
   const navigate = useNavigate();
 
-  const handleSlider = (id: string) => {
+  const handleItemClick = (id: string) => {
     navigate(pathGenerator(PAGES.MEETING) + `/${id}`);
   };
 
@@ -35,7 +35,7 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
       title={meeting.title}
       price={`${meeting.price.toLocaleString()}원`}
       showContent={true}
-      onClickButton={() => handleSlider(meeting.id.toString())}
+      onClickButton={() => handleItemClick(meeting.id.toString())}
     >
       <div className='txt_area'>
         <div className='sort tw-mb-3'>

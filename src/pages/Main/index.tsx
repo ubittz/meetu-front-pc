@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+import images from '@@assets/images';
+import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import CategoryMeetingSwiperList from '@@pages/Main/parts/CategoryMeetingSwiperList';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
 import { Mood } from '@@pages/Main/types';
 import { PAGES } from '@@router/constants';
@@ -11,7 +15,17 @@ import { pathGenerator } from '@@router/utils';
 import { Meeting, MeetingType } from '@@types/meeting';
 
 import { getDummyMeetingList, getDummyMoodList } from './dummys';
-import CategoryMeetingSwiperList from './parts/CategoryMeetingSwiperList';
+
+const StyledMeetingTitle = styled(Flex.Horizontal)`
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    margin-right: 202px;
+    width: 30px;
+    height: 30px;
+  }
+`;
 
 function Main() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
@@ -104,25 +118,40 @@ function Main() {
         <section className='main_meeting'>
           <MeetingSwipeList
             title={
-              <>
-                <strong>지금</strong> 핫한 모임<strong>.</strong>
-              </>
+              <StyledMeetingTitle>
+                <div>
+                  <strong>지금</strong> 핫한 모임<strong>.</strong>
+                </div>
+                <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
+                  <img src={images.arrow_right03} alt='모두보기' />
+                </Link>
+              </StyledMeetingTitle>
             }
             meetings={meetings}
           />
           <MeetingSwipeList
             title={
-              <>
-                <strong>방금 만들어진</strong> 새로운 모임<strong>.</strong>
-              </>
+              <StyledMeetingTitle>
+                <div>
+                  <strong>방금 만들어진</strong> 새로운 모임<strong>.</strong>
+                </div>
+                <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
+                  <img src={images.arrow_right03} alt='모두보기' />
+                </Link>
+              </StyledMeetingTitle>
             }
             meetings={meetings}
           />
           <MeetingSwipeList
             title={
-              <>
-                <strong>실시간</strong> 인기 모임<strong>.</strong>
-              </>
+              <StyledMeetingTitle>
+                <div>
+                  <strong>실시간</strong> 인기 모임<strong>.</strong>
+                </div>
+                <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
+                  <img src={images.arrow_right03} alt='모두보기' />
+                </Link>
+              </StyledMeetingTitle>
             }
             meetings={meetings}
           />
