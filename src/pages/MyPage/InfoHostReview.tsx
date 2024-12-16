@@ -7,14 +7,14 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import ReviewListItem from '@@pages/MyPage/parts/ReviewListItem';
-import { ReviewItem } from '@@pages/MyPage/types';
+import { Review } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 import { getDummyReviewList } from './dummy';
 
 function InfoHostReview() {
-  const [reviews, setReviews] = useState<ReviewItem[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   useEffect(() => {

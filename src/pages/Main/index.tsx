@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
+import { Mood } from '@@pages/Main/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting, MeetingType } from '@@types/meeting';
 
-import getDummyMeetingList from './dummys';
+import { getDummyMeetingList, getDummyMoodList } from './dummys';
 import CategoryMeetingSwiperList from './parts/CategoryMeetingSwiperList';
 
 function Main() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [moods, setMoods] = useState<Mood[]>(getDummyMoodList().sort((a, b) => a.index - b.index));
   const [selectedCategory, setSelectedCategory] = useState<MeetingType | ''>('');
 
   // const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
@@ -97,10 +98,7 @@ function Main() {
             </div>
           </div>
         </section>
-        <CategoryMeetingSwiperList
-            meeting={meetings}
-          />
-
+        <CategoryMeetingSwiperList meeting={meetings} />
 
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
@@ -154,20 +152,22 @@ function Main() {
             <div className='mi_img_area'>
               <div className='mi_img mii01'>
                 <div className='mi_txt'>
-                  <img src={images.info_txt01} alt='RELAXED' />
+                  <img src={moods[0].imageUrl} alt={moods[0].title} />
+                  {moods[0].description && <p>{moods[0].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
               <div className='mi_img mii02'>
                 <div className='mi_txt'>
-                  <img src={images.info_txt02} alt='ENERGETIC' />
+                  <img src={moods[1].imageUrl} alt={moods[1].title} />
+                  {moods[1].description && <p>{moods[1].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
               <div className='mi_img mii03'>
                 <div className='mi_txt'>
-                  <img src={images.info_txt03} alt='RELAXED' />
-                  <p>상상에서 현실로, 창의의 순간.</p>
+                  <img src={moods[2].imageUrl} alt={moods[2].title} />
+                  {moods[2].description && <p>{moods[2].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
