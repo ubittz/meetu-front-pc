@@ -17,7 +17,7 @@ function MyPageHeader({ type, activeTab }: MyPageHeaderProps) {
         <Link to={pathGenerator(PAGES.MYPAGE)} className={`btn ${activeTab === 'info' ? 'active' : ''}`}>
           내 정보
         </Link>
-        <Link to={pathGenerator(PAGES.MYPAGE) + '/payment-list'} className={`btn ${activeTab === 'payment' ? 'active' : ''}`}>
+        <Link to={pathGenerator(PAGES.MYPAGE) + '/order'} className={`btn ${activeTab === 'payment' ? 'active' : ''}`}>
           결제 내역
         </Link>
         <Link to={pathGenerator(PAGES.MYPAGE) + '/apply-host'} className={`btn ${activeTab === 'host-app' ? 'active' : ''}`}>
