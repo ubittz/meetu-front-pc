@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 import { UserType } from '@@types/user';
 
 interface MyPageDashboardProps {
@@ -18,7 +20,7 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
             <span className='img_area'>
               <img src={images.meeting_img04} alt='호스트 이미지' />
             </span>
-            <span className='txt_area'>
+            <span className='txt_area' >
               {type === 'host' ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
               <em>홍길동 님</em>
             </span>
@@ -27,7 +29,7 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
         </div>
         <ul className='link_area'>
           <li className='edit'>
-            <Link to='javascript:alert("서비스 준비 중입니다.");' className='btn'>
+            <Link to={pathGenerator(PAGES.MYPAGE) + '/edit'} className='btn'>
               <i className='link_ico'></i>
               <strong>내 정보 수정</strong>
             </Link>

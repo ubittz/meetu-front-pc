@@ -10,18 +10,15 @@ import { pathGenerator } from '@@router/utils';
 import { Meeting } from '@@types/meeting';
 
 interface MeetingSwipeListProps {
-  title: React.ReactNode;
   meetings: Meeting[];
 }
 
 const StyledSliderItem = styled.div`
-  .container{
-    padding-left:10vw;
-    padding-top:5vw;
-  }
+  margin-top: 40px;
+
 `;
 
-function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
+function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
   const navigate = useNavigate();
 
   const handleSlider = (id: string) => {
@@ -36,6 +33,8 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
       price={`${meeting.price.toLocaleString()}원`}
       showContent={true}
       onClickButton={() => handleSlider(meeting.id.toString())}
+      width='350px'
+      height='446px'
     >
       <div className='txt_area'>
         <div className='sort tw-mb-3'>
@@ -52,11 +51,20 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
   return (
     <StyledSliderItem>
       <Flex.Vertical className='container'>
-        <h3 className='main_tit tw-mb-10'>{title}</h3>
-        <Slider items={sliderItems} gap={40} slidesToShow={4.5} sliderProps={{ dots: false }} />
+        <Slider
+          items={sliderItems}
+          slidesToShow={5}
+          sliderProps={{ dots: true }}
+          showArrows={true}
+          className='tw-w-screen tw-h-[57vh]'
+          arrowStyles={{
+            left: { top: '54vh', left: '80vw' },
+            right: { top: '54vh', right: '31vh' },
+          }}
+        />
       </Flex.Vertical>
     </StyledSliderItem>
   );
 }
 
-export default MeetingSwipeList;
+export default MyPageSwiper;
