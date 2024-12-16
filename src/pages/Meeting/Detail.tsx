@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -25,6 +25,10 @@ function MeetingDetail() {
   const totalReviewPages = 7; // 총 review 페이지 수 (예시로 설정)
   const totalQnaPages = 7; // 총 qna 페이지 수 (예시로 설정)
 
+  const detailRef = useRef<HTMLDivElement>(null);
+  const reviewRef = useRef<HTMLDivElement>(null);
+  const inquiryRef = useRef<HTMLDivElement>(null);
+
   const handleReviewPageChange = (page: number) => {
     setCurrentReviewPage(page); // 페이지 변경 핸들러
   };
@@ -39,6 +43,12 @@ function MeetingDetail() {
 
   const closePopup = () => {
     setIsPopupOpen(false);
+  };
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   useEffect(() => {
@@ -67,18 +77,42 @@ function MeetingDetail() {
               </div>
 
               <div className='mv_tab_area'>
-                <Link to='#' className='btn active'>
+                <Link
+                  to='#'
+                  className='btn active'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('상세정보 버튼 클릭됨'); // 로그 추가
+                    scrollToSection(detailRef);
+                  }}
+                >
                   상세정보
                 </Link>
-                <Link to='#' className='btn'>
+                <Link
+                  to='#'
+                  className='btn'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('리뷰 버튼 클릭됨'); // 로그 추가
+                    scrollToSection(reviewRef);
+                  }}
+                >
                   리뷰
                 </Link>
-                <Link to='#' className='btn'>
+                <Link
+                  to='#'
+                  className='btn'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('문의 버튼 클릭됨'); // 로그 추가
+                    scrollToSection(inquiryRef);
+                  }}
+                >
                   문의
                 </Link>
               </div>
               {/* <!-- 상세정보 --> */}
-              <div className='mv_detail'>
+              <div ref={detailRef} className='mv_detail'>
                 <img src={images.meeting_img02} alt='상세정보 이미지' />
                 <div className='detail_txt'>
                   <h4>상세정보</h4>
@@ -115,9 +149,21 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 리뷰 --> */}
-              <ReviewList reviews={reviews} currentPage={currentReviewPage} totalPages={totalReviewPages} onPageChange={handleReviewPageChange} />
+              <ReviewList
+                ref={reviewRef}
+                reviews={reviews}
+                currentPage={currentReviewPage}
+                totalPages={totalReviewPages}
+                onPageChange={handleReviewPageChange}
+              />
               {/* <!-- 문의 --> */}
-              <QnaList qnaList={qnaList} currentPage={currentQnaPage} totalPages={totalQnaPages} onPageChange={handleQnaPageChange} />
+              <QnaList
+                ref={inquiryRef}
+                qnaList={qnaList}
+                currentPage={currentQnaPage}
+                totalPages={totalQnaPages}
+                onPageChange={handleQnaPageChange}
+              />
             </div>
 
             {/* <!-- 모임 신청 영역 --> */}

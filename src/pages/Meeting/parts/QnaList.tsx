@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import QnaListItem from '@@pages/Meeting/parts/QnaListItem';
 import { Qna } from '@@pages/Meeting/types';
@@ -9,9 +11,9 @@ interface QnaListProps {
   onPageChange: (page: number) => void;
 }
 
-const QnaList = ({ qnaList, currentPage, totalPages, onPageChange }: QnaListProps) => {
+const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ qnaList, currentPage, totalPages, onPageChange }, ref) => {
   return (
-    <div className='mv_detail'>
+    <div ref={ref} className='mv_detail'>
       <div className='detail_top'>
         <h4>
           Meet new people 문의 <em>(3)</em>
@@ -28,6 +30,6 @@ const QnaList = ({ qnaList, currentPage, totalPages, onPageChange }: QnaListProp
       </div>
     </div>
   );
-};
+});
 
 export default QnaList;
