@@ -26,6 +26,12 @@ function UserInfoInput() {
     }
   };
 
+  const handleMailCheck = async (value: string, setFieldError: any) => {
+    if (value === 'takenMail') {
+      setFieldError('member_mail', '이미 가입된 이메일입니다.');
+    }
+  };
+
   return (
     <div id='wrap'>
       <Header />
@@ -81,7 +87,13 @@ function UserInfoInput() {
 
                     <InputField name='member_contact' label='연락처' placeholder="'-'없이 입력해주세요." />
 
-                    <InputField name='member_mail' label='이메일' placeholder='이메일 주소를 입력해주세요.' />
+                    <InputField
+                      name='member_mail'
+                      label='이메일'
+                      placeholder='이메일 주소를 입력해주세요.'
+                      buttonText='중복체크'
+                      onButtonClick={handleMailCheck}
+                    />
                   </div>
 
                   <div className='btn_area type_02'>
