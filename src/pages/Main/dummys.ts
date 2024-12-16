@@ -1,10 +1,10 @@
 import images from '@@assets/images';
+import { Mood } from '@@pages/Main/types';
 import { Meeting } from '@@types/meeting';
 
 function getDummyMeetingList() {
   const meetings: Meeting[] = [];
 
-  // dummy items
   for (let i = 0; i < 7; i++) {
     meetings.push({
       id: i,
@@ -22,4 +22,25 @@ function getDummyMeetingList() {
   return meetings;
 }
 
-export default getDummyMeetingList;
+function getDummyMoodList(): Mood[] {
+  return [
+    {
+      index: 0,
+      title: 'RELAXED',
+      imageUrl: images.info_txt01,
+    },
+    {
+      index: 1,
+      title: 'ENERGETIC',
+      imageUrl: images.info_txt02,
+    },
+    {
+      index: 2,
+      title: 'RELAXED',
+      description: '상상에서 현실로, 창의의 순간.',
+      imageUrl: images.info_txt03,
+    },
+  ];
+}
+
+export { getDummyMeetingList, getDummyMoodList };

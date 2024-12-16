@@ -1,9 +1,8 @@
-export interface Meeting {
-  id: number;
+interface Mood {
+  index: number;
   title: string;
-  description: string;
-  price: number;
+  description?: string;
   imageUrl: string;
-  location: string;
-  isHot?: boolean;
 }
+
+export type { Mood };

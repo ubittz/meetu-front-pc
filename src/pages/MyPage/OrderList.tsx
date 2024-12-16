@@ -49,7 +49,7 @@ function OrderList() {
               </li>
               {/* <!-- 결제내역 테이블 리스트 --> */}
               {dummyOrderList.map((order) => (
-                <OrderListItem key={order.orderNumber} orderItem={order} handleOrderDetailPopup={handleOrderDetailPopup} />
+                <OrderListItem key={order.orderNumber} order={order} handleOrderDetailPopup={handleOrderDetailPopup} />
               ))}
             </ul>
             <div className='notice_wrap'>
@@ -71,8 +71,7 @@ function OrderList() {
             </div>
           </div>
         </section>
-
-        {isOrderDetailOpen && <OrderDetailPopup orderItem={dummyOrderList[0]} />}
+        {isOrderDetailOpen && <OrderDetailPopup order={dummyOrderList[0]} />}
       </main>
       <Footer />
     </div>
