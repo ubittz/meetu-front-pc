@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
@@ -7,28 +5,30 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
+import { useChangePassword } from '@@pages/Login/hooks';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+
 function ChangePassword() {
-  const navigate = useNavigate()
-  const [isPopupVisible, setPopupVisible] = useState(false);
+  const {
+    newPassword,
+    newPasswordConfirm,
+    isPopupVisible,
+    isPasswordValid,
+    isPasswordMatch,
+    handleNewPasswordChange,
+    handleNewPasswordConfirmChange,
+    handleChangePassword,
+    handlePopupClose,
+  } = useChangePassword();
+  const navigate = useNavigate();
 
-  const handleOpenPopup = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setPopupVisible(true);
+  const handleGoHome = () => {
+    navigate(pathGenerator(PAGES.MAIN));
   };
 
-  const handleClosePopup = () => {
-    setPopupVisible(false);
-  };
-
-
-  const handleConfirm1 = () => {
-    navigate(pathGenerator(PAGES.MAIN))
-  };
-
-  const handleConfirm2  = () => {
-    navigate(pathGenerator(PAGES.LOGIN))
+  const handleGoLogin = () => {
+    navigate(pathGenerator(PAGES.LOGIN));
   };
 
   return (
@@ -59,19 +59,33 @@ function ChangePassword() {
                       <span>새로운 비밀번호를 등록해주세요.</span>
                     </p>
                     <div className='input_area'>
-                      <label htmlFor='member_pw'>비밀번호</label>
-                      <input type='password' name='member_pw' id='member_pw' placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하' />
-                      <p className='txt_error'>비밀번호 규칙에 맞게 입력해주세요.</p>
+                      <label htmlFor='new_password'>비밀번호</label>
+                      <input
+                        type='password'
+                        name='new_password'
+                        id='new_password'
+                        placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
+                        value={newPassword}
+                        onChange={(e) => handleNewPasswordChange(e.target.value)}
+                      />
+                      {!isPasswordValid && <p className='txt_error'>비밀번호 규칙에 맞게 입력해주세요.</p>}
                     </div>
                     <div className='input_area'>
-                      <label htmlFor='member_pw_re'>비밀번호 확인</label>
-                      <input type='password' name='member_pw_re' id='member_pw_re' placeholder='새 비밀번호 확인' />
-                      <p className='txt_error'>비밀번호가 일치하지 않습니다.</p>
+                      <label htmlFor='new_password_confirm'>비밀번호 확인</label>
+                      <input
+                        type='password'
+                        name='new_password_confirm'
+                        id='new_password_confirm'
+                        placeholder='새 비밀번호 확인'
+                        value={newPasswordConfirm}
+                        onChange={(e) => handleNewPasswordConfirmChange(e.target.value)}
+                      />
+                      {!isPasswordMatch && <p className='txt_error'>비밀번호가 일치하지 않습니다.</p>}
                     </div>
                   </div>
 
                   <div className='btn_area'>
-                    <button className='btn' onClick={handleOpenPopup}>
+                    <button className='btn' onClick={handleChangePassword}>
                       확인
                     </button>
                   </div>
@@ -81,12 +95,12 @@ function ChangePassword() {
 
             <Popup
               visible={isPopupVisible}
-              onConfirm1={handleConfirm1}
-              onConfirm2={handleConfirm2}
+              onConfirm1={handleGoHome}
+              onConfirm2={handleGoLogin}
               confirmText1='홈으로'
               confirmText2='로그인 하기'
               title='비밀번호 찾기'
-              onCancel={handleClosePopup}
+              onCancel={handlePopupClose}
             >
               <Flex.Horizontal gap={4} className='tw-justify-center'>
                 <Typography.SmallTitle>비밀번호 변경이 완료되었습니다.</Typography.SmallTitle>

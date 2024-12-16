@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { EMAIL_REGEX, CERTIFICATION_TIME, CERTIFICATION_NUMBER_LENGTH } from '@@pages/Login/utils';
 
-export const useCertify = () => {
+const useCertify = () => {
   const [state, setState] = useState({
     isCertifySend: false,
     certifyTime: 0,
@@ -85,3 +85,55 @@ export const useCertify = () => {
     resetCertify,
   };
 };
+
+const useChangePassword = () => {
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+
+  const validatePassword = useCallback((password: string) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+    return passwordRegex.test(password);
+  }, []);
+
+  const handleNewPasswordChange = (password: string) => {
+    setNewPassword(password);
+    setIsPasswordValid(validatePassword(password));
+    setIsPasswordMatch(password === newPasswordConfirm);
+  };
+
+  const handleNewPasswordConfirmChange = (confirmPassword: string) => {
+    setNewPasswordConfirm(confirmPassword);
+    setIsPasswordMatch(confirmPassword === newPassword);
+  };
+
+  const handleChangePassword = () => {
+    if (isPasswordValid && isPasswordMatch) {
+      // TODO: 비밀번호 변경 로직 구현
+      setIsPopupVisible(true);
+    } else {
+      // TODO: 에러 처리 로직 구현
+      alert('비밀번호가 유효하지 않거나 일치하지 않습니다.');
+    }
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupVisible(false);
+  };
+
+  return {
+    newPassword,
+    newPasswordConfirm,
+    isPopupVisible,
+    isPasswordValid,
+    isPasswordMatch,
+    handleNewPasswordChange,
+    handleNewPasswordConfirmChange,
+    handleChangePassword,
+    handlePopupClose,
+  };
+};
+
+export { useCertify, useChangePassword };
