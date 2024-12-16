@@ -1,35 +1,90 @@
-import { useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
 import { useCertify } from '@@pages/Login/hooks';
-import { formatTime } from '@@pages/Login/utils';
+import { FindPasswordFormValues } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { findPasswordSchema } from '@@constants/scheme';
 
 function FindPassword() {
   const navigate = useNavigate();
-  const { isCertifySend, isCertifyError, certifyTime, isCertifyFill, handleCertifySend, handleCertifyNumberChange, validateCertifyNumber } =
-    useCertify();
+  const { isCertifySend, formattedTime, startCertifyTimer } = useCertify();
 
-  const [name, setName] = useState('');
-  const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
+  const initialValues: FindPasswordFormValues = {
+    member_name: '',
+    member_id: '',
+    member_mail: '',
+    certify_number: '',
+  };
 
-  const handleFindPassword = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleCertifyRequest = (email: string, setFieldError: (field: string, message: string) => void) => {
+    if (email.trim() === '') {
+      setFieldError('member_mail', '이메일을 입력해주세요.');
+      return;
+    }
 
-    if (!isFormValid()) return;
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setFieldError('member_mail', '올바른 이메일 형식이 아닙니다.');
+      return;
+    }
 
-    if (validateCertifyNumber('123456')) {
-      // 비밀번호 찾기 화면으로 이동
+    startCertifyTimer();
+    // TODO: API 호출
+  };
+
+  const handleSubmit = async (values: FindPasswordFormValues, { setFieldError }: FormikHelpers<FindPasswordFormValues>) => {
+    // TODO: API 호출
+    if (values.certify_number === '123456') {
       navigate(pathGenerator(PAGES.LOGIN) + '/find/password/change');
+    } else {
+      setFieldError('certify_number', '인증번호가 일치하지 않습니다.');
     }
   };
 
-  const isFormValid = () => name.trim() !== '' && id.trim() !== '' && email.trim() !== '' && isCertifySend && isCertifyFill && !isCertifyError;
+  const renderForm = ({ values, isValid, setFieldError }: FormikProps<FindPasswordFormValues>) => (
+    <Form>
+      <fieldset>
+        <legend>계정찾기 정보입력 영역</legend>
+        <div className='join_wrap type_srch'>
+          <div className='input_wrap'>
+            <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+
+            <InputField name='member_id' label='아이디' placeholder='아이디를 입력해주세요.' />
+
+            <InputField
+              name='member_mail'
+              label='이메일'
+              placeholder='이메일 주소를 입력해주세요.'
+              additionalElement={
+                <button type='button' className='btn' onClick={() => handleCertifyRequest(values.member_mail, setFieldError)}>
+                  인증번호 발송
+                </button>
+              }
+            />
+
+            {isCertifySend && (
+              <InputField
+                name='certify_number'
+                label='인증번호'
+                placeholder='6자리 인증번호를 입력해주세요.'
+                additionalElement={<p className='certify'>{formattedTime}</p>}
+              />
+            )}
+          </div>
+
+          <div className='btn_area'>
+            <button type='submit' className={`btn ${!isCertifySend || !isValid ? 'disabled' : ''}`} disabled={!isCertifySend || !isValid}>
+              확인
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </Form>
+  );
 
   return (
     <div id='wrap'>
@@ -48,56 +103,9 @@ function FindPassword() {
             </Link>
           </div>
 
-          <form method='post'>
-            <fieldset>
-              <legend>계정찾기 정보입력 영역</legend>
-              <div className='join_wrap type_srch'>
-                <div className='input_wrap'>
-                  <div className='input_area'>
-                    <label htmlFor='member_name'>이름</label>
-                    <input type='text' id='member_name' placeholder='이름을 입력해주세요.' value={name} onChange={(e) => setName(e.target.value)} />
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='member_id'>아이디</label>
-                    <input type='text' id='member_id' placeholder='아이디를 입력해주세요.' value={id} onChange={(e) => setId(e.target.value)} />
-                  </div>
-                  <div className='input_area input_btn'>
-                    <label htmlFor='member_mail'>이메일</label>
-                    <input
-                      type='text'
-                      id='member_mail'
-                      placeholder='이메일 주소를 입력해주세요.'
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <button type='button' className='btn' onClick={() => handleCertifySend(email)}>
-                      인증번호 발송
-                    </button>
-                  </div>
-                  {isCertifySend && (
-                    <div className='input_area'>
-                      <label htmlFor='member_num'>인증번호</label>
-                      <input
-                        type='text'
-                        id='member_num'
-                        maxLength={6}
-                        placeholder='6자리 인증번호를 입력해주세요.'
-                        onChange={handleCertifyNumberChange}
-                      />
-                      {!isCertifyError && <p className='certify'>{formatTime(certifyTime)}</p>}
-                      {isCertifyError && <p className='txt_error'>인증번호가 일치하지 않습니다.</p>}
-                    </div>
-                  )}
-                </div>
-
-                <div className='btn_area'>
-                  <button type='submit' className={`btn ${isFormValid() ? '' : 'disabled'}`} onClick={handleFindPassword}>
-                    확인
-                  </button>
-                </div>
-              </div>
-            </fieldset>
-          </form>
+          <Formik initialValues={initialValues} validationSchema={findPasswordSchema} onSubmit={handleSubmit}>
+            {renderForm}
+          </Formik>
         </div>
       </main>
       <Footer />

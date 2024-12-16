@@ -1,6 +1,7 @@
 import { useState } from 'react';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
@@ -8,134 +9,119 @@ import Header from '@@components/Header';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
-import { formatTime } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-
+import { findIdSchema } from '@@constants/scheme';
+import InputField from '@@components/InputField';
+import { FindIdFormValues } from '../types';
 import { useCertify } from '../hooks';
 
 function FindId() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [foundId, setFoundId] = useState('');
+  const { isCertifySend, formattedTime, startCertifyTimer, resetCertify } = useCertify();
 
-  const {
-    isCertifySend,
-    isCertifyError,
-    certifyTime,
-    isCertifyFill,
-    handleCertifySend,
-    handleCertifyNumberChange,
-    validateCertifyNumber,
-    resetCertify,
-  } = useCertify();
-
-  const isFormValid = () => name.trim() !== '' && email.trim() !== '' && isCertifySend && isCertifyFill && !isCertifyError;
-
-  const handleFindId = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    if (!isFormValid()) return;
-
-    const dummyFoundId = 'ho*******ng';
-
-    if (validateCertifyNumber('123456')) {
-      setFoundId(dummyFoundId);
-      setPopupVisible(true);
-    }
+  const initialValues: FindIdFormValues = {
+    member_name: '',
+    member_mail: '',
+    certify_number: '',
   };
 
-  const handlePopupClose = () => {
-    setPopupVisible(false);
-    resetCertify();
+  const handleSubmit = async (values: FindIdFormValues) => {
+    // API 호출 및 아이디 찾기 로직
+    const dummyFoundId = 'ho*******ng';
+    setFoundId(dummyFoundId);
+    setPopupVisible(true);
   };
 
   return (
-    <body>
-      <div id='wrap'>
-        <Header />
-        <main className='container'>
-          <div className='member_inner'>
-            <h2>계정 찾기</h2>
-            <p className='caption'>회원 정보에 등록된 이메일로 찾을 수 있습니다.</p>
+    <div id='wrap'>
+      <Header />
+      <main className='container'>
+        <div className='member_inner'>
+          <h2>계정 찾기</h2>
+          <p className='caption'>회원 정보에 등록된 이메일로 찾을 수 있습니다.</p>
 
-            <div className='srch_btn_wrap'>
-              <Link to={pathGenerator(PAGES.LOGIN) + '/find/id'} className='btn active'>
-                아이디 찾기
-              </Link>
-              <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn'>
-                비밀번호 찾기
-              </Link>
-            </div>
+          <div className='srch_btn_wrap'>
+            <Link to={pathGenerator(PAGES.LOGIN) + '/find/id'} className='btn active'>
+              아이디 찾기
+            </Link>
+            <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn'>
+              비밀번호 찾기
+            </Link>
+          </div>
 
-            <form method='post'>
-              <fieldset>
-                <legend>계정찾기 정보입력 영역</legend>
-                <div className='join_wrap type_srch'>
-                  <div className='input_wrap'>
-                    <div className='input_area'>
-                      <label htmlFor='member_name'>이름</label>
-                      <input type='text' id='member_name' placeholder='이름을 입력해주세요.' value={name} onChange={(e) => setName(e.target.value)} />
-                    </div>
-                    <div className='input_area input_btn'>
-                      <label htmlFor='member_mail'>이메일</label>
-                      <input
-                        type='text'
-                        id='member_mail'
+          <Formik initialValues={initialValues} validationSchema={findIdSchema} onSubmit={handleSubmit}>
+            {({ setFieldValue }) => (
+              <Form>
+                <fieldset>
+                  <legend>계정찾기 정보입력 영역</legend>
+                  <div className='join_wrap type_srch'>
+                    <div className='input_wrap'>
+                      <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+
+                      <InputField
+                        name='member_mail'
+                        label='이메일'
                         placeholder='이메일 주소를 입력해주세요.'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        additionalElement={
+                          <button
+                            type='button'
+                            className='btn'
+                            onClick={() => {
+                              startCertifyTimer();
+                              setFieldValue('certify_number', '');
+                            }}
+                          >
+                            인증번호 발송
+                          </button>
+                        }
                       />
-                      <button type='button' className='btn' onClick={() => handleCertifySend(email)}>
-                        인증번호 발송
+
+                      {isCertifySend && (
+                        <InputField
+                          name='certify_number'
+                          label='인증번호'
+                          placeholder='6자리 인증번호를 입력해주세요.'
+                          additionalElement={<p className='certify'>{formattedTime}</p>}
+                        />
+                      )}
+                    </div>
+
+                    <div className='btn_area'>
+                      <button type='submit' className={`btn ${!isCertifySend ? 'disabled' : ''}`} disabled={!isCertifySend}>
+                        확인
                       </button>
                     </div>
-                    {isCertifySend && (
-                      <div className='input_area'>
-                        <label htmlFor='member_num'>인증번호</label>
-                        <input
-                          type='text'
-                          id='member_num'
-                          maxLength={6}
-                          placeholder='6자리 인증번호를 입력해주세요.'
-                          onChange={handleCertifyNumberChange}
-                        />
-                        {!isCertifyError && <p className='certify'>{formatTime(certifyTime)}</p>}
-                        {isCertifyError && <p className='txt_error'>인증번호가 일치하지 않습니다.</p>}
-                      </div>
-                    )}
                   </div>
-                  <div className='btn_area'>
-                    <button type='submit' className={`btn ${isFormValid() ? '' : 'disabled'}`} onClick={handleFindId}>
-                      확인
-                    </button>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
+                </fieldset>
+              </Form>
+            )}
+          </Formik>
 
-            <Popup
-              visible={isPopupVisible}
-              onConfirmLeft={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
-              onConfirmRight={() => navigate(pathGenerator(PAGES.LOGIN))}
-              confirmTextLeft='비밀번호 찾기'
-              confirmTextRight='로그인 하기'
-              title='아이디 찾기'
-              onCancel={handlePopupClose}
-            >
-              <Flex.Horizontal gap={4}>
-                <Typography.SmallTitle>{name} 회원님의 아이디는</Typography.SmallTitle>
-                <Typography.SmallTitle color={COLORS.MAIN}>{foundId}</Typography.SmallTitle>
-                <Typography.SmallTitle>입니다.</Typography.SmallTitle>
-              </Flex.Horizontal>
-            </Popup>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </body>
+          <Popup
+            visible={isPopupVisible}
+            onConfirmLeft={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
+            onConfirmRight={() => navigate(pathGenerator(PAGES.LOGIN))}
+            confirmTextLeft='비밀번호 찾기'
+            confirmTextRight='로그인 하기'
+            title='아이디 찾기'
+            onCancel={() => {
+              setPopupVisible(false);
+              resetCertify();
+            }}
+          >
+            <Flex.Horizontal gap={4}>
+              <Typography.SmallTitle>{foundId} 회원님의 아이디는</Typography.SmallTitle>
+              <Typography.SmallTitle color={COLORS.MAIN}>{foundId}</Typography.SmallTitle>
+              <Typography.SmallTitle>입니다.</Typography.SmallTitle>
+            </Flex.Horizontal>
+          </Popup>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

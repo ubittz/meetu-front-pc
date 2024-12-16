@@ -24,4 +24,34 @@ const registerSchema = Yup.object({
   member_mail: Yup.string().email('올바른 이메일 형식이 아닙니다.').required('이메일을 입력해주세요.'),
 });
 
-export { registerSchema };
+const findIdSchema = Yup.object({
+  member_name: Yup.string().required('이름을 입력해주세요.'),
+  member_mail: Yup.string().email('올바른 이메일 형식이 아닙니다.').required('이메일을 입력해주세요.'),
+  certify_number: Yup.string().when(['isCertifySend'], {
+    is: (isCertifySend: boolean) => isCertifySend === true,
+    then: (schema) => schema.required('인증번호를 입력해주세요.').matches(/^[0-9]{6}$/, '6자리 숫자를 입력해주세요.'),
+  }),
+});
+
+const findPasswordSchema = Yup.object({
+  member_name: Yup.string().required('이름을 입력해주세요.'),
+  member_id: Yup.string().required('아이디를 입력해주세요.'),
+  member_mail: Yup.string().email('올바른 이메일 형식이 아닙니다.').required('이메일을 입력해주세요.'),
+  certify_number: Yup.string().when(['isCertifySend'], {
+    is: (isCertifySend: boolean) => isCertifySend === true,
+    then: (schema) => schema.required('인증번호를 입력해주세요.').matches(/^[0-9]{6}$/, '6자리 숫자를 입력해주세요.'),
+  }),
+});
+
+const changePasswordSchema = Yup.object({
+  new_password: Yup.string()
+    .required('비밀번호를 입력해주세요.')
+    .min(8, '비밀번호는 최소 8자 이상이어야 합니다.')
+    .max(20, '비밀번호는 최대 20자까지 가능합니다.')
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/, '영문(대/소문자)과 숫자를 조합하여 입력해주세요.'),
+  new_password_confirm: Yup.string()
+    .oneOf([Yup.ref('new_password')], '비밀번호가 일치하지 않습니다.')
+    .required('비밀번호를 확인해주세요.'),
+});
+
+export { registerSchema, findIdSchema, findPasswordSchema, changePasswordSchema };

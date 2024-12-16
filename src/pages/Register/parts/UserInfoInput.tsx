@@ -51,62 +51,89 @@ function UserInfoInput() {
               console.log(values);
             }}
           >
-            <Form>
-              <fieldset>
-                <legend>회원가입 정보입력 영역</legend>
-                <div className='join_wrap'>
-                  <h3 className='join_tit'>기본정보</h3>
-                  <div className='input_wrap'>
-                    <InputField
-                      name='member_id'
-                      label='아이디'
-                      placeholder='아이디를 입력해주세요.'
-                      buttonText='중복체크'
-                      onButtonClick={handleIdCheck}
-                    />
+            {({ values, setFieldValue, setFieldError }) => (
+              <Form>
+                <fieldset>
+                  <legend>회원가입 정보입력 영역</legend>
+                  <div className='join_wrap'>
+                    <h3 className='join_tit'>기본정보</h3>
+                    <div className='input_wrap'>
+                      <InputField
+                        name='member_id'
+                        label='아이디'
+                        placeholder='아이디를 입력해주세요.'
+                        additionalElement={
+                          <button
+                            type='button'
+                            className='btn'
+                            onClick={() => {
+                              handleIdCheck(values.member_id, setFieldError);
+                              setFieldValue('isIdCheck', true);
+                            }}
+                          >
+                            중복체크
+                          </button>
+                        }
+                      />
 
-                    <InputField name='member_pw' label='비밀번호' type='password' placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하' />
+                      <InputField
+                        name='member_pw'
+                        label='비밀번호'
+                        type='password'
+                        placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
+                      />
 
-                    <InputField name='member_pw_re' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
+                      <InputField name='member_pw_re' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
 
-                    <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+                      <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
 
-                    <InputField name='member_birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
+                      <InputField name='member_birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
 
-                    <div className='input_area inputChk'>
-                      <p className='input_tit'>성별</p>
-                      <div className='chk_area radio'>
-                        <input type='radio' name='genderChk' id='genderChk01' value='male' />
-                        <label htmlFor='genderChk01'>남자</label>
+                      <div className='input_area inputChk'>
+                        <p className='input_tit'>성별</p>
+                        <div className='chk_area radio'>
+                          <input type='radio' name='genderChk' id='genderChk01' value='male' />
+                          <label htmlFor='genderChk01'>남자</label>
+                        </div>
+                        <div className='chk_area radio'>
+                          <input type='radio' name='genderChk' id='genderChk02' value='female' />
+                          <label htmlFor='genderChk02'>여자</label>
+                        </div>
                       </div>
-                      <div className='chk_area radio'>
-                        <input type='radio' name='genderChk' id='genderChk02' value='female' />
-                        <label htmlFor='genderChk02'>여자</label>
-                      </div>
+
+                      <InputField name='member_contact' label='연락처' placeholder="'-'없이 입력해주세요." />
+
+                      <InputField
+                        name='member_mail'
+                        label='이메일'
+                        placeholder='이메일 주소를 입력해주세요.'
+                        additionalElement={
+                          <button
+                            type='button'
+                            className='btn'
+                            onClick={() => {
+                              handleMailCheck(values.member_mail, setFieldError);
+                              setFieldValue('isMailCheck', true);
+                            }}
+                          >
+                            중복체크
+                          </button>
+                        }
+                      />
                     </div>
 
-                    <InputField name='member_contact' label='연락처' placeholder="'-'없이 입력해주세요." />
-
-                    <InputField
-                      name='member_mail'
-                      label='이메일'
-                      placeholder='이메일 주소를 입력해주세요.'
-                      buttonText='중복체크'
-                      onButtonClick={handleMailCheck}
-                    />
+                    <div className='btn_area type_02'>
+                      <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
+                        취소
+                      </Link>
+                      <button type='submit' className='btn'>
+                        회원가입
+                      </button>
+                    </div>
                   </div>
-
-                  <div className='btn_area type_02'>
-                    <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
-                      취소
-                    </Link>
-                    <button type='submit' className='btn'>
-                      회원가입
-                    </button>
-                  </div>
-                </div>
-              </fieldset>
-            </Form>
+                </fieldset>
+              </Form>
+            )}
           </Formik>
         </div>
       </main>
