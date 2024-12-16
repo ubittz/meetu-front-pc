@@ -31,10 +31,14 @@ export const theme: DefaultTheme = {
     [TYPOGRAPHY_THEME.MEDIUM_TITLE]: 'font-size: 24px; font-weight: 700;',
     [TYPOGRAPHY_THEME.SMALL_TITLE]: 'font-size: 20px; font-weight: 700;',
     [TYPOGRAPHY_THEME.LARGE_SUBTITLE]: 'font-size: 28px; font-weight: 700;',
-    [TYPOGRAPHY_THEME.MEDIUM_SUBTITLE]: 'font-size: 16px; font-weight: 600;',
+    //use
+    [TYPOGRAPHY_THEME.MEDIUM_SUBTITLE]: 'font-size: 36px; font-weight: 400;',
     [TYPOGRAPHY_THEME.SMALL_SUBTITLE]: 'font-size: 14px; font-weight: 600;',
-    [TYPOGRAPHY_THEME.LARGE_BODY]: 'font-size: 20px; font-weight: 400;',
+    //use
+    [TYPOGRAPHY_THEME.LARGE_BODY]: 'font-size: 24px; font-weight: 400;',
+    //use
     [TYPOGRAPHY_THEME.MEDIUM_BODY]: 'font-size: 16px; font-weight: 400;',
+    //use
     [TYPOGRAPHY_THEME.SMALL_BODY]: 'font-size: 14px; font-weight: 400;',
     [TYPOGRAPHY_THEME.CAPTION]: 'font-size: 12px; font-weight: 400;',
     [TYPOGRAPHY_THEME.LARGE_BUTTON]: 'font-size: 16px; font-weight: 700;',
