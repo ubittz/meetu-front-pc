@@ -1,21 +1,25 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import Popup from '@@components/Popup';
+import Typography from '@@components/Typography';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MeetingCreate() {
+  const navigate = useNavigate()
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
-    setIsPopupOpen(true);
+    setIsPopupOpen(true);  
   };
 
   const closePopup = () => {
-    setIsPopupOpen(false);
+    setIsPopupOpen(false);  
   };
 
   return (
@@ -138,33 +142,21 @@ function MeetingCreate() {
               </div>
             </fieldset>
           </form>
-          {/* <!-- 모임 개설 정보입력 form 영역 종료 -->
-          <!-- 모임 개설 완료 팝업 시작 --> */}
-          {isPopupOpen && (
-            <div className='popup_layer'>
-              <div className='popup_bg' onClick={closePopup}></div>
-              <div className='popup_inner'>
-                <h3 className='popup_tit'>모임 개설</h3>
-                <button className='btn close' onClick={closePopup}>
-                  팝업 닫기
-                </button>
-                <div className='srch_result'>
-                  <p>모임 개설 등록이 완료되었습니다.</p>
-                </div>
-                <div className='btn_area type_02'>
-                  <button type='button' className='btn form02' onClick={closePopup}>
-                    닫기
-                  </button>
-                  <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
-                    홈으로
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* <!-- 모임 개설 완료 팝업 종료 --> */}
+       
+          <Popup
+              visible={isPopupOpen}
+              onConfirm1={closePopup}
+              onConfirm2={() => navigate(pathGenerator(PAGES.MAIN))}
+              confirmText1='닫기'
+              confirmText2='홈으로'
+              title='모임 개설'
+              onCancel={closePopup}
+            >
+              <Flex.Horizontal className='tw-justify-center'>
+                <Typography.SmallTitle >모임 개설 등록이 완료되었습니다.</Typography.SmallTitle>
+              </Flex.Horizontal>
+            </Popup>
         </section>
-        {/* <!-- 모임 개설 정보 입력 영역 종료 --> */}
       </main>
       <Footer />
     </div>

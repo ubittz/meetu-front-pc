@@ -88,7 +88,7 @@ function ChangePassword() {
               title='비밀번호 찾기'
               onCancel={handleClosePopup}
             >
-              <Flex.Horizontal gap={4}>
+              <Flex.Horizontal gap={4} className='tw-justify-center'>
                 <Typography.SmallTitle>비밀번호 변경이 완료되었습니다.</Typography.SmallTitle>
               </Flex.Horizontal>
             </Popup>

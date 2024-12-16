@@ -1,30 +1,38 @@
 import styled from 'styled-components';
 
+import { COLORS } from '@@constants/colors';
+
 const StyledSliderNavigation = styled.div`
-  display: none;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 11px;
+  width: 70%; 
+  height: 3px; 
+  background: ${COLORS.BORDER};
+  position: relative;
+  margin-top: 40px;
 
-  .slider_dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 3px;
+  width: 78%;
+  height: 2px;
+  background: ${COLORS.BORDER};
+  position: relative;
+  margin-top:60px;
+  border-radius: 3px;
+`;
 
-    background: #C9CBCF;
-
-    &.slider_dot-active {
-      background: #0C0C0E;
-    }
-  }
+const StyledActiveLine = styled.div<{ width: number }>`
+  height: 100%;
+  background: ${COLORS.MAIN};
+  border-radius: 3px;
+  transition: width 0.3s ease; 
+  width: ${({ width }) => width}%;
 `;
 
 function SliderNavigation({ currentIndex, length }: { currentIndex: number; length: number }) {
+  const initialProgress = (currentIndex === 0 ? 1 : currentIndex); 
+
+  const progress = (initialProgress / (length - 1)) * 100;
+
   return (
-    <StyledSliderNavigation className='slider_dots__wrap'>
-      {Array.from({ length }).map((_, index) => (
-        <div key={index} className={`slider_dot ${currentIndex === index && 'slider_dot-active'}`} />
-      ))}
+    <StyledSliderNavigation>
+      <StyledActiveLine width={progress} />
     </StyledSliderNavigation>
   );
 }

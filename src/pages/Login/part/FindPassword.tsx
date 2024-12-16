@@ -1,11 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
+import { Link, useNavigate } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import { useCertify } from '@@pages/Login/hooks';
+import { formatTime } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function FindPassword() {
+  const navigate = useNavigate();
+  const { isCertifySend, isCertifyError, certifyTime, isCertifyFill, handleCertifySend, handleCertifyNumberChange, validateCertifyNumber } =
+    useCertify();
+
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleFindPassword = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!isFormValid()) return;
+
+    if (validateCertifyNumber('123456')) {
+      // 비밀번호 찾기 화면으로 이동
+      navigate(pathGenerator(PAGES.LOGIN) + '/find/password/change');
+    }
+  };
+
+  const isFormValid = () => name.trim() !== '' && id.trim() !== '' && email.trim() !== '' && isCertifySend && isCertifyFill && !isCertifyError;
+
   return (
     <div id='wrap'>
       <Header />
@@ -22,42 +47,53 @@ function FindPassword() {
               비밀번호 찾기
             </Link>
           </div>
-          <form action='#' method='post'>
+
+          <form method='post'>
             <fieldset>
               <legend>계정찾기 정보입력 영역</legend>
               <div className='join_wrap type_srch'>
                 <div className='input_wrap'>
                   <div className='input_area'>
                     <label htmlFor='member_name'>이름</label>
-                    <input type='text' name='member_name' id='member_name' placeholder='이름을 입력해주세요.' />
-                    <p className='txt_error'>이름을 입력해주세요.</p>
+                    <input type='text' id='member_name' placeholder='이름을 입력해주세요.' value={name} onChange={(e) => setName(e.target.value)} />
                   </div>
                   <div className='input_area'>
                     <label htmlFor='member_id'>아이디</label>
-                    <input type='text' name='member_id' id='member_id' placeholder='아이디를 입력해주세요.' />
-                    <p className='txt_error'>아이디를 입력해주세요.</p>
+                    <input type='text' id='member_id' placeholder='아이디를 입력해주세요.' value={id} onChange={(e) => setId(e.target.value)} />
                   </div>
                   <div className='input_area input_btn'>
                     <label htmlFor='member_mail'>이메일</label>
-                    <input type='text' name='member_mail' id='member_mail' placeholder='이메일 주소를 입력해주세요.' />
-                    <p className='txt_error'>가입 이메일 주소를 입력해주세요.</p>
-                    <button type='button' className='btn'>
+                    <input
+                      type='text'
+                      id='member_mail'
+                      placeholder='이메일 주소를 입력해주세요.'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button type='button' className='btn' onClick={() => handleCertifySend(email)}>
                       인증번호 발송
                     </button>
                   </div>
-
-                  <div className='input_area'>
-                    <label htmlFor='member_num'>인증번호</label>
-                    <input type='text' name='member_num' id='member_num' placeholder='6자리 인증번호를 입력해주세요.' />
-                    <p className='certify'>05:59</p>
-                    <p className='txt_error'>인증번호가 일치하지 않습니다.</p>
-                  </div>
+                  {isCertifySend && (
+                    <div className='input_area'>
+                      <label htmlFor='member_num'>인증번호</label>
+                      <input
+                        type='text'
+                        id='member_num'
+                        maxLength={6}
+                        placeholder='6자리 인증번호를 입력해주세요.'
+                        onChange={handleCertifyNumberChange}
+                      />
+                      {!isCertifyError && <p className='certify'>{formatTime(certifyTime)}</p>}
+                      {isCertifyError && <p className='txt_error'>인증번호가 일치하지 않습니다.</p>}
+                    </div>
+                  )}
                 </div>
 
                 <div className='btn_area'>
-                  <Link to={pathGenerator(PAGES.LOGIN) + '/find/password/change'} className='btn'>
+                  <button type='submit' className={`btn ${isFormValid() ? '' : 'disabled'}`} onClick={handleFindPassword}>
                     확인
-                  </Link>
+                  </button>
                 </div>
               </div>
             </fieldset>

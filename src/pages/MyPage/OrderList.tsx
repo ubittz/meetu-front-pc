@@ -71,7 +71,6 @@ function OrderList() {
             </div>
           </div>
         </section>
-
         {isOrderDetailOpen && <OrderDetailPopup order={dummyOrderList[0]} />}
       </main>
       <Footer />
