@@ -1,5 +1,5 @@
 export const  COLORS = {
-  MAIN_050: '#FDFBED',
+  MAIN_050: '#BBBBBB',
   MAIN_400: '#FBB037',
   MAIN_700: '#965E03',
   GRAY_SCALE_000: '#FFFFFF',
@@ -15,6 +15,6 @@ export const  COLORS = {
   GRAY_SCALE_900: '#0C0C0E',
   WHITE: '#ffffff',
   BORDER:'#EDEDED',
-  MAIN: '#FF641A'
-
+  MAIN: '#FF641A',
+  MAINBACKGROUND: '#FFEEE6'
 } as const;
