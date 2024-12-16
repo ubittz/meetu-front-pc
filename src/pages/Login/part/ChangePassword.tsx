@@ -85,7 +85,7 @@ function ChangePassword() {
                   </div>
 
                   <div className='btn_area'>
-                    <button className='btn' onClick={handleChangePassword}>
+                    <button className={`btn ${isPasswordMatch && isPasswordValid ? '' : 'disabled'}`} onClick={handleChangePassword}>
                       확인
                     </button>
                   </div>

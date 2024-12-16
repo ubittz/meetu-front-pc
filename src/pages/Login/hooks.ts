@@ -101,7 +101,6 @@ const useChangePassword = () => {
   const handleNewPasswordChange = (password: string) => {
     setNewPassword(password);
     setIsPasswordValid(validatePassword(password));
-    setIsPasswordMatch(password === newPasswordConfirm);
   };
 
   const handleNewPasswordConfirmChange = (confirmPassword: string) => {
@@ -110,12 +109,14 @@ const useChangePassword = () => {
   };
 
   const handleChangePassword = () => {
+    setIsPasswordMatch(newPassword === newPasswordConfirm);
+
     if (isPasswordValid && isPasswordMatch) {
       // TODO: 비밀번호 변경 로직 구현
       setIsPopupVisible(true);
     } else {
       // TODO: 에러 처리 로직 구현
-      alert('비밀번호가 유효하지 않거나 일치하지 않습니다.');
+      return;
     }
   };
 
