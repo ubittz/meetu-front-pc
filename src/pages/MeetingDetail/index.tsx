@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
@@ -10,6 +11,9 @@ import { pathGenerator } from '@@router/utils';
 
 function MeetingDetail() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const reviewRef = useRef<HTMLDivElement>(null);
+  const inquiryRef = useRef<HTMLDivElement>(null);
 
   const openPopup = () => {
     console.log('openPopup');
@@ -19,6 +23,12 @@ function MeetingDetail() {
   const closePopup = () => {
     console.log('closePopup');
     setIsPopupOpen(false);
+  };
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -34,18 +44,37 @@ function MeetingDetail() {
               </div>
 
               <div className='mv_tab_area'>
-                <Link to='#' className='btn active'>
+                <button
+                  className='btn active'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('상세정보 버튼 클릭됨');
+                    scrollToSection(detailRef);
+                  }}
+                >
                   상세정보
-                </Link>
-                <Link to='#' className='btn'>
+                </button>
+                <button
+                  className='btn'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(reviewRef);
+                  }}
+                >
                   리뷰
-                </Link>
-                <Link to='#' className='btn'>
+                </button>
+                <button
+                  className='btn'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(inquiryRef);
+                  }}
+                >
                   문의
-                </Link>
+                </button>
               </div>
               {/* <!-- 상세정보 --> */}
-              <div className='mv_detail'>
+              <div ref={detailRef} className='mv_detail' style={{ height: '600px', border: '1px solid #ccc' }}>
                 <img src={images.meeting_img02} alt='상세정보 이미지' />
                 <div className='detail_txt'>
                   <h4>상세정보</h4>
@@ -82,7 +111,7 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 리뷰 --> */}
-              <div className='mv_detail'>
+              <div ref={reviewRef} className='mv_detail' style={{ height: '600px', border: '1px solid #ccc' }}>
                 <div className='detail_top'>
                   <h4>
                     Meet new people 리뷰 <em>(9)</em>
@@ -229,7 +258,7 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 문의 --> */}
-              <div className='mv_detail'>
+              <div ref={inquiryRef} className='mv_detail' style={{ height: '600px', border: '1px solid #ccc' }}>
                 <div className='detail_top'>
                   <h4>
                     Meet new people 문의 <em>(3)</em>

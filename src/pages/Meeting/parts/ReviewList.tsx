@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import ReviewListItem from '@@pages/Meeting/parts/ReviewListItem';
 import { Review } from '@@pages/Meeting/types';
@@ -9,11 +11,11 @@ interface ReviewListProps {
   onPageChange: (page: number) => void;
 }
 
-const ReviewList = ({ reviews, currentPage, totalPages, onPageChange }: ReviewListProps) => {
+const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ reviews, currentPage, totalPages, onPageChange }, ref) => {
   const reviewAverage = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
   return (
-    <div className='mv_detail'>
+    <div ref={ref} className='mv_detail'>
       <div className='detail_top'>
         <h4>
           Meet new people 리뷰 <em>({reviewAverage})</em>
@@ -32,6 +34,6 @@ const ReviewList = ({ reviews, currentPage, totalPages, onPageChange }: ReviewLi
       </div>
     </div>
   );
-};
+});
 
 export default ReviewList;
