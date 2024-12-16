@@ -1,8 +1,13 @@
-import Header from '@@components/Header';
-import Footer from '@@components/Footer';
+import { useState } from 'react';
+
 import images from '@@assets/images';
+import Footer from '@@components/Footer';
+import Header from '@@components/Header';
+import { PaymentMethod } from '@@pages/Purchase/types';
 
 function Purchase() {
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>('card');
+
   return (
     <div id='wrap'>
       <Header />
@@ -82,82 +87,103 @@ function Purchase() {
                       <div className='payment_method'>
                         <div className='pm_box'>
                           <div className='chk_area radio'>
-                            <input type='radio' name='methodChk' id='methodChk01' />
+                            <input
+                              type='radio'
+                              name='methodChk'
+                              id='methodChk01'
+                              checked={selectedPaymentMethod === 'card'}
+                              onChange={() => setSelectedPaymentMethod('card')}
+                            />
                             <label htmlFor='methodChk01'>카드결제</label>
                           </div>
-                          {/* <!-- 라디오 버튼 체크시 노출되는 영역입니다. --> */}
-                          <div className='box_contents'>
-                            <div className='input_area'>
-                              <label htmlFor='card_name'>카드사</label>
-                              <select name='card_name' id='card_name' required>
-                                <option value='' selected disabled hidden>
-                                  선택하기
-                                </option>
-                                <option value=''>신한</option>
-                              </select>
+                          {selectedPaymentMethod === 'card' && (
+                            <div className='box_contents'>
+                              <div className='input_area'>
+                                <label htmlFor='card_name'>카드사</label>
+                                <select name='card_name' id='card_name' required>
+                                  <option value='' selected disabled hidden>
+                                    선택하기
+                                  </option>
+                                  <option value=''>신한</option>
+                                </select>
+                              </div>
+                              <div className='input_area'>
+                                <label htmlFor='pay_period'>할부</label>
+                                <select name='pay_period' id='pay_period' required>
+                                  <option value='' selected disabled hidden>
+                                    선택하기
+                                  </option>
+                                  <option value=''>일시불</option>
+                                  <option value=''>2개월</option>
+                                  <option value=''>3개월</option>
+                                  <option value=''>4개월</option>
+                                  <option value=''>5개월</option>
+                                  <option value=''>6개월</option>
+                                </select>
+                              </div>
                             </div>
-                            <div className='input_area'>
-                              <label htmlFor='pay_period'>할부</label>
-                              <select name='pay_period' id='pay_period' required>
-                                <option value='' selected disabled hidden>
-                                  선택하기
-                                </option>
-                                <option value=''>일시불</option>
-                                <option value=''>2개월</option>
-                                <option value=''>3개월</option>
-                                <option value=''>4개월</option>
-                                <option value=''>5개월</option>
-                                <option value=''>6개월</option>
-                              </select>
-                            </div>
-                          </div>
+                          )}
                         </div>
                         <div className='pm_box'>
                           <div className='chk_area radio'>
-                            <input type='radio' name='methodChk' id='methodChk02' />
+                            <input
+                              type='radio'
+                              name='methodChk'
+                              id='methodChk02'
+                              checked={selectedPaymentMethod === 'bank'}
+                              onChange={() => setSelectedPaymentMethod('bank')}
+                            />
                             <label htmlFor='methodChk02'>계좌이체</label>
                           </div>
-                          {/* <!-- 라디오 버튼 체크시 노출되는 영역입니다. --> */}
-                          <div className='box_contents'>
-                            <div className='input_area'>
-                              <label htmlFor='bank_name'>은행명</label>
-                              <select name='bank_name' id='bank_name' required>
-                                <option value='' selected disabled hidden>
-                                  선택하기
-                                </option>
-                                <option value=''>국민은행</option>
-                              </select>
+                          {selectedPaymentMethod === 'bank' && (
+                            <div className='box_contents'>
+                              <div className='input_area'>
+                                <label htmlFor='bank_name'>은행명</label>
+                                <select name='bank_name' id='bank_name' required>
+                                  <option value='' selected disabled hidden>
+                                    선택하기
+                                  </option>
+                                  <option value=''>국민은행</option>
+                                </select>
+                              </div>
+                              <div className='input_area'>
+                                <label htmlFor='account_name'>예금주</label>
+                                <input type='text' name='account_name' id='account_name' placeholder='예금주명을 입력하세요.' />
+                              </div>
                             </div>
-                            <div className='input_area'>
-                              <label htmlFor='account_name'>예금주</label>
-                              <input type='text' name='account_name' id='account_name' placeholder='예금주명을 입력하세요.' />
-                            </div>
-                          </div>
+                          )}
                         </div>
                         <div className='pm_box'>
                           <div className='chk_area radio'>
-                            <input type='radio' name='methodChk' id='methodChk03' />
+                            <input
+                              type='radio'
+                              name='methodChk'
+                              id='methodChk03'
+                              checked={selectedPaymentMethod === 'easyPay'}
+                              onChange={() => setSelectedPaymentMethod('easyPay')}
+                            />
                             <label htmlFor='methodChk03'>간편결제</label>
                           </div>
-                          {/* <!-- 라디오 버튼 체크시 노출되는 영역입니다. --> */}
-                          <div className='box_contents'>
-                            <div className='radio_wrap'>
-                              <div className='pay_radio'>
-                                <input type='radio' name='paychk' id='payN' />
-                                <label htmlFor='payN' className='btn naver'>
-                                  <i></i>
-                                  <p className='txt'>네이버페이로 결제하기</p>
-                                </label>
-                              </div>
-                              <div className='pay_radio'>
-                                <input type='radio' name='paychk' id='payK' />
-                                <label htmlFor='payK' className='btn kakao'>
-                                  <i></i>
-                                  <p className='txt'>카카오페이로 결제하기</p>
-                                </label>
+                          {selectedPaymentMethod === 'easyPay' && (
+                            <div className='box_contents'>
+                              <div className='radio_wrap'>
+                                <div className='pay_radio'>
+                                  <input type='radio' name='paychk' id='payN' />
+                                  <label htmlFor='payN' className='btn naver'>
+                                    <i></i>
+                                    <p className='txt'>네이버페이로 결제하기</p>
+                                  </label>
+                                </div>
+                                <div className='pay_radio'>
+                                  <input type='radio' name='paychk' id='payK' />
+                                  <label htmlFor='payK' className='btn kakao'>
+                                    <i></i>
+                                    <p className='txt'>카카오페이로 결제하기</p>
+                                  </label>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>
