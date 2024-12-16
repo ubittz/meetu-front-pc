@@ -11,15 +11,15 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
 function MeetingCreate() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
-    setIsPopupOpen(true);  
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    setIsPopupOpen(false);  
+    setIsPopupOpen(false);
   };
 
   return (
@@ -142,20 +142,20 @@ function MeetingCreate() {
               </div>
             </fieldset>
           </form>
-       
+
           <Popup
-              visible={isPopupOpen}
-              onConfirm1={closePopup}
-              onConfirm2={() => navigate(pathGenerator(PAGES.MAIN))}
-              confirmText1='닫기'
-              confirmText2='홈으로'
-              title='모임 개설'
-              onCancel={closePopup}
-            >
-              <Flex.Horizontal className='tw-justify-center'>
-                <Typography.SmallTitle >모임 개설 등록이 완료되었습니다.</Typography.SmallTitle>
-              </Flex.Horizontal>
-            </Popup>
+            visible={isPopupOpen}
+            onConfirmLeft={closePopup}
+            onConfirmRight={() => navigate(pathGenerator(PAGES.MAIN))}
+            confirmTextLeft='닫기'
+            confirmTextRight='홈으로'
+            title='모임 개설'
+            onCancel={closePopup}
+          >
+            <Flex.Horizontal className='tw-justify-center'>
+              <Typography.SmallTitle>모임 개설 등록이 완료되었습니다.</Typography.SmallTitle>
+            </Flex.Horizontal>
+          </Popup>
         </section>
       </main>
       <Footer />

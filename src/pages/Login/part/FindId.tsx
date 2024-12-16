@@ -118,10 +118,10 @@ function FindId() {
 
             <Popup
               visible={isPopupVisible}
-              onConfirm1={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
-              onConfirm2={() => navigate(pathGenerator(PAGES.LOGIN))}
-              confirmText1='비밀번호 찾기'
-              confirmText2='로그인 하기'
+              onConfirmLeft={() => navigate(pathGenerator(PAGES.LOGIN) + '/find/password')}
+              onConfirmRight={() => navigate(pathGenerator(PAGES.LOGIN))}
+              confirmTextLeft='비밀번호 찾기'
+              confirmTextRight='로그인 하기'
               title='아이디 찾기'
               onCancel={handlePopupClose}
             >

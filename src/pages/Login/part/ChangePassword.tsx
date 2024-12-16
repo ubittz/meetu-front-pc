@@ -95,10 +95,10 @@ function ChangePassword() {
 
             <Popup
               visible={isPopupVisible}
-              onConfirm1={handleGoHome}
-              onConfirm2={handleGoLogin}
-              confirmText1='홈으로'
-              confirmText2='로그인 하기'
+              onConfirmLeft={handleGoHome}
+              onConfirmRight={handleGoLogin}
+              confirmTextLeft='홈으로'
+              confirmTextRight='로그인 하기'
               title='비밀번호 찾기'
               onCancel={handlePopupClose}
             >

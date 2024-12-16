@@ -99,10 +99,10 @@ function EditMyInfo() {
           {/* <!-- 내정보 수정 결과 팝업 시작 --> */}
           <Popup
             visible={isPopupOpen}
-            onConfirm1={() => navigate(pathGenerator(PAGES.MAIN))}
-            onConfirm2={closePopup}
-            confirmText1='홈으로'
-            confirmText2='확인'
+            onConfirmLeft={() => navigate(pathGenerator(PAGES.MAIN))}
+            onConfirmRight={closePopup}
+            confirmTextLeft='홈으로'
+            confirmTextRight='확인'
             title='내 정보 수정'
             onCancel={closePopup}
           >

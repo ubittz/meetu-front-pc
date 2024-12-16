@@ -187,10 +187,10 @@ function ApplyHostWrite() {
           </form>
           <Popup
             visible={isPopupOpen}
-            onConfirm1={() => navigate(pathGenerator(PAGES.MAIN))}
-            onConfirm2={closePopup}
-            confirmText1='홈으로'
-            confirmText2='확인'
+            onConfirmLeft={() => navigate(pathGenerator(PAGES.MAIN))}
+            onConfirmRight={closePopup}
+            confirmTextLeft='홈으로'
+            confirmTextRight='확인'
             title='호스트 등록 신청'
             onCancel={closePopup}
           >
