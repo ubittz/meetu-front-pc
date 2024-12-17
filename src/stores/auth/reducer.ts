@@ -1,6 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { FindIdForm, VerifyIdentityForm, VerifyOTPForm } from '@@pages/FindAccount/types';
+import { FindIdForm, VerifyIdentityForm, ResetPasswordForm, VerifyOTPForm } from '@@pages/Login/types';
 import {
   AuthState,
   LoginDTO,
@@ -44,6 +44,10 @@ export const userEditFailure = createAction<string>(`${PREFIX}/userEditFailure`)
 export const findIdRequest = createAction<FindIdForm>(`${PREFIX}/findIdRequest`);
 export const findIdSuccess = createAction<string>(`${PREFIX}/findIdSuccess`);
 export const findIdFailure = createAction<string>(`${PREFIX}/findIdFailure`);
+
+export const resetPasswordRequest = createAction<ResetPasswordForm>(`${PREFIX}/resetPasswordRequest`);
+export const resetPasswordSuccess = createAction<string>(`${PREFIX}/resetPasswordSuccess`);
+export const resetPasswordFailure = createAction<string>(`${PREFIX}/resetPasswordFailure`);
 
 export const verifyIdentityRequest = createAction<VerifyIdentityForm>(`${PREFIX}/verifyIdentityRequest`);
 export const verifyIdentityFailure = createAction<string>(`${PREFIX}/verifyIdentityFailure`);

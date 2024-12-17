@@ -1,36 +1,48 @@
+import { Formik, Form, FormikProps } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InputField from '@@components/InputField';
+import { verifyIdentitySchema } from '@@constants/scheme';
 import { useCertify } from '@@pages/Login/hooks';
-import { FindPasswordFormValues } from '@@pages/Login/types';
+import { VerifyIdentityForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { findPasswordSchema } from '@@constants/scheme';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { verifyIdentityRequest, verifyIdentitySuccess, verifyIdentityFailure } from '@@stores/auth/reducer';
+
+const initialValues: VerifyIdentityForm = {
+  id: '',
+  email: '',
+};
 
 function FindPassword() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { isCertifySend, formattedTime, startCertifyTimer } = useCertify();
 
-  const initialValues: FindPasswordFormValues = {
-    member_name: '',
-    member_id: '',
-    member_mail: '',
-    certify_number: '',
+  const handleSubmit = (form: VerifyIdentityForm) => {
+    dispatch(verifyIdentityRequest(form));
   };
 
-  const handleSubmit = async (values: FindPasswordFormValues, { setFieldError }: FormikHelpers<FindPasswordFormValues>) => {
-    // TODO: API 호출
-    if (values.certify_number === '123456') {
+  useActionSubscribe({
+    type: verifyIdentitySuccess.type,
+    callback: () => {
       navigate(pathGenerator(PAGES.LOGIN) + '/find/password/change');
-    } else {
-      setFieldError('certify_number', '인증번호가 일치하지 않습니다.');
-    }
-  };
+    },
+  });
 
-  const renderForm = ({ values, isValid, setFieldValue }: FormikProps<FindPasswordFormValues>) => (
+  useActionSubscribe({
+    type: verifyIdentityFailure.type,
+    callback: () => {
+      console.log('인증 실패');
+    },
+  });
+
+  const renderForm = ({ isValid }: FormikProps<VerifyIdentityForm>) => (
     <Form>
       <fieldset>
         <legend>계정찾기 정보입력 영역</legend>
@@ -38,10 +50,10 @@ function FindPassword() {
           <div className='input_wrap'>
             <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
 
-            <InputField name='member_id' label='아이디' placeholder='아이디를 입력해주세요.' />
+            <InputField name='id' label='아이디' placeholder='아이디를 입력해주세요.' />
 
             <InputField
-              name='member_mail'
+              name='email'
               label='이메일'
               placeholder='이메일 주소를 입력해주세요.'
               additionalElement={
@@ -49,8 +61,8 @@ function FindPassword() {
                   type='button'
                   className='btn'
                   onClick={() => {
-                    values.member_mail !== '' && startCertifyTimer();
-                    setFieldValue('certify_number', '');
+                    startCertifyTimer();
+                    // setFieldValue('certify_number', ''); // 이메일 인증번호 발송 로직 추가
                   }}
                 >
                   인증번호 발송
@@ -95,7 +107,7 @@ function FindPassword() {
             </Link>
           </div>
 
-          <Formik initialValues={initialValues} validationSchema={findPasswordSchema} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues} validationSchema={verifyIdentitySchema} onSubmit={handleSubmit}>
             {renderForm}
           </Formik>
         </div>

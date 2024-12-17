@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -50,17 +51,11 @@ function Login() {
               <fieldset>
                 <legend>로그인 영역</legend>
                 <div className='input_wrap'>
-                  <div className='input_area'>
-                    <input type='text' name='mb_id' id='mb_id' placeholder='아이디를 입력해주세요.' />
-                    <label htmlFor='mb_id' className='blind'>
-                      아이디
-                    </label>
+                  <div className='input_area' id='id'>
+                    <Field type='text' name='id' id='id' placeholder='아이디를 입력해주세요.' />
                   </div>
-                  <div className='input_area'>
-                    <input type='password' name='mb_pw' id='mb_pw' placeholder='비밀번호를 입력해주세요.' />
-                    <label htmlFor='mb_pw' className='blind'>
-                      비밀번호
-                    </label>
+                  <div className='input_area' id='password'>
+                    <Field type='password' name='password' id='password' placeholder='비밀번호를 입력해주세요.' />
                   </div>
                 </div>
 

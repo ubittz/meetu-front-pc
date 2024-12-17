@@ -1,35 +1,48 @@
 import { useState } from 'react';
+
+import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
+import { ResetPasswordForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Formik, Form } from 'formik';
-import { changePasswordSchema } from '@@constants/scheme';
-import InputField from '@@components/InputField';
-import { ChangePasswordFormType } from '../types';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { resetPasswordRequest, resetPasswordSuccess, resetPasswordFailure } from '@@stores/auth/reducer';
+
+const initialValues: ResetPasswordForm = {
+  password: '',
+  passwordCheck: '',
+};
 
 function ChangePassword() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const initialValues = {
-    new_password: '',
-    new_password_confirm: '',
+  const handleSubmit = async (values: ResetPasswordForm) => {
+    dispatch(resetPasswordRequest(values));
   };
 
-  const handleSubmit = async (values: ChangePasswordFormType) => {
-    try {
-      // API 호출 로직
+  useActionSubscribe({
+    type: resetPasswordSuccess.type,
+    callback: () => {
       setIsPopupVisible(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    },
+  });
+
+  useActionSubscribe({
+    type: resetPasswordFailure.type,
+    callback: () => {
+      alert('비밀번호 변경에 실패했습니다.');
+    },
+  });
 
   return (
     <div id='wrap'>
@@ -48,7 +61,7 @@ function ChangePassword() {
             </Link>
           </div>
 
-          <Formik initialValues={initialValues} validationSchema={changePasswordSchema} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ isValid }) => (
               <Form>
                 <fieldset>
@@ -60,14 +73,9 @@ function ChangePassword() {
                         <span>새로운 비밀번호를 등록해주세요.</span>
                       </p>
 
-                      <InputField
-                        name='new_password'
-                        label='비밀번호'
-                        type='password'
-                        placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
-                      />
+                      <InputField name='password' label='비밀번호' type='password' placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하' />
 
-                      <InputField name='new_password_confirm' label='비밀번호 확인' type='password' placeholder='새 비밀번호 확인' />
+                      <InputField name='passwordCheck' label='비밀번호 확인' type='password' placeholder='새 비밀번호 확인' />
                     </div>
 
                     <div className='btn_area'>

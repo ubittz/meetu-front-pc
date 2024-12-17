@@ -3,22 +3,22 @@ interface LoginForm {
   password: string;
 }
 
-interface FindIdFormValues {
-  member_name: string;
-  member_mail: string;
-  certify_number: string;
+interface FindIdForm {
+  email: string;
 }
 
-interface FindPasswordFormValues {
-  member_name: string;
-  member_id: string;
-  member_mail: string;
-  certify_number: string;
+interface VerifyIdentityForm {
+  id: string;
+  email: string;
 }
 
-interface ChangePasswordFormType {
-  new_password: string;
-  new_password_confirm: string;
+interface ResetPasswordForm {
+  password: string;
+  passwordCheck: string;
 }
 
-export type { ChangePasswordFormType, FindIdFormValues, FindPasswordFormValues, LoginForm };
+interface VerifyOTPForm {
+  otp: string;
+}
+
+export type { FindIdForm, VerifyIdentityForm, ResetPasswordForm, LoginForm, VerifyOTPForm };

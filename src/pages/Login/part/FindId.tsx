@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,30 +13,52 @@ import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
 import { findIdSchema } from '@@constants/scheme';
+import { useCertify } from '@@pages/Login/hooks';
+import { FindIdForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { findIdRequest, findIdSuccess, findIdFailure } from '@@stores/auth/reducer';
 
-import { useCertify } from '../hooks';
-import { FindIdFormValues } from '../types';
+const initialValues: FindIdForm = {
+  email: '',
+};
 
 function FindId() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [foundId, setFoundId] = useState('');
   const { isCertifySend, formattedTime, startCertifyTimer, resetCertify } = useCertify();
 
-  const initialValues: FindIdFormValues = {
-    member_name: '',
-    member_mail: '',
-    certify_number: '',
+  const handleSubmit = async (values: FindIdForm) => {
+    dispatch(findIdRequest(values));
   };
 
-  const handleSubmit = async (values: FindIdFormValues) => {
-    // API 호출 및 아이디 찾기 로직
-    const dummyFoundId = 'ho*******ng';
-    setFoundId(dummyFoundId);
-    setPopupVisible(true);
+  const handleCertifySend = (values: FindIdForm) => {
+    console.log('values', values);
+    if (values.email !== '') {
+      startCertifyTimer();
+    }
   };
+
+  useActionSubscribe({
+    type: findIdSuccess.type,
+    callback: ({ payload }: ReturnType<typeof findIdSuccess>) => {
+      setFoundId(payload);
+      setPopupVisible(true);
+    },
+  });
+
+  useActionSubscribe({
+    type: findIdFailure.type,
+    callback: () => {
+      setPopupVisible(false);
+      resetCertify();
+      alert('인증을 실패했습니다.');
+    },
+  });
 
   return (
     <div id='wrap'>
@@ -55,16 +78,16 @@ function FindId() {
           </div>
 
           <Formik initialValues={initialValues} validationSchema={findIdSchema} onSubmit={handleSubmit}>
-            {({ values, setFieldValue }) => (
+            {({ values }) => (
               <Form>
                 <fieldset>
                   <legend>계정찾기 정보입력 영역</legend>
                   <div className='join_wrap type_srch'>
                     <div className='input_wrap'>
-                      <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+                      <InputField name='username' label='이름' placeholder='이름을 입력해주세요.' />
 
                       <InputField
-                        name='member_mail'
+                        name='email'
                         label='이메일'
                         placeholder='이메일 주소를 입력해주세요.'
                         additionalElement={
@@ -72,8 +95,7 @@ function FindId() {
                             type='button'
                             className='btn'
                             onClick={() => {
-                              values.member_mail !== '' && startCertifyTimer();
-                              setFieldValue('certify_number', '');
+                              handleCertifySend(values);
                             }}
                           >
                             인증번호 발송
