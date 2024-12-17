@@ -6,6 +6,4 @@ const formatTime = (seconds: number): string => {
   return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export { CERTIFICATION_TIME, formatTime, EMAIL_REGEX };
+export { CERTIFICATION_TIME, formatTime };

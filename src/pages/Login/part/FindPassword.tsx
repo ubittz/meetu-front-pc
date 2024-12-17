@@ -1,16 +1,14 @@
-import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InputField from '@@components/InputField';
-import ButtonInputField from '@@components/InputField/ButtonInputField';
-import { findPasswordSchema } from '@@constants/scheme';
 import { useCertify } from '@@pages/Login/hooks';
 import { FindPasswordFormValues } from '@@pages/Login/types';
-import { EMAIL_REGEX } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { findPasswordSchema } from '@@constants/scheme';
 
 function FindPassword() {
   const navigate = useNavigate();
@@ -32,7 +30,7 @@ function FindPassword() {
     }
   };
 
-  const renderForm = ({ isValid, setFieldValue }: FormikProps<FindPasswordFormValues>) => (
+  const renderForm = ({ values, isValid, setFieldValue }: FormikProps<FindPasswordFormValues>) => (
     <Form>
       <fieldset>
         <legend>계정찾기 정보입력 영역</legend>
@@ -42,17 +40,22 @@ function FindPassword() {
 
             <InputField name='member_id' label='아이디' placeholder='아이디를 입력해주세요.' />
 
-            <ButtonInputField
+            <InputField
               name='member_mail'
               label='이메일'
               placeholder='이메일 주소를 입력해주세요.'
-              buttonText='인증번호 발송'
-              onButtonClick={(value) => {
-                if (EMAIL_REGEX.test(value)) {
-                  startCertifyTimer();
-                  setFieldValue('certify_number', '');
-                }
-              }}
+              additionalElement={
+                <button
+                  type='button'
+                  className='btn'
+                  onClick={() => {
+                    values.member_mail !== '' && startCertifyTimer();
+                    setFieldValue('certify_number', '');
+                  }}
+                >
+                  인증번호 발송
+                </button>
+              }
             />
 
             {isCertifySend && (
@@ -60,7 +63,6 @@ function FindPassword() {
                 name='certify_number'
                 label='인증번호'
                 placeholder='6자리 인증번호를 입력해주세요.'
-                additionalClassName='type_srch'
                 additionalElement={<p className='certify'>{formattedTime}</p>}
               />
             )}

@@ -1,18 +1,16 @@
 import { useState } from 'react';
-
-import { Formik, Form } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import InputField from '@@components/InputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
-import { changePasswordSchema } from '@@constants/scheme';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-
+import { Formik, Form } from 'formik';
+import { changePasswordSchema } from '@@constants/scheme';
+import InputField from '@@components/InputField';
 import { ChangePasswordFormType } from '../types';
 
 function ChangePassword() {
