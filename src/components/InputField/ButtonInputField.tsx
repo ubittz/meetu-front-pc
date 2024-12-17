@@ -5,12 +5,22 @@ interface ButtonInputFieldProps {
   label: string;
   placeholder: string;
   type?: string;
+  required?: boolean;
   isSearch?: boolean;
   buttonText: string;
   onButtonClick: (value: string, setFieldError: FormikHelpers<FormikValues>['setFieldError']) => void;
 }
 
-function ButtonInputField({ name, label, placeholder, type = 'text', isSearch = false, buttonText, onButtonClick }: ButtonInputFieldProps) {
+function ButtonInputField({
+  name,
+  label,
+  placeholder,
+  type = 'text',
+  required = false,
+  isSearch = false,
+  buttonText,
+  onButtonClick,
+}: ButtonInputFieldProps) {
   const renderInput = ({ field, meta, form }: FieldProps) => {
     const hasError = meta.touched && meta.error;
 
@@ -29,7 +39,10 @@ function ButtonInputField({ name, label, placeholder, type = 'text', isSearch = 
 
   return (
     <div className={inputAreaClassName}>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <strong className='required'>*</strong>}
+      </label>
       <Field name={name}>{renderInput}</Field>
     </div>
   );

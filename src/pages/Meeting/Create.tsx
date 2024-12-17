@@ -1,14 +1,20 @@
 import { useState } from 'react';
 
+import { Formik, Form } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
+import ButtonInputField from '@@components/InputField/ButtonInputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
+import { createMeetingSchema } from '@@constants/scheme';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+
+import { CreateMeetingFormValues } from './types';
 
 function MeetingCreate() {
   const navigate = useNavigate();
@@ -22,6 +28,23 @@ function MeetingCreate() {
     setIsPopupOpen(false);
   };
 
+  const initialValues: CreateMeetingFormValues = {
+    mc_name: '',
+    mc_category: '',
+    mc_address: '',
+    mc_cost: '',
+    mc_number: '',
+    mc_date: '',
+    mc_intro: '',
+    mc_notice: '',
+    mc_notice02: '',
+  };
+
+  const handleSubmit = (values: CreateMeetingFormValues) => {
+    console.log('모임 등록:', values);
+    openPopup(); // 폼 제출 시 팝업 열기
+  };
+
   return (
     <div id='wrap'>
       <Header />
@@ -33,115 +56,109 @@ function MeetingCreate() {
           </div>
           <div className='visual_bg'></div>
         </section>
-        {/* <!-- 배너 영역 종료 --> */}
 
-        {/* <!-- 모임 개설 정보 입력 영역 시작 --> */}
         <section className='member_inner meeting'>
-          {/* <!-- 모임 개설 정보입력 form 영역 시작 --> */}
-          <form action='#' method='post'>
-            <fieldset>
-              <legend>계정찾기 정보입력 영역</legend>
-              <div className='join_wrap type_srch'>
-                <h3 className='join_tit'>
-                  기본정보
-                  <span className='caption'>
-                    <strong className='required'>*</strong>표기는 필수 항목입니다.
-                  </span>
-                </h3>
-                {/* <!-- 정보입력 영역 시작 --> */}
-                <div className='input_wrap'>
-                  <div className='input_area input_btn'>
-                    <label htmlFor='mc_name'>
-                      모임명<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='mc_name' id='mc_name' placeholder='모임명을 입력해주세요.' className='error' required />
-                    <p className='txt_error' style={{ display: 'block' }}>
-                      모임명을 입력해주세요.
-                    </p>
-                    <button type='button' className='btn'>
-                      중복체크
-                    </button>
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_category'>
-                      카테고리<strong className='required'>*</strong>
-                    </label>
-                    <select name='mc_category' id='mc_category' required>
-                      <option value='' selected disabled hidden>
-                        선택하기
-                      </option>
-                      <option value=''>아트</option>
-                      <option value=''>독서</option>
-                      <option value=''>쿠킹</option>
-                      <option value=''>사이클</option>
-                      <option value=''>운동</option>
-                      <option value=''>등산</option>
-                      <option value=''>음악</option>
-                      <option value=''>사진</option>
-                      <option value=''>기술</option>
-                      <option value=''>와인</option>
-                    </select>
-                    <p className='txt_error'>카테고리를 선택해주세요.</p>
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_address'>모임 장소</label>
-                    <button className='btn srch'>
-                      <span>선택하기</span> {/* 주소 선택 후 span에 주소가 들어갑니다. */}
-                    </button>
-                    <input type='text' name='mc_address' id='mc_address' placeholder='상세주소를 입력해주세요.' />
-                  </div>
-                  <div className='input_area type_02'>
-                    <label htmlFor='mc_cost'>
-                      모임 참가비<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='mc_cost' id='mc_cost' placeholder='숫자만 입력해주세요.' required />
-                    <span className='txt'>원</span>
-                    <p className='txt_error'>모임 참가비를 입력해주세요.</p>
-                  </div>
-                  <div className='input_area type_02'>
-                    <label htmlFor='mc_number'>모임 정원</label>
-                    <input type='text' name='mc_number' id='mc_number' placeholder='숫자만 입력해주세요.' />
-                    <span className='txt'>명</span>
-                  </div>
-                  <div className='input_area type_date'>
-                    <label htmlFor='mc_date'>
-                      모임 진행일<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='mc_date' id='mc_date' placeholder='날짜를 선택해주세요.' required />
-                    <p className='txt_error'>모임 진행일을 선택해주세요.</p>
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_intro'>모임 소개</label>
-                    <input type='text' name='mc_intro' id='mc_intro' placeholder='모임 소개글을 적어주세요. (최대 100byte)' />
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_intro'>모임 상세</label>
-                    <div className='editor'>
-                      <p style={{ width: '100%', border: '1px solid #ededed', height: '300px', padding: '20px' }}>에디터 영역입니다.</p>
+          <Formik initialValues={initialValues} validationSchema={createMeetingSchema} onSubmit={handleSubmit}>
+            {({ setFieldValue, values }) => (
+              <Form>
+                <fieldset>
+                  <legend>모임 개설 정보 입력</legend>
+                  <div className='join_wrap type_srch'>
+                    <h3 className='join_tit'>
+                      기본정보
+                      <span className='caption'>
+                        <strong className='required'>*</strong>표기는 필수 항목입니다.
+                      </span>
+                    </h3>
+                    <div className='input_wrap'>
+                      <ButtonInputField
+                        name='mc_name'
+                        label='모임명'
+                        placeholder='모임명을 입력해주세요.'
+                        required
+                        buttonText='중복체크'
+                        onButtonClick={() => {}}
+                      />
+                      <InputField
+                        name='mc_category'
+                        label='카테고리'
+                        placeholder='카테고리를 선택해주세요.'
+                        required
+                        textfieldHidden
+                        additionalClassName='type_02'
+                        additionalElement={
+                          <select
+                            name='mc_category'
+                            id='mc_category'
+                            required
+                            onChange={(e) => {
+                              setFieldValue('mc_category', e.target.value);
+                            }}
+                          >
+                            <option value=''>선택하기</option>
+                            <option value='art'>아트</option>
+                            <option value='reading'>독서</option>
+                            <option value='cooking'>쿠킹</option>
+                            <option value='cycling'>사이클</option>
+                            <option value='exercise'>운동</option>
+                            <option value='hiking'>등산</option>
+                            <option value='music'>음악</option>
+                            <option value='photography'>사진</option>
+                            <option value='technology'>기술</option>
+                            <option value='wine'>와인</option>
+                          </select>
+                        }
+                      />
+                      <ButtonInputField
+                        name='mc_address'
+                        label='모임 장소'
+                        placeholder='상세주소를 입력해주세요.'
+                        buttonText='선택하기'
+                        onButtonClick={() => {}}
+                      />
+                      <InputField
+                        name='mc_cost'
+                        label='모임 참가비'
+                        placeholder='숫자만 입력해주세요.'
+                        required
+                        additionalClassName='type_02'
+                        additionalElement={<span className='txt'>원</span>}
+                      />
+                      <InputField
+                        name='mc_number'
+                        label='모임 정원'
+                        placeholder='숫자만 입력해주세요.'
+                        additionalClassName='type_02'
+                        additionalElement={<span className='txt'>명</span>}
+                      />
+                      <InputField name='mc_date' label='모임 진행일' placeholder='날짜를 선택해주세요.' required additionalClassName='type_date' />
+                      <div className='input_area'>
+                        <label htmlFor='mc_intro'>모임 소개</label>
+                        <input type='text' name='mc_intro' id='mc_intro' placeholder='모임 소개글을 적어주세요. (최대 100byte)' />
+                      </div>
+                      <InputField name='mc_notice' label='진행안내' placeholder='진행안내글을 작성해주세요.' />
+                      <InputField name='mc_notice02' label='제공 / 준비물' placeholder='제공 / 준비물을 작성해주세요.' />
+                    </div>
+
+                    <div className='btn_area type_02'>
+                      <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
+                        취소
+                      </Link>
+                      <button
+                        type='button'
+                        className='btn'
+                        onClick={() => {
+                          handleSubmit(values);
+                        }}
+                      >
+                        모임등록
+                      </button>
                     </div>
                   </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_notice'>진행안내</label>
-                    <input type='text' name='mc_notice' id='mc_notice' placeholder='진행안내글을 작성해주세요.' />
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='mc_notice02'>제공 / 준비물</label>
-                    <input type='text' name='mc_notice02' id='mc_notice02' placeholder='제공 / 준비물을 작성해주세요.' />
-                  </div>
-                </div>
-                {/* <!-- //정보입력 영역 종료 --> */}
-
-                <div className='btn_area type_02'>
-                  <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
-                    취소
-                  </Link>
-                  <button type='submit' className='btn' onClick={openPopup}>
-                    모임등록
-                  </button>
-                </div>
-              </div>
-            </fieldset>
-          </form>
+                </fieldset>
+              </Form>
+            )}
+          </Formik>
 
           <Popup
             visible={isPopupOpen}
