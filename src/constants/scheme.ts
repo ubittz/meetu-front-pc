@@ -52,6 +52,13 @@ export const verifyIdentitySchema = object({
     .matches(/^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, { message: '이메일을 정확히 입력해주세요.' }),
 });
 
+export const resetPasswordSchema = object({
+  password: string()
+    .required('비밀번호를 입력해주세요.')
+    .matches(new RegExp(/^[a-zA-Z0-9]{8,20}$/), { message: '비밀번호는 영문 대소문자 + 숫자 조합 8~20글자 입니다.' }),
+  passwordCheck: string().oneOf([ref('password')], '비밀번호가 일치하지 않습니다.'),
+});
+
 export const verifyOTPSchema = object({
   otp: string().required('인증번호를 입력해주세요.'),
 });

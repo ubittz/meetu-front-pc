@@ -10,6 +10,7 @@ import Header from '@@components/Header';
 import InputField from '@@components/InputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
+import { resetPasswordSchema } from '@@constants/scheme';
 import { ResetPasswordForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
@@ -61,7 +62,7 @@ function ChangePassword() {
             </Link>
           </div>
 
-          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={resetPasswordSchema}>
             {({ isValid }) => (
               <Form>
                 <fieldset>
