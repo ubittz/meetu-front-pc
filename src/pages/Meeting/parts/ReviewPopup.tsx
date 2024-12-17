@@ -66,7 +66,7 @@ const StyledReviewPopup = styled(Flex.Vertical)`
     padding: 8px;
     background-color: ${COLORS.WHITE};
     border: 2px solid ${COLORS.BORDER};
-    border-radius: 50%;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;

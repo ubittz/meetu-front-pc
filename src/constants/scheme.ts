@@ -14,7 +14,9 @@ const registerSchema = Yup.object({
     .oneOf([Yup.ref('member_pw')], '비밀번호가 일치하지 않습니다.')
     .required('비밀번호를 확인해주세요.'),
   member_name: Yup.string().required('이름을 입력해주세요.'),
-  member_birth: Yup.string().required('생년월일을 선택해주세요.'),
+  member_birth: Yup.string()
+    .required('생년월일을 입력해주세요.')
+    .matches(/^\d{8}$/, '생년월일은 8자리 숫자여야 합니다.'),
   genderChk: Yup.string().required('성별을 선택해주세요.'),
   member_contact: Yup.string()
     .required('전화번호를 입력해주세요.')
@@ -54,4 +56,16 @@ const changePasswordSchema = Yup.object({
     .required('비밀번호를 확인해주세요.'),
 });
 
-export { registerSchema, findIdSchema, findPasswordSchema, changePasswordSchema };
+const createMeetingSchema = Yup.object().shape({
+  mc_name: Yup.string().required('모임명을 입력해주세요.'),
+  mc_category: Yup.string().required('카테고리를 선택해주세요.'),
+  mc_address: Yup.string(),
+  mc_cost: Yup.string().matches(/^\d+$/, '숫자만 입력 해주세요.').required('모임 참가비를 입력해주세요.'),
+  mc_number: Yup.string().matches(/^\d+$/, '숫자만 입력 해주세요.'),
+  mc_date: Yup.string().required('날짜를 선택해주세요.'),
+  mc_intro: Yup.string().max(100, '모임 소개글은 최대 100byte까지 입력 가능합니다.'),
+  mc_notice: Yup.string(),
+  mc_notice02: Yup.string(),
+});
+
+export { registerSchema, findIdSchema, findPasswordSchema, changePasswordSchema, createMeetingSchema };

@@ -20,4 +20,16 @@ interface Question {
   content?: string; // 질문 내용
 }
 
-export type { Qna, Review };
+interface CreateMeetingFormValues {
+  mc_name: string;
+  mc_category: string;
+  mc_address?: string;
+  mc_cost: string;
+  mc_number?: string;
+  mc_date: string;
+  mc_intro?: string;
+  mc_notice?: string;
+  mc_notice02?: string;
+}
+
+export type { Qna, Review, CreateMeetingFormValues };
