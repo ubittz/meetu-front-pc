@@ -1,3 +1,8 @@
+interface LoginForm {
+  id: string;
+  password: string;
+}
+
 interface FindIdFormValues {
   member_name: string;
   member_mail: string;
@@ -16,4 +21,4 @@ interface ChangePasswordFormType {
   new_password_confirm: string;
 }
 
-export type { ChangePasswordFormType, FindIdFormValues, FindPasswordFormValues };
+export type { ChangePasswordFormType, FindIdFormValues, FindPasswordFormValues, LoginForm };

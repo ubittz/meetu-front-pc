@@ -1,36 +1,57 @@
-import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { registerSchema } from '@@constants/scheme';
-import InputField from '@@components/InputField';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
+import { registerSchema } from '@@constants/scheme';
+import { GENDER } from '@@pages/Register/constants';
+import { RegisterForm } from '@@pages/Register/types';
+import { sanitizeRegisterForm } from '@@pages/Register/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { RegisterFormType } from '@@pages/Register/types';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { registerRequest, registerSuccess, registerFailure } from '@@stores/auth/reducer';
+
+const initialValues: RegisterForm = {
+  userId: '',
+  username: '',
+  password: '',
+  passwordCheck: '',
+  email: '',
+  birth: '',
+  gender: GENDER.MALE,
+  tel: '',
+  checkedId: false,
+  checkedEmail: false,
+};
 
 function UserInfoInput() {
-  const initialValues: RegisterFormType = {
-    member_id: '',
-    member_pw: '',
-    member_pw_re: '',
-    member_name: '',
-    member_birth: '',
-    genderChk: '',
-    member_contact: '',
-    member_mail: '',
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (values: RegisterForm) => {
+    dispatch(registerRequest(sanitizeRegisterForm(values)));
   };
 
-  const handleIdCheck = async (value: string, setFieldError: any) => {
-    if (value === 'takenId') {
-      setFieldError('member_id', '이미 가입된 아이디입니다.');
-    }
-  };
+  useActionSubscribe({
+    type: registerSuccess.type,
+    callback: ({ payload }: ReturnType<typeof registerSuccess>) => {
+      navigate(pathGenerator(PAGES.REGISTER) + '/complete', {
+        state: {
+          name: payload.name,
+        },
+      });
+    },
+  });
 
-  const handleMailCheck = async (value: string, setFieldError: any) => {
-    if (value === 'takenMail') {
-      setFieldError('member_mail', '이미 가입된 이메일입니다.');
-    }
-  };
+  useActionSubscribe({
+    type: registerFailure.type,
+    callback: ({ payload }: ReturnType<typeof registerFailure>) => {
+      alert(payload);
+    },
+  });
 
   return (
     <div id='wrap'>
@@ -44,14 +65,8 @@ function UserInfoInput() {
             <strong>03. 가입완료</strong>
           </p>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={registerSchema}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
-          >
-            {({ values, setFieldValue, setFieldError }) => (
+          <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleSubmit}>
+            {({ setFieldValue }) => (
               <Form>
                 <fieldset>
                   <legend>회원가입 정보입력 영역</legend>
@@ -59,7 +74,7 @@ function UserInfoInput() {
                     <h3 className='join_tit'>기본정보</h3>
                     <div className='input_wrap'>
                       <InputField
-                        name='member_id'
+                        name='userId'
                         label='아이디'
                         placeholder='아이디를 입력해주세요.'
                         additionalElement={
@@ -67,7 +82,7 @@ function UserInfoInput() {
                             type='button'
                             className='btn'
                             onClick={() => {
-                              handleIdCheck(values.member_id, setFieldError);
+                              // handleIdCheck(values.userId, setFieldError);
                               setFieldValue('isIdCheck', true);
                             }}
                           >
@@ -76,18 +91,13 @@ function UserInfoInput() {
                         }
                       />
 
-                      <InputField
-                        name='member_pw'
-                        label='비밀번호'
-                        type='password'
-                        placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
-                      />
+                      <InputField name='password' label='비밀번호' type='password' placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하' />
 
-                      <InputField name='member_pw_re' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
+                      <InputField name='passwordCheck' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
 
-                      <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+                      <InputField name='username' label='이름' placeholder='이름을 입력해주세요.' />
 
-                      <InputField name='member_birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
+                      <InputField name='birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
 
                       <div className='input_area inputChk'>
                         <p className='input_tit'>성별</p>
@@ -101,10 +111,10 @@ function UserInfoInput() {
                         </div>
                       </div>
 
-                      <InputField name='member_contact' label='연락처' placeholder="'-'없이 입력해주세요." />
+                      <InputField name='tel' label='연락처' placeholder="'-'없이 입력해주세요." />
 
                       <InputField
-                        name='member_mail'
+                        name='email'
                         label='이메일'
                         placeholder='이메일 주소를 입력해주세요.'
                         additionalElement={
@@ -112,7 +122,7 @@ function UserInfoInput() {
                             type='button'
                             className='btn'
                             onClick={() => {
-                              handleMailCheck(values.member_mail, setFieldError);
+                              // handleMailCheck(values.email, setFieldError);
                               setFieldValue('isMailCheck', true);
                             }}
                           >
