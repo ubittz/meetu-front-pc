@@ -48,8 +48,6 @@ function FindPassword() {
         <legend>계정찾기 정보입력 영역</legend>
         <div className='join_wrap type_srch'>
           <div className='input_wrap'>
-            <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
-
             <InputField name='id' label='아이디' placeholder='아이디를 입력해주세요.' />
 
             <InputField

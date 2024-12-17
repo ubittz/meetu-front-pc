@@ -84,8 +84,6 @@ function FindId() {
                   <legend>계정찾기 정보입력 영역</legend>
                   <div className='join_wrap type_srch'>
                     <div className='input_wrap'>
-                      <InputField name='username' label='이름' placeholder='이름을 입력해주세요.' />
-
                       <InputField
                         name='email'
                         label='이메일'
