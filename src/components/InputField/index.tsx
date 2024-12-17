@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { Field, ErrorMessage, FieldProps } from 'formik';
 
 interface InputFieldProps {
@@ -6,11 +7,11 @@ interface InputFieldProps {
   label: string;
   placeholder: string;
   type?: string;
-  isDate?: boolean;
+  additionalClassName?: 'type_date' | 'type_srch';
   additionalElement?: ReactNode;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type = 'text', isDate, additionalElement }) => {
+const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type = 'text', additionalClassName, additionalElement }) => {
   const renderInput = ({ field, meta }: FieldProps) => {
     const hasError = meta.touched && meta.error;
 
@@ -23,7 +24,7 @@ const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type 
     );
   };
 
-  const inputAreaClassName = `input_area ${additionalElement ? 'input_btn' : ''} ${isDate ? 'type_date' : ''}`;
+  const inputAreaClassName = `input_area ${additionalClassName ? additionalClassName : ''}`;
 
   return (
     <div className={inputAreaClassName}>

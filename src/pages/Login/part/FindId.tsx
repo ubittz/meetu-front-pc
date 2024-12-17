@@ -1,20 +1,23 @@
 import { useState } from 'react';
+
+import { Formik, Form, FormikHelpers } from 'formik';
 import { Link } from 'react-router-dom';
-import { Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
+import ButtonInputField from '@@components/InputField/ButtonInputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { findIdSchema } from '@@constants/scheme';
+import { useCertify } from '@@pages/Login/hooks';
+import { FindIdFormValues } from '@@pages/Login/types';
+import { EMAIL_REGEX } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { findIdSchema } from '@@constants/scheme';
-import InputField from '@@components/InputField';
-import { FindIdFormValues } from '../types';
-import { useCertify } from '../hooks';
 
 function FindId() {
   const navigate = useNavigate();
@@ -28,7 +31,11 @@ function FindId() {
     certify_number: '',
   };
 
-  const handleSubmit = async (values: FindIdFormValues) => {
+  const handleSubmit = async (values: FindIdFormValues, { setFieldError }: FormikHelpers<FindIdFormValues>) => {
+    if (values.certify_number.length !== 6) {
+      setFieldError('certify_number', '인증번호는 6자리로 입력해주세요.');
+      return;
+    }
     // API 호출 및 아이디 찾기 로직
     const dummyFoundId = 'ho*******ng';
     setFoundId(dummyFoundId);
@@ -53,7 +60,7 @@ function FindId() {
           </div>
 
           <Formik initialValues={initialValues} validationSchema={findIdSchema} onSubmit={handleSubmit}>
-            {({ values, setFieldValue }) => (
+            {({ setFieldValue }) => (
               <Form>
                 <fieldset>
                   <legend>계정찾기 정보입력 영역</legend>
@@ -61,22 +68,17 @@ function FindId() {
                     <div className='input_wrap'>
                       <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
 
-                      <InputField
+                      <ButtonInputField
                         name='member_mail'
                         label='이메일'
                         placeholder='이메일 주소를 입력해주세요.'
-                        additionalElement={
-                          <button
-                            type='button'
-                            className='btn'
-                            onClick={() => {
-                              values.member_mail !== '' && startCertifyTimer();
-                              setFieldValue('certify_number', '');
-                            }}
-                          >
-                            인증번호 발송
-                          </button>
-                        }
+                        buttonText='인증번호 발송'
+                        onButtonClick={(value) => {
+                          if (EMAIL_REGEX.test(value)) {
+                            startCertifyTimer();
+                            setFieldValue('certify_number', '');
+                          }
+                        }}
                       />
 
                       {isCertifySend && (

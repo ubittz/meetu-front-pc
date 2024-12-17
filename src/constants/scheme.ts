@@ -14,7 +14,9 @@ const registerSchema = Yup.object({
     .oneOf([Yup.ref('member_pw')], '비밀번호가 일치하지 않습니다.')
     .required('비밀번호를 확인해주세요.'),
   member_name: Yup.string().required('이름을 입력해주세요.'),
-  member_birth: Yup.string().required('생년월일을 선택해주세요.'),
+  member_birth: Yup.string()
+    .required('생년월일을 입력해주세요.')
+    .matches(/^\d{8}$/, '생년월일은 8자리 숫자여야 합니다.'),
   genderChk: Yup.string().required('성별을 선택해주세요.'),
   member_contact: Yup.string()
     .required('전화번호를 입력해주세요.')

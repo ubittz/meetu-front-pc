@@ -1,17 +1,19 @@
-interface FindIdFormValues {
+import { FormikValues } from 'formik';
+
+interface FindIdFormValues extends FormikValues {
   member_name: string;
   member_mail: string;
   certify_number: string;
 }
 
-interface FindPasswordFormValues {
+interface FindPasswordFormValues extends FormikValues {
   member_name: string;
   member_id: string;
   member_mail: string;
   certify_number: string;
 }
 
-interface ChangePasswordFormType {
+interface ChangePasswordFormType extends FormikValues {
   new_password: string;
   new_password_confirm: string;
 }
