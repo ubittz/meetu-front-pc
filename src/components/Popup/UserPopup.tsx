@@ -7,7 +7,7 @@ import { COLORS } from '@@constants/colors';
 
 import { Cancel } from './icon';
 
-const StyledPopup = styled.div<{ $visible: boolean; $width: string; $height: string }>`
+const StyledPopup = styled.div<{ $visible: boolean; $width: string; $height: string; $transform: string }>`
   position: fixed;
   display: ${({ $visible }) => ($visible ? 'block' : 'none')};
   top: 0;
@@ -23,22 +23,17 @@ const StyledPopup = styled.div<{ $visible: boolean; $width: string; $height: str
     position: relative;
     top: 55%;
     left: 50%;
-    transform: translateX(-50%) translateY(-35%);
+    transform: ${({ $transform }) => $transform};
     width: ${({ $width }) => $width};
     height: ${({ $height }) => $height};
-    padding: 80px 100px;
+    padding: 60px;
     background: ${COLORS.WHITE};
     box-sizing: border-box;
-
 
     .body {
       width: 87%;
       margin-left: 56px;
       margin-top: 60px;
-    }
-
-    .popup_box__content {
-      padding: 24px;
     }
 
     .title {
@@ -50,16 +45,25 @@ const StyledPopup = styled.div<{ $visible: boolean; $width: string; $height: str
 
     .popup_img {
       width: 302px;
-      height: 360px;
+      height: 350px;
       object-fit: cover;
       object-position: center;
     }
   }
 `;
 
-function UserPopup({ visible, title, children, img, onCancel, width = '50%', height = '620px' }: PopupProps) {
+function UserPopup({
+  visible,
+  title,
+  children,
+  img,
+  onCancel,
+  width = '50%',
+  height = '620px',
+  transform = 'translateX(-50%) translateY(-50%)',
+}: PopupProps) {
   return (
-    <StyledPopup $visible={visible} $width={width} $height={height}>
+    <StyledPopup $visible={visible} $width={width} $height={height} $transform={transform}>
       <Flex.Vertical className='popup_box'>
         <Flex.Horizontal className='title'>
           <Typography.LargeTitle className='popup_title'>{title}</Typography.LargeTitle>
