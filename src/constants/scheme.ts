@@ -63,7 +63,7 @@ const createMeetingSchema = Yup.object().shape({
   mc_cost: Yup.string().matches(/^\d+$/, '숫자만 입력 해주세요.').required('모임 참가비를 입력해주세요.'),
   mc_number: Yup.string().matches(/^\d+$/, '숫자만 입력 해주세요.'),
   mc_date: Yup.string().required('날짜를 선택해주세요.'),
-  mc_intro: Yup.string().max(100, '모임 소개글은 최대 100byte까지 입력 가능합니다.').required('모임 소개글을 적어주세요.'),
+  mc_intro: Yup.string().max(100, '모임 소개글은 최대 100byte까지 입력 가능합니다.'),
   mc_notice: Yup.string(),
   mc_notice02: Yup.string(),
 });

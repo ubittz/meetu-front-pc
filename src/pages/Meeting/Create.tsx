@@ -30,7 +30,7 @@ function MeetingCreate() {
 
   const initialValues: CreateMeetingFormValues = {
     mc_name: '',
-    mc_category: '',
+    mc_category: 'art',
     mc_address: '',
     mc_cost: '',
     mc_number: '',
@@ -59,7 +59,7 @@ function MeetingCreate() {
 
         <section className='member_inner meeting'>
           <Formik initialValues={initialValues} validationSchema={createMeetingSchema} onSubmit={handleSubmit}>
-            {({ setFieldValue, values }) => (
+            {({ setFieldValue, isValid }) => (
               <Form>
                 <fieldset>
                   <legend>모임 개설 정보 입력</legend>
@@ -95,7 +95,6 @@ function MeetingCreate() {
                               setFieldValue('mc_category', e.target.value);
                             }}
                           >
-                            <option value=''>선택하기</option>
                             <option value='art'>아트</option>
                             <option value='reading'>독서</option>
                             <option value='cooking'>쿠킹</option>
@@ -144,13 +143,7 @@ function MeetingCreate() {
                       <Link to={pathGenerator(PAGES.MAIN)} className='btn form02'>
                         취소
                       </Link>
-                      <button
-                        type='button'
-                        className='btn'
-                        onClick={() => {
-                          handleSubmit(values);
-                        }}
-                      >
+                      <button type='submit' className={`btn ${!isValid ? 'disabled' : ''}`}>
                         모임등록
                       </button>
                     </div>
