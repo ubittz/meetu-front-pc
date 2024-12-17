@@ -136,7 +136,9 @@ function* fetchMe() {
 function* findId({ payload }: ReturnType<typeof findIdRequest>) {
   try {
     const response: MeetuResponse<string> = yield authenticatedRequest.post('/api/user/find-id', {
-      data: payload,
+      data: {
+        email: payload.email,
+      },
     });
 
     const action = response.ok ? findIdSuccess(response.data) : findIdFailure('등록된 회원이 없습니다.');
