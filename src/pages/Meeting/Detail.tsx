@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import UserPopup from '@@components/Popup/UserPopup';
 import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
-import { PAGES } from '@@router/constants';
-import { pathGenerator } from '@@router/utils';
+import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import { UserType } from '@@types/user';
 
 import { getDummyQnaList, getDummyReviewList } from './dummys';
 
@@ -16,6 +17,7 @@ function MeetingDetail() {
   // TODO: - dummy data 교체
   const reviews = getDummyReviewList();
   const qnaList = getDummyQnaList();
+  const type: UserType = 'host';
 
   const [currentReviewPage, setCurrentReviewPage] = useState(1); // 현재 페이지 상태 추가
   const [currentQnaPage, setCurrentQnaPage] = useState(1); // 현재 페이지 상태 추가
@@ -226,47 +228,9 @@ function MeetingDetail() {
 
             {/* <!-- 호스트 정보 팝업 시작 --> */}
             {isPopupOpen && (
-              <div className='popup_layer'>
-                {/* <!-- 기본 숨김처리, 노출 시 style="display: block" 추가 --> */}
-                <div className='popup_bg' onClick={closePopup}></div>
-                <div className='popup_inner'>
-                  <h3 className='popup_tit'>호스트 정보</h3>
-                  <button className='btn close' onClick={closePopup}>
-                    팝업 닫기
-                  </button>
-                  <div className='host_area'>
-                    <div className='img_area'>
-                      <img src={images.meeting_img04} alt='호스트 이미지' />
-                    </div>
-                    <div className='info_area'>
-                      <h4>호스트명 또는 닉네임</h4>
-                      <div className='infoBox'>
-                        <Link to={pathGenerator(PAGES.MYPAGE) + '/info/host'} className='ib'>
-                          <p className='tit'>운영중인 모임</p>
-                          <p className='txt'>
-                            <strong>N</strong>
-                            <span> 개</span>
-                          </p>
-                        </Link>
-                        <Link to={pathGenerator(PAGES.MYPAGE) + '/info/user'} className='ib'>
-                          <p className='tit'>리뷰</p>
-                          <p className='txt'>
-                            <strong>N</strong>
-                            <span> 건</span>
-                          </p>
-                        </Link>
-                      </div>
-                      <dl>
-                        <dt>호스트 소개</dt>
-                        <dd>
-                          새로운 요리 기술을 배우고, 맛있는 음식을 함께 만들고 나누는 시간. 미식가들의 만남을 통해 새로운 레시피도 얻어가세요. 최대
-                          4줄까지 노출됩니다. 4줄 이상은 ...으로 대체됩니다.
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
+                <InfoPopup type={type} />
+              </UserPopup>
             )}
             {/* <!-- 호스트 정보 팝업 종료 --> */}
           </div>

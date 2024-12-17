@@ -71,7 +71,7 @@ function OrderList() {
         </section>
 
         {isPopupOpen && selectedOrder && (
-          <UserPopup visible={isPopupOpen} title='결제 상세' onCancel={closePopup} width='70%' height='1500px'>
+          <UserPopup visible={isPopupOpen} title='결제 상세' onCancel={closePopup} width='70%' height='1500px' transform="translateX(-50%) translateY(-30%)">
             <OrderDetailPopup order={selectedOrder} /> {/* 선택된 주문 정보를 OrderDetailPopup에 전달 */}
           </UserPopup>
         )}
