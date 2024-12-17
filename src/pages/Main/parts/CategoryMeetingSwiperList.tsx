@@ -53,8 +53,8 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
           slidesToShow={4}
           showArrows={true}
           arrowStyles={{
-            left: { top: '80vh', left: '73vw' },
-            right: { top: '80vh', right: '23.5vh' },
+            left: { top: '109%', left: '80%' },
+            right: { top: '109%', right: '14%' },
           }}
           sliderProps={{
             beforeChange: (current, next) => {

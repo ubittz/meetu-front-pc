@@ -56,10 +56,10 @@ function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
           slidesToShow={5}
           sliderProps={{ dots: true }}
           showArrows={true}
-          className='tw-w-screen tw-h-[57vh]'
+          className='tw-w-screen tw-h-[58vh]'
           arrowStyles={{
-            left: { top: '54vh', left: '80vw' },
-            right: { top: '54vh', right: '31vh' },
+            left: { top: '113%', left: '80%' },
+            right: { top: '113%', right: '15%' },
           }}
         />
       </Flex.Vertical>
