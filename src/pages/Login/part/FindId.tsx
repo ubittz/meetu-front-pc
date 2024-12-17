@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import { Formik, Form } from 'formik';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { findIdSchema } from '@@constants/scheme';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { findIdSchema } from '@@constants/scheme';
-import InputField from '@@components/InputField';
-import { FindIdFormValues } from '../types';
+
 import { useCertify } from '../hooks';
+import { FindIdFormValues } from '../types';
 
 function FindId() {
   const navigate = useNavigate();

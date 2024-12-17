@@ -43,7 +43,7 @@ function Router() {
 
       {/* 모임 */}
       <Route path={pathGenerator(PAGES.MEETING)} element={<MeetingList />} />
-      <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail />} />
+      <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail/>} />
       <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
 
       {/* 결제 */}

@@ -11,4 +11,5 @@ export type PopupProps = PropsWithChildren<{
     onCancel: () => void;
     width?:string;
     height?:string;
+    transform?: string;
 }>;
