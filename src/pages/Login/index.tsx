@@ -1,87 +1,80 @@
-import { Link } from 'react-router-dom';
+import { Form, Formik } from 'formik';
+import { Field } from 'formik';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
+import Header from '@@components/Header';
+import { LoginForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { loginRequest, loginSuccess, loginFailure } from '@@stores/auth/reducer';
 
-function Register() {
-  console.log('수정 했어요');
+const initialValues: LoginForm = {
+  id: '',
+  password: '',
+};
+
+function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (form: LoginForm) => {
+    dispatch(loginRequest(form));
+  };
+
+  useActionSubscribe({
+    type: loginSuccess.type,
+    callback: () => {
+      navigate(pathGenerator(PAGES.MAIN));
+    },
+  });
+
+  useActionSubscribe({
+    type: loginFailure.type,
+    callback: ({ payload }: ReturnType<typeof loginFailure>) => {
+      alert(payload);
+    },
+  });
   return (
     <div id='wrap'>
-      <header className='header'>
-        <div className='inner'>
-          <div className='inner_l'>
-            <h1 className='logo'>
-              <a href='../main/Main.html'>meetu</a>
-            </h1>
-            <nav id='navi'>
-              <ul>
-                <li>
-                  <a href='../main/MeetingList.html'>모임 탐색</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>호스트 소개</a>
-                </li>
-                <li>
-                  <a href='javascript:void(0);'>공지사항</a>
-                </li>
-                <li className='active'>
-                  <a href='../main/MeetingCreate.html'>모임 개설하기</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className='inner_r'>
-            <ul>
-              <li className='logout'>
-                <a href='javascript:void(0);'>로그아웃</a>
-              </li>
-              <li className='mypage'>
-                <a href='javascript:void(0);'>마이페이지</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className='container'>
         <div className='member_inner'>
           <h2>로그인</h2>
           <p className='caption'>밋 유에 오신 것을 환영합니다.</p>
 
-          <form action='#' method='post'>
-            <fieldset>
-              <legend>로그인 영역</legend>
-              <div className='input_wrap'>
-                <div className='input_area'>
-                  <input type='text' name='mb_id' id='mb_id' placeholder='아이디를 입력해주세요.' />
-                  <label htmlFor='mb_id' className='blind'>
-                    아이디
-                  </label>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <Form>
+              <fieldset>
+                <legend>로그인 영역</legend>
+                <div className='input_wrap'>
+                  <div className='input_area' id='id'>
+                    <Field type='text' name='id' id='id' placeholder='아이디를 입력해주세요.' />
+                  </div>
+                  <div className='input_area' id='password'>
+                    <Field type='password' name='password' id='password' placeholder='비밀번호를 입력해주세요.' />
+                  </div>
                 </div>
-                <div className='input_area'>
-                  <input type='password' name='mb_pw' id='mb_pw' placeholder='비밀번호를 입력해주세요.' />
-                  <label htmlFor='mb_pw' className='blind'>
-                    비밀번호
-                  </label>
-                </div>
-              </div>
 
-              <div className='btn_area'>
-                <button type='submit' className='btn'>
-                  로그인하기
-                </button>
-              </div>
-              <div className='btn_area btn_sub'>
-                <Link to={pathGenerator(PAGES.LOGIN) + '/find/id'} className='btn'>
-                  아이디 찾기
-                </Link>
-                <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn'>
-                  비밀번호 찾기
-                </Link>
-              </div>
-            </fieldset>
-          </form>
+                <div className='btn_area'>
+                  <button type='submit' className='btn'>
+                    로그인하기
+                  </button>
+                </div>
+                <div className='btn_area btn_sub'>
+                  <Link to={pathGenerator(PAGES.LOGIN) + '/find/id'} className='btn'>
+                    아이디 찾기
+                  </Link>
+                  <Link to={pathGenerator(PAGES.LOGIN) + '/find/password'} className='btn'>
+                    비밀번호 찾기
+                  </Link>
+                </div>
+              </fieldset>
+            </Form>
+          </Formik>
 
           <div className='btn_join'>
             <p className='or_txt'>
@@ -103,4 +96,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

@@ -1,36 +1,59 @@
-import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { registerSchema } from '@@constants/scheme';
-import InputField from '@@components/InputField';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
+import InputField from '@@components/InputField';
+import { registerSchema } from '@@constants/scheme';
+import { GENDER } from '@@pages/Register/constants';
+import { useRegisterForm } from '@@pages/Register/hooks';
+import { RegisterForm } from '@@pages/Register/types';
+import { sanitizeRegisterForm } from '@@pages/Register/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { RegisterFormType } from '@@pages/Register/types';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { registerRequest, registerSuccess, registerFailure } from '@@stores/auth/reducer';
+
+const initialValues: RegisterForm = {
+  userId: '',
+  username: '',
+  password: '',
+  passwordCheck: '',
+  email: '',
+  birth: '',
+  gender: GENDER.MALE,
+  tel: '',
+  checkedId: false,
+  checkedEmail: false,
+};
 
 function UserInfoInput() {
-  const initialValues: RegisterFormType = {
-    member_id: '',
-    member_pw: '',
-    member_pw_re: '',
-    member_name: '',
-    member_birth: '',
-    genderChk: '',
-    member_contact: '',
-    member_mail: '',
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // TODO: - useRegisterForm() 사용해서 handleClickCheckId, handleClickCheckEmail 추가
+  const handleSubmit = (values: RegisterForm) => {
+    dispatch(registerRequest(sanitizeRegisterForm(values)));
   };
 
-  const handleIdCheck = async (value: string, setFieldError: any) => {
-    if (value === 'takenId') {
-      setFieldError('member_id', '이미 가입된 아이디입니다.');
-    }
-  };
+  useActionSubscribe({
+    type: registerSuccess.type,
+    callback: ({ payload }: ReturnType<typeof registerSuccess>) => {
+      navigate(pathGenerator(PAGES.REGISTER) + '/complete', {
+        state: {
+          name: payload.name,
+        },
+      });
+    },
+  });
 
-  const handleMailCheck = async (value: string, setFieldError: any) => {
-    if (value === 'takenMail') {
-      setFieldError('member_mail', '이미 가입된 이메일입니다.');
-    }
-  };
+  useActionSubscribe({
+    type: registerFailure.type,
+    callback: ({ payload }: ReturnType<typeof registerFailure>) => {
+      alert(payload);
+    },
+  });
 
   return (
     <div id='wrap'>
@@ -44,96 +67,95 @@ function UserInfoInput() {
             <strong>03. 가입완료</strong>
           </p>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={registerSchema}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
-          >
-            {({ values, setFieldValue, setFieldError }) => (
-              <Form>
-                <fieldset>
-                  <legend>회원가입 정보입력 영역</legend>
-                  <div className='join_wrap'>
-                    <h3 className='join_tit'>기본정보</h3>
-                    <div className='input_wrap'>
-                      <InputField
-                        name='member_id'
-                        label='아이디'
-                        placeholder='아이디를 입력해주세요.'
-                        additionalElement={
-                          <button
-                            type='button'
-                            className='btn'
-                            onClick={() => {
-                              handleIdCheck(values.member_id, setFieldError);
-                              setFieldValue('isIdCheck', true);
-                            }}
-                          >
-                            중복체크
-                          </button>
-                        }
-                      />
+          {/* Formik setup */}
+          <Formik initialValues={initialValues} validationSchema={registerSchema} onSubmit={handleSubmit}>
+            {({ setFieldValue }) => {
+              return (
+                <Form>
+                  <fieldset>
+                    <legend>회원가입 정보입력 영역</legend>
+                    <div className='join_wrap'>
+                      <h3 className='join_tit'>기본정보</h3>
+                      <div className='input_wrap'>
+                        {/* 아이디 입력 필드 */}
+                        <InputField
+                          name='userId'
+                          label='아이디'
+                          placeholder='아이디를 입력해주세요.'
+                          additionalElement={
+                            <button type='button' className='btn' onClick={() => console.log('아이디 체크')}>
+                              중복체크
+                            </button>
+                          }
+                        />
 
-                      <InputField
-                        name='member_pw'
-                        label='비밀번호'
-                        type='password'
-                        placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
-                      />
+                        {/* 비밀번호, 비밀번호 확인 입력 필드 */}
+                        <InputField
+                          name='password'
+                          label='비밀번호'
+                          type='password'
+                          placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하'
+                        />
 
-                      <InputField name='member_pw_re' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
+                        <InputField name='passwordCheck' label='비밀번호 확인' type='password' placeholder='비밀번호 확인' />
 
-                      <InputField name='member_name' label='이름' placeholder='이름을 입력해주세요.' />
+                        {/* 이름, 생년월일, 성별, 연락처 입력 필드 */}
+                        <InputField name='username' label='이름' placeholder='이름을 입력해주세요.' />
+                        <InputField name='birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
 
-                      <InputField name='member_birth' label='생년월일' placeholder='생년월일을 선택해주세요.' isDate={true} />
-
-                      <div className='input_area inputChk'>
-                        <p className='input_tit'>성별</p>
-                        <div className='chk_area radio'>
-                          <input type='radio' name='genderChk' id='genderChk01' value='male' />
-                          <label htmlFor='genderChk01'>남자</label>
+                        {/* 성별 선택 필드 */}
+                        <div className='input_area inputChk'>
+                          <p className='input_tit'>성별</p>
+                          <div className='chk_area radio'>
+                            <input
+                              type='radio'
+                              name='genderChk'
+                              id='genderChk01'
+                              value='male'
+                              onChange={() => setFieldValue('gender', GENDER.MALE)} // 성별 업데이트
+                            />
+                            <label htmlFor='genderChk01'>남자</label>
+                          </div>
+                          <div className='chk_area radio'>
+                            <input
+                              type='radio'
+                              name='genderChk'
+                              id='genderChk02'
+                              value='female'
+                              onChange={() => setFieldValue('gender', GENDER.FEMALE)} // 성별 업데이트
+                            />
+                            <label htmlFor='genderChk02'>여자</label>
+                          </div>
                         </div>
-                        <div className='chk_area radio'>
-                          <input type='radio' name='genderChk' id='genderChk02' value='female' />
-                          <label htmlFor='genderChk02'>여자</label>
-                        </div>
+
+                        {/* 연락처, 이메일 입력 필드 */}
+                        <InputField name='tel' label='연락처' placeholder="'-'없이 입력해주세요." />
+                        <InputField
+                          name='email'
+                          label='이메일'
+                          placeholder='이메일 주소를 입력해주세요.'
+                          additionalElement={
+                            <button type='button' className='btn' onClick={() => console.log('이메일 체크')}>
+                              중복체크
+                            </button>
+                          }
+                        />
                       </div>
 
-                      <InputField name='member_contact' label='연락처' placeholder="'-'없이 입력해주세요." />
-
-                      <InputField
-                        name='member_mail'
-                        label='이메일'
-                        placeholder='이메일 주소를 입력해주세요.'
-                        additionalElement={
-                          <button
-                            type='button'
-                            className='btn'
-                            onClick={() => {
-                              handleMailCheck(values.member_mail, setFieldError);
-                              setFieldValue('isMailCheck', true);
-                            }}
-                          >
-                            중복체크
-                          </button>
-                        }
-                      />
+                      {/* 하단 버튼 */}
+                      <div className='btn_area type_02'>
+                        <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
+                          취소
+                        </Link>
+                        <button type='submit' className='btn'>
+                          회원가입
+                        </button>
+                      </div>
                     </div>
-
-                    <div className='btn_area type_02'>
-                      <Link to={pathGenerator(PAGES.LOGIN)} className='btn form02'>
-                        취소
-                      </Link>
-                      <button type='submit' className='btn'>
-                        회원가입
-                      </button>
-                    </div>
-                  </div>
-                </fieldset>
-              </Form>
-            )}
+                  </fieldset>
+                </Form>
+              );
+            }}
           </Formik>
         </div>
       </main>

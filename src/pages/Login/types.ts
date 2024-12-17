@@ -1,19 +1,24 @@
-interface FindIdFormValues {
-  member_name: string;
-  member_mail: string;
-  certify_number: string;
+interface LoginForm {
+  id: string;
+  password: string;
 }
 
-interface FindPasswordFormValues {
-  member_name: string;
-  member_id: string;
-  member_mail: string;
-  certify_number: string;
+interface FindIdForm {
+  email: string;
 }
 
-interface ChangePasswordFormType {
-  new_password: string;
-  new_password_confirm: string;
+interface VerifyIdentityForm {
+  id: string;
+  email: string;
 }
 
-export type { ChangePasswordFormType, FindIdFormValues, FindPasswordFormValues };
+interface ResetPasswordForm {
+  password: string;
+  passwordCheck: string;
+}
+
+interface VerifyOTPForm {
+  otp: string;
+}
+
+export type { FindIdForm, VerifyIdentityForm, ResetPasswordForm, LoginForm, VerifyOTPForm };

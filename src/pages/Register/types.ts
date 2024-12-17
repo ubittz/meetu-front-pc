@@ -1,12 +1,17 @@
-interface RegisterFormType {
-  member_id: string;
-  member_pw: string;
-  member_pw_re: string;
-  member_name: string;
-  member_birth: string;
-  genderChk: string;
-  member_contact: string;
-  member_mail: string;
+import { GENDER } from '@@pages/Register/constants';
+import { asType } from '@@types/common';
+
+export interface RegisterForm {
+  userId: string;
+  username: string;
+  password: string;
+  passwordCheck: string;
+  email: string;
+  birth: string;
+  gender: Gender;
+  tel: string;
+  checkedId: boolean;
+  checkedEmail: boolean;
 }
 
-export type { RegisterFormType };
+export type Gender = asType<typeof GENDER>;
