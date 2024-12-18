@@ -1,4 +1,4 @@
-@import 'util.scss';
+@use 'util.scss';
 
 .main_visual {
   height: 720px;
@@ -15,9 +15,9 @@
 .main_tit {
   font-size: 42px;
   line-height: 55px;
-  color: $black01;
+  color: util.$black01;
   strong {
-    color: $orange01;
+    color: util.$orange01;
   }
 }
 
@@ -38,14 +38,14 @@
         vertical-align: top;
         padding: 0 20px;
         font-size: 16px;
-        color: $black02;
+        color: util.$black02;
         font-weight: 400;
         height: 38px;
         line-height: 36px;
         border-radius: 6px;
         &.active {
-          background-color: $orange01;
-          color: $white01;
+          background-color: util.$orange01;
+          color: util.$white01;
         }
       }
     }
@@ -102,9 +102,9 @@
           .swiper-pagination {
             top: 19px;
             height: 2px;
-            background-color: $gray01;
+            background-color: util.$gray01;
             .swiper-pagination-progressbar-fill {
-              background-color: $orange01;
+              background-color: util.$orange01;
             }
           }
         }
@@ -142,7 +142,7 @@
 
 .main_meeting {
   // 메인 모임 영역
-  background-color: $white03;
+  background-color: util.$white03;
   padding: 20px 0 100px;
   .meeting_inner {
     max-width: 1520px;
@@ -182,7 +182,7 @@
     .mv_txt {
       font-size: 28px;
       line-height: 36px;
-      color: $white02;
+      color: util.$white02;
       font-weight: 700;
     }
     .btn {
@@ -194,10 +194,10 @@
       height: 70px;
       line-height: 70px;
       border-radius: 7px;
-      background-color: $white02;
+      background-color: util.$white02;
       font-size: 20px;
       font-weight: 700;
-      color: $orange01;
+      color: util.$orange01;
       transform: translateY(-50%);
       -webkit-transform: translateY(-50%);
     }
@@ -255,7 +255,7 @@
             padding-top: 16px;
             font-size: 20px;
             line-height: 24px;
-            color: $white02;
+            color: util.$white02;
           }
         }
         .mi_bg {
@@ -292,7 +292,7 @@
         border: none;
         background-color: transparent;
         font-size: 88px;
-        color: $black01;
+        color: util.$black01;
         padding: 0 70px 0 0;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -315,14 +315,14 @@
     .title {
       line-height: 114px;
       font-size: 88px;
-      color: $black01;
+      color: util.$black01;
     }
     p {
       padding-top: 16px;
       font-size: 20px;
       line-height: 26px;
       font-weight: 300;
-      color: $black02;
+      color: util.$black02;
     }
   }
   .visual_bg {
@@ -358,7 +358,7 @@
           border: none;
           background-color: transparent;
           font-size: 14px;
-          color: $black02;
+          color: util.$black02;
           padding: 0 20px 0 0;
           -webkit-appearance: none;
           -moz-appearance: none;
@@ -404,12 +404,12 @@
           font-weight: 400;
           text-align: left;
           padding: 0 10px;
-          color: $gray02;
-          border-bottom: 2px solid $gray01;
+          color: util.$gray02;
+          border-bottom: 2px solid util.$gray01;
           &.active {
             font-weight: 700;
-            color: $black01;
-            border-color: $orange01;
+            color: util.$black01;
+            border-color: util.$orange01;
           }
         }
       }
@@ -422,9 +422,9 @@
         }
         .detail_txt {
           margin-top: 100px;
-          border-top: 1px solid $gray01;
+          border-top: 1px solid util.$gray01;
           padding: 80px 0 0;
-          color: $black02;
+          color: util.$black02;
           h4 {
             font-size: 24px;
             line-height: 36px;
@@ -447,7 +447,7 @@
             font-size: 28px;
             line-height: 36px;
             font-weight: 700;
-            color: $black02;
+            color: util.$black02;
           }
           .star_area {
             margin: 12px 0 0 20px;
@@ -461,23 +461,23 @@
             height: 40px;
             line-height: 38px;
             border-radius: 6px;
-            border: 1px solid $orange01;
+            border: 1px solid util.$orange01;
             font-size: 16px;
             font-weight: 700;
-            color: $orange01;
+            color: util.$orange01;
           }
         }
 
         .detail_list {
           // 리뷰/문의 리스트 영역
           margin-top: 40px;
-          border-top: 1px solid $black01;
+          border-top: 1px solid util.$black01;
           padding-top: 10px;
           li {
-            border-bottom: 1px solid $gray01;
+            border-bottom: 1px solid util.$gray01;
             padding: 30px 0;
             .list_top {
-              color: $black02;
+              color: util.$black02;
               &:after {
                 content: '';
                 display: block;
@@ -519,15 +519,15 @@
                 height: 30px;
                 line-height: 28px;
                 border-radius: 6px;
-                background-color: $white02;
-                border: 1px solid $gray01;
+                background-color: util.$white02;
+                border: 1px solid util.$gray01;
                 font-size: 14px;
                 text-align: center;
-                color: $black02;
+                color: util.$black02;
                 &.complete {
-                  background-color: $orange01;
-                  color: $white02;
-                  border-color: $orange01;
+                  background-color: util.$orange01;
+                  color: util.$white02;
+                  border-color: util.$orange01;
                 }
               }
             }
@@ -566,7 +566,7 @@
                 right: 0;
                 font-size: 14px;
                 line-height: 21px;
-                color: $black02;
+                color: util.$black02;
               }
             }
           }
@@ -583,7 +583,7 @@
       .title {
         font-size: 28px;
         line-height: 36px;
-        color: $black01;
+        color: util.$black01;
         font-weight: 700;
       }
       .host_area {
@@ -595,7 +595,7 @@
           width: 110px;
           padding-bottom: 108px;
           border-radius: 55px;
-          border: 1px solid $gray04;
+          border: 1px solid util.$gray04;
         }
         .info_area {
           padding-left: 20px;
@@ -603,13 +603,13 @@
             display: block;
             font-size: 16px;
             line-height: 21px;
-            color: $gray02;
+            color: util.$gray02;
           }
           h4 {
             padding-top: 12px;
             font-size: 24px;
             line-height: 31px;
-            color: $black02;
+            color: util.$black02;
           }
           .sort {
             display: flex;
@@ -620,16 +620,16 @@
               padding: 0 12px;
               height: 30px;
               line-height: 28px;
-              border: 1px solid $gray01;
+              border: 1px solid util.$gray01;
               border-radius: 4px;
-              background-color: $white02;
+              background-color: util.$white02;
               font-size: 14px;
-              color: $black02;
+              color: util.$black02;
               &.hot,
               &.new {
-                background-color: $orange01;
-                border-color: $orange01;
-                color: $white02;
+                background-color: util.$orange01;
+                border-color: util.$orange01;
+                color: util.$white02;
               }
             }
           }
@@ -637,7 +637,7 @@
       }
       .info_list {
         margin-top: 36px;
-        border-top: 2px solid $gray01;
+        border-top: 2px solid util.$gray01;
         padding-top: 10px;
         li {
           padding-top: 20px;
@@ -649,7 +649,7 @@
             font-size: 16px;
             line-height: 21px;
             font-weight: 700;
-            color: $gray02;
+            color: util.$gray02;
             text-align: left;
           }
           .txt {
@@ -657,19 +657,19 @@
             padding-left: 12px;
             font-size: 16px;
             line-height: 21px;
-            color: $black01;
+            color: util.$black01;
             word-break: keep-all;
             -webkit-word-break: keep-all;
           }
           &.price {
             margin-top: 30px;
-            border-top: 2px solid $gray01;
+            border-top: 2px solid util.$gray01;
             padding-top: 30px;
             .txt {
               font-size: 36px;
               line-height: 47px;
               font-weight: 700;
-              color: $orange01;
+              color: util.$orange01;
               text-align: right;
             }
           }

@@ -1,4 +1,4 @@
-@import 'util.scss';
+@use 'util.scss';
 
 //주문_결제하기
 .mypage_top {
@@ -8,7 +8,7 @@
     font-size: 52px;
     line-height: 68px;
     font-weight: 700;
-    color: $black01;
+    color: util.$black01;
   }
   .caption {
     display: flex;
@@ -16,7 +16,7 @@
     font-size: 20px;
     line-height: 26px;
     font-weight: 500;
-    color: $black02;
+    color: util.$black02;
     padding-top: 20px;
     .btn,
     strong {
@@ -24,10 +24,10 @@
       vertical-align: top;
       padding: 0 20px;
       font-weight: 400;
-      color: $gray02;
+      color: util.$gray02;
       &.active {
         font-weight: 700;
-        color: $black01;
+        color: util.$black01;
       }
     }
   }
@@ -35,7 +35,7 @@
 
 .payment_wrap {
   .payment_info {
-    background-color: $white03;
+    background-color: util.$white03;
     .pi_inner {
       width: 1520px;
       margin: 0 auto;
@@ -51,22 +51,22 @@
       h3 {
         font-size: 36px;
         line-height: 47px;
-        color: $black01;
+        color: util.$black01;
         padding: 60px 0 30px;
         &:first-child {
           padding-top: 0;
         }
       }
       .info_contents {
-        background-color: $white02;
-        border: 1px solid $gray01;
+        background-color: util.$white02;
+        border: 1px solid util.$gray01;
         border-radius: 20px;
         padding: 40px 30px 60px;
         h4 {
           font-size: 28px;
           line-height: 36px;
           padding-bottom: 12px;
-          border-bottom: 2px solid $black01;
+          border-bottom: 2px solid util.$black01;
         }
         & + .info_contents {
           margin-top: 40px;
@@ -81,7 +81,7 @@
             width: 262px;
             padding-bottom: 148px;
             border-radius: 8px;
-            border: 1px solid $gray04;
+            border: 1px solid util.$gray04;
           }
 
           .info_list {
@@ -99,7 +99,7 @@
                 font-size: 16px;
                 line-height: 21px;
                 font-weight: 700;
-                color: $gray02;
+                color: util.$gray02;
                 text-align: left;
               }
               .txt {
@@ -107,19 +107,19 @@
                 padding-left: 12px;
                 font-size: 16px;
                 line-height: 21px;
-                color: $black01;
+                color: util.$black01;
                 word-break: keep-all;
                 -webkit-word-break: keep-all;
               }
               &.price {
                 margin-top: 30px;
-                border-top: 2px solid $gray01;
+                border-top: 2px solid util.$gray01;
                 padding-top: 30px;
                 .txt {
                   font-size: 36px;
                   line-height: 47px;
                   font-weight: 700;
-                  color: $orange01;
+                  color: util.$orange01;
                   text-align: right;
                 }
               }
@@ -137,12 +137,12 @@
             line-height: 21px;
             .tit {
               font-weight: 700;
-              color: $gray02;
+              color: util.$gray02;
             }
             .price {
               text-align: right;
               font-weight: 300;
-              color: $black01;
+              color: util.$black01;
               strong {
                 font-weight: 700;
               }
@@ -152,17 +152,17 @@
             }
             &.total {
               margin-top: 30px;
-              border-top: 2px solid $gray01;
+              border-top: 2px solid util.$gray01;
               padding-top: 30px;
               font-size: 20px;
               line-height: 26px;
               .tit {
-                color: $black01;
+                color: util.$black01;
               }
               .price,
               .point {
                 font-weight: 700;
-                color: $orange01;
+                color: util.$orange01;
               }
             }
           }
@@ -185,20 +185,20 @@
             font-size: 20px;
             font-weight: 500;
             line-height: 40px;
-            color: $black01;
+            color: util.$black01;
           }
           input {
             display: block;
             height: 40px;
             line-height: 40px;
-            border: solid $gray01;
+            border: solid util.$gray01;
             border-width: 0 0 1px;
             font-size: 14px;
             border-radius: 0;
             padding: 0;
             &.error {
-              color: $red;
-              border-color: $red;
+              color: util.$red;
+              border-color: util.$red;
             }
           }
           select {
@@ -206,11 +206,11 @@
             width: 100%;
             height: 40px;
             line-height: 40px;
-            border: solid $gray01;
+            border: solid util.$gray01;
             border-width: 0 0 1px;
             background-color: transparent;
             font-size: 14px;
-            color: $black01;
+            color: util.$black01;
             padding: 0 20px 0 0;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -219,7 +219,7 @@
             background-position: right center;
             background-image: url(../images/common/arrow_down03.png);
             &:invalid {
-              color: $gray03;
+              color: util.$gray03;
             }
           }
         }
@@ -241,7 +241,7 @@
           //주문자 정보입력
           .pm_box {
             margin-top: 30px;
-            border-top: 2px solid $gray01;
+            border-top: 2px solid util.$gray01;
             &:first-child {
               margin-top: 0;
               border-top: none;
@@ -310,9 +310,9 @@
               position: relative;
               display: block;
               height: 108px;
-              border: 1px solid $gray01;
+              border: 1px solid util.$gray01;
               border-radius: 8px;
-              background-color: $white02;
+              background-color: util.$white02;
               padding: 16px 20px;
               i {
                 display: block;
@@ -383,7 +383,7 @@
     }
   }
   .payment_btn {
-    background-color: $white02;
+    background-color: util.$white02;
     box-shadow: 0 0 5px rgba(85, 85, 85, 0.3);
     .pb_inner {
       display: flex;
@@ -396,7 +396,7 @@
         font-size: 16px;
         line-height: 21px;
         font-weight: 400;
-        color: $gray02;
+        color: util.$gray02;
       }
       .btn {
         display: block;
@@ -404,10 +404,10 @@
         height: 56px;
         line-height: 56px;
         border-radius: 4px;
-        background-color: $orange01;
+        background-color: util.$orange01;
         font-size: 20px;
         font-weight: 700;
-        color: $white02;
+        color: util.$white02;
       }
     }
   }
@@ -416,7 +416,7 @@
 /* 마이페이지 */
 .dashboard_wrap {
   //마이페이지_대시보드
-  background-color: $white03;
+  background-color: util.$white03;
   .d_inner {
     display: flex;
     justify-content: space-between;
@@ -434,7 +434,7 @@
           width: 80px;
           padding-bottom: 78px;
           border-radius: 40px;
-          border: 1px solid $gray01;
+          border: 1px solid util.$gray01;
         }
         .txt_area {
           padding: 0 0 0 12px;
@@ -446,15 +446,15 @@
             height: 30px;
             line-height: 28px;
             border-radius: 4px;
-            border: 1px solid $orange01;
-            background-color: $orange01;
+            border: 1px solid util.$orange01;
+            background-color: util.$orange01;
             font-size: 14px;
             font-weight: 400;
-            color: $white02;
+            color: util.$white02;
             &.user {
-              border-color: $gray01;
-              background-color: $white02;
-              color: $black02;
+              border-color: util.$gray01;
+              background-color: util.$white02;
+              color: util.$black02;
             }
           }
           em {
@@ -467,7 +467,7 @@
             font-size: 36px;
             font-weight: 700;
             line-height: 47px;
-            color: $black01;
+            color: util.$black01;
           }
         }
       }
@@ -475,7 +475,7 @@
         padding-top: 30px;
         font-size: 16px;
         line-height: 21px;
-        color: $black02;
+        color: util.$black02;
       }
     }
 
@@ -507,7 +507,7 @@
           padding-right: 24px;
           font-size: 20px;
           line-height: 26px;
-          color: $black01;
+          color: util.$black01;
           word-break: keep-all;
           background-repeat: no-repeat;
           background-position: right top 6px;
@@ -551,7 +551,7 @@
               margin-top: 8px;
               font-size: 36px;
               line-height: 47px;
-              color: $orange01;
+              color: util.$orange01;
             }
           }
         }
@@ -569,7 +569,7 @@
     .main_tit {
       position: relative;
       padding: 80px 0 12px;
-      border-bottom: 2px solid $black01;
+      border-bottom: 2px solid util.$black01;
       font-size: 28px;
       font-weight: 700;
       line-height: 36px;
@@ -593,8 +593,8 @@
           width: 142px;
           border-radius: 6px;
           background-image: none;
-          border: 1px solid $orange01;
-          color: $orange01;
+          border: 1px solid util.$orange01;
+          color: util.$orange01;
         }
       }
       .txt {
@@ -604,7 +604,7 @@
         font-size: 14px;
         line-height: 18px;
         font-weight: 400;
-        color: $gray02;
+        color: util.$gray02;
       }
     }
 
@@ -652,11 +652,11 @@
           .btn {
             height: 40px;
             line-height: 38px;
-            border-color: $black01;
-            background-color: $black01;
+            border-color: util.$black01;
+            background-color: util.$black01;
             &.form02 {
-              border-color: $gray01;
-              background-color: $white02;
+              border-color: util.$gray01;
+              background-color: util.$white02;
             }
           }
         }
@@ -666,10 +666,10 @@
         //호스트 정보 리뷰
         ul li {
           margin: 80px 0 0 40px;
-          border: 1px solid $gray01;
+          border: 1px solid util.$gray01;
           padding: 40px 30px;
           .img_area {
-            border-color: $gray01;
+            border-color: util.$gray01;
           }
         }
 
@@ -683,7 +683,7 @@
           .txt {
             padding-top: 20px;
             height: 83px;
-            color: $black02;
+            color: util.$black02;
             &.open {
               display: block;
               -webkit-line-clamp: inherit;
@@ -700,7 +700,7 @@
               font-size: 14px;
               font-weight: 400;
               line-height: 18px;
-              color: $gray02;
+              color: util.$gray02;
             }
           }
 
@@ -725,7 +725,7 @@
         }
         .user_info {
           margin-top: 30px;
-          border-top: 1px solid $gray01;
+          border-top: 1px solid util.$gray01;
           padding-top: 30px;
           display: flex;
           justify-content: flex-start;
@@ -742,7 +742,7 @@
               font-size: 16px;
               line-height: 21px;
               font-weight: 700;
-              color: $black01;
+              color: util.$black01;
             }
             span {
               display: block;
@@ -750,7 +750,7 @@
               font-size: 14px;
               line-height: 18px;
               font-weight: 400;
-              color: $gray02;
+              color: util.$gray02;
             }
           }
         }
@@ -772,9 +772,9 @@
         .swiper-pagination {
           top: 19px;
           height: 2px;
-          background-color: $gray01;
+          background-color: util.$gray01;
           .swiper-pagination-progressbar-fill {
-            background-color: $orange01;
+            background-color: util.$orange01;
           }
         }
       }
@@ -813,21 +813,21 @@
       .notice {
         margin-top: 40px;
         padding: 30px;
-        border: 1px solid $gray01;
-        background-color: $white03;
+        border: 1px solid util.$gray01;
+        background-color: util.$white03;
         border-radius: 20px;
         h4 {
           font-size: 28px;
           line-height: 36px;
           font-weight: 700;
           padding-bottom: 20px;
-          color: $black01;
+          color: util.$black01;
         }
         p {
           font-size: 16px;
           line-height: 24px;
           font-weight: 400;
-          color: $black02;
+          color: util.$black02;
         }
       }
     }
@@ -836,9 +836,9 @@
       //호스트 등록 신청
       margin-top: 40px;
       padding: 40px 30px;
-      border: 1px solid $gray01;
+      border: 1px solid util.$gray01;
       border-radius: 20px;
-      background-color: $white03;
+      background-color: util.$white03;
       h4 {
         font-size: 28px;
         line-height: 36px;
@@ -850,13 +850,13 @@
       p {
         font-size: 16px;
         line-height: 24px;
-        color: $black02;
+        color: util.$black02;
       }
       span {
         display: block;
         font-size: 16px;
         line-height: 24px;
-        color: $black02;
+        color: util.$black02;
         padding: 0 20px;
       }
     }
@@ -876,18 +876,18 @@
       display: flex;
       .btn {
         margin-right: 12px;
-        border: 1px solid $gray01;
+        border: 1px solid util.$gray01;
         height: 37px;
         line-height: 35px;
         border-radius: 6px;
         padding: 0 20px;
         font-size: 16px;
         font-weight: 400;
-        color: $black02;
+        color: util.$black02;
         &.active {
-          border-color: $orange01;
-          background-color: $orange01;
-          color: $white02;
+          border-color: util.$orange01;
+          background-color: util.$orange01;
+          color: util.$white02;
         }
       }
     }
@@ -897,7 +897,7 @@
     position: relative;
     padding: 80px 0 12px;
     height: 128px;
-    border-bottom: 2px solid $black01;
+    border-bottom: 2px solid util.$black01;
     .btn_wrap {
       position: absolute;
       left: 0;
@@ -910,11 +910,11 @@
         line-height: 36px;
         font-size: 28px;
         font-weight: 400;
-        color: $gray02;
+        color: util.$gray02;
         text-align: left;
         &.active {
           font-weight: 700;
-          color: $orange01;
+          color: util.$orange01;
         }
       }
     }
@@ -928,7 +928,7 @@
     text-align: center;
     font-size: 16px;
     padding: 30px 0;
-    border-bottom: 2px solid $gray01;
+    border-bottom: 2px solid util.$gray01;
     .tb_info {
       display: flex;
       justify-content: flex-start;
@@ -939,7 +939,7 @@
         width: 262px;
         padding-bottom: 148px;
         border-radius: 8px;
-        border: 1px solid $gray04;
+        border: 1px solid util.$gray04;
       }
 
       .info_list {
@@ -960,14 +960,14 @@
             font-size: 16px;
             line-height: 21px;
             font-weight: 700;
-            color: $gray02;
+            color: util.$gray02;
           }
           .txt {
             width: 428px;
             padding-left: 12px;
             font-size: 16px;
             line-height: 21px;
-            color: $black01;
+            color: util.$black01;
             word-break: keep-all;
             -webkit-word-break: keep-all;
           }
@@ -978,14 +978,14 @@
         font-size: 16px;
         line-height: 21px;
         font-weight: 400;
-        color: $black01;
+        color: util.$black01;
       }
       .txt02 {
         padding-top: 8px;
         font-size: 14px;
         line-height: 18px;
         font-weight: 400;
-        color: $black02;
+        color: util.$black02;
       }
     }
     .tb_price {
@@ -1002,10 +1002,10 @@
         height: 37px;
         line-height: 35px;
         border-radius: 6px;
-        border: 1px solid $gray01;
+        border: 1px solid util.$gray01;
         font-size: 16px;
         font-weight: 400;
-        color: $black02;
+        color: util.$black02;
       }
     }
     .tb_price02 {
@@ -1013,7 +1013,7 @@
       font-weight: 700;
       font-size: 24px;
       line-height: 31px;
-      color: $orange01;
+      color: util.$orange01;
     }
 
     &.list_header {
@@ -1031,7 +1031,7 @@
       .tb_price02 {
         font-size: 16px;
         line-height: 60px;
-        color: $black01;
+        color: util.$black01;
       }
     }
   }
@@ -1040,29 +1040,29 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    border-bottom: 2px solid $gray01;
+    border-bottom: 2px solid util.$gray01;
     dt {
       width: 180px;
-      border-left: 2px solid $gray01;
+      border-left: 2px solid util.$gray01;
       padding: 20px;
       font-size: 16px;
       line-height: 21px;
       font-weight: 400;
-      color: $black02;
-      background-color: $white03;
+      color: util.$black02;
+      background-color: util.$white03;
       &:first-child {
         border-left: none;
       }
     }
     dd {
       width: 320px;
-      border-left: 2px solid $gray01;
+      border-left: 2px solid util.$gray01;
       padding: 20px;
       font-size: 16px;
       line-height: 21px;
       font-weight: 700;
-      color: $black01;
-      background-color: $white02;
+      color: util.$black01;
+      background-color: util.$white02;
     }
     &.long {
       dd {
