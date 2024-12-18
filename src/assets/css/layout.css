@@ -68,14 +68,14 @@
   width: 28px;
   margin-left: 24px;
 }
-.header .inner_r ul li a {
+.header .inner_r ul li i {
   display: block;
   height: 28px;
   text-indent: -9999em;
   background-repeat: no-repeat;
   background-position: center;
 }
-.header .inner_r ul li.logout a {
+.header .inner_r ul li.logout i {
   background-image: url(../images/common/ico_logout.png);
 }
 .header .inner_r ul li.mypage a {
