@@ -21,6 +21,12 @@ export const ENDPOINTS = {
     EDIT: `/api/meeting/edit`, // patch
     ADD: `/api/meeting/add`, // put
   },
+  // 리뷰
+  REVIEW: {
+    BASE: `/api/meeting/review`,
+    LIST: `/api/meeting/review/list`, // get
+    ADD: `/api/meeting/review/add`, // put
+  },
   // 문의
   CONTACT: {
     BASE: `/api/meeting/contact`,
