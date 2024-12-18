@@ -5,7 +5,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-*::before, *::after {
+*::before,
+*::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -16,17 +17,20 @@ html {
 }
 
 body {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 14px;
   color: #000;
   font-weight: 300;
 }
 
-ul, ol, li {
+ul,
+ol,
+li {
   list-style: none;
 }
 
-img, hr {
+img,
+hr {
   border: none;
 }
 
@@ -49,18 +53,78 @@ a {
   vertical-align: top;
   color: #000;
 }
-a:link, a:visited, a:active, a:hover {
+a:link,
+a:visited,
+a:active,
+a:hover {
   text-decoration: none;
   color: inherit;
 }
 
-article, aside, bdi, details, dialog, figcaption, figure, footer, header, main, mark, menuitem, meter, nav, progress, rp, rt, ruby, section, summary, time, wbr,
-body, p, div, ul, li, dl, dt, dd, ol, fieldset, textarea, input, select, table, th, td, address, cite, h1, h2, h3, h4, h5, h6, strong, b, label, pre {
+article,
+aside,
+bdi,
+details,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+main,
+mark,
+menuitem,
+meter,
+nav,
+progress,
+rp,
+rt,
+ruby,
+section,
+summary,
+time,
+wbr,
+body,
+p,
+div,
+ul,
+li,
+dl,
+dt,
+dd,
+ol,
+fieldset,
+textarea,
+input,
+select,
+table,
+th,
+td,
+address,
+cite,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+label,
+pre {
   font-size: inherit;
   color: inherit;
 }
 
-strong, h1, h2, h3, h4, h5, h6, th, b, dt {
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th,
+b,
+dt {
   font-weight: 600;
 }
 
@@ -68,13 +132,16 @@ input {
   vertical-align: top;
   outline: none;
 }
-input[type=text], input[type=number], input[type=email], input[type=password] {
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'] {
   display: inline-block;
   font-size: 14px;
   padding: 0 10px;
   background: #fff;
   box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -86,7 +153,11 @@ input::placeholder {
   font-family: inherit;
   color: inherit;
 }
-input[type=file], input[type=image], input[type=reset], input[type=button], input[type=submit] {
+input[type='file'],
+input[type='image'],
+input[type='reset'],
+input[type='button'],
+input[type='submit'] {
   cursor: pointer;
 }
 
@@ -98,7 +169,7 @@ select {
   background: #fff;
   box-sizing: border-box;
   cursor: pointer;
-  font-family: "Pretendard", sans-serif; /*-webkit-appearance: none;-moz-appearance: none; appearance: none; */
+  font-family: 'Pretendard', sans-serif; /*-webkit-appearance: none;-moz-appearance: none; appearance: none; */
 }
 select::-ms-expand {
   display: none;
@@ -118,7 +189,7 @@ button {
   outline: 0;
   background: transparent;
   cursor: pointer;
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
 }
 
 caption {
@@ -136,11 +207,15 @@ legend {
   text-indent: -9999px;
 }
 
-address, cite, em, i {
+address,
+cite,
+em,
+i {
   font-style: normal;
 }
 
-fieldset, iframe {
+fieldset,
+iframe {
   border: 0;
 }
 
@@ -157,7 +232,8 @@ figure {
   border: 0 !important;
 }
 
-sup, sub {
+sup,
+sub {
   line-height: 1;
 }
 
@@ -166,13 +242,13 @@ sup, sub {
 }
 
 .cf::before {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }
 
 .cf::after {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }
@@ -196,7 +272,7 @@ sup, sub {
 }
 
 .clearfix:after {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }
@@ -282,6 +358,10 @@ sup, sub {
   cursor: pointer;
   box-sizing: border-box;
   font-family: inherit;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 /*# sourceMappingURL=common.css.map */

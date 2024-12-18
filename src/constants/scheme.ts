@@ -1,5 +1,10 @@
 import { boolean, object, ref, string } from 'yup';
 
+export const loginSchema = object({
+  id: string().required('아이디를 입력해주세요.'),
+  password: string().required('비밀번호를 입력해주세요.'),
+});
+
 export const registerSchema = object({
   userId: string().required('아이디를 입력해주세요.'),
   username: string().required('이름을 입력해주세요'),

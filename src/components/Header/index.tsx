@@ -1,11 +1,21 @@
-import React from 'react';
-
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import CheckAuthorization from '@@components/CheckAuthorization';
 import { PAGES } from '@@router/constants'; // 페이지 상수 import
 import { pathGenerator } from '@@router/utils'; // 경로 생성 유틸 import
+import { useAppState } from '@@store/hooks';
+import { logout } from '@@stores/auth/reducer';
 
-const Header: React.FC = () => {
+function Header() {
+  const token = useAppState((state) => state.auth.token);
+  const dispatch = useDispatch();
+
+  const handleClickLogout = () => {
+    dispatch(logout());
+    alert('로그아웃이 완료되었습니다.');
+  };
+
   return (
     <header className='header'>
       <div className='inner'>
@@ -32,17 +42,19 @@ const Header: React.FC = () => {
         </div>
         <div className='inner_r'>
           <ul>
-            <li className='logout'>
-              <Link to='javascript:void(0);'>로그아웃</Link>
-            </li>
+            <CheckAuthorization>
+              <li className='logout'>
+                <i onClick={handleClickLogout}>로그아웃</i>
+              </li>
+            </CheckAuthorization>
             <li className='mypage'>
-              <Link to={pathGenerator(PAGES.MYPAGE)}>마이페이지</Link>
+              <Link to={pathGenerator(token ? PAGES.MYPAGE : PAGES.LOGIN)}>마이페이지</Link>
             </li>
           </ul>
         </div>
       </div>
     </header>
   );
-};
+}
 
 export default Header;
