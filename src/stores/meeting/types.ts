@@ -1,4 +1,8 @@
-import { Category } from '@@pages/Home/types';
+import { CATEGORY, MEETING_ORDER_TYPE } from '@@stores/meeting/constants';
+import { asType } from '@@types/common';
+import { PageQuery } from '@@utils/request/types';
+
+export type Category = asType<typeof CATEGORY>;
 
 export interface MeetingState {
   recentList: Meeting[];
@@ -67,4 +71,12 @@ export interface ContactAddDTO {
   description: string;
   secretStatus: boolean;
   contactAnswerStatus: boolean;
+}
+
+export type MeetingOrderType = asType<typeof MEETING_ORDER_TYPE>;
+
+export interface MeetingListWithCategoryQuery extends PageQuery {
+  category?: Category;
+  orderType?: MeetingOrderType;
+  isAsc?: boolean;
 }
