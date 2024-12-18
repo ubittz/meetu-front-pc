@@ -6,6 +6,7 @@ import images from '@@assets/images';
 import UserPopup from '@@components/Popup/UserPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { useAppState } from '@@store/hooks';
 import { UserType } from '@@types/user';
 
 import InfoPopup from './InfoPopup';
@@ -17,6 +18,8 @@ interface MyPageDashboardProps {
 }
 
 function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
+  const me = useAppState((state) => state.auth.me);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = (e: React.MouseEvent) => {
@@ -37,7 +40,7 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
             </span>
             <span className='txt_area' onClick={openPopup}>
               {type === 'host' ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
-              <em>홍길동 님</em>
+              <em>{me?.name} 님</em>
             </span>
           </button>
           <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
@@ -73,7 +76,7 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
         </ul>
       </div>
       <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
-        <InfoPopup type={type}/>
+        <InfoPopup type={type} />
       </UserPopup>
     </section>
   );
