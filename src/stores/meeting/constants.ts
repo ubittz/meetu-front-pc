@@ -17,3 +17,22 @@ export const DISTRICT = {
   GYEONGNAM: '경상남도',
   JEJU: '제주',
 } as const;
+
+export const CATEGORY = {
+  ART: 'ART',
+  READING: 'READING',
+  COOK: 'COOK',
+  CYCLE: 'CYCLE',
+  EXERCISE: 'EXERCISE',
+  HIKING: 'HIKING',
+  MUSIC: 'MUSIC',
+  PHOTO: 'PHOTO',
+  TECH: 'TECH',
+  WIN: 'WINE',
+} as const;
+
+export const MEETING_ORDER_TYPE = {
+  LATEST: 'LATEST',
+  PRICE: 'PRICE',
+  REQUEST_COUNT: 'REQUEST_COUNT',
+} as const;
