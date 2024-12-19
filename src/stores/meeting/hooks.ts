@@ -7,12 +7,13 @@ import {
   ReviewListQuery,
   ReviewListResponse,
 } from '@@stores/meeting/types';
+import { ENDPOINTS } from '@@utils/request/constants';
 import { useSWRDetail, useSWRList } from '@@utils/request/hooks';
 import { MeetuPageResponse } from '@@utils/request/types';
 import { formatSWRListResponse } from '@@utils/request/utils';
 
 export const useMeetingDetail = (id: string) => {
-  const { data, isLoading } = useSWRDetail<MeetingSingleResponse>(`/api/meeting/${id}`);
+  const { data, isLoading } = useSWRDetail<MeetingSingleResponse>(ENDPOINTS.MEETING.DETAIL(id));
 
   return {
     data: data?.data,
@@ -21,20 +22,20 @@ export const useMeetingDetail = (id: string) => {
 };
 
 export const useMeetingMyList = () => {
-  const data = useSWRList<MeetuPageResponse<Meeting>>('/api/meeting/my-contents');
+  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_MY);
 
   return formatSWRListResponse(data);
 };
 
 export const useReviewList = (query: ReviewListQuery) => {
-  const data = useSWRList<MeetuPageResponse<ReviewListResponse>>('/api/meeting/review/list', {
+  const data = useSWRList<MeetuPageResponse<ReviewListResponse>>(ENDPOINTS.REVIEW.LIST, {
     query,
   });
   return formatSWRListResponse(data);
 };
 
 export const useContactList = (query: ContactListQuery) => {
-  const data = useSWRList<MeetuPageResponse<ContactResponse>>('/api/meeting/contact/list', {
+  const data = useSWRList<MeetuPageResponse<ContactResponse>>(ENDPOINTS.CONTACT.LIST, {
     query,
   });
 
@@ -42,7 +43,7 @@ export const useContactList = (query: ContactListQuery) => {
 };
 
 export const useMeetingListByFilter = (query: MeetingListWithCategoryQuery) => {
-  const data = useSWRList<MeetuPageResponse<Meeting>>('/api/meeting/list', {
+  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST, {
     query,
   });
 
@@ -50,7 +51,7 @@ export const useMeetingListByFilter = (query: MeetingListWithCategoryQuery) => {
 };
 
 export const useMeetingListByLastMonth = () => {
-  const data = useSWRList<MeetuPageResponse<Meeting>>('/api/meeting/list-last-month', {
+  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_LAST_MONTH, {
     query: {
       page: 0,
     },

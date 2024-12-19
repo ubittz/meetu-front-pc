@@ -6,12 +6,16 @@ import Button from '@@components/Button';
 import Flex from '@@components/Flex';
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import QnaListItem from '@@pages/Meeting/parts/QnaListItem';
-import { Qna } from '@@pages/Meeting/types';
+import { ContactResponse } from '@@stores/meeting/types';
 
 interface QnaListProps {
-  qnaList: Qna[];
-  currentPage: number;
-  totalPages: number;
+  qnaList: ContactResponse[];
+  page: {
+    total: number;
+    current: number;
+    lastPage: number;
+    limit: number;
+  };
   onPageChange: (page: number) => void;
 }
 
@@ -21,7 +25,7 @@ const StyledQna = styled.div`
     border-radius: 6px;
     padding: 12px;
     resize: none;
-    margin-top:20px;
+    margin-top: 20px;
   }
 
   .btn {
@@ -29,7 +33,7 @@ const StyledQna = styled.div`
   }
 `;
 
-const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ qnaList, currentPage, totalPages, onPageChange }, ref) => {
+const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ qnaList, page, onPageChange }, ref) => {
   return (
     <div ref={ref} className='mv_detail'>
       <div className='detail_top'>
@@ -55,10 +59,10 @@ const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ qnaList, curre
       <div className='detail_list'>
         <ul>
           {qnaList.map((qna) => (
-            <QnaListItem key={qna.questionerId} qna={qna} />
+            <QnaListItem key={qna.no} qna={qna} />
           ))}
         </ul>
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+        <Pagination currentPage={page.current} totalPages={page.lastPage} onPageChange={onPageChange} />
       </div>
     </div>
   );
