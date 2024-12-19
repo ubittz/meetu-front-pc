@@ -1,3 +1,4 @@
+import { formatDate } from '@@pages/Meeting/utils';
 import { ContactResponse } from '@@stores/meeting/types';
 
 interface QnaListItemProps {
@@ -9,7 +10,7 @@ function QnaListItem({ qna }: QnaListItemProps) {
     <li>
       <div className='list_top'>
         <p className={`answer${qna.answerStatus ? ' complete' : ''}`}>{qna.answerStatus ? '답변 완료' : '답변 대기'}</p>
-        <p className='date'>{qna.createDatetime.toLocaleDateString()}</p>
+        <p className='date'>{formatDate(qna.createDatetime)}</p>
       </div>
       <div className='list_content'>
         {qna.secretStatus && <p className='answer lock'>비밀글 입니다.</p>}

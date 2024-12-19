@@ -37,6 +37,7 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingI
 
   const createReview = (content: ReviewAddDTO) => {
     dispatch(createReviewRequest(content));
+    closePopup();
   };
 
   return (
