@@ -36,6 +36,7 @@ import { saveToken } from '@@utils/localStorage';
 import { authenticatedRequest } from '@@utils/request';
 import { ERROR_CODE_STRING } from '@@utils/request/constants';
 import { MeetuErrorResponse, MeetuResponse } from '@@utils/request/types';
+import { ENDPOINTS } from '@@utils/request/constants';
 
 function* login({ payload }: ReturnType<typeof loginRequest>) {
   try {
@@ -61,7 +62,7 @@ function* login({ payload }: ReturnType<typeof loginRequest>) {
 
 function* checkDuplicateId({ payload }: ReturnType<typeof checkDuplicateIdRequest>) {
   try {
-    const response: MeetuResponse<boolean> = yield authenticatedRequest.post('/api/user/check-id', {
+    const response: MeetuResponse<boolean> = yield authenticatedRequest.post(ENDPOINTS.USER.CHECK_ID, {
       data: payload,
       headers: {
         'Content-Type': 'text/plain',
@@ -78,7 +79,7 @@ function* checkDuplicateId({ payload }: ReturnType<typeof checkDuplicateIdReques
 
 function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmailRequest>) {
   try {
-    const response: MeetuResponse<boolean> = yield authenticatedRequest.post('/api/user/check-email', {
+    const response: MeetuResponse<boolean> = yield authenticatedRequest.post(ENDPOINTS.USER.CHECK_EMAIL, {
       data: payload,
       headers: {
         'Content-Type': 'text/plain',
@@ -95,7 +96,7 @@ function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmail
 
 function* register({ payload }: ReturnType<typeof registerRequest>) {
   try {
-    const response: MeetuResponse<RegisterResponse> = yield authenticatedRequest.put('/api/user/register', {
+    const response: MeetuResponse<RegisterResponse> = yield authenticatedRequest.put(ENDPOINTS.USER.REGISTER, {
       data: payload,
     });
 
@@ -109,7 +110,7 @@ function* register({ payload }: ReturnType<typeof registerRequest>) {
 
 function* userEdit({ payload }: ReturnType<typeof userEditRequest>) {
   try {
-    const response: MeetuResponse<UserEditResponse> = yield authenticatedRequest.patch('/api/user/edit', {
+    const response: MeetuResponse<UserEditResponse> = yield authenticatedRequest.patch(ENDPOINTS.USER.EDIT, {
       data: payload,
     });
 
@@ -123,7 +124,7 @@ function* userEdit({ payload }: ReturnType<typeof userEditRequest>) {
 
 function* fetchMe() {
   try {
-    const response: MeetuResponse<User> = yield authenticatedRequest.post('/api/user/get-my-info');
+    const response: MeetuResponse<User> = yield authenticatedRequest.post(ENDPOINTS.USER.GET_MY_INFO);
 
     const action = response.ok ? fetchMeSuccess(response.data) : fetchMeFailure('가입을 실패했습니다.');
 
@@ -135,7 +136,7 @@ function* fetchMe() {
 
 function* findId({ payload }: ReturnType<typeof findIdRequest>) {
   try {
-    const response: MeetuResponse<string> = yield authenticatedRequest.post('/api/user/find-id', {
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.FIND_ID, {
       data: {
         email: payload.email,
       },
@@ -151,7 +152,7 @@ function* findId({ payload }: ReturnType<typeof findIdRequest>) {
 
 function* verifyIdentity({ payload }: ReturnType<typeof verifyIdentityRequest>) {
   try {
-    const response: MeetuResponse<UserVerifyIdentityResponse> = yield authenticatedRequest.post('/api/user/verify-identity', {
+    const response: MeetuResponse<UserVerifyIdentityResponse> = yield authenticatedRequest.post(`${ENDPOINTS.USER.BASE}/verify-identity`, {
       data: payload,
     });
 
@@ -166,7 +167,7 @@ function* verifyIdentity({ payload }: ReturnType<typeof verifyIdentityRequest>) 
 function* verifyOTP({ payload }: ReturnType<typeof verifyOTPRequest>) {
   try {
     const changeKey = select((state: AppState) => state.auth.changeKey);
-    const response: MeetuResponse<string> = yield authenticatedRequest.post('/api/user/verify-identity', {
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(`${ENDPOINTS.USER.BASE}/verify-identity`, {
       data: {
         ...payload,
         changeKey,
