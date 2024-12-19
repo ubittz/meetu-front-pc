@@ -11,9 +11,9 @@ import { SliderProps } from '@@components/Slider/types';
 import { Left, Right } from './icons';
 
 const StyledSlider = styled.div<{ $currentIndex: number; $size?: number }>`
-  display: flex;
   flex-direction: column;
   gap: 16px;
+  
 
   .slick-dots {
     display: none !important;
@@ -22,7 +22,7 @@ const StyledSlider = styled.div<{ $currentIndex: number; $size?: number }>`
 
 const StyledSlick = styled(Slick)<{ gap: number }>`
   .slick-list {
-    margin: 0 -${({ gap }) => gap / 2}px;
+    margin: 0 -${({ gap }) => gap / 2}px; 
     .slick-slide > div {
       padding: 0 ${({ gap }) => gap / 2}px;
     }
@@ -92,7 +92,7 @@ function Slider({
           nextArrow={showArrows ? <RightArrow /> : undefined}
           {...sliderProps}
           beforeChange={(currentIndex, nextIndex) => {
-            setIndex(nextIndex);  
+            setIndex(nextIndex);
             sliderProps?.beforeChange?.(currentIndex, nextIndex);
           }}
         >

@@ -7,7 +7,7 @@ import Slider from '@@components/Slider';
 import SliderItem from '@@components/SliderItem';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting } from '@@types/meeting';
+import { Meeting } from '@@stores/meeting/types';
 
 interface MeetingSwipeListProps {
   title: React.ReactNode;
@@ -17,7 +17,7 @@ interface MeetingSwipeListProps {
 const StyledSliderItem = styled.div`
   .container {
     padding-left: 10vw;
-    padding-top: 5vw;
+    padding-top:80px;
   }
 `;
 
@@ -30,21 +30,21 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
 
   const sliderItems = meetings.map((meeting) => (
     <SliderItem
-      key={meeting.id}
-      image={meeting.imageUrl ?? images.good_img02}
-      title={meeting.title}
-      price={`${meeting.price.toLocaleString()}원`}
+      key={meeting.meetingId}
+      image={meeting.imgURL ?? images.good_img03}
+      title={meeting.meetingName}
+      price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}
-      onClickButton={() => handleItemClick(meeting.id.toString())}
+      onClickButton={() => handleItemClick(meeting.meetingId.toString())}
     >
       <div className='txt_area'>
         <div className='sort tw-mb-3'>
-          {meeting.isHot && <span className='hot'>HOT</span>}
-          <span className='location'>{meeting.location.toUpperCase()}</span>
+          {meeting.meetingId && <span className='hot'>HOT</span>}
+          <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
         </div>
-        <h4 className='tit'>{meeting.title}</h4>
-        <p className='txt'>{meeting.description}</p>
-        <p className='price'>{meeting.price.toLocaleString()}원</p>
+        <h4 className='tit'>{meeting.meetingName}</h4>
+        <p className='txt'>{meeting.meetingDescript}</p>
+        <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
       </div>
     </SliderItem>
   ));
@@ -53,7 +53,7 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
     <StyledSliderItem>
       <Flex.Vertical className='container'>
         <h3 className='main_tit tw-mb-10'>{title}</h3>
-        <Slider items={sliderItems} gap={40} slidesToShow={4.5} sliderProps={{ dots: false }} />
+        <Slider items={sliderItems} gap={10} slidesToShow={4.5} sliderProps={{ dots: false }} />
       </Flex.Vertical>
     </StyledSliderItem>
   );

@@ -31,6 +31,21 @@ export const CATEGORY = {
   WIN: 'WINE',
 } as const;
 
+export const ALL_CATEGORIES = Object.values(CATEGORY);
+
+export const CATEGORY_STRINGS = {
+  [CATEGORY.ART]: '아트',
+  [CATEGORY.READING]: '독서',
+  [CATEGORY.COOK]: '쿠킹',
+  [CATEGORY.CYCLE]: '사이클',
+  [CATEGORY.EXERCISE]: '운동',
+  [CATEGORY.HIKING]: '등산',
+  [CATEGORY.MUSIC]: '음악',
+  [CATEGORY.PHOTO]: '사진',
+  [CATEGORY.TECH]: '기술',
+  [CATEGORY.WIN]: '와인',
+} as const;
+
 export const MEETING_ORDER_TYPE = {
   LATEST: 'LATEST',
   PRICE: 'PRICE',

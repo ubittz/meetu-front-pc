@@ -45,7 +45,8 @@ export const theme: DefaultTheme = {
 
     //use
     [TYPOGRAPHY_THEME.LARGE_BUTTON]: 'font-size: 20px; font-weight: 400;',
-    [TYPOGRAPHY_THEME.MEDUIM_BUTTON]: 'font-size: 14px; font-weight: 700;',
+    //use
+    [TYPOGRAPHY_THEME.MEDUIM_BUTTON]: 'font-size: 42px; font-weight: 400;',
     [TYPOGRAPHY_THEME.SMALL_BUTTON]: 'font-size: 12px; font-weight: 700;',
   },
   color: {

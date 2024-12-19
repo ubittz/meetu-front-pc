@@ -2,6 +2,7 @@ type MeetingStatus = 'upcoming' | 'confirmed' | 'completed'; // 진행 예정, �
 
 type MeetingType = 'art' | 'reading' | 'cooking' | 'cycling' | 'exercise' | 'hiking' | 'music' | 'photography' | 'technology' | 'wine';
 
+
 interface Meeting {
   id: number;
   title: string;

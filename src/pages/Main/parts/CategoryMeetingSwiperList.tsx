@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 import styled from 'styled-components';
 
-import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import Slider from '@@components/Slider';
 import CategorySliderItems from '@@components/SliderItem/CategorySliderItems';
 import Typography from '@@components/Typography';
-import { Meeting } from '@@types/meeting';
+import { Meeting } from '@@stores/meeting/types';
 
 interface CategoryMeetingListItemProps {
   meeting: Meeting[];
@@ -16,10 +15,8 @@ interface CategoryMeetingListItemProps {
 const StyledSliderItem = styled.div`
   .container {
     position: relative;
-    width: 100%; 
-    height: 800px;
-    overflow: hidden; 
-    padding-left: 10vw;
+    width: 100%;
+    height: 700px;
   }
 `;
 
@@ -28,18 +25,18 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
 
   const sliderItems = meeting.map((meeting, idx) => (
     <CategorySliderItems
-      key={meeting.id}
-      image={meeting.imageUrl ?? images.good_img02}
-      title={meeting.title}
-      price={`${meeting.price.toLocaleString()}원`}
+      key={meeting.meetingId}
+      // image={meeting.imageUrl ?? images.good_img02}
+      title={meeting.meetingName}
+      price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}
       isActive={idx === index}
     >
       {idx === index && (
-        <div className="txt_area">
-          <Typography.MediumTitle>{meeting.title}</Typography.MediumTitle>
-          <p className="txt">{meeting.description}</p>
-          <Typography.LargeSubtitle>{meeting.price.toLocaleString()}원</Typography.LargeSubtitle>
+        <div className='txt_area'>
+          <Typography.MediumTitle>{meeting.meetingName}</Typography.MediumTitle>
+          <p className='txt'>{meeting.meetingDescript}</p>
+          <Typography.LargeSubtitle>{meeting.meetingCost.toLocaleString()}원</Typography.LargeSubtitle>
         </div>
       )}
     </CategorySliderItems>
@@ -47,7 +44,7 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
 
   return (
     <StyledSliderItem>
-      <Flex.Vertical className="container">
+      <Flex.Vertical className='container'>
         <Slider
           items={sliderItems}
           slidesToShow={4}
@@ -58,9 +55,9 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
           }}
           sliderProps={{
             beforeChange: (current, next) => {
-              setIndex(next); 
+              setIndex(next);
             },
-            dots:true
+            dots: true,
           }}
         />
       </Flex.Vertical>
