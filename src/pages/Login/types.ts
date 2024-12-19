@@ -13,6 +13,7 @@ interface VerifyIdentityForm {
 }
 
 interface ResetPasswordForm {
+  userId: string;
   password: string;
   passwordCheck: string;
 }

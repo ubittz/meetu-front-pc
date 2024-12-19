@@ -1,5 +1,16 @@
 import { Meeting } from '@@types/meeting';
 
+interface EditMyInfoForm {
+  id: string;
+  name: string;
+  password: string;
+  passwordCheck: string;
+  birth: string;
+  phone: string;
+  email: string;
+  checkedEmail: boolean;
+}
+
 interface Review {
   id: number;
   meetingTitle: string; // 모임으로 대체 필요 (모임명)
@@ -59,4 +70,4 @@ interface OrderUserInfo {
   email: string;
 }
 
-export type { Review, Order, PaymentMethod, OrderDetail };
+export type { Review, Order, PaymentMethod, OrderDetail, EditMyInfoForm };

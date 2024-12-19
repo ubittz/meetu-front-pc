@@ -88,7 +88,7 @@ function FindId() {
                         name='email'
                         label='이메일'
                         placeholder='이메일 주소를 입력해주세요.'
-                        additionalElement={
+                        children={
                           <button
                             type='button'
                             className='btn'
@@ -106,7 +106,7 @@ function FindId() {
                           name='certify_number'
                           label='인증번호'
                           placeholder='6자리 인증번호를 입력해주세요.'
-                          additionalElement={<p className='certify'>{formattedTime}</p>}
+                          children={<p className='certify'>{formattedTime}</p>}
                         />
                       )}
                     </div>
