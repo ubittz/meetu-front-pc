@@ -30,7 +30,6 @@ export const useReviewList = (query: ReviewListQuery) => {
   const data = useSWRList<MeetuPageResponse<ReviewListResponse>>('/api/meeting/review/list', {
     query,
   });
-
   return formatSWRListResponse(data);
 };
 

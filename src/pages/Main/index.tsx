@@ -6,15 +6,18 @@ import styled from 'styled-components';
 import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
+import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
-import CategoryMeetingSwiperList from '@@pages/Main/parts/CategoryMeetingSwiperList';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
 import { Mood } from '@@pages/Main/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting, MeetingType } from '@@types/meeting';
+import { MEETING_ORDER_TYPE } from '@@stores/meeting/constants';
+import { useMeetingListByFilter, useMeetingListByLastMonth } from '@@stores/meeting/hooks';
+import { Category } from '@@stores/meeting/types';
 
 import { getDummyMeetingList, getDummyMoodList } from './dummys';
+import MeetingByCategory from './parts/MeetingByCategory';
 
 const StyledMeetingTitle = styled(Flex.Horizontal)`
   align-items: center;
@@ -28,11 +31,32 @@ const StyledMeetingTitle = styled(Flex.Horizontal)`
 `;
 
 function Main() {
-  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [meetings, setMeetings] =   useState<Meeting[]>([]);
   const [moods, setMoods] = useState<Mood[]>(getDummyMoodList().sort((a, b) => a.index - b.index));
-  const [selectedCategory, setSelectedCategory] = useState<MeetingType | ''>('');
+  const [selectedCategory, setSelectedCategory] = useState<Category>();
 
-  // const filteredMeetings = selectedCategory ? meetings.filter((meeting) => meeting.type === selectedCategory) : meetings;
+  const { content: contentByCategory, isLoading: categoryLoading } = useMeetingListByFilter({
+    page: 0,
+    size: 8,
+    category: selectedCategory,
+    orderType: 'LATEST',
+  });
+
+  const { content: contentByRequest, isLoading: requestLoading } = useMeetingListByFilter({
+    page: 0,
+    size: 8,
+    orderType: MEETING_ORDER_TYPE.REQUEST_COUNT,
+  });
+
+  const { content: contentByLatest, isLoading: latestLoading } = useMeetingListByFilter({
+    page: 0,
+    size: 8,
+    orderType: MEETING_ORDER_TYPE.LATEST,
+  });
+
+  const { content: contentByLastMonth, isLoading: lastMonthLoading } = useMeetingListByLastMonth();
+
+  const isLoading = categoryLoading || requestLoading || latestLoading || lastMonthLoading;
 
   useEffect(() => {
     setMeetings(getDummyMeetingList());
@@ -40,86 +64,22 @@ function Main() {
 
   return (
     <div id='wrap'>
+      <FullLoading visible={isLoading} />
+
       <Header />
       <main className='container'>
         {<section className='main_visual'>새로운 만남 소소한 행복찾기, 밋유 meetu</section>}
         {/* 메인 배너 종료 */}
 
         {/* 카테고리별 모임 시작 */}
-        <section className='main_ctg_wrap'>
-          <div className='main_ctg_top'>
-            <h3 className='main_tit'>
-              <strong>카테고리</strong>별 모임<strong>.</strong>
-            </h3>
-            <div className='ctg_tab_btn'>
-              <button type='button' className={`btn ${selectedCategory === 'art' ? 'active' : ''}`} onClick={() => setSelectedCategory('art')}>
-                아트
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'reading' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('reading')}
-              >
-                독서
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'cooking' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('cooking')}
-              >
-                쿠킹
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'cycling' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('cycling')}
-              >
-                사이클
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'exercise' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('exercise')}
-              >
-                운동
-              </button>
-              <button type='button' className={`btn ${selectedCategory === 'hiking' ? 'active' : ''}`} onClick={() => setSelectedCategory('hiking')}>
-                등산
-              </button>
-              <button type='button' className={`btn ${selectedCategory === 'music' ? 'active' : ''}`} onClick={() => setSelectedCategory('music')}>
-                음악
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'photography' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('photography')}
-              >
-                사진
-              </button>
-              <button
-                type='button'
-                className={`btn ${selectedCategory === 'technology' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('technology')}
-              >
-                기술
-              </button>
-              <button type='button' className={`btn ${selectedCategory === 'wine' ? 'active' : ''}`} onClick={() => setSelectedCategory('wine')}>
-                와인
-              </button>
-              <Link to={pathGenerator(PAGES.MEETING)} className='btn' onClick={() => setSelectedCategory('')}>
-                모두보기
-              </Link>
-            </div>
-          </div>
-        </section>
-        <CategoryMeetingSwiperList meeting={meetings} />
+        <MeetingByCategory meetingList={contentByCategory ?? []} category={selectedCategory} setCategory={setSelectedCategory} />
 
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
           <MeetingSwipeList
             title={
               <StyledMeetingTitle>
-                <div>
+                <div >
                   <strong>지금</strong> 핫한 모임<strong>.</strong>
                 </div>
                 <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
@@ -127,8 +87,9 @@ function Main() {
                 </Link>
               </StyledMeetingTitle>
             }
-            meetings={meetings}
+            meetings={contentByRequest ?? []}
           />
+
           <MeetingSwipeList
             title={
               <StyledMeetingTitle>
@@ -140,8 +101,9 @@ function Main() {
                 </Link>
               </StyledMeetingTitle>
             }
-            meetings={meetings}
+            meetings={contentByLatest ?? []}
           />
+
           <MeetingSwipeList
             title={
               <StyledMeetingTitle>
@@ -153,7 +115,7 @@ function Main() {
                 </Link>
               </StyledMeetingTitle>
             }
-            meetings={meetings}
+            meetings={contentByLastMonth ?? []}
           />
         </section>
         {/* <!-- 메인 모임 영역 종료 --> */}
@@ -211,3 +173,4 @@ function Main() {
 }
 
 export default Main;
+

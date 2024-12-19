@@ -1,7 +1,7 @@
 import { MouseEventHandler, PropsWithChildren } from 'react';
 
 export type SliderItemProps = PropsWithChildren<{
-  image: string;
+  image?: string;
   imageHeight?: number;
   title: string;
   hiddenButton?: boolean;

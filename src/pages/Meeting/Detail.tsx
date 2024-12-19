@@ -65,7 +65,7 @@ function MeetingDetail() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  
   return (
     <div id='wrap'>
       <Header />
