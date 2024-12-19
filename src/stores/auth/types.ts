@@ -38,6 +38,8 @@ export interface User {
   birth: string;
   tel: string;
   gender: Gender;
+  userDescription: string;
+  isHost: boolean;
   createDatetime: Date;
 }
 
