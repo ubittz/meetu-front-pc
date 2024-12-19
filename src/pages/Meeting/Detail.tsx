@@ -10,6 +10,7 @@ import Header from '@@components/Header';
 import UserPopup from '@@components/Popup/UserPopup';
 import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
+import { formatCost, formatDate } from '@@pages/Meeting/utils';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import { useMeetingDetail, useReviewList, useContactList } from '@@stores/meeting/hooks';
 
@@ -70,7 +71,7 @@ function MeetingDetail() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  
+
   return (
     <div id='wrap'>
       <Header />
@@ -167,7 +168,7 @@ function MeetingDetail() {
                   </li>
                   <li>
                     <p className='tit'>진행일 </p>
-                    <p className='txt'>{data?.processDate}</p>
+                    <p className='txt'>{formatDate(data?.processDate ?? '')}</p>
                   </li>
                   <li>
                     <p className='tit'>모임설명</p>
@@ -179,7 +180,7 @@ function MeetingDetail() {
                   </li>
                   <li className='price'>
                     <p className='tit'>판매가격</p>
-                    <p className='txt'>{data?.cost}원</p>
+                    <p className='txt'>{formatCost(data?.cost ?? 0)}원</p>
                   </li>
                 </ul>
                 {/* <!-- 2단 버튼 영역 --> */}
