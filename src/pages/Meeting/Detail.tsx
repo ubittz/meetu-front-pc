@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -16,10 +17,14 @@ import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import { useAppState } from '@@store/hooks';
 import { useUserProfile } from '@@stores/auth/hooks';
 import { useMeetingDetail, useReviewList, useContactList } from '@@stores/meeting/hooks';
+import { createContactRequest } from '@@stores/meeting/reducer';
+import { ContactAddDTO } from '@@stores/meeting/types';
+
 // FIX: - 모임 대표 이미지, 모임 상세 정보 이미지, 호스트 정보(이미지, 키워드(hot) 없음
 
 function MeetingDetail() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const authStore = useAppState((state) => state.auth);
 
   const [currentReviewPage, setCurrentReviewPage] = useState(1);
@@ -63,6 +68,11 @@ function MeetingDetail() {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  };
+
+  const handleAddQna = (content: ContactAddDTO) => {
+    dispatch(createContactRequest(content));
+    setCurrentQnaPage(1);
   };
 
   useEffect(() => {
@@ -147,7 +157,14 @@ function MeetingDetail() {
                   onPageChange={handleReviewPageChange}
                 />
                 {/* <!-- 문의 --> */}
-                <QnaList ref={inquiryRef} qnaList={contactList ?? []} page={contactPage} onPageChange={handleQnaPageChange} />
+                <QnaList
+                  ref={inquiryRef}
+                  meetingId={id ?? ''}
+                  qnaList={contactList ?? []}
+                  page={contactPage}
+                  onPageChange={handleQnaPageChange}
+                  onSubmit={handleAddQna}
+                />
               </div>
 
               {/* <!-- 모임 신청 영역 --> */}
