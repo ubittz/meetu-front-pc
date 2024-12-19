@@ -1,22 +1,20 @@
-import { Qna } from '@@pages/Meeting/types';
+import { ContactResponse } from '@@stores/meeting/types';
 
 interface QnaListItemProps {
-  qna: Qna;
+  qna: ContactResponse;
 }
 
 function QnaListItem({ qna }: QnaListItemProps) {
   return (
     <li>
       <div className='list_top'>
-        <p className={`answer${qna.answer ? ' complete' : ''}`}>{qna.answer ? '답변 완료' : '답변 대기'}</p>
-        <p className='date'>{qna.date.toLocaleDateString()}</p>
+        <p className={`answer${qna.answerStatus ? ' complete' : ''}`}>{qna.answerStatus ? '답변 완료' : '답변 대기'}</p>
+        <p className='date'>{qna.createDatetime.toLocaleDateString()}</p>
       </div>
       <div className='list_content'>
-        {qna.question.isLocked && <p className='answer lock'>비밀글 입니다.</p>}
-        {!qna.question.isLocked && <p className='answer'>{qna.question.title}</p>}
-        <p className='name'>
-          {qna.questionerId.length > 4 ? qna.questionerId.slice(0, 4) + '*'.repeat(qna.questionerId.length - 4) : qna.questionerId}
-        </p>
+        {qna.secretStatus && <p className='answer lock'>비밀글 입니다.</p>}
+        {!qna.secretStatus && <p className='answer'>{qna.descript}</p>}
+        <p className='name'>{qna.userId.length > 4 ? qna.userId.slice(0, 4) + '*'.repeat(qna.userId.length - 4) : qna.userId}</p>
       </div>
     </li>
   );

@@ -1,8 +1,8 @@
-import { Review } from '@@pages/Meeting/types';
+import { ReviewListResponse } from '@@stores/meeting/types';
 
 interface ReviewListItemProps {
   key: number;
-  review: Review;
+  review: ReviewListResponse;
 }
 
 const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
@@ -10,22 +10,22 @@ const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
     <li key={key}>
       <div className='list_top'>
         <div className='star_wrap'>
-          <strong>{review.rating}</strong>
+          <strong>{review.reviewScore}</strong>
           <div className='star_area'>
-            <span className='star' style={{ width: `${review.rating * 20}%` }}></span>
+            <span className='star' style={{ width: `${review.reviewScore * 20}%` }}></span>
           </div>
         </div>
-        <p className='name'>{review.name}</p>
-        <p className='date'>{review.date}</p>
+        <p className='name'>{review.userId}</p>
+        <p className='date'>{review.createDatetime.toLocaleDateString()}</p>
       </div>
       <div className='list_content'>
         <p>
-          {review.content}
+          {review.reviewDescript}
           <br />
-          {review.content}
+          {review.reviewDescript}
         </p>
         <div className='img_area'>
-          <img src={review.image} alt='리뷰 이미지' />
+          <img src={review.reviewDescript} alt='리뷰 이미지' />
         </div>
       </div>
     </li>

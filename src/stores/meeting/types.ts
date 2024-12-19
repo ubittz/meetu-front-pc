@@ -28,7 +28,7 @@ export interface MeetingSingleResponse {
   name: string;
   hostName: string;
   address: string;
-  processDate: Date;
+  processDate: string;
   cost: number;
   limit: number;
   intro: string;
