@@ -28,7 +28,7 @@ export const CATEGORY = {
   MUSIC: 'MUSIC',
   PHOTO: 'PHOTO',
   TECH: 'TECH',
-  WIN: 'WINE',
+  WINE: 'WINE',
 } as const;
 
 export const ALL_CATEGORIES = Object.values(CATEGORY);
@@ -43,7 +43,7 @@ export const CATEGORY_STRINGS = {
   [CATEGORY.MUSIC]: '음악',
   [CATEGORY.PHOTO]: '사진',
   [CATEGORY.TECH]: '기술',
-  [CATEGORY.WIN]: '와인',
+  [CATEGORY.WINE]: '와인',
 } as const;
 
 export const MEETING_ORDER_TYPE = {

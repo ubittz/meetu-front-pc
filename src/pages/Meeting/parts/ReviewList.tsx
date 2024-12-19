@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import UserPopup from '@@components/Popup/UserPopup';
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import ReviewListItem from '@@pages/Meeting/parts/ReviewListItem';
-import { ReviewListResponse } from '@@stores/meeting/types';
+import { createReviewRequest } from '@@stores/meeting/reducer';
+import { ReviewAddDTO, ReviewListResponse } from '@@stores/meeting/types';
 
 import ReviewPopup from './ReviewPopup';
 
 interface ReviewListProps {
+  meetingId: string;
   reviews: ReviewListResponse[];
   averageScore: number;
   page: {
@@ -19,7 +23,8 @@ interface ReviewListProps {
   onPageChange: (page: number) => void;
 }
 
-const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ reviews, averageScore, page, onPageChange }, ref) => {
+const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingId, reviews, averageScore, page, onPageChange }, ref) => {
+  const dispatch = useDispatch();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
@@ -28,6 +33,11 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ reviews,
 
   const closePopup = () => {
     setIsPopupOpen(false);
+  };
+
+  const createReview = (content: ReviewAddDTO) => {
+    dispatch(createReviewRequest(content));
+    closePopup();
   };
 
   return (
@@ -60,7 +70,7 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ reviews,
         height='800px'
         transform='translateX(-50%) translateY(-55%)'
       >
-        <ReviewPopup onCancel={closePopup} />
+        <ReviewPopup onSubmit={createReview} onCancel={closePopup} meetingId={meetingId} />
       </UserPopup>
     </div>
   );

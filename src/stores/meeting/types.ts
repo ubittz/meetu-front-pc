@@ -16,7 +16,7 @@ export interface Meeting {
   meetingDetailPlace: string;
   meetingCost: number;
   meetingLimit: number;
-  meetingProcessDate: Date;
+  meetingProcessDate: string;
   meetingIntro: string;
   meetingDescript: string;
   meetingProcessGuide: string;
@@ -25,6 +25,7 @@ export interface Meeting {
 
 export interface MeetingSingleResponse {
   id: string;
+  hostId: string;
   name: string;
   hostName: string;
   address: string;
@@ -45,7 +46,7 @@ export interface ReviewListResponse {
   userId: string;
   reviewScore: number;
   reviewDescript: string;
-  createDatetime: Date;
+  createDatetime: string;
 }
 
 export interface ContactResponse {
@@ -54,13 +55,20 @@ export interface ContactResponse {
   descript: string;
   secretStatus: boolean;
   answerStatus: boolean;
-  createDatetime: Date;
+  createDatetime: string;
 }
 
 export interface ReviewListQuery {
   page: number;
   id: string;
 }
+
+export interface ReviewAddDTO {
+  meetingId: string;
+  score: number;
+  description: string;
+}
+
 export interface ContactListQuery {
   page: number;
   id: string;
