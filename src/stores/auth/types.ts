@@ -41,6 +41,9 @@ export interface User {
   userDescription: string;
   isHost: boolean;
   createDatetime: Date;
+  meetingCount: number;
+  writeReviewCount: number;
+  imageUrl: string;
 }
 
 export interface UserEditRequestDTO {

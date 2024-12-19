@@ -25,6 +25,7 @@ export interface Meeting {
 
 export interface MeetingSingleResponse {
   id: string;
+  hostId: string;
   name: string;
   hostName: string;
   address: string;

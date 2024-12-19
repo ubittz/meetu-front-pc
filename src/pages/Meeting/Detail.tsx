@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
@@ -10,13 +11,17 @@ import Header from '@@components/Header';
 import UserPopup from '@@components/Popup/UserPopup';
 import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
-import { formatCost, formatDate } from '@@pages/Meeting/utils';
+import { formatCost, formatDate, getCategoryString, getDistrict } from '@@pages/Meeting/utils';
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import { useAppState } from '@@store/hooks';
+import { useUserProfile } from '@@stores/auth/hooks';
 import { useMeetingDetail, useReviewList, useContactList } from '@@stores/meeting/hooks';
-
-// FIX: - 모임 대표 이미지, 모임 상세 정보 이미지, 호스트 정보(이미지, 키워드(hot, seoul) 없음
+// FIX: - 모임 대표 이미지, 모임 상세 정보 이미지, 호스트 정보(이미지, 키워드(hot) 없음
 
 function MeetingDetail() {
+  const navigate = useNavigate();
+  const authStore = useAppState((state) => state.auth);
+
   const [currentReviewPage, setCurrentReviewPage] = useState(1);
   const [currentQnaPage, setCurrentQnaPage] = useState(1);
   const [top, setTop] = useState(100);
@@ -24,6 +29,7 @@ function MeetingDetail() {
 
   const { id } = useParams();
   const { data, isLoading } = useMeetingDetail(id ?? '');
+  const { data: user, isLoading: isUserLoading } = useUserProfile(data?.hostId ?? '');
   const { content: reviewList, page: reviewPage } = useReviewList({
     page: currentReviewPage,
     id: id ?? '',
@@ -76,7 +82,7 @@ function MeetingDetail() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        {isLoading ? (
+        {isLoading || isUserLoading ? (
           <FullLoading />
         ) : (
           <section className='meeting_view'>
@@ -146,17 +152,17 @@ function MeetingDetail() {
 
               {/* <!-- 모임 신청 영역 --> */}
               <div className='mv_app' style={{ top }}>
-                <h3 className='title'>미식가들의 쿠킹 클래스</h3>
+                <h3 className='title'>{data?.name}</h3>
                 <div className='host_area'>
                   <div className='img_area'>
-                    <img src={images.meeting_img04} alt='호스트 이미지' />
+                    <img src={user?.imageUrl} alt='호스트 이미지' />
                   </div>
                   <div className='info_area'>
                     <span className='name'>호스트</span>
                     <h4>{data?.hostName}</h4>
                     <div className='sort'>
                       <span className='hot'>HOT</span>
-                      <span className='location'>SEOUL</span>
+                      <span className='location'>{getDistrict(data?.address ?? '')}</span>
                     </div>
                   </div>
                 </div>
@@ -176,7 +182,7 @@ function MeetingDetail() {
                   </li>
                   <li>
                     <p className='tit'>카테고리</p>
-                    <p className='txt'>{data?.category}</p>
+                    <p className='txt'>{data?.category ? `#${getCategoryString(data.category)}` : ''}</p>
                   </li>
                   <li className='price'>
                     <p className='tit'>판매가격</p>
@@ -184,26 +190,30 @@ function MeetingDetail() {
                   </li>
                 </ul>
                 {/* <!-- 2단 버튼 영역 --> */}
-                <div className='btn_area type_02'>
-                  <button type='button' className='btn form02' onClick={openPopup}>
-                    호스트 정보
-                  </button>
-                  <button type='button' className='btn'>
-                    신청하기
-                  </button>
-                </div>
+                {user?.id !== authStore.me?.id && (
+                  <div className='btn_area type_02'>
+                    <button type='button' className='btn form02' onClick={openPopup}>
+                      호스트 정보
+                    </button>
+                    <button type='button' className='btn'>
+                      신청하기
+                    </button>
+                  </div>
+                )}
                 {/* <!-- 1단 버튼 영역 --> */}
-                <div className='btn_area'>
-                  <button type='button' className='btn'>
-                    수정하기
-                  </button>
-                </div>
+                {user?.id === authStore.me?.id && (
+                  <div className='btn_area'>
+                    <button type='button' className='btn' onClick={() => navigate(`/meeting/edit/${id}`)}>
+                      수정하기
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* <!-- 호스트 정보 팝업 시작 --> */}
               {isPopupOpen && (
-                <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
-                  <InfoPopup type={'host'} />
+                <UserPopup visible={isPopupOpen} title='호스트 정보' onCancel={closePopup} img={user?.imageUrl}>
+                  <InfoPopup user={user} />
                 </UserPopup>
               )}
               {/* <!-- 호스트 정보 팝업 종료 --> */}
