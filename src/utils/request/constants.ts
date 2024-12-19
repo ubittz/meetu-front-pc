@@ -4,35 +4,51 @@ export const ENDPOINTS = {
   // 유저 & Auth
   USER: {
     BASE: `/api/user`,
-    CHECK_ID: `/api/user/check-id`,
-    CHECK_EMAIL: `/api/user/check-email`,
-    REGISTER: `/api/user/register`,
-    EDIT: `/api/user/edit`,
-    GET_MY_INFO: `/api/user/get-my-info`,
-    FIND_ID: `/api/user/find-id`,
+    CHECK_ID: `/api/user/check-id`, // post
+    CHECK_EMAIL: `/api/user/check-email`, // post
+    REGISTER: `/api/user/register`, // put
+    FIND_ID: `/api/user/find-id`, // post
+    VERIFY_IDENTITY: `/api/user/verify-identity`, // post - 비밀번호 찾기 검증
+    CHANGE_PASSWORD: `/api/user/change-password`, // patch
+    PROFILE: (userId: string) => `/api/user/${userId}/profile`, // get
+    EDIT: `/api/user/edit`, // patch
+    GET_MY_INFO: `/api/user/get-my-info`, // post
   },
+
+  // 호스트
+  HOST: {
+    BASE: `/api/host`,
+    CHECK_NAME: `/api/host/check-name`, // post
+    CHECK_EMAIL: `/api/host/check-email`, // post
+    ADD: `/api/host/add`, // put
+  },
+
   // 모임
   MEETING: {
     BASE: `/api/meeting`,
-    DETAILS: (id: string) => `/api/meeting/${id}`, // get
-    MY_CONTENTS: `/api/meeting/my-contents`, // get
     LIST: `/api/meeting/list`, // get
+    LIST_MY: `/api/meeting/list/user`, // get - 내 모임 조회
     LIST_LAST_MONTH: `/api/meeting/list-last-month`, // get
-    EDIT: `/api/meeting/edit`, // patch
+    DETAIL: (id: string) => `/api/meeting/detail/${id}`, // get
     ADD: `/api/meeting/add`, // put
+    EDIT: `/api/meeting/edit`, // patch
+    DELETE: (id: string) => `/api/meeting/delete/${id}`, // delete
   },
+
   // 리뷰
   REVIEW: {
     BASE: `/api/meeting/review`,
     LIST: `/api/meeting/review/list`, // get
     ADD: `/api/meeting/review/add`, // put
   },
+
   // 문의
   CONTACT: {
     BASE: `/api/meeting/contact`,
     LIST: `/api/meeting/contact/list`, // get
     ADD: `/api/meeting/contact/add`, // put
   },
+
   // 결제
   PAYMENT: {
     BASE: `/api/payment`,
