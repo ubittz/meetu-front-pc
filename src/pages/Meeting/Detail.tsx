@@ -76,6 +76,7 @@ function MeetingDetail() {
   };
 
   useEffect(() => {
+    console.log('ID: ', authStore.me?.id);
     const handleScroll = () => {
       const newTop = scrollY > 100 ? window.scrollY : 100;
       setTop(Math.min(newTop, reviewRef.current?.offsetTop ?? 0));
@@ -86,7 +87,7 @@ function MeetingDetail() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [authStore.me?.id]);
 
   return (
     <div id='wrap'>
@@ -150,6 +151,7 @@ function MeetingDetail() {
 
                 {/* <!-- 리뷰 --> */}
                 <ReviewList
+                  meetingId={id ?? ''}
                   ref={reviewRef}
                   averageScore={data?.avgScore ?? 0}
                   reviews={reviewList ?? []}

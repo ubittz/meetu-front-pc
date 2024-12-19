@@ -62,6 +62,13 @@ export interface ReviewListQuery {
   page: number;
   id: string;
 }
+
+export interface ReviewAddDTO {
+  meetingId: string;
+  score: number;
+  description: string;
+}
+
 export interface ContactListQuery {
   page: number;
   id: string;

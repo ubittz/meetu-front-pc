@@ -6,6 +6,7 @@ import Button from '@@components/Button';
 import Flex from '@@components/Flex';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { ReviewAddDTO } from '@@stores/meeting/types';
 
 import { StarIcon } from '../icons';
 
@@ -81,9 +82,20 @@ const StyledReviewPopup = styled(Flex.Vertical)`
   }
 `;
 
-const ReviewPopup = ({ onCancel }: { onCancel: () => void }) => {
+interface ReviewPopupProps {
+  onSubmit: (content: ReviewAddDTO) => void;
+  onCancel: () => void;
+  meetingId: string;
+}
+
+const ReviewPopup = ({ onSubmit, onCancel, meetingId }: ReviewPopupProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [rating, setRating] = useState<number>(0);
+
+  const [content, setContent] = useState<ReviewAddDTO>({
+    meetingId: meetingId,
+    score: 5,
+    description: '',
+  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -107,7 +119,7 @@ const ReviewPopup = ({ onCancel }: { onCancel: () => void }) => {
   };
 
   const handleStarClick = (value: number) => {
-    setRating(value);
+    setContent({ ...content, score: value });
   };
 
   return (
@@ -115,36 +127,36 @@ const ReviewPopup = ({ onCancel }: { onCancel: () => void }) => {
       <Flex.Vertical gap={30}>
         <Flex.Horizontal gap={20}>
           {[5, 4, 3, 2, 1].map((value) => (
-            <div
-              key={value}
-              className={`StarButton ${rating === value ? 'selected' : ''}`}
-              onClick={() => handleStarClick(value)}
-            >
+            <div key={value} className={`StarButton ${content.score === value ? 'selected' : ''}`} onClick={() => handleStarClick(value)}>
               {[...Array(value)].map((_, index) => (
-                <StarIcon key={index} style={{ fill: rating >= value ? '#FDCB1A' : '#E0E0E0' }} />
+                <StarIcon key={index} style={{ fill: content.score >= value ? '#FDCB1A' : '#E0E0E0' }} />
               ))}
             </div>
           ))}
         </Flex.Horizontal>
 
-        <textarea placeholder="리뷰 내용을 작성해주세요." className="tw-h-52" />
+        <textarea
+          placeholder='리뷰 내용을 작성해주세요.'
+          className='tw-h-52'
+          onChange={(e) => setContent({ ...content, description: e.target.value })}
+        />
         <Flex.Vertical>
-          <Button.Medium className="FileBtn">
+          <Button.Medium className='FileBtn'>
             <Typography.MediumBody color={COLORS.MAIN}>파일 업로드</Typography.MediumBody>
-            <input type="file" accept="image/*,video/*,.pdf" className="FileInput" onChange={handleFileChange} multiple />
+            <input type='file' accept='image/*,video/*,.pdf' className='FileInput' onChange={handleFileChange} multiple />
           </Button.Medium>
         </Flex.Vertical>
         <Flex.Horizontal>
           {imagePreviews.map((preview, index) => (
-            <img key={index} src={preview} alt={`파일 미리보기 ${index}`} className="ImagePreview" />
+            <img key={index} src={preview} alt={`파일 미리보기 ${index}`} className='ImagePreview' />
           ))}
         </Flex.Horizontal>
 
         <Flex.Horizontal gap={8}>
-          <Button.Large onClick={onCancel} className="CloseBtn">
+          <Button.Large onClick={onCancel} className='CloseBtn'>
             <Typography.MediumBody>닫기</Typography.MediumBody>
           </Button.Large>
-          <Button.Large className="HomeBtn">
+          <Button.Large className='HomeBtn' onClick={() => onSubmit(content)}>
             <Typography.MediumBody color={COLORS.WHITE}>확인</Typography.MediumBody>
           </Button.Large>
         </Flex.Horizontal>
