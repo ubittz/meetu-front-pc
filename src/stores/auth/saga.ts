@@ -35,8 +35,8 @@ import { LoginResponse, RegisterResponse, User, UserEditResponse, UserVerifyIden
 import { saveToken } from '@@utils/localStorage';
 import { authenticatedRequest } from '@@utils/request';
 import { ERROR_CODE_STRING } from '@@utils/request/constants';
-import { MeetuErrorResponse, MeetuResponse } from '@@utils/request/types';
 import { ENDPOINTS } from '@@utils/request/constants';
+import { MeetuErrorResponse, MeetuResponse } from '@@utils/request/types';
 
 function* login({ payload }: ReturnType<typeof loginRequest>) {
   try {
@@ -152,7 +152,7 @@ function* findId({ payload }: ReturnType<typeof findIdRequest>) {
 
 function* verifyIdentity({ payload }: ReturnType<typeof verifyIdentityRequest>) {
   try {
-    const response: MeetuResponse<UserVerifyIdentityResponse> = yield authenticatedRequest.post(`${ENDPOINTS.USER.BASE}/verify-identity`, {
+    const response: MeetuResponse<UserVerifyIdentityResponse> = yield authenticatedRequest.post(ENDPOINTS.USER.VERIFY_IDENTITY, {
       data: payload,
     });
 
@@ -167,7 +167,7 @@ function* verifyIdentity({ payload }: ReturnType<typeof verifyIdentityRequest>) 
 function* verifyOTP({ payload }: ReturnType<typeof verifyOTPRequest>) {
   try {
     const changeKey = select((state: AppState) => state.auth.changeKey);
-    const response: MeetuResponse<string> = yield authenticatedRequest.post(`${ENDPOINTS.USER.BASE}/verify-identity`, {
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.VERIFY_IDENTITY, {
       data: {
         ...payload,
         changeKey,
