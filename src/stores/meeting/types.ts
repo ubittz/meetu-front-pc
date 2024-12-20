@@ -11,7 +11,7 @@ export interface MeetingState {
 export interface Meeting {
   meetingId: string;
   meetingName: string;
-  meetingCategory: string;
+  meetingCategory: Category;
   meetingMainPlace: string;
   meetingDetailPlace: string;
   meetingCost: number;

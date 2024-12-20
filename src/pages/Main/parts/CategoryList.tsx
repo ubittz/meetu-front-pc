@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// CategoryList.tsx
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -15,23 +16,38 @@ const StyledCategoryList = styled(Flex.Horizontal)`
   }
 `;
 
-function CategoryList() {
-  const [activeCategory, setActiveCategory] = useState<Category | null>(ALL_CATEGORIES[0]);
+function CategoryList({
+  setCategory,
+}: {
+  setCategory: (category?: Category) => void;
+}) {
+    const [selectedCategory, setSelectedCategory] = useState<Category | undefined>('ART');
 
-  const handleCategoryClick = (category: Category | null) => {
-    setActiveCategory(category);
+  const handleCategoryChange = (category: Category | undefined) => {
+    setSelectedCategory(category);
+    setCategory(category); 
   };
 
   return (
-    <Flex.Horizontal alignItems='center' gap={320}>
-        <Typography.MeduimButton><span className='tw-text-[#FF641A]'>카테고리</span>별 모임<span className='tw-text-[#FF641A]'>.</span></Typography.MeduimButton>
+    <Flex.Horizontal alignItems="center" gap={320}>
+      <Typography.MeduimButton>
+        <span className="tw-text-[#FF641A]">카테고리</span>별 모임
+        <span className="tw-text-[#FF641A]">.</span>
+      </Typography.MeduimButton>
       <StyledCategoryList gap={12}>
         {/* 각 카테고리별 아이템 */}
         {ALL_CATEGORIES.map((category) => (
-          <CategoryItem key={category} category={category} isActive={activeCategory === category} onClick={() => handleCategoryClick(category)} />
+          <CategoryItem
+            key={category}
+            category={category}
+            setCategory={handleCategoryChange}
+            selectedCategory={selectedCategory} 
+          />
         ))}
-        {/* "모두보기" 카테고리 */}
-        <CategoryItem isActive={activeCategory === null} onClick={() => handleCategoryClick(null)} />
+        <CategoryItem
+          setCategory={handleCategoryChange}
+          selectedCategory={selectedCategory} 
+        />
       </StyledCategoryList>
     </Flex.Horizontal>
   );

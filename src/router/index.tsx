@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-
-import { useDispatch } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import Error from '@@pages/Error';
 import Login from '@@pages/Login';
 import ChangePassword from '@@pages/Login/part/ChangePassword';
 import FindId from '@@pages/Login/part/FindId';
@@ -27,30 +25,16 @@ import JoinComplete from '@@pages/Register/parts/JoinComplete';
 import UserInfoInput from '@@pages/Register/parts/UserInfoInput';
 import { PAGES, ROUTE_PREFIX } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { useAppState } from '@@store/hooks';
-import { fetchMeRequest } from '@@stores/auth/reducer';
 
 function Router() {
-  const dispatch = useDispatch();
-  const { token, me } = useAppState((state) => state.auth);
-
-  useEffect(() => {
-    if (token && !me) {
-      dispatch(fetchMeRequest());
-    }
-  }, [token, me, dispatch]);
-
   return (
     <Routes>
       <Route path='/' element={<Navigate to={ROUTE_PREFIX} />} />
-      {!token && (
-        <>
-          <Route path={pathGenerator(PAGES.LOGIN)} element={<Login />} />
-          <Route path={pathGenerator(PAGES.LOGIN) + '/find/password'} element={<FindPassword />} />
-          <Route path={pathGenerator(PAGES.LOGIN) + '/find/id'} element={<FindId />} />
-          <Route path={pathGenerator(PAGES.LOGIN) + '/find/password/change'} element={<ChangePassword />} />
-        </>
-      )}
+      <Route path={pathGenerator(PAGES.LOGIN)} element={<Login />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/password'} element={<FindPassword />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/id'} element={<FindId />} />
+      <Route path={pathGenerator(PAGES.LOGIN) + '/find/password/change'} element={<ChangePassword />} />
+
       <Route path={pathGenerator(PAGES.REGISTER)} element={<Register />} />
       <Route path={pathGenerator(PAGES.REGISTER) + '/:id'} element={<UserInfoInput />} />
       <Route path={pathGenerator(PAGES.REGISTER) + '/complete'} element={<JoinComplete />} />
@@ -76,7 +60,7 @@ function Router() {
       {/* :type에 host 혹은 user가 들어감 */}
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/:type'} element={<MyMeeting />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} element={<InfoHostReview />} />
-      <Route path='*' element={<Navigate to={pathGenerator(PAGES.MAIN)} replace />} />
+      <Route path='*' element={<Error />} />
     </Routes>
   );
 }

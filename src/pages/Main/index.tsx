@@ -37,20 +37,17 @@ function Main() {
 
   const { content: contentByCategory, isLoading: categoryLoading } = useMeetingListByFilter({
     page: 0,
-    size: 8,
     category: selectedCategory,
     orderType: 'LATEST',
   });
 
   const { content: contentByRequest, isLoading: requestLoading } = useMeetingListByFilter({
     page: 0,
-    size: 8,
     orderType: MEETING_ORDER_TYPE.REQUEST_COUNT,
   });
 
   const { content: contentByLatest, isLoading: latestLoading } = useMeetingListByFilter({
     page: 0,
-    size: 8,
     orderType: MEETING_ORDER_TYPE.LATEST,
   });
 
@@ -65,7 +62,6 @@ function Main() {
   return (
     <div id='wrap'>
       <FullLoading visible={isLoading} />
-
       <Header />
       <main className='container'>
         {<section className='main_visual'>새로운 만남 소소한 행복찾기, 밋유 meetu</section>}
@@ -73,7 +69,7 @@ function Main() {
 
         {/* 카테고리별 모임 시작 */}
         <MeetingByCategory meetingList={contentByCategory ?? []} category={selectedCategory} setCategory={setSelectedCategory} />
-
+        {/* <FindClass meetingList={contentByCategory ?? []} category={selectedCategory} setCategory={setSelectedCategory}/> */}
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
           <MeetingSwipeList
