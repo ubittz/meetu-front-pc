@@ -1,3 +1,4 @@
+import { formatDate } from '@@pages/Meeting/utils';
 import { ReviewListResponse } from '@@stores/meeting/types';
 
 interface ReviewListItemProps {
@@ -16,7 +17,7 @@ const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
           </div>
         </div>
         <p className='name'>{review.userId}</p>
-        <p className='date'>{review.createDatetime.toLocaleDateString()}</p>
+        <p className='date'>{formatDate(review.createDatetime)}</p>
       </div>
       <div className='list_content'>
         <p>

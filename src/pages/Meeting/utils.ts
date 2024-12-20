@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { CATEGORY, CATEGORY_STRINGS, DISTRICT } from '@@stores/meeting/constants';
 
 export const formatCost = (cost: number) => {
@@ -6,11 +8,7 @@ export const formatCost = (cost: number) => {
 
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  return `${year}년 ${month}월 ${day}일`;
+  return format(date, 'yyyy년 MM월 dd일');
 };
 
 export const getDistrict = (address: string) => {

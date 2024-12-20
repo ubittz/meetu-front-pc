@@ -27,8 +27,8 @@ function MeetingDetail() {
   const dispatch = useDispatch();
   const authStore = useAppState((state) => state.auth);
 
-  const [currentReviewPage, setCurrentReviewPage] = useState(1);
-  const [currentQnaPage, setCurrentQnaPage] = useState(1);
+  const [currentReviewPage, setCurrentReviewPage] = useState(0);
+  const [currentQnaPage, setCurrentQnaPage] = useState(0);
   const [top, setTop] = useState(100);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
