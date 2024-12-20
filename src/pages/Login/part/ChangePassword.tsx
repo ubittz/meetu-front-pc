@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
@@ -12,28 +12,37 @@ import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { resetPasswordSchema } from '@@constants/scheme';
 import { ResetPasswordForm } from '@@pages/Login/types';
+import { sanitizeResetPasswordForm } from '@@pages/Login/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
 import { resetPasswordRequest, resetPasswordSuccess, resetPasswordFailure } from '@@stores/auth/reducer';
-
-const initialValues: ResetPasswordForm = {
-  password: '',
-  passwordCheck: '',
-};
+import { UserVerifyIdentityResponse } from '@@stores/auth/types';
 
 function ChangePassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const verify: UserVerifyIdentityResponse | undefined = state.verify;
+
+  const initialValues: ResetPasswordForm = {
+    userId: verify?.userId || '',
+    password: '',
+    passwordCheck: '',
+    changeKey: verify?.changeKey || '',
+  };
+
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleSubmit = async (values: ResetPasswordForm) => {
-    dispatch(resetPasswordRequest(values));
+    console.log('values', sanitizeResetPasswordForm(values));
+    dispatch(resetPasswordRequest(sanitizeResetPasswordForm(values)));
   };
 
   useActionSubscribe({
     type: resetPasswordSuccess.type,
     callback: () => {
+      console.log('비밀번호 변경 성공');
       setIsPopupVisible(true);
     },
   });
@@ -73,9 +82,7 @@ function ChangePassword() {
                         <strong>비밀번호 변경</strong>
                         <span>새로운 비밀번호를 등록해주세요.</span>
                       </p>
-
                       <InputField name='password' label='비밀번호' type='password' placeholder='영문(대/소문자) + 숫자 조합 8글자 이상 20글자 이하' />
-
                       <InputField name='passwordCheck' label='비밀번호 확인' type='password' placeholder='새 비밀번호 확인' />
                     </div>
 

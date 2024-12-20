@@ -33,6 +33,12 @@ import {
   verifyOTPRequest,
   verifyOTPSuccess,
   verifyOTPFailure,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  changeProfileRequest,
+  changeProfileSuccess,
+  changeProfileFailure,
 } from '@@stores/auth/reducer';
 import { LoginResponse, RegisterResponse, User, UserEditResponse, UserVerifyIdentityResponse } from '@@stores/auth/types';
 import { saveToken } from '@@utils/localStorage';
@@ -200,6 +206,40 @@ function* verifyOTP({ payload }: ReturnType<typeof verifyOTPRequest>) {
   }
 }
 
+function* changeProfile({ payload }: ReturnType<typeof changeProfileRequest>) {
+  try {
+    const formData = new FormData();
+    formData.append('file', payload);
+
+    const response: MeetuResponse<string> = yield authenticatedRequest.post('/api/user/upload/profile-image', {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const action = response.ok ? changeProfileSuccess(response.data) : changeProfileFailure('프로필 사진 수정을 실패했습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(changeProfileFailure((e as Error).message));
+  }
+}
+
+function* resetPassword({ payload }: ReturnType<typeof resetPasswordRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.patch('/api/user/change-password', {
+      data: payload,
+    });
+
+    const action = response.ok ? resetPasswordSuccess(response.data) : resetPasswordFailure('비밀번호 변경을 실패했습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(resetPasswordFailure((e as Error).message));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(loginRequest.type, login);
   yield takeLatest(checkDuplicateIdRequest.type, checkDuplicateId);
@@ -211,4 +251,6 @@ export default function* defaultSaga() {
   yield takeLatest(verifyIdentityRequest.type, verifyIdentity);
   yield takeLatest(verifyOTPRequest.type, verifyOTP);
   yield takeLatest(sendCertifyEmailRequest.type, sendCertifyEmail);
+  yield takeLatest(changeProfileRequest.type, changeProfile);
+  yield takeLatest(resetPasswordRequest.type, resetPassword);
 }

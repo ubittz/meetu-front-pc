@@ -25,6 +25,12 @@ export interface RegisterDTO {
   tel: string;
 }
 
+export interface ResetPasswordDTO {
+  userId: string;
+  password: string;
+  changeKey: string;
+}
+
 export interface RegisterResponse {
   id: string;
   name: string;

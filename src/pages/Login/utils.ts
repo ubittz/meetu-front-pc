@@ -1,3 +1,6 @@
+import { ResetPasswordForm } from '@@pages/Login/types';
+import { ResetPasswordDTO } from '@@stores/auth/types';
+
 const CERTIFICATION_TIME = 300;
 
 const formatTime = (seconds: number): string => {
@@ -7,3 +10,9 @@ const formatTime = (seconds: number): string => {
 };
 
 export { CERTIFICATION_TIME, formatTime };
+
+export const sanitizeResetPasswordForm = (form: ResetPasswordForm): ResetPasswordDTO => ({
+  userId: form.userId,
+  password: form.password,
+  changeKey: form.changeKey,
+});
