@@ -28,7 +28,6 @@ function MeetingDetail() {
   const authStore = useAppState((state) => state.auth);
 
   const [currentReviewPage, setCurrentReviewPage] = useState(0);
-  const [currentQnaPage, setCurrentQnaPage] = useState(0);
   const [top, setTop] = useState(100);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -39,10 +38,6 @@ function MeetingDetail() {
     page: currentReviewPage,
     id: id ?? '',
   });
-  const { content: contactList, page: contactPage } = useContactList({
-    page: currentQnaPage,
-    id: id ?? '',
-  });
 
   const detailRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -50,10 +45,6 @@ function MeetingDetail() {
 
   const handleReviewPageChange = (page: number) => {
     setCurrentReviewPage(page); // 페이지 변경 핸들러
-  };
-
-  const handleQnaPageChange = (page: number) => {
-    setCurrentQnaPage(page); // 페이지 변경 핸들러
   };
 
   const openPopup = () => {
@@ -68,11 +59,6 @@ function MeetingDetail() {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
-
-  const handleAddQna = (content: ContactAddDTO) => {
-    dispatch(createContactRequest(content));
-    setCurrentQnaPage(1);
   };
 
   useEffect(() => {
@@ -159,14 +145,7 @@ function MeetingDetail() {
                   onPageChange={handleReviewPageChange}
                 />
                 {/* <!-- 문의 --> */}
-                <QnaList
-                  ref={inquiryRef}
-                  meetingId={id ?? ''}
-                  qnaList={contactList ?? []}
-                  page={contactPage}
-                  onPageChange={handleQnaPageChange}
-                  onSubmit={handleAddQna}
-                />
+                <QnaList ref={inquiryRef} />
               </div>
 
               {/* <!-- 모임 신청 영역 --> */}

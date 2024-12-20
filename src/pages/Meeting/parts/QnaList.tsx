@@ -107,7 +107,7 @@ const QnaList = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
       </StyledQna>
       <div className='detail_list'>
         <ul>{contactList?.map((contact) => <QnaListItem key={contact.no} qna={contact} />)}</ul>
-        <Pagination currentPage={contactPage.current} totalPages={contactPage.lastPage} onPageChange={setCurrentQnaPage} />
+        <Pagination currentPage={contactPage.current + 1} totalPages={contactPage.lastPage} onPageChange={setCurrentQnaPage} />
       </div>
     </div>
   );

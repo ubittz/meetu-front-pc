@@ -8,7 +8,7 @@ interface PaginationProps {
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   const handlePageChange = (page: number) => {
-    onPageChange(page);
+    onPageChange(page - 1);
   };
 
   const renderPageNumbers = () => {
