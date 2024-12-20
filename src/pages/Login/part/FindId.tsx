@@ -18,10 +18,18 @@ import { FindIdForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
-import { findIdRequest, findIdSuccess, findIdFailure } from '@@stores/auth/reducer';
+import {
+  findIdRequest,
+  findIdSuccess,
+  findIdFailure,
+  sendCertifyEmailRequest,
+  sendCertifyEmailSuccess,
+  sendCertifyEmailFailure,
+} from '@@stores/auth/reducer';
 
 const initialValues: FindIdForm = {
   email: '',
+  authNumber: '',
 };
 
 function FindId() {
@@ -33,15 +41,31 @@ function FindId() {
   const { isCertifySend, formattedTime, startCertifyTimer, resetCertify } = useCertify();
 
   const handleSubmit = async (values: FindIdForm) => {
+    console.log('values', values);
     dispatch(findIdRequest(values));
   };
 
   const handleCertifySend = (values: FindIdForm) => {
     console.log('values', values);
     if (values.email !== '') {
-      startCertifyTimer();
+      dispatch(sendCertifyEmailRequest(values.email));
     }
   };
+
+  useActionSubscribe({
+    type: sendCertifyEmailSuccess.type,
+    callback: () => {
+      startCertifyTimer();
+      alert('인증번호가 발송되었습니다.');
+    },
+  });
+
+  useActionSubscribe({
+    type: sendCertifyEmailFailure.type,
+    callback: () => {
+      alert('해당 이메일 주소에 존재하는 유저가 없습니다.');
+    },
+  });
 
   useActionSubscribe({
     type: findIdSuccess.type,
@@ -56,7 +80,7 @@ function FindId() {
     callback: () => {
       setPopupVisible(false);
       resetCertify();
-      alert('인증을 실패했습니다.');
+      alert('인증번호를 다시 확인해주세요.');
     },
   });
 
@@ -103,7 +127,7 @@ function FindId() {
 
                       {isCertifySend && (
                         <InputField
-                          name='certify_number'
+                          name='authNumber'
                           label='인증번호'
                           placeholder='6자리 인증번호를 입력해주세요.'
                           children={<p className='certify'>{formattedTime}</p>}

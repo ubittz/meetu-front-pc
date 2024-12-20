@@ -9,6 +9,7 @@ export const ENDPOINTS = {
     REGISTER: `/api/user/register`, // put
     FIND_ID: `/api/user/find-id`, // post
     VERIFY_IDENTITY: `/api/user/verify-identity`, // post - 비밀번호 찾기 검증
+    CERTIFY_EMAIL: `/api/user/send-auth`, // post - 이메일 인증
     CHANGE_PASSWORD: `/api/user/change-password`, // patch
     PROFILE: (userId: string) => `/api/user/${userId}/profile`, // get
     EDIT: `/api/user/edit`, // patch

@@ -11,38 +11,71 @@ import { VerifyIdentityForm } from '@@pages/Login/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
-import { verifyIdentityRequest, verifyIdentitySuccess, verifyIdentityFailure } from '@@stores/auth/reducer';
+import {
+  verifyIdentityRequest,
+  verifyIdentitySuccess,
+  verifyIdentityFailure,
+  sendCertifyEmailRequest,
+  sendCertifyEmailSuccess,
+  sendCertifyEmailFailure,
+} from '@@stores/auth/reducer';
 
 const initialValues: VerifyIdentityForm = {
   id: '',
   email: '',
+  authNumber: '',
 };
 
 function FindPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isCertifySend, formattedTime, startCertifyTimer, resetCertify } = useCertify();
 
-  const { isCertifySend, formattedTime, startCertifyTimer } = useCertify();
+  const handleCertifySend = (values: VerifyIdentityForm) => {
+    if (values.email !== '') {
+      dispatch(sendCertifyEmailRequest(values.email));
+    }
+  };
 
-  const handleSubmit = (form: VerifyIdentityForm) => {
-    dispatch(verifyIdentityRequest(form));
+  const handleSubmit = async (values: VerifyIdentityForm) => {
+    dispatch(verifyIdentityRequest(values));
   };
 
   useActionSubscribe({
-    type: verifyIdentitySuccess.type,
+    type: sendCertifyEmailSuccess.type,
     callback: () => {
-      navigate(pathGenerator(PAGES.LOGIN) + '/find/password/change');
+      startCertifyTimer();
+      alert('인증번호가 발송되었습니다.');
+    },
+  });
+
+  useActionSubscribe({
+    type: sendCertifyEmailFailure.type,
+    callback: () => {
+      alert('해당 이메일 주소에 존재하는 유저가 없습니다.');
+    },
+  });
+
+  useActionSubscribe({
+    type: verifyIdentitySuccess.type,
+    callback: ({ payload }: ReturnType<typeof verifyIdentitySuccess>) => {
+      navigate(pathGenerator(PAGES.LOGIN) + `/find/password/change`, {
+        state: {
+          verify: payload,
+        },
+      });
     },
   });
 
   useActionSubscribe({
     type: verifyIdentityFailure.type,
     callback: () => {
-      console.log('인증 실패');
+      resetCertify();
+      alert('인증번호를 다시 확인해주세요.');
     },
   });
 
-  const renderForm = ({ isValid }: FormikProps<VerifyIdentityForm>) => (
+  const renderForm = ({ isValid, values }: FormikProps<VerifyIdentityForm>) => (
     <Form>
       <fieldset>
         <legend>계정찾기 정보입력 영역</legend>
@@ -59,8 +92,7 @@ function FindPassword() {
                   type='button'
                   className='btn'
                   onClick={() => {
-                    startCertifyTimer();
-                    // setFieldValue('certify_number', ''); // 이메일 인증번호 발송 로직 추가
+                    handleCertifySend(values);
                   }}
                 >
                   인증번호 발송
@@ -70,7 +102,7 @@ function FindPassword() {
 
             {isCertifySend && (
               <InputField
-                name='certify_number'
+                name='authNumber'
                 label='인증번호'
                 placeholder='6자리 인증번호를 입력해주세요.'
                 children={<p className='certify'>{formattedTime}</p>}

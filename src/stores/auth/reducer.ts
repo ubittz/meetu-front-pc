@@ -1,6 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { FindIdForm, VerifyIdentityForm, ResetPasswordForm, VerifyOTPForm } from '@@pages/Login/types';
+import { FindIdForm, VerifyIdentityForm, VerifyOTPForm } from '@@pages/Login/types';
 import {
   AuthState,
   LoginDTO,
@@ -9,6 +9,7 @@ import {
   RegisterResponse,
   User,
   UserEditRequestDTO,
+  ResetPasswordDTO,
   UserEditResponse,
   UserVerifyIdentityResponse,
 } from '@@stores/auth/types';
@@ -31,6 +32,10 @@ export const checkDuplicateEmailRequest = createAction<string>(`${PREFIX}/checkD
 export const checkDuplicateEmailSuccess = createAction(`${PREFIX}/checkDuplicateEmailSuccess`);
 export const checkDuplicateEmailFailure = createAction(`${PREFIX}/checkDuplicateEmailFailure`);
 
+export const sendCertifyEmailRequest = createAction<string>(`${PREFIX}/sendCertifyEmailRequest`);
+export const sendCertifyEmailSuccess = createAction(`${PREFIX}/sendCertifyEmailSuccess`);
+export const sendCertifyEmailFailure = createAction(`${PREFIX}/sendCertifyEmailFailure`);
+
 export const registerRequest = createAction<RegisterDTO>(`${PREFIX}/registerRequest`);
 export const registerSuccess = createAction<RegisterResponse>(`${PREFIX}/registerSuccess`);
 export const registerFailure = createAction<string>(`${PREFIX}/registerFailure`);
@@ -41,11 +46,15 @@ export const fetchMeFailure = createAction<string>(`${PREFIX}/fetchMeFailure`);
 export const userEditRequest = createAction<UserEditRequestDTO>(`${PREFIX}/userEditRequest`);
 export const userEditFailure = createAction<string>(`${PREFIX}/userEditFailure`);
 
+export const changeProfileRequest = createAction<File>(`${PREFIX}/changeProfileRequest`);
+export const changeProfileSuccess = createAction<string>(`${PREFIX}/changeProfileSuccess`);
+export const changeProfileFailure = createAction<string>(`${PREFIX}/changeProfileFailure`);
+
 export const findIdRequest = createAction<FindIdForm>(`${PREFIX}/findIdRequest`);
 export const findIdSuccess = createAction<string>(`${PREFIX}/findIdSuccess`);
 export const findIdFailure = createAction<string>(`${PREFIX}/findIdFailure`);
 
-export const resetPasswordRequest = createAction<ResetPasswordForm>(`${PREFIX}/resetPasswordRequest`);
+export const resetPasswordRequest = createAction<ResetPasswordDTO>(`${PREFIX}/resetPasswordRequest`);
 export const resetPasswordSuccess = createAction<string>(`${PREFIX}/resetPasswordSuccess`);
 export const resetPasswordFailure = createAction<string>(`${PREFIX}/resetPasswordFailure`);
 

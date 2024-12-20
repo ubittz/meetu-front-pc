@@ -12,6 +12,9 @@ import {
   checkDuplicateEmailRequest,
   checkDuplicateEmailSuccess,
   checkDuplicateEmailFailure,
+  sendCertifyEmailRequest,
+  sendCertifyEmailSuccess,
+  sendCertifyEmailFailure,
   registerRequest,
   registerSuccess,
   registerFailure,
@@ -30,6 +33,12 @@ import {
   verifyOTPRequest,
   verifyOTPSuccess,
   verifyOTPFailure,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  changeProfileRequest,
+  changeProfileSuccess,
+  changeProfileFailure,
 } from '@@stores/auth/reducer';
 import { LoginResponse, RegisterResponse, User, UserEditResponse, UserVerifyIdentityResponse } from '@@stores/auth/types';
 import { saveToken } from '@@utils/localStorage';
@@ -94,6 +103,23 @@ function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmail
   }
 }
 
+function* sendCertifyEmail({ payload }: ReturnType<typeof sendCertifyEmailRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.CERTIFY_EMAIL, {
+      data: payload,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
+
+    const action = response.ok ? sendCertifyEmailSuccess() : sendCertifyEmailFailure();
+
+    yield put(action);
+  } catch {
+    yield put(sendCertifyEmailFailure());
+  }
+}
+
 function* register({ payload }: ReturnType<typeof registerRequest>) {
   try {
     const response: MeetuResponse<RegisterResponse> = yield authenticatedRequest.put(ENDPOINTS.USER.REGISTER, {
@@ -137,9 +163,7 @@ function* fetchMe() {
 function* findId({ payload }: ReturnType<typeof findIdRequest>) {
   try {
     const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.FIND_ID, {
-      data: {
-        email: payload.email,
-      },
+      data: payload,
     });
 
     const action = response.ok ? findIdSuccess(response.data) : findIdFailure('등록된 회원이 없습니다.');
@@ -182,6 +206,40 @@ function* verifyOTP({ payload }: ReturnType<typeof verifyOTPRequest>) {
   }
 }
 
+function* changeProfile({ payload }: ReturnType<typeof changeProfileRequest>) {
+  try {
+    const formData = new FormData();
+    formData.append('file', payload);
+
+    const response: MeetuResponse<string> = yield authenticatedRequest.post('/api/user/upload/profile-image', {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const action = response.ok ? changeProfileSuccess(response.data) : changeProfileFailure('프로필 사진 수정을 실패했습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(changeProfileFailure((e as Error).message));
+  }
+}
+
+function* resetPassword({ payload }: ReturnType<typeof resetPasswordRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.patch('/api/user/change-password', {
+      data: payload,
+    });
+
+    const action = response.ok ? resetPasswordSuccess(response.data) : resetPasswordFailure('비밀번호 변경을 실패했습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(resetPasswordFailure((e as Error).message));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(loginRequest.type, login);
   yield takeLatest(checkDuplicateIdRequest.type, checkDuplicateId);
@@ -192,4 +250,7 @@ export default function* defaultSaga() {
   yield takeLatest(findIdRequest.type, findId);
   yield takeLatest(verifyIdentityRequest.type, verifyIdentity);
   yield takeLatest(verifyOTPRequest.type, verifyOTP);
+  yield takeLatest(sendCertifyEmailRequest.type, sendCertifyEmail);
+  yield takeLatest(changeProfileRequest.type, changeProfile);
+  yield takeLatest(resetPasswordRequest.type, resetPassword);
 }
