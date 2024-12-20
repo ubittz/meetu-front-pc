@@ -1,53 +1,78 @@
-import { useState, useMemo } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 
+import styled from 'styled-components';
+
+import Flex from '@@components/Flex';
+import { COLORS } from '@@constants/colors';
+import ClassEmpty from '@@pages/Main/parts/ClassEmpty';
 import MeetingGridItem from '@@pages/Meeting/parts/MeetingGridItem';
-import { Meeting } from '@@types/meeting';
+import { ALL_FIND_CLASS_ORDER, FIND_CLASS_ORDER, QUERY_BY_FIND_CLASS_ORDER, FIND_CLASS_ORDER_STRING } from '@@stores/meeting/constants';
+import { useMeetingListByFilter } from '@@stores/meeting/hooks';
+import { Category } from '@@stores/meeting/types';
 
-type SortOption = 'recent' | 'meetuRecommend' | 'priceHighFirst' | 'priceLowFirst';
+import { FindClassOrder } from '../types';
 
-interface MeetingGridItemProps {
-  meetings: Meeting[];
+const StyledHomeCategory = styled.div`
+  padding: 100px;
+  .body {
+    .class_list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 30px;
+    }
+
+    .category__filter {
+      font-size: 12px;
+      color: ${COLORS.GRAY_SCALE_300};
+    }
+  }
+`;
+
+const StyledSelect = styled.select`
+  font-size: 14px;
+  color: ${COLORS.GRAY_SCALE_300};
+  outline: none;
+`;
+
+interface MeetingGridProps {
+  selectedCategory: Category | undefined;
 }
 
-function MeetingGrid({ meetings }: MeetingGridItemProps) {
-  const [sortOption, setSortOption] = useState<SortOption>('recent');
+function MeetingGrid({ selectedCategory }: MeetingGridProps) {
+  const [selectedOrder, setSelectedOrder] = useState<FindClassOrder>(FIND_CLASS_ORDER.RECENT);
 
-  const sortedMeetings = useMemo(() => {
-    const sorted = [...meetings];
-    if (sortOption === 'priceHighFirst') {
-      return sorted.sort((a, b) => b.price - a.price);
-    }
-    if (sortOption === 'priceLowFirst') {
-      return sorted.sort((a, b) => a.price - b.price);
-    }
-    if (sortOption === 'recent') {
-      return sorted.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    }
-    return sorted;
-  }, [meetings, sortOption]);
+  const { content } = useMeetingListByFilter({
+    page: 0,
+    category: selectedCategory,
+    ...QUERY_BY_FIND_CLASS_ORDER[selectedOrder],
+  });
+
+  const handleChangeFilter: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setSelectedOrder(e.target.value as FindClassOrder);
+  };
 
   return (
-    <section className='meeting_list'>
-      <div className='ml_inner'>
-        <div className='list_top'>
-          <div className='sel_area'>
-            <select name='categorySelect' id='categorySelect' onChange={(e) => setSortOption(e.target.value as SortOption)}>
-              <option value='recent'>최신순으로 보기</option>
-              <option value='meetuRecommend'>밋유 추천순</option>
-              <option value='priceHighFirst'>가격 높은순</option>
-              <option value='priceLowFirst'>가격 낮은순</option>
-            </select>
-          </div>
-        </div>
-        <div className='list_wrap'>
-          <ul>
-            {sortedMeetings.map((meeting) => (
-              <MeetingGridItem key={meeting.id} meeting={meeting} />
+    <StyledHomeCategory>
+      <Flex.Vertical className="body" gap={22}>
+        <Flex.Horizontal justifyContent="flex-end">
+          <StyledSelect value={selectedOrder} onChange={handleChangeFilter}>
+            {ALL_FIND_CLASS_ORDER.map((order) => (
+              <option key={order} value={order}>
+                {FIND_CLASS_ORDER_STRING[order]}
+              </option>
             ))}
-          </ul>
+          </StyledSelect>
+        </Flex.Horizontal>
+        <div className="class_list">
+          {content && content.length ? (
+            content.map((meeting) => <MeetingGridItem key={meeting.meetingId} meeting={meeting} />)
+          ) : (
+            <ClassEmpty />
+          )}
         </div>
-      </div>
-    </section>
+      </Flex.Vertical>
+    </StyledHomeCategory>
   );
 }
 

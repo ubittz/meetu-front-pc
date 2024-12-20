@@ -8,6 +8,7 @@ import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
+import FindClass from '@@pages/FindClass';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
 import { Mood } from '@@pages/Main/types';
 import { PAGES } from '@@router/constants';
@@ -69,7 +70,6 @@ function Main() {
 
         {/* 카테고리별 모임 시작 */}
         <MeetingByCategory meetingList={contentByCategory ?? []} category={selectedCategory} setCategory={setSelectedCategory} />
-        {/* <FindClass meetingList={contentByCategory ?? []} category={selectedCategory} setCategory={setSelectedCategory}/> */}
         {/* 메인 모임 영역 시작 */}
         <section className='main_meeting'>
           <MeetingSwipeList
