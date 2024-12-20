@@ -17,7 +17,7 @@ export const registerSchema = object({
   birth: string()
     .required('생일을 입력해주세요.')
     .matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '생일을 정확히 입력해주세요.' }),
-  gender: string().matches(new RegExp(/(T|F)/)),
+  gender: string().required('성별을 선택해주세요.').matches(new RegExp(/(T|F)/), { message: '성별을 선택해주세요.' }),
   tel: string()
     .required('전화번호를 입력해주세요.')
     .matches(/^0\d{9,10}$/, { message: '전화번호를 정확히 입력해주세요.' }),

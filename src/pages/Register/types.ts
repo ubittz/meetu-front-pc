@@ -8,7 +8,7 @@ export interface RegisterForm {
   passwordCheck: string;
   email: string;
   birth: string;
-  gender: Gender;
+  gender: Gender | '';
   tel: string;
   checkedId: boolean;
   checkedEmail: boolean;
