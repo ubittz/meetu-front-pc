@@ -47,6 +47,7 @@ export interface ReviewListResponse {
   reviewScore: number;
   reviewDescript: string;
   createDatetime: string;
+  imageUrls: string[];
 }
 
 export interface ContactResponse {
@@ -67,6 +68,7 @@ export interface ReviewAddDTO {
   meetingId: string;
   score: number;
   description: string;
+  imageUrls: string[];
 }
 
 export interface ContactListQuery {

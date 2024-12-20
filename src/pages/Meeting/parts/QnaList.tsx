@@ -68,7 +68,7 @@ const QnaList = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   useActionSubscribe({
     type: createContactFailure.type,
     callback: () => {
-      // 실패 얼럿 표기
+      alert('문의 작성에 실패했습니다.');
     },
   });
 

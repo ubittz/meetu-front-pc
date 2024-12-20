@@ -20,14 +20,14 @@ const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
         <p className='date'>{formatDate(review.createDatetime)}</p>
       </div>
       <div className='list_content'>
-        <p>
-          {review.reviewDescript}
-          <br />
-          {review.reviewDescript}
-        </p>
-        <div className='img_area'>
-          <img src={review.reviewDescript} alt='리뷰 이미지' />
-        </div>
+        <p>{review.reviewDescript}</p>
+        {review.imageUrls && (
+          <div className='img_area'>
+            {review.imageUrls.map((image) => (
+              <img src={image} alt='리뷰 이미지' />
+            ))}
+          </div>
+        )}
       </div>
     </li>
   );

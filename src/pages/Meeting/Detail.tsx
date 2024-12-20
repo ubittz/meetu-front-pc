@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -16,36 +15,24 @@ import { formatCost, formatDate, getCategoryString, getDistrict } from '@@pages/
 import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import { useAppState } from '@@store/hooks';
 import { useUserProfile } from '@@stores/auth/hooks';
-import { useMeetingDetail, useReviewList, useContactList } from '@@stores/meeting/hooks';
-import { createContactRequest } from '@@stores/meeting/reducer';
-import { ContactAddDTO } from '@@stores/meeting/types';
+import { useMeetingDetail } from '@@stores/meeting/hooks';
 
 // FIX: - 모임 대표 이미지, 모임 상세 정보 이미지, 호스트 정보(이미지, 키워드(hot) 없음
 
 function MeetingDetail() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const authStore = useAppState((state) => state.auth);
 
-  const [currentReviewPage, setCurrentReviewPage] = useState(0);
   const [top, setTop] = useState(100);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const { id } = useParams();
   const { data, isLoading } = useMeetingDetail(id ?? '');
   const { data: user, isLoading: isUserLoading } = useUserProfile(data?.hostId ?? '');
-  const { content: reviewList, page: reviewPage } = useReviewList({
-    page: currentReviewPage,
-    id: id ?? '',
-  });
 
   const detailRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
   const inquiryRef = useRef<HTMLDivElement>(null);
-
-  const handleReviewPageChange = (page: number) => {
-    setCurrentReviewPage(page); // 페이지 변경 핸들러
-  };
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -136,14 +123,7 @@ function MeetingDetail() {
                 </div>
 
                 {/* <!-- 리뷰 --> */}
-                <ReviewList
-                  meetingId={id ?? ''}
-                  ref={reviewRef}
-                  averageScore={data?.avgScore ?? 0}
-                  reviews={reviewList ?? []}
-                  page={reviewPage}
-                  onPageChange={handleReviewPageChange}
-                />
+                <ReviewList ref={reviewRef} averageScore={data?.avgScore ?? 0} />
                 {/* <!-- 문의 --> */}
                 <QnaList ref={inquiryRef} />
               </div>
