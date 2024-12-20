@@ -7,7 +7,6 @@ import Header from '@@components/Header';
 import InputField from '@@components/InputField';
 import { registerSchema } from '@@constants/scheme';
 import { GENDER } from '@@pages/Register/constants';
-import { useRegisterForm } from '@@pages/Register/hooks';
 import { RegisterForm } from '@@pages/Register/types';
 import { sanitizeRegisterForm } from '@@pages/Register/utils';
 import { PAGES } from '@@router/constants';
@@ -134,7 +133,7 @@ function UserInfoInput() {
                           name='email'
                           label='이메일'
                           placeholder='이메일 주소를 입력해주세요.'
-                          additionalElement={
+                          children={
                             <button type='button' className='btn' onClick={() => console.log('이메일 체크')}>
                               중복체크
                             </button>
