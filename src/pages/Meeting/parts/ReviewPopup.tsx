@@ -95,7 +95,30 @@ const ReviewPopup = ({ onSubmit, onCancel, meetingId }: ReviewPopupProps) => {
     meetingId: meetingId,
     score: 5,
     description: '',
+    imageUrls: [],
   });
+
+  const handleSubmit = () => {
+    onSubmit(content);
+    setContent({
+      meetingId: meetingId,
+      score: 5,
+      description: '',
+      imageUrls: [],
+    });
+    setImagePreviews([]);
+  };
+
+  const handleCancel = () => {
+    onCancel();
+    setContent({
+      meetingId: meetingId,
+      score: 5,
+      description: '',
+      imageUrls: [],
+    });
+    setImagePreviews([]);
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -114,6 +137,7 @@ const ReviewPopup = ({ onSubmit, onCancel, meetingId }: ReviewPopupProps) => {
           }
         };
         reader.readAsDataURL(file);
+        setContent({ ...content, imageUrls: [...content.imageUrls, ...newImagePreviews] });
       });
     }
   };
@@ -153,10 +177,10 @@ const ReviewPopup = ({ onSubmit, onCancel, meetingId }: ReviewPopupProps) => {
         </Flex.Horizontal>
 
         <Flex.Horizontal gap={8}>
-          <Button.Large onClick={onCancel} className='CloseBtn'>
+          <Button.Large onClick={handleCancel} className='CloseBtn'>
             <Typography.MediumBody>닫기</Typography.MediumBody>
           </Button.Large>
-          <Button.Large className='HomeBtn' onClick={() => onSubmit(content)}>
+          <Button.Large className='HomeBtn' onClick={handleSubmit}>
             <Typography.MediumBody color={COLORS.WHITE}>확인</Typography.MediumBody>
           </Button.Large>
         </Flex.Horizontal>

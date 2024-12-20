@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import UserPopup from '@@components/Popup/UserPopup';
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import ReviewListItem from '@@pages/Meeting/parts/ReviewListItem';
-import { createReviewRequest } from '@@stores/meeting/reducer';
-import { ReviewAddDTO, ReviewListResponse } from '@@stores/meeting/types';
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { useReviewList } from '@@stores/meeting/hooks';
+import { createReviewRequest, createReviewSuccess, createReviewFailure } from '@@stores/meeting/reducer';
+import { ReviewAddDTO } from '@@stores/meeting/types';
 
 import ReviewPopup from './ReviewPopup';
 
 interface ReviewListProps {
-  meetingId: string;
-  reviews: ReviewListResponse[];
   averageScore: number;
-  page: {
-    total: number;
-    current: number;
-    lastPage: number;
-    limit: number;
-  };
-  onPageChange: (page: number) => void;
 }
 
-const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingId, reviews, averageScore, page, onPageChange }, ref) => {
+const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ averageScore }, ref) => {
+  const params = useParams();
   const dispatch = useDispatch();
+  const [currentReviewPage, setCurrentReviewPage] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const {
+    content: reviewList,
+    page: reviewPage,
+    mutate,
+  } = useReviewList({
+    page: currentReviewPage,
+    id: params.id ?? '',
+  });
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -36,9 +40,24 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingI
   };
 
   const createReview = (content: ReviewAddDTO) => {
+    if (!content) return;
     dispatch(createReviewRequest(content));
-    closePopup();
   };
+
+  useActionSubscribe({
+    type: createReviewSuccess.type,
+    callback: () => {
+      mutate();
+      closePopup();
+    },
+  });
+
+  useActionSubscribe({
+    type: createReviewFailure.type,
+    callback: () => {
+      alert('리뷰 작성에 실패했습니다.');
+    },
+  });
 
   return (
     <div ref={ref} className='mv_detail'>
@@ -54,12 +73,8 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingI
         </button>
       </div>
       <div className='detail_list'>
-        <ul>
-          {reviews.map((review) => (
-            <ReviewListItem key={review.reviewNo} review={review} />
-          ))}
-        </ul>
-        <Pagination currentPage={page.current} totalPages={page.lastPage} onPageChange={onPageChange} />
+        <ul>{reviewList?.map((review) => <ReviewListItem key={review.reviewNo} review={review} />)}</ul>
+        <Pagination currentPage={reviewPage.current + 1} totalPages={reviewPage.lastPage} onPageChange={setCurrentReviewPage} />
       </div>
 
       <UserPopup
@@ -70,7 +85,7 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ meetingI
         height='800px'
         transform='translateX(-50%) translateY(-55%)'
       >
-        <ReviewPopup onSubmit={createReview} onCancel={closePopup} meetingId={meetingId} />
+        <ReviewPopup onSubmit={createReview} onCancel={closePopup} meetingId={params.id ?? ''} />
       </UserPopup>
     </div>
   );

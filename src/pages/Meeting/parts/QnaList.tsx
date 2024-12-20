@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '@@components/Button';
 import Flex from '@@components/Flex';
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import QnaListItem from '@@pages/Meeting/parts/QnaListItem';
-import { ContactAddDTO, ContactResponse } from '@@stores/meeting/types';
-
-interface QnaListProps {
-  meetingId: string;
-  qnaList: ContactResponse[];
-  page: {
-    total: number;
-    current: number;
-    lastPage: number;
-    limit: number;
-  };
-  onPageChange: (page: number) => void;
-  onSubmit: (content: ContactAddDTO) => void;
-}
+import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { useContactList } from '@@stores/meeting/hooks';
+import { createContactRequest, createContactSuccess, createContactFailure } from '@@stores/meeting/reducer';
+import { ContactAddDTO } from '@@stores/meeting/types';
 
 const StyledQna = styled.div`
   textarea {
@@ -35,32 +27,56 @@ const StyledQna = styled.div`
   }
 `;
 
-const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ meetingId, qnaList, page, onPageChange, onSubmit }, ref) => {
+const QnaList = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
+  const params = useParams();
+  const dispatch = useDispatch();
+  const [currentQnaPage, setCurrentQnaPage] = useState(0);
   const [question, setQuestion] = useState<ContactAddDTO>({
-    meetingId,
+    meetingId: params.id ?? '',
     description: '',
     secretStatus: false,
     contactAnswerStatus: false,
   });
 
+  const {
+    content: contactList,
+    page: contactPage,
+    mutate,
+  } = useContactList({
+    page: currentQnaPage,
+    id: params.id ?? '',
+  });
+
   const handleSubmit = (content: ContactAddDTO) => {
     if (!content) return; // 질문이 비어있으면 요청하지 않음
-
-    onSubmit(content);
-
-    setQuestion({
-      meetingId,
-      description: '',
-      secretStatus: false,
-      contactAnswerStatus: false,
-    }); // 요청 후 질문 초기화
+    dispatch(createContactRequest(content));
   };
+
+  useActionSubscribe({
+    type: createContactSuccess.type,
+    callback: () => {
+      mutate();
+      setQuestion({
+        meetingId: params.id ?? '',
+        description: '',
+        secretStatus: false,
+        contactAnswerStatus: false,
+      }); // 요청 후 질문 초기화
+    },
+  });
+
+  useActionSubscribe({
+    type: createContactFailure.type,
+    callback: () => {
+      alert('문의 작성에 실패했습니다.');
+    },
+  });
 
   return (
     <div ref={ref} className='mv_detail'>
       <div className='detail_top'>
         <h4>
-          Meet new people 문의 <em>{`(${qnaList.length})`}</em>
+          Meet new people 문의 <em>{`(${contactList?.length ?? 0})`}</em>
         </h4>
       </div>
       <StyledQna>
@@ -90,12 +106,8 @@ const QnaList = React.forwardRef<HTMLDivElement, QnaListProps>(({ meetingId, qna
         </Flex.Vertical>
       </StyledQna>
       <div className='detail_list'>
-        <ul>
-          {qnaList.map((qna) => (
-            <QnaListItem key={qna.no} qna={qna} />
-          ))}
-        </ul>
-        <Pagination currentPage={page.current} totalPages={page.lastPage} onPageChange={onPageChange} />
+        <ul>{contactList?.map((contact) => <QnaListItem key={contact.no} qna={contact} />)}</ul>
+        <Pagination currentPage={contactPage.current + 1} totalPages={contactPage.lastPage} onPageChange={setCurrentQnaPage} />
       </div>
     </div>
   );

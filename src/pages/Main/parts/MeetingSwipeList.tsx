@@ -5,6 +5,7 @@ import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import Slider from '@@components/Slider';
 import SliderItem from '@@components/SliderItem';
+import { getDistrict } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting } from '@@stores/meeting/types';
@@ -17,7 +18,7 @@ interface MeetingSwipeListProps {
 const StyledSliderItem = styled.div`
   .container {
     padding-left: 10vw;
-    padding-top:80px;
+    padding-top: 80px;
   }
 `;
 
@@ -40,7 +41,7 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
       <div className='txt_area'>
         <div className='sort tw-mb-3'>
           {meeting.meetingId && <span className='hot'>HOT</span>}
-          <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
+          <span className='location'>{getDistrict(meeting.meetingMainPlace)}</span>
         </div>
         <h4 className='tit'>{meeting.meetingName}</h4>
         <p className='txt'>{meeting.meetingDescript}</p>
