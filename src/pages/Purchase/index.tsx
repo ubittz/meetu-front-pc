@@ -1,13 +1,21 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import { PaymentMethod } from '@@pages/Purchase/types';
 
+import PaymentConsent from './parts/paymentConsent';
+
 function Purchase() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>('card');
+  const [showTerms, setShowTerms] = useState(false);
 
+  const handleLinkClick = () => {
+    setShowTerms((prevState) => !prevState);
+  };
   return (
     <div id='wrap'>
       <Header />
@@ -203,6 +211,12 @@ function Purchase() {
                         <div className='chk_area'>
                           <input type='checkbox' name='agreeChk01' id='agreeChk01' />
                           <label htmlFor='agreeChk01'>개인정보 수집 및 이용동의 (필수)</label>
+                          <Link to='javascript:void(0)' className='btn' onClick={() => handleLinkClick()}>
+                            보기
+                          </Link>
+                          {showTerms && (
+                            <PaymentConsent/>
+                          )}
                         </div>
                         <div className='chk_area'>
                           <input type='checkbox' name='agreeChk02' id='agreeChk02' />
