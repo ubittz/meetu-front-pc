@@ -12,6 +12,9 @@ import {
   checkDuplicateEmailRequest,
   checkDuplicateEmailSuccess,
   checkDuplicateEmailFailure,
+  sendCertifyEmailRequest,
+  sendCertifyEmailSuccess,
+  sendCertifyEmailFailure,
   registerRequest,
   registerSuccess,
   registerFailure,
@@ -94,6 +97,23 @@ function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmail
   }
 }
 
+function* sendCertifyEmail({ payload }: ReturnType<typeof sendCertifyEmailRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.CERTIFY_EMAIL, {
+      data: payload,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    });
+
+    const action = response.ok ? sendCertifyEmailSuccess() : sendCertifyEmailFailure();
+
+    yield put(action);
+  } catch {
+    yield put(sendCertifyEmailFailure());
+  }
+}
+
 function* register({ payload }: ReturnType<typeof registerRequest>) {
   try {
     const response: MeetuResponse<RegisterResponse> = yield authenticatedRequest.put(ENDPOINTS.USER.REGISTER, {
@@ -137,9 +157,7 @@ function* fetchMe() {
 function* findId({ payload }: ReturnType<typeof findIdRequest>) {
   try {
     const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.USER.FIND_ID, {
-      data: {
-        email: payload.email,
-      },
+      data: payload,
     });
 
     const action = response.ok ? findIdSuccess(response.data) : findIdFailure('등록된 회원이 없습니다.');
@@ -192,4 +210,5 @@ export default function* defaultSaga() {
   yield takeLatest(findIdRequest.type, findId);
   yield takeLatest(verifyIdentityRequest.type, verifyIdentity);
   yield takeLatest(verifyOTPRequest.type, verifyOTP);
+  yield takeLatest(sendCertifyEmailRequest.type, sendCertifyEmail);
 }

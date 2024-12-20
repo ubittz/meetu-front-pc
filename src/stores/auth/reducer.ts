@@ -31,6 +31,10 @@ export const checkDuplicateEmailRequest = createAction<string>(`${PREFIX}/checkD
 export const checkDuplicateEmailSuccess = createAction(`${PREFIX}/checkDuplicateEmailSuccess`);
 export const checkDuplicateEmailFailure = createAction(`${PREFIX}/checkDuplicateEmailFailure`);
 
+export const sendCertifyEmailRequest = createAction<string>(`${PREFIX}/sendCertifyEmailRequest`);
+export const sendCertifyEmailSuccess = createAction(`${PREFIX}/sendCertifyEmailSuccess`);
+export const sendCertifyEmailFailure = createAction(`${PREFIX}/sendCertifyEmailFailure`);
+
 export const registerRequest = createAction<RegisterDTO>(`${PREFIX}/registerRequest`);
 export const registerSuccess = createAction<RegisterResponse>(`${PREFIX}/registerSuccess`);
 export const registerFailure = createAction<string>(`${PREFIX}/registerFailure`);

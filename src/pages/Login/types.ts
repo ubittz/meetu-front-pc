@@ -5,6 +5,7 @@ interface LoginForm {
 
 interface FindIdForm {
   email: string;
+  authNumber: string;
 }
 
 interface VerifyIdentityForm {
