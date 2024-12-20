@@ -21,3 +21,8 @@ interface Question {
 }
 
 export type { Qna, Review };
+
+import { FIND_CLASS_ORDER } from '@@stores/meeting/constants';
+import { asType } from '@@types/common';
+
+export type FindClassOrder = asType<typeof FIND_CLASS_ORDER>;

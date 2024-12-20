@@ -1,32 +1,43 @@
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import images from '@@assets/images';
+import Flex from '@@components/Flex';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting } from '@@types/meeting';
+import { Meeting } from '@@stores/meeting/types';
 
 interface MeetingGridItemProps {
   meeting: Meeting;
 }
 
+const StyledMeetingGridItem = styled(Flex.Vertical)`
+  img {
+    width: 348px;
+    height: 400px;
+    border-radius:12px;
+    object-fit: cover;
+  }
+`;
+
 function MeetingGridItem({ meeting }: MeetingGridItemProps) {
   return (
-    <li>
-      <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.id}`} className='list_link'>
-        <div className='img_area'>
-          <img src={meeting.imageUrl ?? images.meeting_img01} alt='상품 이미지1' />
-        </div>
-        <div className='txt_area'>
-          <div className='sort'>
-            {meeting.isHot && <span className='hot'>HOT</span>}
-            <span className='location'>{meeting.location.toUpperCase()}</span>
+    <StyledMeetingGridItem>
+      <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.meetingId}`}>
+        <Flex.Vertical className='body'>
+            <img src={images.meeting_img02} alt='상품 이미지1' />
+          <div className='txt_area'>
+            <div className='sort'>
+              {meeting.meetingCost && <span className='hot'>HOT</span>}
+              <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
+            </div>
+            <h4 className='tit tw-mt-3'>{meeting.meetingName}</h4>
+            <p className='txt'>{meeting.meetingDescript}</p>
+            <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
           </div>
-          <h4 className='tit'>{meeting.title}</h4>
-          <p className='txt'>{meeting.description}</p>
-          <p className='price'>{meeting.price.toLocaleString()}원</p>
-        </div>
+        </Flex.Vertical>
       </Link>
-    </li>
+    </StyledMeetingGridItem>
   );
 }
 
