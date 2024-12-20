@@ -24,10 +24,6 @@ export const useRegisterForm = () => {
     dispatch(checkDuplicateEmailRequest(values.email));
   };
 
-  const handleConfirm = () => {
-    console.log(values);
-  };
-
   useActionSubscribe({
     type: checkDuplicateIdSuccess.type,
     callback: () => {
@@ -61,7 +57,8 @@ export const useRegisterForm = () => {
   });
 
   return {
-    handleConfirm,
+    values,
+    setFieldValue,
     handleClickCheckId,
     handleClickCheckEmail,
   };

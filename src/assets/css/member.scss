@@ -306,10 +306,14 @@
         }
 
         &.inputChk {
+          display: flex;
           font-size: 0;
           margin-left: -30px;
           .input_tit {
             left: 30px;
+          }
+          .txt_error {
+            margin-left: 28px;
           }
         }
         .chk_area {
