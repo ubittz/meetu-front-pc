@@ -31,7 +31,7 @@ function MyPage() {
       <Header />
       <main className='container'>
         <MyPageHeader type={type} activeTab='info' />
-        <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
+        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
 
         <section className='mypage_content'>
           <div className='mc_inner'>
