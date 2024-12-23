@@ -85,3 +85,26 @@ export const createContactSchema = object({
   meetingId: string().required(),
   description: string().required(),
 });
+
+export const createMeetingSchema = object({
+  name: string().required('모임명을 입력해주세요.'),
+  nameCheck: boolean().when('name', ([name], schema) => {
+    if (name) {
+      return schema.isTrue('모임명 중복체크를 해주세요.');
+    }
+    return schema;
+  }),
+  meetingCategory: string().required('카테고리를 선택해주세요.'),
+  mainAddress: string(),
+  detailAddress: string(),
+  cost: string().required().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
+  limit: string().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
+  processDate: string()
+    .required()
+    .matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '날짜를 정확히 입력해주세요.' }),
+  intro: string(),
+  description: string(),
+  processGuide: string(),
+  item: string(),
+  file: string(),
+});

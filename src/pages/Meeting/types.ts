@@ -1,3 +1,6 @@
+import { FIND_CLASS_ORDER } from '@@stores/meeting/constants';
+import { asType } from '@@types/common';
+
 interface Review {
   rating: number; // 별점(평점)
   name: string;
@@ -20,9 +23,22 @@ interface Question {
   content?: string; // 질문 내용
 }
 
-export type { Qna, Review };
+export interface AddMeetingForm {
+  name: string;
+  nameCheck: boolean;
+  meetingCategory: string;
+  mainAddress?: string;
+  detailAddress?: string;
+  cost: string;
+  limit?: string;
+  processDate: string;
+  intro?: string;
+  description?: string;
+  processGuide?: string;
+  item?: string;
+  file?: string;
+}
 
-import { FIND_CLASS_ORDER } from '@@stores/meeting/constants';
-import { asType } from '@@types/common';
+export type { Qna, Review };
 
 export type FindClassOrder = asType<typeof FIND_CLASS_ORDER>;

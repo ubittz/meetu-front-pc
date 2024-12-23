@@ -1,6 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ContactAddDTO, Meeting, MeetingState, ReviewAddDTO } from '@@stores/meeting/types';
+import { ContactAddDTO, Meeting, MeetingAddDTO, MeetingState, ReviewAddDTO } from '@@stores/meeting/types';
 import { getRecentMeeting, saveRecentMeeting } from '@@utils/localStorage';
 
 const PREFIX = 'meeting';
@@ -10,6 +10,14 @@ const recentList = getRecentMeeting();
 const initialState: MeetingState = {
   recentList: recentList,
 };
+
+export const createMeetingRequest = createAction<MeetingAddDTO>(`${PREFIX}/createMeetingRequest`);
+export const createMeetingSuccess = createAction(`${PREFIX}/createMeetingSuccess`);
+export const createMeetingFailure = createAction<string>(`${PREFIX}/createMeetingFailure`);
+
+export const checkDuplicateMeetingNameRequest = createAction<string>(`${PREFIX}/checkDuplicateMeetingNameRequest`);
+export const checkDuplicateMeetingNameSuccess = createAction(`${PREFIX}/checkDuplicateMeetingNameSuccess`);
+export const checkDuplicateMeetingNameFailure = createAction<string>(`${PREFIX}/checkDuplicateMeetingNameFailure`);
 
 export const createContactRequest = createAction<ContactAddDTO>(`${PREFIX}/createContactRequest`);
 export const createContactSuccess = createAction(`${PREFIX}/createContactSuccess`);
