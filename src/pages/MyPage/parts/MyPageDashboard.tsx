@@ -6,20 +6,16 @@ import images from '@@assets/images';
 import UserPopup from '@@components/Popup/UserPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { useAppState } from '@@store/hooks';
-import { UserType } from '@@types/user';
+import { User } from '@@stores/auth/types';
 
 import InfoPopup from './InfoPopup';
 
 interface MyPageDashboardProps {
-  // TODO: - 유저 정보 받아야함
-  type: UserType;
+  user?: User;
   profileButtonAction: () => void;
 }
 
-function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
-  const me = useAppState((state) => state.auth.me);
-
+function MyPageDashboard({ user, profileButtonAction }: MyPageDashboardProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = (e: React.MouseEvent) => {
@@ -30,17 +26,18 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
   const closePopup = () => {
     setIsPopupOpen(false);
   };
+
   return (
     <section className='dashboard_wrap'>
       <div className='d_inner'>
         <div className='host_area'>
           <button type='button' className='btn' onClick={profileButtonAction}>
             <span className='img_area'>
-              <img src={images.meeting_img04} alt='호스트 이미지' />
+              <img src={user?.imageUrl} alt='사용자 이미지' />
             </span>
             <span className='txt_area' onClick={openPopup}>
-              {type === 'host' ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
-              <em>{me?.name} 님</em>
+              {user?.isHost ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
+              <em>{user?.name} 님</em>
             </span>
           </button>
           <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
@@ -75,8 +72,13 @@ function MyPageDashboard({ type, profileButtonAction }: MyPageDashboardProps) {
           </li>
         </ul>
       </div>
-      <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
-        <InfoPopup type={type} />
+      <UserPopup
+        visible={isPopupOpen}
+        title='프로필'
+        onCancel={closePopup}
+        img={images.meeting_img04}
+      >
+        <InfoPopup user={user} />
       </UserPopup>
     </section>
   );
