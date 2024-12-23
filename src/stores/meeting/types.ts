@@ -26,11 +26,11 @@ export interface Meeting {
 export interface MeetingAddDTO {
   meeting: {
     name: string;
-    type: Category;
+    category: Category;
     mainAddress?: string;
     detailAddress?: string;
-    cost: string;
-    limit?: string;
+    cost: number;
+    limit?: number;
     processDate: string;
     intro?: string;
     descript?: string;

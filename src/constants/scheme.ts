@@ -98,7 +98,7 @@ export const createMeetingSchema = object({
   mainAddress: string(),
   detailAddress: string(),
   cost: string().required().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
-  limit: string().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
+  limit: string().required('모임 정원을 입력해주세요.').matches(/^\d+$/, { message: '숫자만 입력해주세요.' }).min(1, '모임 정원을 입력해주세요.'),
   processDate: string()
     .required('모임 진행일을 입력해주세요.')
     .matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '날짜를 정확히 입력해주세요.' }),

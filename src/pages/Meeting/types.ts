@@ -29,8 +29,8 @@ export interface AddMeetingForm {
   meetingCategory: string;
   mainAddress?: string;
   detailAddress?: string;
-  cost: string;
-  limit?: string;
+  cost: number;
+  limit: number;
   processDate: string;
   intro?: string;
   description?: string;

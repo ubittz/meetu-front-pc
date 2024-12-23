@@ -26,7 +26,7 @@ export const getCategoryString = (category: keyof typeof CATEGORY) => {
 export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddDTO => ({
   meeting: {
     name: form.name,
-    type: form.meetingCategory as Category,
+    category: form.meetingCategory as Category,
     mainAddress: form.mainAddress,
     detailAddress: form.detailAddress,
     cost: form.cost,

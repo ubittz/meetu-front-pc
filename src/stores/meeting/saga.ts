@@ -22,7 +22,7 @@ import { createBlobJSON } from '@@utils/request/utils';
 function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
   try {
     const formData = new FormData();
-    const newMeeting = { ...payload.meeting, cost: +payload.meeting.cost, limit: +(payload.meeting.limit ?? 0) };
+    const newMeeting = { ...payload.meeting };
     const meeting = createBlobJSON(JSON.stringify(newMeeting));
 
     formData.append('file', payload.file);

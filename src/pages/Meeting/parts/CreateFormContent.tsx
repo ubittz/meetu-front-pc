@@ -52,7 +52,7 @@ function CreateFormContent() {
           <strong className='required'>*</strong>
         </label>
         <input type='file' id='file' className='input' accept='image/*' onChange={handleFileChange} />
-        <input type='text' placeholder='이미지 파일을 선택해주세요.' value={selectedFile?.name} readOnly />
+        <input className={errors.file ? 'error' : ''} type='text' placeholder='이미지 파일을 선택해주세요.' value={selectedFile?.name} readOnly />
         <button type='button' className='btn' onClick={() => document.getElementById('file')?.click()}>
           파일 선택
         </button>
@@ -76,14 +76,17 @@ function CreateFormContent() {
         <label htmlFor='mc_cost'>
           모임 참가비<strong className='required'>*</strong>
         </label>
-        <Field name='cost' placeholder='숫자만 입력해주세요.' required />
+        <Field className={errors.cost ? 'error' : ''} name='cost' placeholder='숫자만 입력해주세요.' required />
         <span className='txt'>원</span>
         {errors.cost && <p className='txt_error'>모임 참가비를 입력해주세요.</p>}
       </div>
       <div className='input_area type_02'>
-        <label htmlFor='mc_number'>모임 정원</label>
-        <Field name='limit' placeholder='숫자만 입력해주세요.' />
+        <label htmlFor='mc_number'>
+          모임 정원<strong className='required'>*</strong>
+        </label>
+        <Field className={errors.limit ? 'error' : ''} name='limit' placeholder='숫자만 입력해주세요.' />
         <span className='txt'>명</span>
+        {errors.limit && <p className='txt_error'>모임 정원을 입력해주세요.</p>}
       </div>
       <InputField name='processDate' label='모임 진행일' type='text' isDate placeholder='날짜를 선택해주세요.' required />
       <div className='input_area'>
