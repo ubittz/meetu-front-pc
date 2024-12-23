@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import { getDummyMeetingList } from '@@pages/MyPage/dummy';
+import ClassEmpty from '@@pages/Main/parts/ClassEmpty';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting } from '@@types/meeting';
+import { useAppState } from '@@store/hooks';
+import { useMeetingMyList } from '@@stores/meeting/hooks';
 import { UserType } from '@@types/user';
 
 import MyPageSwiper from './parts/MyPageSwiper';
@@ -18,15 +18,13 @@ import MyPageSwiper from './parts/MyPageSwiper';
 function MyPage() {
   const type: UserType = 'host';
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
-  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const { recentList } = useAppState((state) => state.meeting);
+
+  const { content: mypage_content } = useMeetingMyList({ page: 0, size: 3 });
 
   const handleShowInfoPopup = () => {
     setIsShowInfoPopup(!isShowInfoPopup);
   };
-
-  useEffect(() => {
-    setMeetings(getDummyMeetingList());
-  }, []);
 
   return (
     <div id='wrap'>
@@ -44,17 +42,15 @@ function MyPage() {
               </Link>
             </h3>
 
-            <ul className='swiper-wrapper'>
-              <MyPageSwiper meetings={meetings} />
-            </ul>
+            <ul className='swiper-wrapper'>{recentList && recentList.length > 0 ? <MyPageSwiper meetings={recentList} /> : <ClassEmpty />}</ul>
             <h3 className='main_tit tw-mt-5'>
               내 모임
-              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/`} className='btn'>
+              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/${type}`} className='btn'>
                 더 보기
               </Link>
             </h3>
             <ul className='swiper-wrapper'>
-              <MyPageSwiper meetings={meetings} />
+              {mypage_content && mypage_content.length > 0 ? <MyPageSwiper meetings={mypage_content} /> : <ClassEmpty />}
             </ul>
           </div>
         </section>

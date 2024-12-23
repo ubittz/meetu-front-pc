@@ -2,6 +2,7 @@ import {
   ContactListQuery,
   ContactResponse,
   Meeting,
+  MeetingByUserQuery,
   MeetingListWithCategoryQuery,
   MeetingSingleResponse,
   ReviewListQuery,
@@ -21,8 +22,10 @@ export const useMeetingDetail = (id: string) => {
   };
 };
 
-export const useMeetingMyList = () => {
-  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_MY);
+export const useMeetingMyList = (query: MeetingByUserQuery) => {
+  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_MY,{
+    query,
+  });
 
   return formatSWRListResponse(data);
 };

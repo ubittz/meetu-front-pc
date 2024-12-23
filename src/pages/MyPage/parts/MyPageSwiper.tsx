@@ -7,7 +7,7 @@ import Slider from '@@components/Slider';
 import SliderItem from '@@components/SliderItem';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting } from '@@types/meeting';
+import { Meeting } from '@@stores/meeting/types';
 
 interface MeetingSwipeListProps {
   meetings: Meeting[];
@@ -15,7 +15,6 @@ interface MeetingSwipeListProps {
 
 const StyledSliderItem = styled.div`
   margin-top: 40px;
-
 `;
 
 function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
@@ -27,23 +26,23 @@ function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
 
   const sliderItems = meetings.map((meeting) => (
     <SliderItem
-      key={meeting.id}
-      image={meeting.imageUrl ?? images.good_img02}
-      title={meeting.title}
-      price={`${meeting.price.toLocaleString()}원`}
+      key={meeting.meetingId}
+      image={meeting.imgUrl ?? images.ctg_img02}
+      title={meeting.meetingName}
+      price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}
-      onClickButton={() => handleSlider(meeting.id.toString())}
+      onClickButton={() => handleSlider(meeting.meetingId.toString())}
       width='350px'
       height='446px'
     >
       <div className='txt_area'>
         <div className='sort tw-mb-3'>
-          {meeting.isHot && <span className='hot'>HOT</span>}
-          <span className='location'>{meeting.location.toUpperCase()}</span>
+          {meeting.meetingId && <span className='hot'>HOT</span>}
+          <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
         </div>
-        <h4 className='tit'>{meeting.title}</h4>
-        <p className='txt'>{meeting.description}</p>
-        <p className='price'>{meeting.price.toLocaleString()}원</p>
+        <h4 className='tit'>{meeting.meetingName}</h4>
+        <p className='txt'>{meeting.meetingDescript}</p>
+        <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
       </div>
     </SliderItem>
   ));

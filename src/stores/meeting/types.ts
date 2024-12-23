@@ -107,3 +107,9 @@ export interface MeetingListWithCategoryQuery extends PageQuery {
   orderType?: MeetingOrderType;
   isAsc?: boolean;
 }
+
+export interface MeetingByUserQuery {
+  page: number;
+  size?: number;
+  userId?: string;
+}

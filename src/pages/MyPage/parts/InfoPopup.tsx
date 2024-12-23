@@ -37,7 +37,7 @@ function InfoPopup({ user }: InfoPopupProps) {
           <Flex.Vertical gap={8}>
             <Typography.SmallBody>리뷰</Typography.SmallBody>
             <Flex.Horizontal justifyContent='center' alignItems='center' gap={4}>
-              <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.writeReviewCount}</Typography.MediumSubtitle>
+              <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.writeReviewCount ?? 0}</Typography.MediumSubtitle>
               <Typography.Caption>건</Typography.Caption>
             </Flex.Horizontal>
           </Flex.Vertical>
