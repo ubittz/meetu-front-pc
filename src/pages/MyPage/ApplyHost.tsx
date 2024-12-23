@@ -27,8 +27,8 @@ function ApplyHost() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='host-app' />
 
-        <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
-        {isShowInfoPopup && <InfoPopup type={type} />}
+        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
+        {isShowInfoPopup && <InfoPopup />}
 
         {/* <!-- 마이페이지 결제내역 시작 -->  */}
         <section className='mypage_content'>

@@ -108,3 +108,30 @@ export const createMeetingSchema = object({
   item: string(),
   file: string().required('이미지 파일을 선택해주세요.'),
 });
+
+export const applyHostSchema = object({
+  name: string().required('이름을 입력해주세요.'),
+  nameCheck: boolean().when('name', ([name], schema) => {
+    if (name) {
+      return schema.isTrue('이름 중복체크를 해주세요.');
+    }
+    return schema;
+  }),
+  tel: string()
+    .required('전화번호를 입력해주세요.')
+    .matches(/^0\d{9,10}$/, { message: '전화번호를 정확히 입력해주세요.' }),
+  email: string()
+    .required('이메일을 입력해주세요.')
+    .matches(/^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, { message: '이메일을 정확히 입력해주세요.' }),
+  emailCheck: boolean().when('email', ([email], schema) => {
+    if (email) {
+      return schema.isTrue('이메일 중복체크를 해주세요.');
+    }
+    return schema;
+  }),
+  category1: string().required('카테고리를 선택해주세요.'),
+  category2: string(),
+  question: string().max(3000, '3000자 이하로 입력해주세요.'),
+  bank: string().required('은행을 선택해주세요.'),
+  accNo: string().required('계좌번호를 입력해주세요.'),
+});

@@ -23,7 +23,6 @@ interface Review {
     nickname: string;
   };
 }
-
 // 결제 목록
 interface Order {
   orderNumber: string; // 고유값 (id 역할)

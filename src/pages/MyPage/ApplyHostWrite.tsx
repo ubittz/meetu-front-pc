@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
@@ -7,12 +8,31 @@ import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
+import { applyHostSchema } from '@@constants/scheme';
+import ApplyHostWriteFormContent from '@@pages/MyPage/parts/ApplyHostWriteFormContent';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { HostAddDTO } from '@@stores/myPage/types';
+
+const initialValues: HostAddDTO = {
+  name: '',
+  tel: '',
+  email: '',
+  category1: '',
+  question: '',
+  bank: '',
+  accNo: '',
+};
 
 function ApplyHostWrite() {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+
+  const handleSubmit = (values: HostAddDTO) => {
+    console.log(values);
+    openPopup();
+  };
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -32,120 +52,25 @@ function ApplyHostWrite() {
             <strong className='active'>호스트 등록 정보 입력</strong>
           </p>
           {/* <!-- 호스트 등록 신청 정보입력 form 영역 시작 --> */}
-          <form action='#' method='post'>
+          <Formik initialValues={initialValues} validationSchema={applyHostSchema} onSubmit={handleSubmit}>
             <fieldset>
               <legend>내 정보 수정 정보입력 영역</legend>
               <div className='join_wrap'>
                 <h3 className='join_tit'>정보 입력</h3>
                 {/* <!-- 정보입력 영역 시작 --> */}
-                <div className='input_wrap'>
-                  <div className='input_area input_btn'>
-                    <label htmlFor='host_name'>
-                      호스트명<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='host_name' id='host_name' placeholder='호스트 닉네임을 적어주세요.' required />
-                    <p className='txt_error'>호스트명을 입력해주세요.</p>
-                    <button type='button' className='btn'>
-                      중복체크
-                    </button>
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='host_contact'>
-                      연락처<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='host_contact' id='host_contact' placeholder='‘-’없이 입력해주세요.' required />
-                    <p className='txt_error'>연락처를 입력해주세요.</p>
-                  </div>
-                  <div className='input_area input_btn'>
-                    <label htmlFor='host_mail'>
-                      이메일<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='host_mail' id='host_mail' placeholder='이메일 주소를 입력해주세요.' required />
-                    <p className='txt_error'>이메일 주소를 입력해주세요.</p>
-                    <button type='button' className='btn'>
-                      중복체크
-                    </button>
-                  </div>
-
-                  <div className='input_area'>
-                    <label htmlFor='host_ctg'>
-                      모임 카테고리<strong className='required'>*</strong>
-                      <span>(최대 2개)</span>
-                    </label>
-                    <select name='host_ctg' id='host_ctg' required>
-                      <option value='' selected disabled hidden>
-                        선택하기
-                      </option>
-                      <option value=''>아트</option>
-                      <option value=''>독서</option>
-                      <option value=''>쿠킹</option>
-                      <option value=''>사이클</option>
-                      <option value=''>운동</option>
-                      <option value=''>등산</option>
-                      <option value=''>음악</option>
-                      <option value=''>사진</option>
-                      <option value=''>기술</option>
-                      <option value=''>와인</option>
-                    </select>
-                    <select name='host_ctg02' id='host_ctg02'>
-                      <option value='' selected disabled hidden>
-                        선택하기
-                      </option>
-                      <option value=''>아트</option>
-                      <option value=''>독서</option>
-                      <option value=''>쿠킹</option>
-                      <option value=''>사이클</option>
-                      <option value=''>운동</option>
-                      <option value=''>등산</option>
-                      <option value=''>음악</option>
-                      <option value=''>사진</option>
-                      <option value=''>기술</option>
-                      <option value=''>와인</option>
-                    </select>
-                  </div>
-
-                  <div className='input_area'>
-                    <label htmlFor='host_etc'>기타 문의 사항</label>
-                    <input type='text' name='host_etc' id='host_etc' placeholder='기타 문의 사항을 적어주세요. (최대 100byte)' />
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='host_bank'>
-                      정산은행<strong className='required'>*</strong>
-                    </label>
-                    <select name='host_bank' id='host_bank' required>
-                      <option value='' selected disabled hidden>
-                        선택하기
-                      </option>
-                      <option value=''>국민은행</option>
-                      <option value=''>신한은행</option>
-                      <option value=''>하나은행</option>
-                      <option value=''>우리은행</option>
-                      <option value=''>기업은행</option>
-                      <option value=''>농협은행</option>
-                      <option value=''>수협은행</option>
-                      <option value=''>시티뱅크</option>
-                      <option value=''>산업은행</option>
-                      <option value=''>제주은행</option>
-                      <option value=''>광주은행</option>
-                      <option value=''>전북은행</option>
-                      <option value=''>부산은행</option>
-                    </select>
-                    <p className='txt_error'>정산은행을 선택해주세요.</p>
-                  </div>
-                  <div className='input_area'>
-                    <label htmlFor='host_number'>
-                      정산 계좌번호<strong className='required'>*</strong>
-                    </label>
-                    <input type='text' name='host_number' id='host_number' placeholder='‘-’없이 입력해주세요.' required />
-                  </div>
-                </div>
-                {/* <!-- //정보입력 영역 종료 --> */}
+                <ApplyHostWriteFormContent />
 
                 <h3 className='join_tit'>개인정보 수집 및 이용동의 (필수)</h3>
                 {/* <!-- 개인정보 수집 및 이용동의 시작 --> */}
                 <div className='terms_wrap type_host'>
                   <div className='chk_area chkAll'>
-                    <input type='checkbox' name='termsChk' id='termsChk' />
+                    <input
+                      type='checkbox'
+                      name='termsChk'
+                      id='termsChk'
+                      checked={isTermsChecked}
+                      onChange={() => setIsTermsChecked(!isTermsChecked)}
+                    />
                     <label htmlFor='termsChk'>
                       동의합니다.
                       <span>
@@ -178,13 +103,13 @@ function ApplyHostWrite() {
                   <Link to={pathGenerator(PAGES.MYPAGE)} className='btn form02'>
                     취소
                   </Link>
-                  <button type='submit' className='btn' onClick={openPopup}>
+                  <button type='submit' className='btn' disabled={!isTermsChecked}>
                     신청
                   </button>
                 </div>
               </div>
             </fieldset>
-          </form>
+          </Formik>
           <Popup
             visible={isPopupOpen}
             onConfirmLeft={() => navigate(pathGenerator(PAGES.MAIN))}
