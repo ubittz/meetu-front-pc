@@ -1,3 +1,5 @@
+export interface UserState {}
+
 export interface HostAddDTO {
   name: string;
   tel: string;

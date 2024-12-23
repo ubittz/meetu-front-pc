@@ -10,14 +10,14 @@ import {
   checkDuplicateEmailFailure,
   checkDuplicateEmailRequest,
   checkDuplicateEmailSuccess,
-} from '@@stores/myPage/reducer';
+} from '@@stores/user/reducer';
 import { authenticatedRequest } from '@@utils/request';
 import { ENDPOINTS } from '@@utils/request/constants';
 import { MeetuResponse } from '@@utils/request/types';
 
 function* createHost({ payload }: ReturnType<typeof createHostRequest>) {
   try {
-    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.HOST.ADD, {
+    const response: MeetuResponse<string> = yield authenticatedRequest.put(ENDPOINTS.HOST.ADD, {
       data: payload,
     });
 
@@ -63,7 +63,7 @@ function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmail
   }
 }
 
-export function* myPageSaga() {
+export default function* userSaga() {
   yield takeLatest(createHostRequest.type, createHost);
   yield takeLatest(checkDuplicateHostNameRequest.type, checkDuplicateHostName);
   yield takeLatest(checkDuplicateEmailRequest.type, checkDuplicateEmail);

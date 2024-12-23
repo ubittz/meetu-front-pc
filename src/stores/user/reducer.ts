@@ -1,6 +1,8 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createSlice, createAction } from '@reduxjs/toolkit';
 
-import { HostAddDTO } from '@@stores/myPage/types';
+import { UserState, HostAddDTO } from '@@stores/user/types';
+
+const initialState: UserState = {};
 
 const HOST_PREFIX = 'host';
 
@@ -15,3 +17,11 @@ export const checkDuplicateHostNameFailure = createAction<string>(`${HOST_PREFIX
 export const checkDuplicateEmailRequest = createAction<string>(`${HOST_PREFIX}/checkDuplicateEmailRequest`);
 export const checkDuplicateEmailSuccess = createAction(`${HOST_PREFIX}/checkDuplicateEmailSuccess`);
 export const checkDuplicateEmailFailure = createAction<string>(`${HOST_PREFIX}/checkDuplicateEmailFailure`);
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {},
+});
+
+export default userSlice.reducer;
