@@ -100,11 +100,11 @@ export const createMeetingSchema = object({
   cost: string().required().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
   limit: string().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
   processDate: string()
-    .required()
+    .required('모임 진행일을 입력해주세요.')
     .matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '날짜를 정확히 입력해주세요.' }),
   intro: string(),
   description: string(),
   processGuide: string(),
   item: string(),
-  file: string(),
+  file: string().required('이미지 파일을 선택해주세요.'),
 });

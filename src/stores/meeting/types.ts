@@ -37,7 +37,7 @@ export interface MeetingAddDTO {
     processGuide?: string;
     item?: string;
   };
-  file?: string;
+  file: string;
 }
 
 export interface MeetingSingleResponse {

@@ -22,12 +22,16 @@ import { createBlobJSON } from '@@utils/request/utils';
 function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
   try {
     const formData = new FormData();
-    const file = createBlobJSON(JSON.stringify(payload.file));
+    const newMeeting = { ...payload.meeting, cost: +payload.meeting.cost, limit: +(payload.meeting.limit ?? 0) };
+    const meeting = createBlobJSON(JSON.stringify(newMeeting));
 
-    formData.append('file', file);
+    formData.append('file', payload.file);
+    formData.append('meeting', meeting);
 
-    const response: MeetuResponse<string> = yield authenticatedRequest.put(ENDPOINTS.MEETING.ADD, {
-      data: payload,
+    console.log(payload.meeting);
+
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.MEETING.ADD, {
+      data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },

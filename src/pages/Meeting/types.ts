@@ -36,7 +36,7 @@ export interface AddMeetingForm {
   description?: string;
   processGuide?: string;
   item?: string;
-  file?: string;
+  file: string;
 }
 
 export type { Qna, Review };

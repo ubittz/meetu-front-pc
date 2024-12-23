@@ -28,14 +28,8 @@ function CreateFormContent() {
         <label htmlFor='mc_category'>
           카테고리<strong className='required'>*</strong>
         </label>
-        <select
-          name='meetingCategory'
-          id='meetingCategory'
-          required
-          defaultValue=''
-          onChange={(e) => setFieldValue('meetingCategory', e.target.value)}
-        >
-          <option value='' disabled hidden>
+        <select name='meetingCategory' id='meetingCategory' onChange={(e) => setFieldValue('meetingCategory', e.target.value)}>
+          <option value='' selected disabled hidden>
             선택하기
           </option>
           <option value='ART'>아트</option>
@@ -53,17 +47,21 @@ function CreateFormContent() {
       </div>
       {/* 썸네일 첨부 */}
       <div className='input_area input_btn'>
-        <label className='title'>썸네일</label>
+        <label className='title'>
+          대표 이미지
+          <strong className='required'>*</strong>
+        </label>
         <input type='file' id='file' className='input' accept='image/*' onChange={handleFileChange} />
         <input type='text' placeholder='이미지 파일을 선택해주세요.' value={selectedFile?.name} readOnly />
         <button type='button' className='btn' onClick={() => document.getElementById('file')?.click()}>
           파일 선택
         </button>
+        {errors.file && <p className='txt_error'>이미지 파일을 선택해주세요.</p>}
       </div>
       <div className='input_area'>
         <label htmlFor='mc_address'>모임 장소</label>
-        <select name='mainAddress' id='mainAddress' defaultValue='' onChange={(e) => setFieldValue('mainAddress', e.target.value)}>
-          <option value='' disabled hidden>
+        <select name='mainAddress' id='mainAddress' onChange={(e) => setFieldValue('mainAddress', e.target.value)}>
+          <option value='' selected disabled hidden>
             선택하기
           </option>
           {Object.entries(DISTRICT).map(([key, value]) => (

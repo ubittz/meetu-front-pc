@@ -42,7 +42,6 @@ function MeetingCreate() {
   const handleSubmit = (values: AddMeetingForm) => {
     const sanitizedValues = sanitizeAddMeetingForm(values);
     dispatch(createMeetingRequest(sanitizedValues));
-    // console.log(sanitizedValues);
   };
 
   const openPopup = () => {
