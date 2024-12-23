@@ -6,17 +6,17 @@ import images from '@@assets/images';
 import UserPopup from '@@components/Popup/UserPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { User } from '@@stores/auth/types';
+import { useAppState } from '@@store/hooks';
 
 import InfoPopup from './InfoPopup';
 
 interface MyPageDashboardProps {
-  user?: User;
   profileButtonAction: () => void;
 }
 
-function MyPageDashboard({ user, profileButtonAction }: MyPageDashboardProps) {
+function MyPageDashboard({ profileButtonAction }: MyPageDashboardProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const me = useAppState((state) => state.auth.me);
 
   const openPopup = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,11 +33,11 @@ function MyPageDashboard({ user, profileButtonAction }: MyPageDashboardProps) {
         <div className='host_area'>
           <button type='button' className='btn' onClick={profileButtonAction}>
             <span className='img_area'>
-              <img src={user?.imageUrl} alt='사용자 이미지' />
+              <img src={me?.imageUrl} alt='사용자 이미지' />
             </span>
             <span className='txt_area' onClick={openPopup}>
-              {user?.isHost ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
-              <em>{user?.name} 님</em>
+              {me?.isHost ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
+              <em>{me?.name} 님</em>
             </span>
           </button>
           <p className='caption'>밋유에서 다양한 모임들을 만들어보세요!</p>
@@ -72,13 +72,8 @@ function MyPageDashboard({ user, profileButtonAction }: MyPageDashboardProps) {
           </li>
         </ul>
       </div>
-      <UserPopup
-        visible={isPopupOpen}
-        title='프로필'
-        onCancel={closePopup}
-        img={images.meeting_img04}
-      >
-        <InfoPopup user={user} />
+      <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
+        <InfoPopup user={me} />
       </UserPopup>
     </section>
   );
