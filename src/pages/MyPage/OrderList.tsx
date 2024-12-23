@@ -3,34 +3,43 @@ import { useState } from 'react';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import UserPopup from '@@components/Popup/UserPopup';
-import { getDummyOrderList } from '@@pages/MyPage/dummy';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import OrderDetailPopup from '@@pages/MyPage/parts/OrderDetailPopup';
 import OrderListItem from '@@pages/MyPage/parts/OrderListItem';
+import { usePaymentList } from '@@stores/payment/hooks';
+import { PaymentListResponse } from '@@stores/payment/types';
 import { UserType } from '@@types/user';
-
-import { Order } from './types';
+import { useQueryParams } from '@@utils/request/hooks';
+import { PageQuery } from '@@utils/request/types';
 
 function OrderList() {
   const type: UserType = 'user';
-  const dummyOrderList = getDummyOrderList();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<PaymentListResponse | null>(null);
+
+  const initialQuery: PageQuery = {
+    page: 0,
+  };
   
+  const { query } = useQueryParams(initialQuery, {
+    initialSearch: ({ page }) => page === undefined,
+  });
+
+  const { content } = usePaymentList(query);
+
   const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
   const handleShowInfoPopup = () => {
     setIsShowInfoOpen(!isShowInfoPopup);
   };
 
-  
-  const openPopup = (order: Order) => {
-    setSelectedOrder(order);  
-    setIsPopupOpen(true);      
+  const openPopup = (payment: PaymentListResponse) => {
+    setSelectedOrder(payment);
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    setIsPopupOpen(false);    
+    setIsPopupOpen(false);
   };
 
   return (
@@ -39,7 +48,7 @@ function OrderList() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='payment' />
 
-        <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
+        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
 
         <section className='mypage_content'>
           <div className='mc_inner'>
@@ -53,13 +62,7 @@ function OrderList() {
                 <p className='tb_price'>주문 결제 금액</p>
                 <p className='tb_choice'>선택</p>
               </li>
-              {dummyOrderList.map((order) => (
-                <OrderListItem 
-                  key={order.orderNumber} 
-                  order={order} 
-                  handleOrderDetailPopup={() => openPopup(order)} 
-                />
-              ))}
+              {content?.map((payment) => <OrderListItem key={payment.id} payment={payment}  handleOrderDetailPopup={() => openPopup(payment)}/>)}
             </ul>
             <div className='notice_wrap'>
               <div className='notice'>
@@ -71,8 +74,15 @@ function OrderList() {
         </section>
 
         {isPopupOpen && selectedOrder && (
-          <UserPopup visible={isPopupOpen} title='결제 상세' onCancel={closePopup} width='70%' height='1500px' transform="translateX(-50%) translateY(-30%)">
-            <OrderDetailPopup order={selectedOrder} /> {/* 선택된 주문 정보를 OrderDetailPopup에 전달 */}
+          <UserPopup
+            visible={isPopupOpen}
+            title='결제 상세'
+            onCancel={closePopup}
+            width='70%'
+            height='1500px'
+            transform='translateX(-50%) translateY(-30%)'
+          >
+            <OrderDetailPopup id={selectedOrder.id}/>
           </UserPopup>
         )}
       </main>
