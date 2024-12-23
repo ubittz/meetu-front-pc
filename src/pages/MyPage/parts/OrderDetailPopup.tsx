@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import styled from 'styled-components';
 
 import images from '@@assets/images';
+import Button from '@@components/Button';
 import Flex from '@@components/Flex';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Typography from '@@components/Typography';
@@ -27,9 +28,10 @@ const LightLine = styled.hr`
 
 interface OrderDetailPopupProps {
   id: string;
+  onCancel: () => void;
 }
 
-function OrderDetailPopup({ id }: OrderDetailPopupProps) {
+function OrderDetailPopup({ id, onCancel }: OrderDetailPopupProps) {
   const { data, isLoading } = usePaymentDetail(id ?? '');
 
   if (isLoading) {
@@ -178,6 +180,9 @@ function OrderDetailPopup({ id }: OrderDetailPopupProps) {
         </Typography.MediumBody>
         <Typography.MediumBody className='tw-w-[280px]'>{data.pgData?.approveNo}</Typography.MediumBody>
       </Flex.Horizontal>
+      <Flex.Vertical className='tw-mt-20'  alignItems="center" >
+        <Button.Large className='tw-w-[604px]' onClick={onCancel}><Typography.SmallBody color={COLORS.WHITE}>확인</Typography.SmallBody></Button.Large>
+      </Flex.Vertical>
     </StyledOrder>
   );
 }

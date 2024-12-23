@@ -21,7 +21,7 @@ function OrderList() {
   const initialQuery: PageQuery = {
     page: 0,
   };
-  
+
   const { query } = useQueryParams(initialQuery, {
     initialSearch: ({ page }) => page === undefined,
   });
@@ -62,7 +62,7 @@ function OrderList() {
                 <p className='tb_price'>주문 결제 금액</p>
                 <p className='tb_choice'>선택</p>
               </li>
-              {content?.map((payment) => <OrderListItem key={payment.id} payment={payment}  handleOrderDetailPopup={() => openPopup(payment)}/>)}
+              {content?.map((payment) => <OrderListItem key={payment.id} payment={payment} handleOrderDetailPopup={() => openPopup(payment)} />)}
             </ul>
             <div className='notice_wrap'>
               <div className='notice'>
@@ -82,7 +82,7 @@ function OrderList() {
             height='1500px'
             transform='translateX(-50%) translateY(-30%)'
           >
-            <OrderDetailPopup id={selectedOrder.id}/>
+            <OrderDetailPopup id={selectedOrder.id} onCancel={closePopup} />
           </UserPopup>
         )}
       </main>
