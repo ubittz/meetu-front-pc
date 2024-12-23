@@ -31,8 +31,11 @@ function* createHost({ payload }: ReturnType<typeof createHostRequest>) {
 
 function* checkDuplicateHostName({ payload }: ReturnType<typeof checkDuplicateHostNameRequest>) {
   try {
-    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.HOST.CHECK_NAME, {
+    const response: MeetuResponse<boolean> = yield authenticatedRequest.post(ENDPOINTS.HOST.CHECK_NAME, {
       data: payload,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
     });
 
     const action = response.ok ? checkDuplicateHostNameSuccess() : checkDuplicateHostNameFailure('이미 존재하는 호스트명 입니다.');
@@ -45,8 +48,11 @@ function* checkDuplicateHostName({ payload }: ReturnType<typeof checkDuplicateHo
 
 function* checkDuplicateEmail({ payload }: ReturnType<typeof checkDuplicateEmailRequest>) {
   try {
-    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.HOST.CHECK_EMAIL, {
+    const response: MeetuResponse<boolean> = yield authenticatedRequest.post(ENDPOINTS.HOST.CHECK_EMAIL, {
       data: payload,
+      headers: {
+        'Content-Type': 'text/plain',
+      },
     });
 
     const action = response.ok ? checkDuplicateEmailSuccess() : checkDuplicateEmailFailure('이미 존재하는 이메일 입니다.');
