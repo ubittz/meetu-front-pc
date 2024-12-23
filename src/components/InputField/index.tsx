@@ -9,9 +9,10 @@ interface InputFieldProps {
   type?: string;
   isDate?: boolean;
   children?: ReactNode;
+  required?: boolean;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type = 'text', isDate, children }) => {
+const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type = 'text', isDate, children, required = false }) => {
   const renderInput = ({ field, meta }: FieldProps) => {
     const hasError = meta.touched && meta.error;
 
@@ -28,7 +29,10 @@ const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type 
 
   return (
     <div className={inputAreaClassName}>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <strong className='required'>*</strong>}
+      </label>
       <Field name={name}>{renderInput}</Field>
     </div>
   );

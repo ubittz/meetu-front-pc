@@ -32,6 +32,7 @@ export const ENDPOINTS = {
     LIST_LAST_MONTH: `/api/meeting/list-last-month`, // get
     DETAIL: (id: string) => `/api/meeting/detail/${id}`, // get
     ADD: `/api/meeting/add`, // put
+    CHECK_DUPLICATE_NAME: `/api/meeting/check-duplicate-name`, // get
     EDIT: `/api/meeting/edit`, // patch
     DELETE: (id: string) => `/api/meeting/delete/${id}`, // delete
   },

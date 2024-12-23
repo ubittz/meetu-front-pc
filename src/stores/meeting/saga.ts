@@ -1,10 +1,65 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { createContactFailure, createContactRequest, createContactSuccess } from '@@stores/meeting/reducer';
-import { createReviewFailure, createReviewRequest, createReviewSuccess } from '@@stores/meeting/reducer';
+import {
+  checkDuplicateMeetingNameFailure,
+  checkDuplicateMeetingNameRequest,
+  checkDuplicateMeetingNameSuccess,
+  createContactFailure,
+  createContactRequest,
+  createContactSuccess,
+  createMeetingFailure,
+  createMeetingRequest,
+  createMeetingSuccess,
+  createReviewFailure,
+  createReviewRequest,
+  createReviewSuccess,
+} from '@@stores/meeting/reducer';
 import { authenticatedRequest } from '@@utils/request';
 import { ENDPOINTS } from '@@utils/request/constants';
 import { MeetuResponse } from '@@utils/request/types';
+import { createBlobJSON } from '@@utils/request/utils';
+
+function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
+  try {
+    const formData = new FormData();
+    const newMeeting = { ...payload.meeting };
+    const meeting = createBlobJSON(JSON.stringify(newMeeting));
+
+    formData.append('file', payload.file);
+    formData.append('meeting', meeting);
+
+    console.log(payload.meeting);
+
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.MEETING.ADD, {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const action = response.ok ? createMeetingSuccess() : createMeetingFailure('등록된 회원이 없습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(createMeetingFailure((e as Error).message));
+  }
+}
+
+function* checkDuplicateMeetingName({ payload }: ReturnType<typeof checkDuplicateMeetingNameRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.get(ENDPOINTS.MEETING.CHECK_DUPLICATE_NAME, {
+      params: {
+        name: payload,
+      },
+    });
+
+    const action = response.ok ? checkDuplicateMeetingNameSuccess() : checkDuplicateMeetingNameFailure('중복된 모임명입니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(checkDuplicateMeetingNameFailure((e as Error).message));
+  }
+}
 
 function* createContact({ payload }: ReturnType<typeof createContactRequest>) {
   try {
@@ -35,6 +90,8 @@ function* createReview({ payload }: ReturnType<typeof createReviewRequest>) {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(checkDuplicateMeetingNameRequest.type, checkDuplicateMeetingName);
+  yield takeLatest(createMeetingRequest.type, createMeeting);
   yield takeLatest(createContactRequest.type, createContact);
   yield takeLatest(createReviewRequest.type, createReview);
 }

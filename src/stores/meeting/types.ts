@@ -23,6 +23,23 @@ export interface Meeting {
   meetingItem: string;
 }
 
+export interface MeetingAddDTO {
+  meeting: {
+    name: string;
+    category: Category;
+    mainAddress?: string;
+    detailAddress?: string;
+    cost: number;
+    limit?: number;
+    processDate: string;
+    intro?: string;
+    descript?: string;
+    processGuide?: string;
+    item?: string;
+  };
+  file: string;
+}
+
 export interface MeetingSingleResponse {
   id: string;
   hostId: string;
