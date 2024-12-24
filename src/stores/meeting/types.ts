@@ -47,6 +47,8 @@ export interface MeetingSingleResponse {
   name: string;
   hostName: string;
   address: string;
+  mainPlace: string;
+  mainDetail: string;
   processDate: string;
   cost: number;
   limit: number;

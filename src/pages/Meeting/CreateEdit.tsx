@@ -33,14 +33,14 @@ function MeetingCreateEdit() {
 
   const { pathname } = useLocation();
   const { id } = useParams();
-  const { data } = useMeetingDetail(id ?? '');
+  const { data } = useMeetingDetail(id ?? ''); // edit인 경우에만 요청하도록 수정
 
   const initialValues: AddMeetingForm = {
     name: data?.name ?? '',
     nameCheck: data?.name ? true : false,
     meetingCategory: data?.category ? getCategoryString(data.category) : '',
-    mainAddress: data?.address ?? '',
-    detailAddress: data?.address ?? '',
+    mainAddress: data?.mainPlace ?? '',
+    detailAddress: data?.mainDetail ?? '',
     cost: data?.cost ?? 0,
     limit: data?.limit ?? 0,
     processDate: data?.processDate ?? '',
