@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyMeetingListItem from '@@pages/MyPage/parts/MyMeetingListItem';
 import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
@@ -20,11 +19,6 @@ function MyMeeting() {
 
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<MeetingStatus | ''>('');
-  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
-
-  const handleShowInfoPopup = () => {
-    setIsShowInfoPopup(!isShowInfoPopup);
-  };
 
   useEffect(() => {
     // TODO: - dummy items 교체
@@ -38,8 +32,7 @@ function MyMeeting() {
       {type && (
         <main className='container'>
           <MyPageHeader type={type} activeTab='my-meeting' />
-          <MyPageDashboard type={type} profileButtonAction={handleShowInfoPopup} />
-          {isShowInfoPopup && <InfoPopup type={type} />}
+          <MyPageDashboard />
 
           {/* <!-- 호스트_내모임 시작 --> */}
           <section className='mypage_content'>

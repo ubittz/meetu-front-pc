@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import InfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { UserType } from '@@types/user';
 
 function InfoUser() {

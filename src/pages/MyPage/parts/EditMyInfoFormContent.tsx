@@ -6,15 +6,18 @@ import { EditMyInfoForm } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-interface EditMyInfoFormContentProps {
-  handleEmailCheck: (email: string) => void;
-}
-
-export function EditMyInfoFormContent({ handleEmailCheck }: EditMyInfoFormContentProps) {
-  const { handleSubmit, values, isValid } = useFormikContext<EditMyInfoForm>();
+export function EditMyInfoFormContent() {
+  const { values, isValid } = useFormikContext<EditMyInfoForm>();
+  const handleEmailCheck = () => {
+    if (values.email) {
+      // checkDuplicateEmailRequest(values.email);
+    } else {
+      alert('이메일을 입력해주세요.');
+    }
+  };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <fieldset>
         <legend>내 정보 수정 정보입력 영역</legend>
         <div className='join_wrap'>
@@ -40,7 +43,7 @@ export function EditMyInfoFormContent({ handleEmailCheck }: EditMyInfoFormConten
 
             <InputField name='phone' label='연락처' placeholder='‘-’없이 입력해주세요.' />
             <InputField name='email' label='이메일' placeholder='이메일 주소를 입력해주세요.'>
-              <button type='button' className='btn' onClick={() => handleEmailCheck(values.email)}>
+              <button type='button' className='btn' onClick={handleEmailCheck}>
                 중복체크
               </button>
             </InputField>

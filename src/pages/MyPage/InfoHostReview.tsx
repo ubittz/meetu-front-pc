@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import InfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import ReviewListItem from '@@pages/MyPage/parts/ReviewListItem';
 import { Review } from '@@pages/MyPage/types';
 import { PAGES } from '@@router/constants';

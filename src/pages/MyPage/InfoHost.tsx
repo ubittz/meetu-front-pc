@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
 import MyMeetingListItem from '@@pages/MyPage/parts/MyMeetingListItem';
+import InfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
