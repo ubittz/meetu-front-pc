@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import images from '@@assets/images';
+import { getDistrict } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { Meeting } from '@@types/meeting';
+import { Meeting } from '@@stores/meeting/types';
 import { UserType } from '@@types/user';
 
 interface MyMeetingListItemProps {
@@ -15,15 +16,15 @@ function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
   return (
     <li>
       <div className='img_area'>
-        <img src={meeting.imageUrl || images.good_img01} alt={`상품 이미지${meeting.id}`} />
+        <img src={meeting.imageUrl || images.good_img01} alt={`상품 이미지${meeting.meetingId}`} />
       </div>
       <div className='txt_area'>
         <div className='sort'>
-          <span className='location'>{meeting.location.toUpperCase()}</span>
+          {getDistrict(meeting.meetingMainPlace) && <span className='location'>{getDistrict(meeting.meetingMainPlace)}</span>}
         </div>
-        <h4 className='tit'>{meeting.title}</h4>
-        <p className='txt'>{meeting.description}</p>
-        <p className='price'>{meeting.price.toLocaleString()}원</p>
+        <h4 className='tit'>{meeting.meetingName}</h4>
+        <p className='txt'>{meeting.meetingDescript}</p>
+        <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
       </div>
       {type === 'host' && (
         <div className='btn_area type_02'>
