@@ -52,6 +52,16 @@ export interface User {
   imageUrl: string;
 }
 
+export interface UserProfileResponse {
+  userId: string;
+  userName: string;
+  processingMeetingCount: number;
+  writeReviewCount: number;
+  description: string;
+  isHost: boolean;
+  imageUrl: string;
+}
+
 export interface UserEditRequestDTO {
   id: string;
   password?: string;

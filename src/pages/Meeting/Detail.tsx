@@ -167,7 +167,7 @@ function MeetingDetail() {
                   </li>
                 </ul>
                 {/* <!-- 2단 버튼 영역 --> */}
-                {user?.id !== authStore.me?.id && (
+                {user?.userId !== authStore.me?.id && (
                   <div className='btn_area type_02'>
                     <button type='button' className='btn form02' onClick={openPopup}>
                       호스트 정보
@@ -178,7 +178,7 @@ function MeetingDetail() {
                   </div>
                 )}
                 {/* <!-- 1단 버튼 영역 --> */}
-                {user?.id === authStore.me?.id && (
+                {user?.userId === authStore.me?.id && (
                   <div className='btn_area'>
                     <button type='button' className='btn' onClick={() => navigate(`/meeting/edit/${id}`)}>
                       수정하기

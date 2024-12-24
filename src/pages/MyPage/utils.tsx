@@ -1,6 +1,7 @@
+import { User } from '@@stores/auth/types';
+import { UserProfileResponse } from '@@stores/auth/types';
 import { SIMPLE_TYPE_STRING } from '@@stores/payment/constants';
 import { PaymentDetailResponse } from '@@stores/payment/types';
-
 export const getPaymentType = (payment: PaymentDetailResponse) => {
   if (payment.card) {
     return `신용카드 (${payment.card.companyName}) 결제`;
@@ -51,3 +52,15 @@ export const getPaymentNo = (payment: PaymentDetailResponse) => {
 
   return null;
 };
+
+export function getUserResponseType(user: User | undefined): UserProfileResponse {
+  return {
+    userId: user?.id ?? '',
+    userName: user?.name ?? '',
+    processingMeetingCount: user?.meetingCount ?? 0,
+    writeReviewCount: user?.writeReviewCount ?? 0,
+    description: user?.userDescription ?? '',
+    isHost: user?.isHost ?? false,
+    imageUrl: user?.imageUrl ?? '',
+  };
+}

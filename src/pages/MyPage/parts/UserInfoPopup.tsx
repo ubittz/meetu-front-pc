@@ -5,7 +5,7 @@ import Flex from '@@components/Flex';
 import { Cancel } from '@@components/Popup/icon';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
-import { User } from '@@stores/auth/types';
+import { UserProfileResponse } from '@@stores/auth/types';
 
 import { Line } from '../icons';
 
@@ -84,7 +84,7 @@ const StyledUserInfoPopup = styled.div<{ $visible: boolean; $width: string; $hei
 `;
 
 interface UserInfoPopupProps {
-  user?: User;
+  user?: UserProfileResponse;
   visible: boolean;
   onCancel: () => void;
 }
@@ -98,16 +98,16 @@ function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
           <Cancel onClick={onCancel} />
         </Flex.Horizontal>
         <Flex.Horizontal className='body'>
-          <img src={images.meeting_img04} className='popup_img' alt='호스트 이미지' />
+          <img src={user?.imageUrl} className='popup_img' alt='호스트 이미지' />
           <Flex.Vertical gap={20} className='wrap'>
-            <Typography.LargeBody>{user?.name}</Typography.LargeBody>
+            <Typography.LargeBody>{user?.userName}</Typography.LargeBody>
 
             {/* 운영 중인 모임 및 리뷰 */}
             <Flex.Horizontal className='tw-p-5 tw-rounded-xl tw-bg-[#FFEEE6]' gap={54} alignItems='center' justifyContent='center'>
               <Flex.Vertical gap={8}>
                 <Typography.SmallBody>운영중인 모임</Typography.SmallBody>
                 <Flex.Horizontal justifyContent='center' alignItems='center' gap={4}>
-                  <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.meetingCount ?? 0}</Typography.MediumSubtitle>
+                  <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.processingMeetingCount ?? 0}</Typography.MediumSubtitle>
                   <Typography.Caption>개</Typography.Caption>
                 </Flex.Horizontal>
               </Flex.Vertical>
@@ -128,7 +128,7 @@ function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
             {/* 호스트/이용자 소개 */}
             <Flex.Vertical gap={10} className='tw-mt-3'>
               <Typography.MediumBody color={COLORS.MAIN_050}>{user?.isHost ? '호스트 소개' : '이용자 소개'}</Typography.MediumBody>
-              <Typography.SmallBody className='user_description'>{user?.userDescription}</Typography.SmallBody>
+              <Typography.SmallBody className='user_description'>{user?.description}</Typography.SmallBody>
             </Flex.Vertical>
           </Flex.Vertical>
         </Flex.Horizontal>

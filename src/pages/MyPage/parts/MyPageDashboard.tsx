@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { getUserResponseType } from '@@pages/MyPage/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
@@ -67,7 +68,7 @@ function MyPageDashboard() {
         </ul>
       </div>
       {/* <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}> */}
-      <UserInfoPopup user={me} visible={isPopupOpen} onCancel={closePopup} />
+      <UserInfoPopup user={getUserResponseType(me)} visible={isPopupOpen} onCancel={closePopup} />
       {/* </UserPopup> */}
     </section>
   );
