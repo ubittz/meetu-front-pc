@@ -3,18 +3,11 @@ import styled from 'styled-components';
 import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import { Cancel } from '@@components/Popup/icon';
-import { PopupProps } from '@@components/Popup/types';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
 import { User } from '@@stores/auth/types';
 
 import { Line } from '../icons';
-
-interface InfoPopupProps {
-  user?: User;
-  visible: boolean;
-  onCancel: () => void;
-}
 
 const StyledUserInfoPopup = styled.div<{ $visible: boolean; $width: string; $height: string; $transform: string }>`
   position: fixed;
@@ -89,7 +82,14 @@ const StyledUserInfoPopup = styled.div<{ $visible: boolean; $width: string; $hei
     }
   }
 `;
-function InfoPopup({ user, visible, onCancel }: InfoPopupProps) {
+
+interface UserInfoPopupProps {
+  user?: User;
+  visible: boolean;
+  onCancel: () => void;
+}
+
+function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
   return (
     <StyledUserInfoPopup $visible={visible} $width='50%' $height='620px' $transform='translateX(-50%) translateY(-50%)'>
       <Flex.Vertical className='popup_box'>
@@ -137,4 +137,4 @@ function InfoPopup({ user, visible, onCancel }: InfoPopupProps) {
   );
 }
 
-export default InfoPopup;
+export default UserInfoPopup;

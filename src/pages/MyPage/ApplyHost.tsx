@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
@@ -10,25 +8,16 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { UserType } from '@@types/user';
 
-import InfoPopup from './parts/InfoPopup';
-
 function ApplyHost() {
   const type: UserType = 'host';
-  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
-
-  const handleShowInfoPopup = () => {
-    setIsShowInfoPopup(true);
-  };
 
   return (
     <div id='wrap'>
       <Header />
-      {/* <!-- container 영역 시작 --> */}
       <main className='container'>
         <MyPageHeader type={type} activeTab='host-app' />
 
-        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
-        {isShowInfoPopup && <InfoPopup />}
+        <MyPageDashboard />
 
         {/* <!-- 마이페이지 결제내역 시작 -->  */}
         <section className='mypage_content'>

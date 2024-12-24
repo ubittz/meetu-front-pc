@@ -6,13 +6,9 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
 
-import InfoPopup from './InfoPopup';
+import UserInfoPopup from './UserInfoPopup';
 
-interface MyPageDashboardProps {
-  profileButtonAction: () => void;
-}
-
-function MyPageDashboard({ profileButtonAction }: MyPageDashboardProps) {
+function MyPageDashboard() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const me = useAppState((state) => state.auth.me);
 
@@ -29,7 +25,7 @@ function MyPageDashboard({ profileButtonAction }: MyPageDashboardProps) {
     <section className='dashboard_wrap'>
       <div className='d_inner'>
         <div className='host_area'>
-          <button type='button' className='btn' onClick={profileButtonAction}>
+          <button type='button' className='btn' onClick={openPopup}>
             <span className='img_area'>
               <img src={me?.imageUrl} alt='사용자 이미지' />
             </span>
@@ -71,7 +67,7 @@ function MyPageDashboard({ profileButtonAction }: MyPageDashboardProps) {
         </ul>
       </div>
       {/* <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}> */}
-      <InfoPopup user={me} visible={isPopupOpen} onCancel={closePopup} />
+      <UserInfoPopup user={me} visible={isPopupOpen} onCancel={closePopup} />
       {/* </UserPopup> */}
     </section>
   );

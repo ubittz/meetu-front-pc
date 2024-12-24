@@ -28,11 +28,6 @@ function OrderList() {
 
   const { content } = usePaymentList(query);
 
-  const [isShowInfoPopup, setIsShowInfoOpen] = useState(false);
-  const handleShowInfoPopup = () => {
-    setIsShowInfoOpen(!isShowInfoPopup);
-  };
-
   const openPopup = (payment: PaymentListResponse) => {
     setSelectedOrder(payment);
     setIsPopupOpen(true);
@@ -48,7 +43,7 @@ function OrderList() {
       <main className='container'>
         <MyPageHeader type={type} activeTab='payment' />
 
-        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
+        <MyPageDashboard />
 
         <section className='mypage_content'>
           <div className='mc_inner'>

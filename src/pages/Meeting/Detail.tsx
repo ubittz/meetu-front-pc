@@ -8,11 +8,10 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
-import UserPopup from '@@components/Popup/UserPopup';
 import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
 import { formatCost, formatDate, getCategoryString, getDistrict } from '@@pages/Meeting/utils';
-import InfoPopup from '@@pages/MyPage/parts/InfoPopup';
+import UserInfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
 import { useAppState } from '@@store/hooks';
 import { useUserProfile } from '@@stores/auth/hooks';
 import { useMeetingDetail } from '@@stores/meeting/hooks';
@@ -189,11 +188,7 @@ function MeetingDetail() {
               </div>
 
               {/* <!-- 호스트 정보 팝업 시작 --> */}
-              {isPopupOpen && (
-                <UserPopup visible={isPopupOpen} title='호스트 정보' onCancel={closePopup} img={user?.imageUrl}>
-                  <InfoPopup user={user} />
-                </UserPopup>
-              )}
+              <UserInfoPopup user={user} visible={isPopupOpen} onCancel={closePopup} />
               {/* <!-- 호스트 정보 팝업 종료 --> */}
             </div>
           </section>
