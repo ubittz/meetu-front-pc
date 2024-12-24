@@ -21,7 +21,7 @@ function MyPageHeader({ activeTab }: MyPageHeaderProps) {
         <Link to={pathGenerator(PAGES.MYPAGE) + '/apply-host'} className={`btn ${activeTab === 'host-app' ? 'active' : ''}`}>
           호스트 등록 신청
         </Link>
-        <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting/'} className={`btn ${activeTab === 'my-meeting' ? 'active' : ''}`}>
+        <Link to={pathGenerator(PAGES.MYPAGE) + '/my-meeting'} className={`btn ${activeTab === 'my-meeting' ? 'active' : ''}`}>
           내 모임
         </Link>
       </p>

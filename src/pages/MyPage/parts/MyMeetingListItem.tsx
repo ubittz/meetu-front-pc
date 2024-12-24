@@ -9,9 +9,11 @@ import { Meeting } from '@@stores/meeting/types';
 
 interface MyMeetingListItemProps {
   meeting: Meeting;
+  isShowButton?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-function MyMeetingListItem({ meeting }: MyMeetingListItemProps) {
+function MyMeetingListItem({ meeting, isShowButton = false, onDelete }: MyMeetingListItemProps) {
   const me = useAppState((state) => state.auth.me);
 
   return (
@@ -27,12 +29,12 @@ function MyMeetingListItem({ meeting }: MyMeetingListItemProps) {
         <p className='txt'>{meeting.meetingDescript}</p>
         <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
       </div>
-      {me?.isHost && (
+      {me?.isHost && isShowButton && (
         <div className='btn_area type_02'>
-          <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
+          <Link to={pathGenerator(PAGES.MEETING) + `/edit/${meeting.meetingId}`} className='btn form02'>
             수정하기
           </Link>
-          <button type='button' className='btn'>
+          <button type='button' className='btn' onClick={() => onDelete?.(meeting.meetingId)}>
             삭제
           </button>
         </div>
