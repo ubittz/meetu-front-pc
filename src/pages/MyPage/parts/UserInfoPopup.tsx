@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import { Cancel } from '@@components/Popup/icon';
 import Typography from '@@components/Typography';

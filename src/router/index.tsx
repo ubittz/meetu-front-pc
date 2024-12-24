@@ -16,11 +16,10 @@ import MyPage from '@@pages/MyPage';
 import ApplyHost from '@@pages/MyPage/ApplyHost';
 import ApplyHostWrite from '@@pages/MyPage/ApplyHostWrite';
 import EditMyInfo from '@@pages/MyPage/EditMyInfo';
-import InfoHost from '@@pages/MyPage/InfoHost';
-import InfoHostReview from '@@pages/MyPage/InfoHostReview';
-import InfoUser from '@@pages/MyPage/InfoUser';
 import MyMeeting from '@@pages/MyPage/MyMeeting';
 import OrderList from '@@pages/MyPage/OrderList';
+import Profile from '@@pages/Profile';
+import InfoHostReview from '@@pages/Profile/InfoHostReview';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
 import Register from '@@pages/Register';
@@ -64,17 +63,17 @@ function Router() {
       {/* 결제 */}
       <Route path={pathGenerator(PAGES.PURCHASE)} element={<Purchase />} />
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
+      {/* Profile */}
+      <Route path={pathGenerator(PAGES.PROFILE) + '/:id'} element={<Profile />} />
+      <Route path={pathGenerator(PAGES.PROFILE) + '/:id/review'} element={<InfoHostReview />} />
       {/* 마이페이지 */}
       <Route path={pathGenerator(PAGES.MYPAGE)} element={<MyPage />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/edit'} element={<EditMyInfo />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host'} element={<ApplyHost />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/apply-host/write'} element={<ApplyHostWrite />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/order'} element={<OrderList />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
       {/* :type에 host 혹은 user가 들어감 */}
       <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting'} element={<MyMeeting />} />
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} element={<InfoHostReview />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
