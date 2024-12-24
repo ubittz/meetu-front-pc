@@ -42,3 +42,5 @@ export interface AddMeetingForm {
 export type { Qna, Review };
 
 export type FindClassOrder = asType<typeof FIND_CLASS_ORDER>;
+
+export type MeetingPageType = 'create' | 'edit';

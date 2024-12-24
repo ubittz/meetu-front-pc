@@ -16,6 +16,9 @@ import {
   deleteMeetingFailure,
   deleteMeetingRequest,
   deleteMeetingSuccess,
+  editMeetingFailure,
+  editMeetingRequest,
+  editMeetingSuccess,
 } from '@@stores/meeting/reducer';
 import { authenticatedRequest } from '@@utils/request';
 import { ENDPOINTS } from '@@utils/request/constants';
@@ -28,6 +31,7 @@ function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
     const newMeeting = { ...payload.meeting };
     const meeting = createBlobJSON(JSON.stringify(newMeeting));
 
+    console.log('파일', payload);
     formData.append('file', payload.file);
     formData.append('meeting', meeting);
 
@@ -45,6 +49,32 @@ function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
     yield put(action);
   } catch (e) {
     yield put(createMeetingFailure((e as Error).message));
+  }
+}
+
+function* editMeeting({ payload }: ReturnType<typeof editMeetingRequest>) {
+  try {
+    const formData = new FormData();
+    const newMeeting = { ...payload.meeting };
+    const meeting = createBlobJSON(JSON.stringify(newMeeting));
+
+    formData.append('file', payload.file);
+    formData.append('meeting', meeting);
+
+    console.log(payload.meeting);
+
+    const response: MeetuResponse<string> = yield authenticatedRequest.post(ENDPOINTS.MEETING.EDIT, {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const action = response.ok ? editMeetingSuccess() : editMeetingFailure('등록된 회원이 없습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(editMeetingFailure((e as Error).message));
   }
 }
 
@@ -109,6 +139,7 @@ function* deleteMeeting({ payload }: ReturnType<typeof deleteMeetingRequest>) {
 export default function* defaultSaga() {
   yield takeLatest(checkDuplicateMeetingNameRequest.type, checkDuplicateMeetingName);
   yield takeLatest(createMeetingRequest.type, createMeeting);
+  yield takeLatest(editMeetingRequest.type, editMeeting);
   yield takeLatest(createContactRequest.type, createContact);
   yield takeLatest(createReviewRequest.type, createReview);
   yield takeLatest(deleteMeetingRequest.type, deleteMeeting);

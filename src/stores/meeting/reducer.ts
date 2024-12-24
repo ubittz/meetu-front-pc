@@ -1,6 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ContactAddDTO, Meeting, MeetingAddDTO, MeetingState, ReviewAddDTO } from '@@stores/meeting/types';
+import { ContactAddDTO, Meeting, MeetingAddEditDTO, MeetingState, ReviewAddDTO } from '@@stores/meeting/types';
 import { getRecentMeeting, saveRecentMeeting } from '@@utils/localStorage';
 
 const PREFIX = 'meeting';
@@ -11,9 +11,13 @@ const initialState: MeetingState = {
   recentList: recentList,
 };
 
-export const createMeetingRequest = createAction<MeetingAddDTO>(`${PREFIX}/createMeetingRequest`);
+export const createMeetingRequest = createAction<MeetingAddEditDTO>(`${PREFIX}/createMeetingRequest`);
 export const createMeetingSuccess = createAction(`${PREFIX}/createMeetingSuccess`);
 export const createMeetingFailure = createAction<string>(`${PREFIX}/createMeetingFailure`);
+
+export const editMeetingRequest = createAction<MeetingAddEditDTO>(`${PREFIX}/editMeetingRequest`);
+export const editMeetingSuccess = createAction(`${PREFIX}/editMeetingSuccess`);
+export const editMeetingFailure = createAction<string>(`${PREFIX}/editMeetingFailure`);
 
 export const checkDuplicateMeetingNameRequest = createAction<string>(`${PREFIX}/checkDuplicateMeetingNameRequest`);
 export const checkDuplicateMeetingNameSuccess = createAction(`${PREFIX}/checkDuplicateMeetingNameSuccess`);

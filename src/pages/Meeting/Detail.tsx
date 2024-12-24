@@ -12,6 +12,8 @@ import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
 import { formatCost, formatDate, getCategoryString, getDistrict } from '@@pages/Meeting/utils';
 import UserInfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
 import { useUserProfile } from '@@stores/auth/hooks';
 import { useMeetingDetail } from '@@stores/meeting/hooks';
@@ -180,7 +182,7 @@ function MeetingDetail() {
                 {/* <!-- 1단 버튼 영역 --> */}
                 {user?.userId === authStore.me?.id && (
                   <div className='btn_area'>
-                    <button type='button' className='btn' onClick={() => navigate(`/meeting/edit/${id}`)}>
+                    <button type='button' className='btn' onClick={() => navigate(pathGenerator(`${PAGES.MEETING}/edit/${id}`))}>
                       수정하기
                     </button>
                   </div>

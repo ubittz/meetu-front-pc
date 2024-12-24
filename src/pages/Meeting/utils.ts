@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 
-import { AddMeetingForm } from '@@pages/Meeting/types';
+import { AddMeetingForm, MeetingPageType } from '@@pages/Meeting/types';
 import { CATEGORY, CATEGORY_STRINGS, DISTRICT } from '@@stores/meeting/constants';
 import { Category } from '@@stores/meeting/types';
-import { MeetingAddDTO } from '@@stores/meeting/types';
+import { MeetingAddEditDTO } from '@@stores/meeting/types';
 
 export const formatCost = (cost: number) => {
   return new Intl.NumberFormat('ko-KR').format(cost); // 한국 형식으로 숫자 포맷
@@ -23,7 +23,7 @@ export const getCategoryString = (category: keyof typeof CATEGORY) => {
   return CATEGORY_STRINGS[category] || category; // 해당 카테고리의 한글 문자열 반환, 없으면 원래 문자열 반환
 };
 
-export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddDTO => ({
+export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddEditDTO => ({
   meeting: {
     name: form.name,
     category: form.meetingCategory as Category,
@@ -39,3 +39,7 @@ export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddDTO => (
   },
   file: form.file,
 });
+
+export const getMeetingPageType = (pathname: string): MeetingPageType => {
+  return pathname.includes('edit') ? 'edit' : 'create';
+};

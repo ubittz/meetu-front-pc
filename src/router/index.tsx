@@ -10,7 +10,7 @@ import FindId from '@@pages/Login/part/FindId';
 import FindPassword from '@@pages/Login/part/FindPassword';
 import Main from '@@pages/Main';
 import MeetingList from '@@pages/Meeting';
-import MeetingCreate from '@@pages/Meeting/Create';
+import MeetingCreateEdit from '@@pages/Meeting/CreateEdit';
 import MeetingDetail from '@@pages/Meeting/Detail';
 import MyPage from '@@pages/MyPage';
 import ApplyHost from '@@pages/MyPage/ApplyHost';
@@ -59,7 +59,8 @@ function Router() {
       {/* 모임 */}
       <Route path={pathGenerator(PAGES.MEETING)} element={<MeetingList />} />
       <Route path={pathGenerator(PAGES.MEETING) + '/:id'} element={<MeetingDetail />} />
-      <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
+      <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreateEdit />} />
+      <Route path={pathGenerator(PAGES.MEETING) + '/edit/:id'} element={<MeetingCreateEdit />} />
 
       {/* 결제 */}
       <Route path={pathGenerator(PAGES.PURCHASE)} element={<Purchase />} />

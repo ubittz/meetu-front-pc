@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useFormikContext } from 'formik';
 import { useDispatch } from 'react-redux';
 
@@ -10,7 +8,6 @@ import { checkDuplicateMeetingNameRequest, checkDuplicateMeetingNameSuccess, che
 export const useAddMeetingForm = () => {
   const dispatch = useDispatch();
   const { values, setFieldValue, errors } = useFormikContext<AddMeetingForm>();
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleCheckMeetingName = () => {
     if (!values.name) {
@@ -18,14 +15,6 @@ export const useAddMeetingForm = () => {
       return;
     }
     dispatch(checkDuplicateMeetingNameRequest(values.name));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      setFieldValue('file', file);
-    }
   };
 
   useActionSubscribe({
@@ -48,8 +37,6 @@ export const useAddMeetingForm = () => {
     setFieldValue,
     values,
     errors,
-    selectedFile,
     handleCheckMeetingName,
-    handleFileChange,
   };
 };

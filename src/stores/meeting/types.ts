@@ -24,7 +24,7 @@ export interface Meeting {
   imageUrl?: string;
 }
 
-export interface MeetingAddDTO {
+export interface MeetingAddEditDTO {
   meeting: {
     name: string;
     category: Category;
@@ -57,6 +57,7 @@ export interface MeetingSingleResponse {
   item: string;
   guestCount: number;
   avgScore: number;
+  imageUrl: string;
 }
 
 export interface ReviewListResponse {
