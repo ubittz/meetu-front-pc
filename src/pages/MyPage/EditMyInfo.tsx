@@ -58,7 +58,7 @@ function EditMyInfo() {
             <strong className='active'>내 정보 수정</strong>
           </p>
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={editMyInfoSchema}>
-            <EditMyInfoFormContent handleEmailCheck={handleEmailCheck} />
+            <EditMyInfoFormContent />
           </Formik>
           {/* <!-- 내정보 수정 결과 팝업 시작 --> */}
           <Popup

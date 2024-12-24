@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import images from '@@assets/images';
-import UserPopup from '@@components/Popup/UserPopup';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
@@ -72,9 +70,9 @@ function MyPageDashboard({ profileButtonAction }: MyPageDashboardProps) {
           </li>
         </ul>
       </div>
-      <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}>
-        <InfoPopup user={me} />
-      </UserPopup>
+      {/* <UserPopup visible={isPopupOpen} title='프로필' onCancel={closePopup} img={images.meeting_img04}> */}
+      <InfoPopup user={me} visible={isPopupOpen} onCancel={closePopup} />
+      {/* </UserPopup> */}
     </section>
   );
 }
