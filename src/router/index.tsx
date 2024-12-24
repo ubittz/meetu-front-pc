@@ -73,7 +73,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/user'} element={<InfoUser />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host'} element={<InfoHost />} />
       {/* :type에 host 혹은 user가 들어감 */}
-      <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting/:type'} element={<MyMeeting />} />
+      <Route path={pathGenerator(PAGES.MYPAGE) + '/my-meeting'} element={<MyMeeting />} />
       <Route path={pathGenerator(PAGES.MYPAGE) + '/info/host-review'} element={<InfoHostReview />} />
       <Route path='*' element={<Error />} />
     </Routes>

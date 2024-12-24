@@ -6,16 +6,13 @@ import MyPageDashboard from '@@pages/MyPage/parts/MyPageDashboard';
 import MyPageHeader from '@@pages/MyPage/parts/MyPageHeader';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { UserType } from '@@types/user';
 
 function ApplyHost() {
-  const type: UserType = 'host';
-
   return (
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader type={type} activeTab='host-app' />
+        <MyPageHeader activeTab='host-app' />
 
         <MyPageDashboard />
 

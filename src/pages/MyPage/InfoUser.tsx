@@ -6,11 +6,8 @@ import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import InfoPopup from '@@pages/MyPage/parts/UserInfoPopup';
-import { UserType } from '@@types/user';
 
 function InfoUser() {
-  const type: UserType = 'user';
-
   const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
 
   const handleOpenInfoPopup = () => {
@@ -52,7 +49,7 @@ function InfoUser() {
             </ul>
           </div>
 
-          {isShowInfoPopup && <InfoPopup type={type} />}
+          {isShowInfoPopup && <InfoPopup />}
         </section>
         {/* <!-- 이용자 정보 대시보드 종료 --> */}
 

@@ -27,6 +27,10 @@ export const createReviewRequest = createAction<ReviewAddDTO>(`${PREFIX}/createR
 export const createReviewSuccess = createAction(`${PREFIX}/createReviewSuccess`);
 export const createReviewFailure = createAction<string>(`${PREFIX}/createReviewFailure`);
 
+export const deleteMeetingRequest = createAction<string>(`${PREFIX}/deleteMeetingRequest`);
+export const deleteMeetingSuccess = createAction(`${PREFIX}/deleteMeetingSuccess`);
+export const deleteMeetingFailure = createAction<string>(`${PREFIX}/deleteMeetingFailure`);
+
 const meetingSlice = createSlice({
   name: PREFIX,
   initialState,

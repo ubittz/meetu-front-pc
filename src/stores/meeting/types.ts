@@ -1,4 +1,4 @@
-import { CATEGORY, MEETING_ORDER_TYPE } from '@@stores/meeting/constants';
+import { CATEGORY, MEETING_FILTER_TYPE, MEETING_ORDER_TYPE } from '@@stores/meeting/constants';
 import { asType } from '@@types/common';
 import { PageQuery } from '@@utils/request/types';
 
@@ -21,6 +21,7 @@ export interface Meeting {
   meetingDescript: string;
   meetingProcessGuide: string;
   meetingItem: string;
+  imageUrl?: string;
 }
 
 export interface MeetingAddDTO {
@@ -102,6 +103,8 @@ export interface ContactAddDTO {
 
 export type MeetingOrderType = asType<typeof MEETING_ORDER_TYPE>;
 
+export type MeetingFilterType = asType<typeof MEETING_FILTER_TYPE>;
+
 export interface MeetingListWithCategoryQuery extends PageQuery {
   category?: Category;
   orderType?: MeetingOrderType;
@@ -112,4 +115,5 @@ export interface MeetingByUserQuery {
   page: number;
   size?: number;
   userId?: string;
+  filterType?: MeetingFilterType;
 }

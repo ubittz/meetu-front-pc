@@ -13,6 +13,9 @@ import {
   createReviewFailure,
   createReviewRequest,
   createReviewSuccess,
+  deleteMeetingFailure,
+  deleteMeetingRequest,
+  deleteMeetingSuccess,
 } from '@@stores/meeting/reducer';
 import { authenticatedRequest } from '@@utils/request';
 import { ENDPOINTS } from '@@utils/request/constants';
@@ -89,9 +92,24 @@ function* createReview({ payload }: ReturnType<typeof createReviewRequest>) {
   }
 }
 
+function* deleteMeeting({ payload }: ReturnType<typeof deleteMeetingRequest>) {
+  try {
+    const response: MeetuResponse<string> = yield authenticatedRequest.delete(`/api/meeting/delete/${payload}`, {
+      data: payload,
+    });
+
+    const action = response.ok ? deleteMeetingSuccess() : deleteMeetingFailure('모임 삭제를 실패했습니다.');
+
+    yield put(action);
+  } catch (e) {
+    yield put(deleteMeetingFailure((e as Error).message));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(checkDuplicateMeetingNameRequest.type, checkDuplicateMeetingName);
   yield takeLatest(createMeetingRequest.type, createMeeting);
   yield takeLatest(createContactRequest.type, createContact);
   yield takeLatest(createReviewRequest.type, createReview);
+  yield takeLatest(deleteMeetingRequest.type, deleteMeeting);
 }

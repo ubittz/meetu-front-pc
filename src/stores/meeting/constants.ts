@@ -84,3 +84,8 @@ export const QUERY_BY_FIND_CLASS_ORDER = {
     isAsc: false,
   },
 } as const;
+
+export const MEETING_FILTER_TYPE = {
+  CONFIRMED_WAITING: 'CONFIRMED_WAITING',
+  IN_PROGRESS: 'IN_PROGRESS',
+} as const;
