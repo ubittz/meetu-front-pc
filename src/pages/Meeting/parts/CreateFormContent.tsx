@@ -16,8 +16,8 @@ const StyledImagePreview = styled.img`
 `;
 
 function CreateFormContent({ isEdit }: { isEdit: boolean }) {
-  const { errors, setFieldValue, handleCheckMeetingName } = useAddMeetingForm();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const { errors, values, setFieldValue, handleCheckMeetingName } = useAddMeetingForm();
+  const [previewUrl, setPreviewUrl] = useState<string | null>(values.file);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
