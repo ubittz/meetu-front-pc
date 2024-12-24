@@ -4,15 +4,16 @@ import images from '@@assets/images';
 import { getDistrict } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { useAppState } from '@@store/hooks';
 import { Meeting } from '@@stores/meeting/types';
-import { UserType } from '@@types/user';
 
 interface MyMeetingListItemProps {
-  type?: UserType;
   meeting: Meeting;
 }
 
-function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
+function MyMeetingListItem({ meeting }: MyMeetingListItemProps) {
+  const me = useAppState((state) => state.auth.me);
+
   return (
     <li>
       <div className='img_area'>
@@ -26,7 +27,7 @@ function MyMeetingListItem({ type, meeting }: MyMeetingListItemProps) {
         <p className='txt'>{meeting.meetingDescript}</p>
         <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
       </div>
-      {type === 'host' && (
+      {me?.isHost && (
         <div className='btn_area type_02'>
           <Link to={pathGenerator(PAGES.MEETING) + '/create'} className='btn form02'>
             수정하기

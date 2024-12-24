@@ -9,12 +9,10 @@ import OrderDetailPopup from '@@pages/MyPage/parts/OrderDetailPopup';
 import OrderListItem from '@@pages/MyPage/parts/OrderListItem';
 import { usePaymentList } from '@@stores/payment/hooks';
 import { PaymentListResponse } from '@@stores/payment/types';
-import { UserType } from '@@types/user';
 import { useQueryParams } from '@@utils/request/hooks';
 import { PageQuery } from '@@utils/request/types';
 
 function OrderList() {
-  const type: UserType = 'user';
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<PaymentListResponse | null>(null);
 
@@ -41,7 +39,7 @@ function OrderList() {
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader type={type} activeTab='payment' />
+        <MyPageHeader activeTab='payment' />
 
         <MyPageDashboard />
 

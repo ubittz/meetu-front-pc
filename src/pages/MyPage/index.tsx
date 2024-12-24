@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import Footer from '@@components/Footer';
@@ -11,33 +9,26 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
 import { useMeetingMyList } from '@@stores/meeting/hooks';
-import { UserType } from '@@types/user';
 
 import MyPageSwiper from './parts/MyPageSwiper';
 
 function MyPage() {
-  const type: UserType = 'host';
-  const [isShowInfoPopup, setIsShowInfoPopup] = useState(false);
   const { recentList } = useAppState((state) => state.meeting);
 
   const { content: mypage_content } = useMeetingMyList({ page: 0, size: 3 });
-
-  const handleShowInfoPopup = () => {
-    setIsShowInfoPopup(!isShowInfoPopup);
-  };
 
   return (
     <div id='wrap'>
       <Header />
       <main className='container'>
-        <MyPageHeader type={type} activeTab='info' />
-        <MyPageDashboard profileButtonAction={handleShowInfoPopup} />
+        <MyPageHeader activeTab='info' />
+        <MyPageDashboard />
 
         <section className='mypage_content'>
           <div className='mc_inner'>
             <h3 className='main_tit'>
               최근 본 모임
-              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/${type}`} className='btn'>
+              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting`} className='btn'>
                 더 보기
               </Link>
             </h3>
@@ -45,7 +36,7 @@ function MyPage() {
             <ul className='swiper-wrapper'>{recentList && recentList.length > 0 ? <MyPageSwiper meetings={recentList} /> : <ClassEmpty />}</ul>
             <h3 className='main_tit tw-mt-5'>
               내 모임
-              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting/${type}`} className='btn'>
+              <Link to={`${pathGenerator(PAGES.MYPAGE)}/my-meeting`} className='btn'>
                 더 보기
               </Link>
             </h3>
