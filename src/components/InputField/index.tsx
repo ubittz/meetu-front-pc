@@ -10,16 +10,32 @@ interface InputFieldProps {
   isDate?: boolean;
   children?: ReactNode;
   required?: boolean;
+  disabled?: boolean;
+  errorMessage?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ name, label, placeholder, type = 'text', isDate, children, required = false }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  name,
+  label,
+  placeholder,
+  type = 'text',
+  isDate,
+  children,
+  disabled,
+  errorMessage,
+  required = false,
+}) => {
   const renderInput = ({ field, meta }: FieldProps) => {
-    const hasError = meta.touched && meta.error;
+    const hasError = (meta.touched && meta.error) || !!errorMessage;
 
     return (
       <>
-        <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} />
-        <ErrorMessage name={name}>{(msg) => <p className='txt_error'>{msg}</p>}</ErrorMessage>
+        <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} />
+        {errorMessage ? (
+          <p className='txt_error'>{errorMessage}</p>
+        ) : (
+          <ErrorMessage name={name}>{(msg) => <p className='txt_error'>{errorMessage ?? msg}</p>}</ErrorMessage>
+        )}
         {children}
       </>
     );

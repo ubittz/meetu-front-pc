@@ -2,13 +2,12 @@ import { Meeting } from '@@types/meeting';
 
 interface EditMyInfoForm {
   id: string;
-  name: string;
-  password: string;
-  passwordCheck: string;
-  birth: string;
-  phone: string;
-  email: string;
+  password?: string;
+  passwordCheck?: string;
+  email?: string;
+  description?: string;
   checkedEmail: boolean;
+  image?: File | string;
 }
 
 interface Review {

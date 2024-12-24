@@ -29,13 +29,22 @@ export const registerSchema = object({
 });
 
 export const editMyInfoSchema = object({
-  name: string().required('이름을 입력해주세요.'),
   password: string().matches(new RegExp(/^[a-zA-Z0-9]{8,20}$/), { message: '비밀번호는 영문 대소문자 + 숫자 조합 8~20글자 입니다.' }),
-  passwordCheck: string().oneOf([ref('password')], '비밀번호가 일치하지 않습니다.'),
-  birth: string().matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '생일을 정확히 입력해주세요.' }),
-  phone: string().matches(/^0\d{9,10}$/, { message: '전화번호를 정확히 입력해주세요.' }),
+  passwordCheck: string()
+    .when('password', ([password], schema) => {
+      if (password) {
+        return schema.required('비밀번호가 일치하지 않습니다.');
+      }
+      return schema;
+    })
+    .oneOf([ref('password')], '비밀번호가 일치하지 않습니다.'),
   email: string().matches(/^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, { message: '이메일을 정확히 입력해주세요.' }),
-  checkedEmail: boolean().isTrue('이메일 중복체크를 해주세요.'),
+  checkedEmail: boolean().when('email', ([email], schema) => {
+    if (email) {
+      return schema.isTrue('이메일 중복체크를 해주세요.');
+    }
+    return schema;
+  }),
 });
 
 export const paymentSchema = object({
