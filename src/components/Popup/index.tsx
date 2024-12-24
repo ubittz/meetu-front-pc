@@ -41,7 +41,7 @@ const StyledPopup = styled.div<{ $visible: boolean }>`
 
     .popup_box__button1,
     .popup_box__button2 {
-      width: 85%;
+      flex: 1;
       height: 56px;
       border-radius: 4px;
       margin-top: 80px;
@@ -59,6 +59,7 @@ const StyledPopup = styled.div<{ $visible: boolean }>`
 
     .popup_box__buttons {
       display: flex;
+      gap: 16px;
       width: 85%;
       gap: 16px;
     }
