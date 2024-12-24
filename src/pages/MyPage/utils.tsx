@@ -1,7 +1,9 @@
-import { User } from '@@stores/auth/types';
+import { User, UserEditRequestDTO } from '@@stores/auth/types';
 import { UserProfileResponse } from '@@stores/auth/types';
 import { SIMPLE_TYPE_STRING } from '@@stores/payment/constants';
 import { PaymentDetailResponse } from '@@stores/payment/types';
+
+import { EditMyInfoForm } from './types';
 export const getPaymentType = (payment: PaymentDetailResponse) => {
   if (payment.card) {
     return `신용카드 (${payment.card.companyName}) 결제`;
@@ -64,3 +66,10 @@ export function getUserResponseType(user: User | undefined): UserProfileResponse
     imageUrl: user?.imageUrl ?? '',
   };
 }
+
+export const sanitizeEditForm = (form: EditMyInfoForm): UserEditRequestDTO => ({
+  id: form.id,
+  password: form.password,
+  email: form.email,
+  description: form.description,
+});
