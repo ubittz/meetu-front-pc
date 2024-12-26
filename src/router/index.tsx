@@ -8,9 +8,7 @@ import MeetingList from '@@pages/Meeting';
 import MeetingDetail from '@@pages/Meeting/Detail';
 import Profile from '@@pages/Profile';
 import InfoHostReview from '@@pages/Profile/InfoHostReview';
-import AuthRouter from '@@router/AuthRouter';
-import { PAGES, ROUTE_PREFIX } from '@@router/constants';
-import UnAuthRouter from '@@router/UnAuthRouter';
+import { AUTH_ROUTES, PAGES, ROUTE_PREFIX, UNAUTH_ROUTES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
 import { fetchMeRequest } from '@@stores/auth/reducer';
@@ -40,7 +38,9 @@ function Router() {
       <Route path={pathGenerator(PAGES.PROFILE) + '/:id'} element={<Profile />} />
       <Route path={pathGenerator(PAGES.PROFILE) + '/:id/review'} element={<InfoHostReview />} />
 
-      <Route path='*' element={token ? <AuthRouter /> : <UnAuthRouter />} />
+      {(token ? AUTH_ROUTES : UNAUTH_ROUTES).map((props) => (
+        <Route {...props} key={props.path} />
+      ))}
     </Routes>
   );
 }
