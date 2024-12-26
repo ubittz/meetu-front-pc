@@ -5,6 +5,7 @@ import { Field, ErrorMessage, FieldProps } from 'formik';
 interface InputFieldProps {
   name: string;
   label: string;
+  value?: string;
   placeholder: string;
   type?: string;
   isDate?: boolean;
@@ -17,6 +18,7 @@ interface InputFieldProps {
 const InputField: React.FC<InputFieldProps> = ({
   name,
   label,
+  value,
   placeholder,
   type = 'text',
   isDate,
@@ -30,7 +32,10 @@ const InputField: React.FC<InputFieldProps> = ({
 
     return (
       <>
-        <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} />
+        {value && (
+          <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} value={value} />
+        )}
+        {!value && <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} />}
         {errorMessage ? (
           <p className='txt_error'>{errorMessage}</p>
         ) : (

@@ -12,8 +12,7 @@ import Typography from '@@components/Typography';
 import { createMeetingSchema } from '@@constants/scheme';
 import CreateFormContent from '@@pages/Meeting/parts/CreateFormContent';
 import { AddMeetingForm } from '@@pages/Meeting/types';
-import { sanitizeAddMeetingForm, getMeetingPageType } from '@@pages/Meeting/utils';
-import { getCategoryString } from '@@pages/Meeting/utils';
+import { sanitizeAddMeetingForm, sanitizeEditMeetingForm, getMeetingPageType } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
@@ -36,11 +35,12 @@ function MeetingCreateEdit() {
   const { data } = useMeetingDetail(id ?? ''); // edit인 경우에만 요청하도록 수정
 
   const initialValues: AddMeetingForm = {
+    id: data?.id,
     name: data?.name ?? '',
     nameCheck: data?.name ? true : false,
-    meetingCategory: data?.category ? getCategoryString(data.category) : '',
+    meetingCategory: data?.category ? data.category : '',
     mainAddress: data?.mainPlace ?? '',
-    detailAddress: data?.mainDetail ?? '',
+    detailAddress: data?.detailPlace ?? '',
     cost: data?.cost ?? 0,
     limit: data?.limit ?? 0,
     processDate: data?.processDate ?? '',
@@ -49,6 +49,7 @@ function MeetingCreateEdit() {
     processGuide: data?.processGuide ?? '',
     item: data?.item ?? '',
     file: data?.imageUrl ?? '',
+    isImageNotChange: true,
   };
 
   const pageType = getMeetingPageType(pathname);
@@ -57,8 +58,9 @@ function MeetingCreateEdit() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleSubmit = (values: AddMeetingForm) => {
-    const sanitizedValues = sanitizeAddMeetingForm(values);
+    const sanitizedValues = isEdit ? sanitizeEditMeetingForm(values) : sanitizeAddMeetingForm(values);
     dispatch(isEdit ? editMeetingRequest(sanitizedValues) : createMeetingRequest(sanitizedValues));
+    console.log('sanitizedValues: ', sanitizedValues);
   };
 
   const openPopup = () => {
@@ -140,7 +142,7 @@ function MeetingCreateEdit() {
             onCancel={closePopup}
           >
             <Flex.Horizontal className='tw-justify-center'>
-              <Typography.SmallTitle>모임 개설 등록이 완료되었습니다.</Typography.SmallTitle>
+              <Typography.SmallTitle>{isEdit ? '모임 수정이 완료되었습니다.' : '모임 개설이 완료되었습니다.'}</Typography.SmallTitle>
             </Flex.Horizontal>
           </Popup>
         </section>

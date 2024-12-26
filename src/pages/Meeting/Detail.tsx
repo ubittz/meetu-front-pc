@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
@@ -55,9 +54,9 @@ function MeetingDetail() {
     setIsPopupOpen(false);
   };
 
-  const handleCheck = () =>{
-    navigate(pathGenerator(PAGES.PURCHASE , `/${id}`))
-  }
+  const handleCheck = () => {
+    navigate(pathGenerator(PAGES.PURCHASE, `/${id}`));
+  };
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -90,7 +89,7 @@ function MeetingDetail() {
               {/* <!-- 모임 정보 영역 --> */}
               <div className='mv_content'>
                 <div className='img_area'>
-                  <img src={data?.intro} alt='모임 대표 이미지' />
+                  <img src={data?.imageUrl} alt='모임 대표 이미지' />
                 </div>
 
                 <div className='mv_tab_area'>
@@ -127,11 +126,7 @@ function MeetingDetail() {
                 </div>
                 {/* <!-- 상세정보 --> */}
                 <div ref={detailRef} className='mv_detail'>
-                  <img src={images.meeting_img02} alt='상세정보 이미지' />
-                  <div className='detail_txt'>
-                    <h4>상세정보</h4>
-                    <p>{data?.descript}</p>
-                  </div>
+                  <p>{data?.descript}</p>
                   <div className='detail_txt'>
                     <h4>제공 / 준비물</h4>
                     <p>{data?.item}</p>
@@ -139,9 +134,9 @@ function MeetingDetail() {
                 </div>
 
                 {/* <!-- 리뷰 --> */}
-                <ReviewList ref={reviewRef} averageScore={data?.avgScore ?? 0} />
+                <ReviewList ref={reviewRef} averageScore={data?.avgScore ?? 0} isHost={user?.userId === authStore.me?.id} />
                 {/* <!-- 문의 --> */}
-                <QnaList ref={inquiryRef} />
+                <QnaList ref={inquiryRef} isHost={user?.userId === authStore.me?.id} />
               </div>
 
               {/* <!-- 모임 신청 영역 --> */}
@@ -195,6 +190,7 @@ function MeetingDetail() {
                 {/* <!-- 1단 버튼 영역 --> */}
                 {user?.userId === authStore.me?.id && (
                   <div className='btn_area'>
+                    {/* <button type='button' className='btn' onClick={() => console.log('데이터: ', data)}> */}
                     <button type='button' className='btn' onClick={() => navigate(pathGenerator(`${PAGES.MEETING}/edit/${id}`))}>
                       수정하기
                     </button>

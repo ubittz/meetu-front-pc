@@ -6,8 +6,11 @@ import styled from 'styled-components';
 
 import InputField from '@@components/InputField';
 import { useAddMeetingForm } from '@@pages/Meeting/hooks';
+import { getCategoryString } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { CATEGORY } from '@@stores/meeting/constants';
+import { Category } from '@@stores/meeting/types';
 
 const StyledImagePreview = styled.img`
   width: 100%;
@@ -25,6 +28,7 @@ function CreateFormContent({ isEdit }: { isEdit: boolean }) {
       const fileUrl = URL.createObjectURL(file);
       setPreviewUrl(fileUrl);
       setFieldValue('file', file);
+      setFieldValue('isImageNotChange', false);
     }
   };
 
@@ -55,7 +59,15 @@ function CreateFormContent({ isEdit }: { isEdit: boolean }) {
         />
       </>
       {isEdit ? (
-        <InputField name='meetingCategory' label='카테고리' type='text' placeholder='카테고리를 입력해주세요.' required disabled />
+        <InputField
+          name='meetingCategory'
+          label='카테고리'
+          type='text'
+          placeholder='카테고리를 입력해주세요.'
+          value={getCategoryString(values.meetingCategory as Category)}
+          required
+          disabled
+        />
       ) : (
         <>
           <div className='input_area'>
@@ -66,16 +78,9 @@ function CreateFormContent({ isEdit }: { isEdit: boolean }) {
               <option value='' selected disabled hidden>
                 선택하기
               </option>
-              <option value='ART'>아트</option>
-              <option value='READING'>독서</option>
-              <option value='COOKING'>쿠킹</option>
-              <option value='CYCLING'>사이클</option>
-              <option value='EXERCISE'>운동</option>
-              <option value='HIKING'>등산</option>
-              <option value='MUSIC'>음악</option>
-              <option value='PHOTOGRAPHY'>사진</option>
-              <option value='TECHNOLOGY'>기술</option>
-              <option value='WINE'>와인</option>
+              {Object.values(CATEGORY).map((category) => (
+                <option value={category}>{getCategoryString(category)}</option>
+              ))}
             </select>
             {errors.meetingCategory && <p className='txt_error'>카테고리를 선택해주세요.</p>}
           </div>
@@ -153,7 +158,7 @@ function CreateFormContent({ isEdit }: { isEdit: boolean }) {
           취소
         </Link>
         <button type='submit' className='btn'>
-          모임등록
+          {isEdit ? '모임수정' : '모임등록'}
         </button>
       </div>
     </Form>

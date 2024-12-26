@@ -26,10 +26,11 @@ export interface Meeting {
 
 export interface MeetingAddEditDTO {
   meeting: {
+    id?: string;
     name: string;
     category: Category;
-    mainAddress?: string;
-    detailAddress?: string;
+    mainAddress: string;
+    detailAddress: string;
     cost: number;
     limit?: number;
     processDate: string;
@@ -38,7 +39,7 @@ export interface MeetingAddEditDTO {
     processGuide?: string;
     item?: string;
   };
-  file: string;
+  file?: string;
 }
 
 export interface MeetingSingleResponse {
@@ -48,7 +49,7 @@ export interface MeetingSingleResponse {
   hostName: string;
   address: string;
   mainPlace: string;
-  mainDetail: string;
+  detailPlace: string;
   processDate: string;
   cost: number;
   limit: number;
