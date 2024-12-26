@@ -7,4 +7,5 @@ export const PAGES = {
   MEETING: '/meeting',
   PURCHASE: '/purchase',
   MYPAGE: '/mypage',
+  PROFILE: '/profile',
 } as const;

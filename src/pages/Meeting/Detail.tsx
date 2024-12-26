@@ -29,6 +29,7 @@ function MeetingDetail() {
 
   const { id } = useParams();
   const { data, isLoading } = useMeetingDetail(id ?? '');
+
   const { data: user, isLoading: isUserLoading } = useUserProfile(data?.hostId ?? '');
 
   const detailRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,9 @@ function MeetingDetail() {
     setIsPopupOpen(false);
   };
 
+  const handleCheck = () =>{
+    navigate(pathGenerator(PAGES.PURCHASE , `/${id}`))
+  }
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -174,7 +178,7 @@ function MeetingDetail() {
                     <button type='button' className='btn form02' onClick={openPopup}>
                       호스트 정보
                     </button>
-                    <button type='button' className='btn'>
+                    <button type='button' className='btn' onClick={handleCheck}>
                       신청하기
                     </button>
                   </div>

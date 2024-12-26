@@ -144,3 +144,14 @@ export const applyHostSchema = object({
   bank: string().required('은행을 선택해주세요.'),
   accNo: string().required('계좌번호를 입력해주세요.'),
 });
+
+
+export const paymentSchemaCustomer = object({
+  customerName: string().required('주문자 이름을 입력해주세요.'),
+  customerTel: string()
+    .required('주문자 연락처를 입력해주세요.')
+    .matches(/\d{10,11}/, {
+      message: '주문자 연락처를 입력해주세요.',
+    }),
+  agreeFinancial: boolean().isTrue('주문 관련 약관을 동의해주세요.'),
+});
