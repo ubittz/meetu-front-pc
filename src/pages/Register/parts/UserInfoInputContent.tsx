@@ -1,15 +1,14 @@
-import { Form, ErrorMessage } from 'formik';
+import { Form, ErrorMessage, Field, FieldProps } from 'formik';
 import { Link } from 'react-router-dom';
 
 import InputField from '@@components/InputField';
 import { GENDER } from '@@pages/Register/constants';
+import { useRegisterForm } from '@@pages/Register/hooks';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 
-import { useRegisterForm } from '../hooks';
-
 export function UserInfoInputContent() {
-  const { setFieldValue, handleClickCheckId, handleClickCheckEmail } = useRegisterForm();
+  const { getFieldProps, handleClickCheckId, handleClickCheckEmail } = useRegisterForm();
 
   return (
     <Form>
@@ -43,22 +42,20 @@ export function UserInfoInputContent() {
             <div className='input_area inputChk'>
               <p className='input_tit'>성별</p>
               <div className='chk_area radio'>
-                <input
+                <Field
                   type='radio'
-                  name='genderChk'
-                  id='genderChk01'
-                  value='male'
-                  onChange={() => setFieldValue('gender', GENDER.MALE)} // 성별 업데이트
+                  {...getFieldProps('gender')}
+                  value={GENDER.MALE}
+                  as={(props: FieldProps['field']) => <input {...props} id='genderChk01' />}
                 />
                 <label htmlFor='genderChk01'>남자</label>
               </div>
               <div className='chk_area radio'>
-                <input
+                <Field
                   type='radio'
-                  name='genderChk'
-                  id='genderChk02'
-                  value='female'
-                  onChange={() => setFieldValue('gender', GENDER.FEMALE)} // 성별 업데이트
+                  {...getFieldProps('gender')}
+                  value={GENDER.FEMALE}
+                  as={(props: FieldProps['field']) => <input {...props} id='genderChk02' />}
                 />
                 <label htmlFor='genderChk02'>여자</label>
               </div>

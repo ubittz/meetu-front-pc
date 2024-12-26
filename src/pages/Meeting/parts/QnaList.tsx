@@ -27,7 +27,7 @@ const StyledQna = styled.div`
   }
 `;
 
-const QnaList = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
+const QnaList = React.forwardRef<HTMLDivElement, {}>((_, ref) => {
   const params = useParams();
   const dispatch = useDispatch();
   const [currentQnaPage, setCurrentQnaPage] = useState(0);

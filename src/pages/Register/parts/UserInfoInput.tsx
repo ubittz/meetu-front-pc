@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import { registerSchema } from '@@constants/scheme';
+import { GENDER } from '@@pages/Register/constants';
 import { UserInfoInputContent } from '@@pages/Register/parts/UserInfoInputContent';
 import { RegisterForm } from '@@pages/Register/types';
 import { sanitizeRegisterForm } from '@@pages/Register/utils';
@@ -21,7 +22,7 @@ const initialValues: RegisterForm = {
   passwordCheck: '',
   email: '',
   birth: '',
-  gender: '',
+  gender: GENDER.MALE,
   tel: '',
   checkedId: false,
   checkedEmail: false,

@@ -55,7 +55,7 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
             right: { top: '109%', right: '14%' },
           }}
           sliderProps={{
-            beforeChange: (current, next) => {
+            beforeChange: (_, next) => {
               setIndex(next);
             },
             dots: true,

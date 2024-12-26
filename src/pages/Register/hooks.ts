@@ -14,7 +14,7 @@ import {
 
 export const useRegisterForm = () => {
   const dispatch = useDispatch();
-  const { values, setFieldValue } = useFormikContext<RegisterForm>();
+  const { values, getFieldProps, setFieldValue } = useFormikContext<RegisterForm>();
 
   const handleClickCheckId = () => {
     dispatch(checkDuplicateIdRequest(values.userId));
@@ -58,6 +58,7 @@ export const useRegisterForm = () => {
 
   return {
     values,
+    getFieldProps,
     setFieldValue,
     handleClickCheckId,
     handleClickCheckEmail,
