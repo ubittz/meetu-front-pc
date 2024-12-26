@@ -6,11 +6,24 @@ import ReviewListItem from '@@pages/MyPage/parts/ReviewListItem';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useUserProfile } from '@@stores/auth/hooks';
+import { useReviewByUserId } from '@@stores/meeting/hooks';
+import { ReviewByUserIdQuery } from '@@stores/meeting/types';
+import { useQueryParams } from '@@utils/request/hooks';
+
+const initialQuery: ReviewByUserIdQuery = {
+  page: 0,
+};
 
 function InfoHostReview() {
   const { id } = useParams();
 
+  const { query } = useQueryParams(initialQuery, {
+    initialSearch: ({ page }) => page === undefined,
+  });
+
   const { data: user } = useUserProfile(id ?? '');
+
+  const { content } = useReviewByUserId(user?.userId ?? '', query);
 
   if (!user) {
     return null;
@@ -74,11 +87,7 @@ function InfoHostReview() {
             </div>
 
             <div className='list_wrap type_my02'>
-              <ul>
-                {/* {reviews.map((review) => (
-                  <ReviewListItem key={review.id} review={review} />
-                ))} */}
-              </ul>
+              <ul>{content?.map((review) => <ReviewListItem key={review.reviewNo} review={review} />)}</ul>
             </div>
           </div>
         </section>

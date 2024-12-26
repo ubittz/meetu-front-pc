@@ -1,5 +1,3 @@
-import { Meeting } from '@@types/meeting';
-
 interface EditMyInfoForm {
   id: string;
   password?: string;
@@ -8,27 +6,6 @@ interface EditMyInfoForm {
   description?: string;
   checkedEmail: boolean;
   image?: File | string;
-}
-
-interface Review {
-  id: number;
-  meetingTitle: string; // 모임으로 대체 필요 (모임명)
-  rating: number;
-  content: string;
-  createdAt: string;
-  user: {
-    // 리뷰 작성한 유저
-    id: number;
-    nickname: string;
-  };
-}
-// 결제 목록
-interface Order {
-  orderNumber: string; // 고유값 (id 역할)
-  orderDate: Date; // 결제 일자
-  finalPrice: number; // 최종 결제 금액
-  meeting: Meeting;
-  detail?: OrderDetail;
 }
 
 // 결제 상세 팝업
@@ -68,4 +45,4 @@ interface OrderUserInfo {
   email: string;
 }
 
-export type { Review, Order, PaymentMethod, OrderDetail, EditMyInfoForm };
+export type { PaymentMethod, OrderDetail, EditMyInfoForm };

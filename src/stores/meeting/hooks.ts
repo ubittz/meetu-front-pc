@@ -5,6 +5,7 @@ import {
   MeetingByUserQuery,
   MeetingListWithCategoryQuery,
   MeetingSingleResponse,
+  ReviewByUserIdQuery,
   ReviewListQuery,
   ReviewListResponse,
 } from '@@stores/meeting/types';
@@ -62,3 +63,11 @@ export const useMeetingListByLastMonth = () => {
 
   return formatSWRListResponse(data);
 };
+
+export const useReviewByUserId = (id: string, query: ReviewByUserIdQuery) => {
+  const data = useSWRList<MeetuPageResponse<ReviewListResponse>>(`/api/meeting/review/list/${id}`, {
+    query
+  });
+  
+  return formatSWRListResponse(data);
+}
