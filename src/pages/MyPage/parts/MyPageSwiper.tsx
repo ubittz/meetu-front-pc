@@ -5,6 +5,7 @@ import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import Slider from '@@components/Slider';
 import SliderItem from '@@components/SliderItem';
+import { getDistrict } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting } from '@@stores/meeting/types';
@@ -38,7 +39,7 @@ function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
       <div className='txt_area'>
         <div className='sort tw-mb-3'>
           {meeting.meetingId && <span className='hot'>HOT</span>}
-          <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
+          <span className='location'>{getDistrict(meeting.meetingMainPlace)}</span>
         </div>
         <h4 className='tit'>{meeting.meetingName}</h4>
         <p className='txt'>{meeting.meetingDescript}</p>

@@ -7,6 +7,8 @@ import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { Meeting } from '@@stores/meeting/types';
 
+import { getDistrict } from '../utils';
+
 interface MeetingGridItemProps {
   meeting: Meeting;
 }
@@ -25,12 +27,12 @@ function MeetingGridItem({ meeting }: MeetingGridItemProps) {
     <StyledMeetingGridItem>
       <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.meetingId}`}>
         <Flex.Vertical className='body'>
-            <img src={images.meeting_img02} alt='상품 이미지1' />
+            <img src={meeting.imageUrl ?? images.ctg_img01} alt='상품 이미지1' />
           <div className='txt_area'>
             <div className='sort'>
               {meeting.meetingCost && <span className='hot'>HOT</span>}
-              <span className='location'>{meeting.meetingMainPlace.toUpperCase()}</span>
-            </div>
+              <span className='location'>{getDistrict(meeting.meetingMainPlace)}</span>
+              </div>
             <h4 className='tit tw-mt-3'>{meeting.meetingName}</h4>
             <p className='txt'>{meeting.meetingDescript}</p>
             <p className='price'>{meeting.meetingCost.toLocaleString()}원</p>
