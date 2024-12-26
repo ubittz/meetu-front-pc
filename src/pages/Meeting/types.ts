@@ -24,6 +24,7 @@ interface Question {
 }
 
 export interface AddMeetingForm {
+  id?: string;
   name: string;
   nameCheck: boolean;
   meetingCategory: string;
@@ -37,6 +38,7 @@ export interface AddMeetingForm {
   processGuide?: string;
   item?: string;
   file: string;
+  isImageNotChange?: boolean;
 }
 
 export type { Qna, Review };

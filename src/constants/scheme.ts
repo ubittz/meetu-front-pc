@@ -1,4 +1,4 @@
-import { boolean, object, ref, string } from 'yup';
+import { boolean, number, object, ref, string } from 'yup';
 
 export const loginSchema = object({
   id: string().required('아이디를 입력해주세요.'),
@@ -104,10 +104,10 @@ export const createMeetingSchema = object({
     return schema;
   }),
   meetingCategory: string().required('카테고리를 선택해주세요.'),
-  mainAddress: string(),
-  detailAddress: string(),
-  cost: string().required().matches(/^\d+$/, { message: '숫자만 입력해주세요.' }),
-  limit: string().required('모임 정원을 입력해주세요.').matches(/^\d+$/, { message: '숫자만 입력해주세요.' }).min(1, '모임 정원을 입력해주세요.'),
+  mainAddress: string().required('주소를 입력해주세요.'),
+  detailAddress: string().required('상세주소를 입력해주세요.'),
+  cost: number().required('모임 비용을 입력해주세요.'),
+  limit: number().required('모임 정원을 입력해주세요.').min(1, '모임 정원을 입력해주세요.'),
   processDate: string()
     .required('모임 진행일을 입력해주세요.')
     .matches(new RegExp(/^\d{4}-\d{2}-\d{2}$/), { message: '날짜를 정확히 입력해주세요.' }),
@@ -144,7 +144,6 @@ export const applyHostSchema = object({
   bank: string().required('은행을 선택해주세요.'),
   accNo: string().required('계좌번호를 입력해주세요.'),
 });
-
 
 export const paymentSchemaCustomer = object({
   customerName: string().required('주문자 이름을 입력해주세요.'),

@@ -27,7 +27,7 @@ const StyledQna = styled.div`
   }
 `;
 
-const QnaList = React.forwardRef<HTMLDivElement, {}>((_, ref) => {
+const QnaList = React.forwardRef<HTMLDivElement, { isHost: boolean }>(({ isHost }, ref) => {
   const params = useParams();
   const dispatch = useDispatch();
   const [currentQnaPage, setCurrentQnaPage] = useState(0);
@@ -79,32 +79,34 @@ const QnaList = React.forwardRef<HTMLDivElement, {}>((_, ref) => {
           Meet new people 문의 <em>{`(${contactList?.length ?? 0})`}</em>
         </h4>
       </div>
-      <StyledQna>
-        <Flex.Vertical gap={8}>
-          <textarea
-            placeholder='문의글을 입력해주세요'
-            value={question.description}
-            onChange={(e) => setQuestion((prev) => ({ ...prev, description: e.target.value }))}
-          />
-          <label>
-            <Flex.Horizontal gap={8}>
-              <input
-                type='checkbox'
-                className='tw-mb-[2px]'
-                checked={question.secretStatus}
-                onChange={() => setQuestion((prev) => ({ ...prev, secretStatus: !prev.secretStatus }))}
-              />
-              비밀글로 등록하겠습니다.
-            </Flex.Horizontal>
-          </label>
+      {!isHost && (
+        <StyledQna>
+          <Flex.Vertical gap={8}>
+            <textarea
+              placeholder='문의글을 입력해주세요'
+              value={question.description}
+              onChange={(e) => setQuestion((prev) => ({ ...prev, description: e.target.value }))}
+            />
+            <label>
+              <Flex.Horizontal gap={8}>
+                <input
+                  type='checkbox'
+                  className='tw-mb-[2px]'
+                  checked={question.secretStatus}
+                  onChange={() => setQuestion((prev) => ({ ...prev, secretStatus: !prev.secretStatus }))}
+                />
+                비밀글로 등록하겠습니다.
+              </Flex.Horizontal>
+            </label>
 
-          <Flex.Vertical alignItems='center'>
-            <Button.Medium className='btn' onClick={() => handleSubmit(question)}>
-              작성완료
-            </Button.Medium>
+            <Flex.Vertical alignItems='center'>
+              <Button.Medium className='btn' onClick={() => handleSubmit(question)}>
+                작성완료
+              </Button.Medium>
+            </Flex.Vertical>
           </Flex.Vertical>
-        </Flex.Vertical>
-      </StyledQna>
+        </StyledQna>
+      )}
       <div className='detail_list'>
         <ul>{contactList?.map((contact) => <QnaListItem key={contact.no} qna={contact} />)}</ul>
         <Pagination currentPage={contactPage.current + 1} totalPages={contactPage.lastPage} onPageChange={setCurrentQnaPage} />
