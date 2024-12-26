@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-import images from '@@assets/images';
 import { useMeetingDetail } from '@@stores/meeting/hooks';
 
 function PaymentProductInfo() {
