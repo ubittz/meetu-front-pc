@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import MeetingCreateEdit from '@@pages/Meeting/CreateEdit';
+import MeetingCreate from '@@pages/Meeting/Create';
+import MeetingEdit from '@@pages/Meeting/Edit';
 import MyPage from '@@pages/MyPage';
 import ApplyHost from '@@pages/MyPage/ApplyHost';
 import ApplyHostWrite from '@@pages/MyPage/ApplyHostWrite';
@@ -15,8 +16,8 @@ import { pathGenerator } from '@@router/utils';
 function AuthRouter() {
   return (
     <Routes>
-      <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreateEdit />} />
-      <Route path={pathGenerator(PAGES.MEETING) + '/edit/:id'} element={<MeetingCreateEdit />} />
+      <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
+      <Route path={pathGenerator(PAGES.MEETING) + '/edit/:id'} element={<MeetingEdit />} />
 
       {/* 결제 */}
       <Route path={pathGenerator(PAGES.PURCHASE + '/:id')} element={<Purchase />} />

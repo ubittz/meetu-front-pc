@@ -36,11 +36,11 @@ const InputField: React.FC<InputFieldProps> = ({
           <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} value={value} />
         )}
         {!value && <input {...field} id={name} type={type} placeholder={placeholder} className={hasError ? 'error' : ''} disabled={disabled} />}
-        {errorMessage ? (
+        {/* {errorMessage ? (
           <p className='txt_error'>{errorMessage}</p>
-        ) : (
-          <ErrorMessage name={name}>{(msg) => <p className='txt_error'>{errorMessage ?? msg}</p>}</ErrorMessage>
-        )}
+        ) : ( */}
+        <ErrorMessage name={name}>{(msg) => <p className='txt_error'>{errorMessage ?? msg}</p>}</ErrorMessage>
+        {/* )} */}
         {children}
       </>
     );
