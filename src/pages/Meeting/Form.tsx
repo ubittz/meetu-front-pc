@@ -11,7 +11,7 @@ import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { createMeetingSchema } from '@@constants/scheme';
 import CreateFormContent from '@@pages/Meeting/parts/CreateFormContent';
-import { AddMeetingForm } from '@@pages/Meeting/types';
+import { AddMeetingForm, MeetingPageType } from '@@pages/Meeting/types';
 import { sanitizeAddMeetingForm, sanitizeEditMeetingForm, getMeetingPageType } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
@@ -26,7 +26,15 @@ import {
   editMeetingFailure,
 } from '@@stores/meeting/reducer';
 
-function MeetingCreateEdit() {
+function MeetingForm({
+  formType,
+  initialValues,
+  onSubmit,
+}: {
+  formType: MeetingPageType;
+  initialValues: AddMeetingForm;
+  onSubmit: (form: AddMeetingForm) => void;
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -152,4 +160,4 @@ function MeetingCreateEdit() {
   );
 }
 
-export default MeetingCreateEdit;
+export default MeetingForm;
