@@ -69,6 +69,8 @@ export interface ReviewListResponse {
   reviewDescript: string;
   createDatetime: string;
   imageUrls: string[];
+  userImageUrl?: string;
+  meetingName: string;
 }
 
 export interface ContactResponse {
@@ -119,4 +121,8 @@ export interface MeetingByUserQuery {
   size?: number;
   userId?: string;
   filterType?: MeetingFilterType;
+}
+
+export interface ReviewByUserIdQuery {
+  page: number;
 }
