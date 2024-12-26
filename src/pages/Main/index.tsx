@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,17 +8,33 @@ import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
-import FindClass from '@@pages/FindClass';
 import MeetingSwipeList from '@@pages/Main/parts/MeetingSwipeList';
-import { Mood } from '@@pages/Main/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { MEETING_ORDER_TYPE } from '@@stores/meeting/constants';
 import { useMeetingListByFilter, useMeetingListByLastMonth } from '@@stores/meeting/hooks';
 import { Category } from '@@stores/meeting/types';
 
-import { getDummyMeetingList, getDummyMoodList } from './dummys';
 import MeetingByCategory from './parts/MeetingByCategory';
+
+const MOOD_LIST = [
+  {
+    index: 0,
+    title: 'RELAXED',
+    imageUrl: images.info_txt01,
+  },
+  {
+    index: 1,
+    title: 'ENERGETIC',
+    imageUrl: images.info_txt02,
+  },
+  {
+    index: 2,
+    title: 'RELAXED',
+    description: '상상에서 현실로, 창의의 순간.',
+    imageUrl: images.info_txt03,
+  },
+];
 
 const StyledMeetingTitle = styled(Flex.Horizontal)`
   align-items: center;
@@ -32,8 +48,6 @@ const StyledMeetingTitle = styled(Flex.Horizontal)`
 `;
 
 function Main() {
-  const [meetings, setMeetings] =   useState<Meeting[]>([]);
-  const [moods, setMoods] = useState<Mood[]>(getDummyMoodList().sort((a, b) => a.index - b.index));
   const [selectedCategory, setSelectedCategory] = useState<Category>();
 
   const { content: contentByCategory, isLoading: categoryLoading } = useMeetingListByFilter({
@@ -56,10 +70,6 @@ function Main() {
 
   const isLoading = categoryLoading || requestLoading || latestLoading || lastMonthLoading;
 
-  useEffect(() => {
-    setMeetings(getDummyMeetingList());
-  }, []);
-
   return (
     <div id='wrap'>
       <FullLoading visible={isLoading} />
@@ -75,7 +85,7 @@ function Main() {
           <MeetingSwipeList
             title={
               <StyledMeetingTitle>
-                <div >
+                <div>
                   <strong>지금</strong> 핫한 모임<strong>.</strong>
                 </div>
                 <Link to={pathGenerator(PAGES.MEETING)} className='btn'>
@@ -139,22 +149,22 @@ function Main() {
             <div className='mi_img_area'>
               <div className='mi_img mii01'>
                 <div className='mi_txt'>
-                  <img src={moods[0].imageUrl} alt={moods[0].title} />
-                  {moods[0].description && <p>{moods[0].description}</p>}
+                  <img src={MOOD_LIST[0].imageUrl} alt={MOOD_LIST[0].title} />
+                  {MOOD_LIST[0].description && <p>{MOOD_LIST[0].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
               <div className='mi_img mii02'>
                 <div className='mi_txt'>
-                  <img src={moods[1].imageUrl} alt={moods[1].title} />
-                  {moods[1].description && <p>{moods[1].description}</p>}
+                  <img src={MOOD_LIST[1].imageUrl} alt={MOOD_LIST[1].title} />
+                  {MOOD_LIST[1].description && <p>{MOOD_LIST[1].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
               <div className='mi_img mii03'>
                 <div className='mi_txt'>
-                  <img src={moods[2].imageUrl} alt={moods[2].title} />
-                  {moods[2].description && <p>{moods[2].description}</p>}
+                  <img src={MOOD_LIST[2].imageUrl} alt={MOOD_LIST[2].title} />
+                  {MOOD_LIST[2].description && <p>{MOOD_LIST[2].description}</p>}
                 </div>
                 <div className='mi_bg'></div>
               </div>
@@ -169,4 +179,3 @@ function Main() {
 }
 
 export default Main;
-
