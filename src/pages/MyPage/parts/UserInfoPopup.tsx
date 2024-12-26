@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Flex from '@@components/Flex';
 import { Cancel } from '@@components/Popup/icon';
 import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 import { UserProfileResponse } from '@@stores/auth/types';
 
 import { Line } from '../icons';
@@ -89,6 +92,16 @@ interface UserInfoPopupProps {
 }
 
 function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
+  const navigate = useNavigate();
+
+  const handleClickMeeting = () => {
+    navigate(pathGenerator(PAGES.PROFILE) + `/${user?.userId}`);
+  };
+
+  const handleClickReview = () => {
+    navigate(pathGenerator(PAGES.PROFILE) + `/${user?.userId}/review`);
+  };
+
   return (
     <StyledUserInfoPopup $visible={visible} $width='50%' $height='620px' $transform='translateX(-50%) translateY(-50%)'>
       <Flex.Vertical className='popup_box'>
@@ -103,7 +116,7 @@ function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
 
             {/* 운영 중인 모임 및 리뷰 */}
             <Flex.Horizontal className='tw-p-5 tw-rounded-xl tw-bg-[#FFEEE6]' gap={54} alignItems='center' justifyContent='center'>
-              <Flex.Vertical gap={8}>
+              <Flex.Vertical className='tw-cursor-pointer' gap={8} onClick={handleClickMeeting}>
                 <Typography.SmallBody>운영중인 모임</Typography.SmallBody>
                 <Flex.Horizontal justifyContent='center' alignItems='center' gap={4}>
                   <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.processingMeetingCount ?? 0}</Typography.MediumSubtitle>
@@ -113,7 +126,7 @@ function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
               {user?.isHost && (
                 <>
                   <Line />
-                  <Flex.Vertical gap={8}>
+                  <Flex.Vertical className='tw-cursor-pointer' gap={8} onClick={handleClickReview}>
                     <Typography.SmallBody>리뷰</Typography.SmallBody>
                     <Flex.Horizontal justifyContent='center' alignItems='center' gap={4}>
                       <Typography.MediumSubtitle color={COLORS.MAIN}>{user?.writeReviewCount ?? 0}</Typography.MediumSubtitle>

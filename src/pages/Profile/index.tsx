@@ -13,7 +13,7 @@ function Profile() {
     return null;
   }
 
-  return !data.isHost ? <InfoHost user={data} /> : <InfoUser user={data} />;
+  return data.isHost ? <InfoHost user={data} /> : <InfoUser user={data} />;
 }
 
 export default Profile;

@@ -1,6 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
 
-import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import Header from '@@components/Header';
 import Pagination from '@@pages/Meeting/parts/Pagination';
