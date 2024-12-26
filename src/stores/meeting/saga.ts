@@ -31,8 +31,8 @@ function* createMeeting({ payload }: ReturnType<typeof createMeetingRequest>) {
     const newMeeting = { ...payload.meeting };
     const meeting = createBlobJSON(JSON.stringify(newMeeting));
 
-    console.log('파일', payload);
-    formData.append('file', payload.file);
+    console.log('데이터', payload);
+    formData.append('file', payload.file ?? '');
     formData.append('meeting', meeting);
 
     console.log(payload.meeting);
@@ -58,7 +58,9 @@ function* editMeeting({ payload }: ReturnType<typeof editMeetingRequest>) {
     const newMeeting = { ...payload.meeting };
     const meeting = createBlobJSON(JSON.stringify(newMeeting));
 
-    formData.append('file', payload.file);
+    if (payload.file) {
+      formData.append('file', payload.file);
+    }
     formData.append('meeting', meeting);
 
     console.log(payload.meeting);

@@ -15,9 +15,10 @@ import ReviewPopup from './ReviewPopup';
 
 interface ReviewListProps {
   averageScore: number;
+  isHost: boolean;
 }
 
-const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ averageScore }, ref) => {
+const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ averageScore, isHost }, ref) => {
   const params = useParams();
   const dispatch = useDispatch();
   const [currentReviewPage, setCurrentReviewPage] = useState(0);
@@ -68,9 +69,11 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ averageS
         <div className='star_area'>
           <span className='star' style={{ width: `${averageScore * 20}%` }}></span>
         </div>
-        <button className='btn' onClick={openPopup}>
-          리뷰 작성하기
-        </button>
+        {!isHost && (
+          <button className='btn' onClick={openPopup}>
+            리뷰 작성하기
+          </button>
+        )}
       </div>
       <div className='detail_list'>
         <ul>{reviewList?.map((review) => <ReviewListItem key={review.reviewNo} review={review} />)}</ul>

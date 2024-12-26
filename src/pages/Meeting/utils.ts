@@ -27,10 +27,10 @@ export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddEditDTO 
   meeting: {
     name: form.name,
     category: form.meetingCategory as Category,
-    mainAddress: form.mainAddress,
-    detailAddress: form.detailAddress,
-    cost: form.cost,
-    limit: form.limit,
+    mainAddress: form.mainAddress ?? '',
+    detailAddress: form.detailAddress ?? '',
+    cost: +form.cost,
+    limit: +form.limit,
     processDate: form.processDate,
     intro: form.intro,
     descript: form.description,
@@ -38,6 +38,24 @@ export const sanitizeAddMeetingForm = (form: AddMeetingForm): MeetingAddEditDTO 
     item: form.item,
   },
   file: form.file,
+});
+
+export const sanitizeEditMeetingForm = (form: AddMeetingForm): MeetingAddEditDTO => ({
+  meeting: {
+    id: form.id,
+    name: form.name,
+    category: form.meetingCategory as Category,
+    mainAddress: form.mainAddress ?? '',
+    detailAddress: form.detailAddress ?? '',
+    cost: +form.cost,
+    limit: +form.limit,
+    processDate: form.processDate,
+    intro: form.intro,
+    descript: form.description,
+    processGuide: form.processGuide,
+    item: form.item,
+  },
+  file: form.isImageNotChange ? undefined : form.file,
 });
 
 export const getMeetingPageType = (pathname: string): MeetingPageType => {
