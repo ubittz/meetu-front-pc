@@ -24,8 +24,9 @@ export const useMeetingDetail = (id: string) => {
 };
 
 export const useMeetingMyList = (query: MeetingByUserQuery) => {
-  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_MY,{
+  const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST_MY, {
     query,
+    skip: query.page === undefined,
   });
 
   return formatSWRListResponse(data);
@@ -34,6 +35,7 @@ export const useMeetingMyList = (query: MeetingByUserQuery) => {
 export const useReviewList = (query: ReviewListQuery) => {
   const data = useSWRList<MeetuPageResponse<ReviewListResponse>>(ENDPOINTS.REVIEW.LIST, {
     query,
+    skip: query.page === undefined,
   });
   return formatSWRListResponse(data);
 };
@@ -41,6 +43,7 @@ export const useReviewList = (query: ReviewListQuery) => {
 export const useContactList = (query: ContactListQuery) => {
   const data = useSWRList<MeetuPageResponse<ContactResponse>>(ENDPOINTS.CONTACT.LIST, {
     query,
+    skip: query.page === undefined,
   });
 
   return formatSWRListResponse(data);
@@ -49,6 +52,7 @@ export const useContactList = (query: ContactListQuery) => {
 export const useMeetingListByFilter = (query: MeetingListWithCategoryQuery) => {
   const data = useSWRList<MeetuPageResponse<Meeting>>(ENDPOINTS.MEETING.LIST, {
     query,
+    skip: query.page === undefined,
   });
 
   return formatSWRListResponse(data);
@@ -66,8 +70,9 @@ export const useMeetingListByLastMonth = () => {
 
 export const useReviewByUserId = (id: string, query: ReviewByUserIdQuery) => {
   const data = useSWRList<MeetuPageResponse<ReviewListResponse>>(`/api/meeting/review/list/${id}`, {
-    query
+    query,
+    skip: query.page === undefined || !id,
   });
-  
+
   return formatSWRListResponse(data);
-}
+};
