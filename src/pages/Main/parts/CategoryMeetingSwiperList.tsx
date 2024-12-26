@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import styled from 'styled-components';
 
+import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import Slider from '@@components/Slider';
 import CategorySliderItems from '@@components/SliderItem/CategorySliderItems';
@@ -26,7 +27,7 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
   const sliderItems = meeting.map((meeting, idx) => (
     <CategorySliderItems
       key={meeting.meetingId}
-      // image={meeting.imageUrl ?? images.good_img02}
+      image={meeting.imageUrl ?? images.good_img02}
       title={meeting.meetingName}
       price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}

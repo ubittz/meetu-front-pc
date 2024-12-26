@@ -180,8 +180,10 @@ function OrderDetailPopup({ id, onCancel }: OrderDetailPopupProps) {
         </Typography.MediumBody>
         <Typography.MediumBody className='tw-w-[280px]'>{data.pgData?.approveNo}</Typography.MediumBody>
       </Flex.Horizontal>
-      <Flex.Vertical className='tw-mt-20'  alignItems="center" >
-        <Button.Large className='tw-w-[604px]' onClick={onCancel}><Typography.SmallBody color={COLORS.WHITE}>확인</Typography.SmallBody></Button.Large>
+      <Flex.Vertical className='tw-mt-20' alignItems='center'>
+        <Button.Large className='tw-w-[604px]' onClick={onCancel}>
+          <Typography.SmallBody color={COLORS.WHITE}>확인</Typography.SmallBody>
+        </Button.Large>
       </Flex.Vertical>
     </StyledOrder>
   );

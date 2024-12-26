@@ -27,7 +27,7 @@ function MyPageSwiper({ meetings }: MeetingSwipeListProps) {
   const sliderItems = meetings.map((meeting) => (
     <SliderItem
       key={meeting.meetingId}
-      image={meeting.imgUrl ?? images.ctg_img02}
+      image={meeting.imageUrl ?? images.ctg_img02}
       title={meeting.meetingName}
       price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}
