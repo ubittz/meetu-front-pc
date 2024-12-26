@@ -61,7 +61,7 @@ function Router() {
       <Route path={pathGenerator(PAGES.MEETING) + '/create'} element={<MeetingCreate />} />
 
       {/* 결제 */}
-      <Route path={pathGenerator(PAGES.PURCHASE)} element={<Purchase />} />
+      <Route path={pathGenerator(PAGES.PURCHASE + '/:id')} element={<Purchase />} />
       <Route path={pathGenerator(PAGES.PURCHASE) + '/complete'} element={<PurchaseComplete />} />
       {/* Profile */}
       <Route path={pathGenerator(PAGES.PROFILE) + '/:id'} element={<Profile />} />

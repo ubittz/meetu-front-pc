@@ -1,7 +1,7 @@
 export const  COLORS = {
   MAIN_050: '#BBBBBB',
   MAIN_400: '#555555',
-  MAIN_700: '#965E03',
+  MAIN_700: '#C1C1C1',
   GRAY_SCALE_000: '#F8F8F8',
   //use
   GRAY_SCALE_050: '#EDEDED',

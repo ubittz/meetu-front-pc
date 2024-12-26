@@ -19,11 +19,11 @@ function Complete() {
           <div className='complete_area payment'>
             <h3>결제가 완료되었습니다.</h3>
             <p className='caption01'>
-              <strong>홍밋유</strong>와 함께 새로운 만남에서 소소한 행복을 찾아보세요.
+              <strong>밋유</strong>와 함께 새로운 만남에서 소소한 행복을 찾아보세요.
             </p>
           </div>
           <div className='btn_area type_02'>
-            <Link to='#' className='btn form02'>
+            <Link to={pathGenerator(PAGES.MYPAGE + '/order')} className='btn form02'>
               결제내역 보러가기
             </Link>
             <Link to={pathGenerator(PAGES.MAIN)} className='btn'>
