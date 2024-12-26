@@ -32,7 +32,7 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
   const sliderItems = meetings.map((meeting) => (
     <SliderItem
       key={meeting.meetingId}
-      image={meeting.imgURL ?? images.good_img03}
+      image={meeting.imageUrl ?? images.good_img03}
       title={meeting.meetingName}
       price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}

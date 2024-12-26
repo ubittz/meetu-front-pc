@@ -13,9 +13,9 @@ import { applyHostSchema } from '@@constants/scheme';
 import ApplyHostWriteFormContent from '@@pages/MyPage/parts/ApplyHostWriteFormContent';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
-import { HostAddDTO } from '@@stores/user/types';
-import { createHostRequest, createHostSuccess, createHostFailure } from '@@stores/user/reducer';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
+import { createHostRequest, createHostSuccess, createHostFailure } from '@@stores/user/reducer';
+import { HostAddDTO } from '@@stores/user/types';
 
 const initialValues: HostAddDTO = {
   name: '',
