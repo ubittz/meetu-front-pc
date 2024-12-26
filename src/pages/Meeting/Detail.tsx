@@ -3,11 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import images from '@@assets/images';
 import Footer from '@@components/Footer';
 import FullLoading from '@@components/FullLoading/FullLoading';
 import Header from '@@components/Header';
+import { DefaultUserIcon } from '@@constants/icons';
 import QnaList from '@@pages/Meeting/parts/QnaList';
 import ReviewList from '@@pages/Meeting/parts/ReviewList';
 import { formatCost, formatDate, getCategoryString, getDistrict } from '@@pages/Meeting/utils';
@@ -18,7 +20,16 @@ import { useAppState } from '@@store/hooks';
 import { useUserProfile } from '@@stores/auth/hooks';
 import { useMeetingDetail } from '@@stores/meeting/hooks';
 
-// FIX: - 모임 대표 이미지, 모임 상세 정보 이미지, 호스트 정보(이미지, 키워드(hot) 없음
+const StyledDefaultUserIcon = styled(DefaultUserIcon)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 function MeetingDetail() {
   const navigate = useNavigate();
@@ -137,15 +148,13 @@ function MeetingDetail() {
               <div className='mv_app' style={{ top }}>
                 <h3 className='title'>{data?.name}</h3>
                 <div className='host_area'>
-                  <div className='img_area'>
-                    <img src={user?.imageUrl} alt='호스트 이미지' />
-                  </div>
+                  <div className='img_area'>{user?.imageUrl ? <img src={user?.imageUrl} /> : <StyledDefaultUserIcon />}</div>
                   <div className='info_area'>
                     <span className='name'>호스트</span>
                     <h4>{data?.hostName}</h4>
                     <div className='sort'>
                       <span className='hot'>HOT</span>
-                      <span className='location'>{getDistrict(data?.address ?? '')}</span>
+                      <span className='location'>{getDistrict(data?.mainPlace ?? '')}</span>
                     </div>
                   </div>
                 </div>

@@ -7,6 +7,7 @@ import Typography from '@@components/Typography';
 import { COLORS } from '@@constants/colors';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
+import { DefaultUserIcon } from '@@constants/icons';
 import { UserProfileResponse } from '@@stores/auth/types';
 
 import { Line } from '../icons';
@@ -110,7 +111,7 @@ function UserInfoPopup({ user, visible, onCancel }: UserInfoPopupProps) {
           <Cancel onClick={onCancel} />
         </Flex.Horizontal>
         <Flex.Horizontal className='body'>
-          <img src={user?.imageUrl} className='popup_img' alt='호스트 이미지' />
+          {user?.imageUrl ? <img src={user?.imageUrl} className='popup_img' alt='호스트 이미지' /> : <DefaultUserIcon className='popup_img' />}
           <Flex.Vertical gap={20} className='wrap'>
             <Typography.LargeBody>{user?.userName}</Typography.LargeBody>
 
