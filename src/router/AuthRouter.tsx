@@ -9,9 +9,8 @@ import MyMeeting from '@@pages/MyPage/MyMeeting';
 import OrderList from '@@pages/MyPage/OrderList';
 import Purchase from '@@pages/Purchase';
 import PurchaseComplete from '@@pages/Purchase/Complete';
-
-import { PAGES, ROUTE_PREFIX } from './constants';
-import { pathGenerator } from './utils';
+import { PAGES, ROUTE_PREFIX } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 
 function AuthRouter() {
   return (
