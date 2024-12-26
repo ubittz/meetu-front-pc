@@ -31,7 +31,7 @@ function MyMeetingListItem({ meeting, isShowButton = false, onDelete }: MyMeetin
       </div>
       {me?.isHost && isShowButton && (
         <div className='btn_area type_02'>
-          <Link to={pathGenerator(PAGES.MEETING) + '/edit/' + meeting.id} className='btn form02'>
+          <Link to={pathGenerator(PAGES.MEETING) + '/edit/' + meeting.meetingId} className='btn form02'>
             수정하기
           </Link>
           <button type='button' className='btn' onClick={() => onDelete?.(meeting.meetingId)}>
