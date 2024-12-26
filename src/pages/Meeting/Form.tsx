@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Flex from '@@components/Flex';
 import Footer from '@@components/Footer';
@@ -11,57 +10,25 @@ import Popup from '@@components/Popup';
 import Typography from '@@components/Typography';
 import { createMeetingSchema } from '@@constants/scheme';
 import CreateFormContent from '@@pages/Meeting/parts/CreateFormContent';
-import { AddMeetingForm } from '@@pages/Meeting/types';
-import { sanitizeAddMeetingForm, sanitizeEditMeetingForm, getMeetingPageType } from '@@pages/Meeting/utils';
+import { AddMeetingForm, MeetingPageType } from '@@pages/Meeting/types';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useActionSubscribe } from '@@store/middlewares/actionMiddleware';
-import { useMeetingDetail } from '@@stores/meeting/hooks';
-import {
-  createMeetingRequest,
-  createMeetingSuccess,
-  createMeetingFailure,
-  editMeetingRequest,
-  editMeetingSuccess,
-  editMeetingFailure,
-} from '@@stores/meeting/reducer';
+import { createMeetingSuccess, createMeetingFailure, editMeetingSuccess, editMeetingFailure } from '@@stores/meeting/reducer';
 
-function MeetingCreateEdit() {
+function MeetingForm({
+  formType,
+  initialValues,
+  onSubmit,
+}: {
+  formType: MeetingPageType;
+  initialValues: AddMeetingForm;
+  onSubmit: (form: AddMeetingForm) => void;
+}) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { pathname } = useLocation();
-  const { id } = useParams();
-  const { data } = useMeetingDetail(id ?? ''); // edit인 경우에만 요청하도록 수정
-
-  const initialValues: AddMeetingForm = {
-    id: data?.id,
-    name: data?.name ?? '',
-    nameCheck: data?.name ? true : false,
-    meetingCategory: data?.category ? data.category : '',
-    mainAddress: data?.mainPlace ?? '',
-    detailAddress: data?.detailPlace ?? '',
-    cost: data?.cost ?? 0,
-    limit: data?.limit ?? 0,
-    processDate: data?.processDate ?? '',
-    intro: data?.intro ?? '',
-    description: data?.descript ?? '',
-    processGuide: data?.processGuide ?? '',
-    item: data?.item ?? '',
-    file: data?.imageUrl ?? '',
-    isImageNotChange: true,
-  };
-
-  const pageType = getMeetingPageType(pathname);
-  const isEdit = pageType === 'edit';
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleSubmit = (values: AddMeetingForm) => {
-    const sanitizedValues = isEdit ? sanitizeEditMeetingForm(values) : sanitizeAddMeetingForm(values);
-    dispatch(isEdit ? editMeetingRequest(sanitizedValues) : createMeetingRequest(sanitizedValues));
-    console.log('sanitizedValues: ', sanitizedValues);
-  };
+  const isEdit = formType === 'edit';
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -115,7 +82,7 @@ function MeetingCreateEdit() {
         {/* <!-- 모임 개설 정보 입력 영역 시작 --> */}
         <section className='member_inner meeting'>
           {/* <!-- 모임 개설 정보입력 form 영역 시작 --> */}
-          <Formik initialValues={initialValues} validationSchema={createMeetingSchema} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues} validationSchema={createMeetingSchema} onSubmit={onSubmit}>
             <fieldset>
               <legend>모임 개설 정보입력 영역</legend>
               <div className='join_wrap type_srch'>
@@ -152,4 +119,4 @@ function MeetingCreateEdit() {
   );
 }
 
-export default MeetingCreateEdit;
+export default MeetingForm;
