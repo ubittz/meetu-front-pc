@@ -1,5 +1,10 @@
+import { useDispatch } from 'react-redux';
+
+import { AddMeetingForm } from '@@pages/Meeting/types';
+import { sanitizeAddMeetingForm } from '@@pages/Meeting/utils';
+import { createMeetingRequest } from '@@stores/meeting/reducer';
+
 import MeetingForm from './Form';
-import { AddMeetingForm } from './types';
 
 const initialValues: AddMeetingForm = {
   name: '',
@@ -19,9 +24,14 @@ const initialValues: AddMeetingForm = {
 };
 
 function MeetingCreate() {
-  const handleSubmit = (form: AddMeetingForm) => {};
+  const dispatch = useDispatch();
 
-  return <MeetingForm formType='create' initialValues={initialValues} onSumbit={handleSubmit} />;
+  const handleSubmit = (form: AddMeetingForm) => {
+    const sanitizedValues = sanitizeAddMeetingForm(form);
+    dispatch(createMeetingRequest(sanitizedValues));
+  };
+
+  return <MeetingForm formType='create' initialValues={initialValues} onSubmit={handleSubmit} />;
 }
 
 export default MeetingCreate;
