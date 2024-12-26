@@ -1,13 +1,26 @@
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+import { DefaultUserIcon } from '@@constants/icons';
 import { getUserResponseType } from '@@pages/MyPage/utils';
 import { PAGES } from '@@router/constants';
 import { pathGenerator } from '@@router/utils';
 import { useAppState } from '@@store/hooks';
 
 import UserInfoPopup from './UserInfoPopup';
+
+const StyledDefaultUserIcon = styled(DefaultUserIcon)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 function MyPageDashboard() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -27,9 +40,7 @@ function MyPageDashboard() {
       <div className='d_inner'>
         <div className='host_area'>
           <button type='button' className='btn' onClick={openPopup}>
-            <span className='img_area'>
-              <img src={me?.imageUrl} alt='사용자 이미지' />
-            </span>
+            <span className='img_area'>{me?.imageUrl ? <img src={me?.imageUrl} alt='사용자 이미지' /> : <StyledDefaultUserIcon />}</span>
             <span className='txt_area' onClick={openPopup}>
               {me?.isHost ? <strong>HOST</strong> : <strong className='user'>USER</strong>}
               <em>{me?.name} 님</em>
