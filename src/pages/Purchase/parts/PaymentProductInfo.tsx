@@ -17,7 +17,7 @@ function PaymentProductInfo() {
         <h4>{data.name}</h4>
         <div className='host_info'>
           <div className='img_area'>
-            <img src={images.meeting_img01} alt='호스트 이미지' />
+            <img src={data.imageUrl} alt='호스트 이미지' />
           </div>
           <ul className='info_list'>
             <li>
