@@ -71,7 +71,7 @@ function PaymentInfo({ onAgreeFinancialChange }: PaymentInfoProps) {
               checked={agreement.chk01}
               onChange={(e) => handleCheckboxChange('chk01', e.target.checked)}
             />
-            <label htmlFor='agreeChk01'>개인정보 수집 및 이용동의 (필수)</label>
+            <label htmlFor='agreeChk01'>전자금융거래 약관 (필수)</label>
             <Link to='javascript:void(0)' className='btn' onClick={handleLinkClick}>
               보기
             </Link>
