@@ -1,7 +1,10 @@
 // CategoryItem.tsx
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Flex from '@@components/Flex';
+import { PAGES } from '@@router/constants';
+import { pathGenerator } from '@@router/utils';
 import { CATEGORY_STRINGS } from '@@stores/meeting/constants';
 import { Category } from '@@stores/meeting/types';
 
@@ -23,7 +26,11 @@ function CategoryItem({
   setCategory: (category?: Category) => void;
   selectedCategory: Category | undefined;
 }) {
+  const navigate = useNavigate();
   const handleClick = () => {
+    if (!category) {
+      navigate(pathGenerator(PAGES.MEETING));
+    }
     setCategory(category);
   };
 

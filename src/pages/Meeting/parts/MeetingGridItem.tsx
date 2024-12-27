@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import { getDistrict } from '@@pages/Meeting/utils';
 import { PAGES } from '@@router/constants';
@@ -25,7 +26,7 @@ function MeetingGridItem({ meeting }: MeetingGridItemProps) {
     <StyledMeetingGridItem>
       <Link to={pathGenerator(PAGES.MEETING) + `/${meeting.meetingId}`}>
         <Flex.Vertical className='body'>
-          <img src={meeting.imageUrl} alt='상품 이미지' />
+          <img src={meeting.imageUrl ?? images.ctg_img02} alt='상품 이미지' />
           <div className='txt_area'>
             <div className='sort'>
               {meeting.meetingCost && <span className='hot'>HOT</span>}

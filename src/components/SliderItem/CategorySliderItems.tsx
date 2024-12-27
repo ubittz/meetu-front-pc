@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import images from '@@assets/images';
 import Flex from '@@components/Flex';
 import { SliderItemProps } from '@@components/SliderItem/types';
 
@@ -38,12 +37,12 @@ const StyledCategorySliderItems = styled(Flex.Vertical)<{ $isActive: boolean }>`
   }
 `;
 
-function CategorySliderItems({ children, showContent = false, onClickButton, isActive }: SliderItemProps & { isActive: boolean }) {
+function CategorySliderItems({ children, showContent = false, onClickButton, isActive, image }: SliderItemProps & { isActive: boolean, image:string }) {
   return (
     <StyledCategorySliderItems $isActive={isActive}>
       <Flex.Vertical className='body'>
         <Flex.Horizontal className='slider_item__image' onClick={onClickButton}>
-          <img src={images.good_img02} />
+          <img src={image}/>
         </Flex.Horizontal>
 
         {showContent && (

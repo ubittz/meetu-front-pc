@@ -27,7 +27,7 @@ function CategoryMeetingSwiperList({ meeting }: CategoryMeetingListItemProps) {
   const sliderItems = meeting.map((meeting, idx) => (
     <CategorySliderItems
       key={meeting.meetingId}
-      image={meeting.imageUrl ?? images.good_img02}
+      image={meeting.imageUrl ?? images.ctg_img02}
       title={meeting.meetingName}
       price={`${meeting.meetingCost.toLocaleString()}원`}
       showContent={true}
