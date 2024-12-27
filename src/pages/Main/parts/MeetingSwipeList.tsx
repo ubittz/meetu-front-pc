@@ -16,7 +16,7 @@ interface MeetingSwipeListProps {
 }
 
 const StyledSliderItem = styled.div`
-  .container {
+  .container {  
     padding-left: 10vw;
     padding-top: 80px;
   }
@@ -61,3 +61,9 @@ function MeetingSwipeList({ title, meetings }: MeetingSwipeListProps) {
 }
 
 export default MeetingSwipeList;
+
+
+
+
+
+
