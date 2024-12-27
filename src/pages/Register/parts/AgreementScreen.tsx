@@ -12,17 +12,11 @@ function AgreementScreen() {
   const [terms, setTerms] = useState({
     terms01: false, // 필수
     terms02: false, // 필수
-    terms03: false, // 필수
-    terms04: false, // 선택
-    terms05: false, // 선택
   });
 
   const [isShowTerms, setIsShowTerms] = useState({
     terms01: false,
     terms02: false,
-    terms03: false,
-    terms04: false,
-    terms05: false,
   });
 
   const handleAllChecked = () => {
@@ -31,9 +25,6 @@ function AgreementScreen() {
     setTerms({
       terms01: newCheckedState,
       terms02: newCheckedState,
-      terms03: newCheckedState,
-      terms04: newCheckedState,
-      terms05: newCheckedState,
     });
   };
 
@@ -46,7 +37,7 @@ function AgreementScreen() {
     setIsAllChecked(Object.values({ ...terms, [term]: !terms[term] }).every(Boolean));
   };
 
-  const isNextDisabled = !terms.terms01 || !terms.terms02 || !terms.terms03; // 필수 약관 체크 여부
+  const isNextDisabled = !terms.terms01 || !terms.terms02; // 필수 약관 체크 여부
 
   return (
     <div id='wrap'>
@@ -72,40 +63,12 @@ function AgreementScreen() {
                     <label htmlFor='termsChkAll'>모두 동의합니다.</label>
                   </div>
                   <div className='chk_area'>
-                    <input type='checkbox' name='termsChk' id='termsChk01' checked={terms.terms01} onChange={() => handleTermChange('terms01')} />
-                    <label htmlFor='termsChk01'>만 14세 이상입니다. (필수)</label>
-                  </div>
-                  <div className='chk_area'>
                     <input type='checkbox' name='termsChk' id='termsChk02' checked={terms.terms02} onChange={() => handleTermChange('terms02')} />
-                    <label htmlFor='termsChk02'>이용약관 동의(필수)</label>
-                    <Link to='javascript:void(0)' className='btn' onClick={() => setIsShowTerms({ ...isShowTerms, terms02: true })}>
+                    <label htmlFor='termsChk02'>개인정보 수집 및 이용 (필수)</label>
+                    <p className='btn' onClick={() => setIsShowTerms((prev) => ({ ...prev, terms02: !prev.terms02 }))}>
                       보기
-                    </Link>
-                    <p className='txt_area' style={{ display: 'block' }}>
-                      제1조(목적) <br />
-                      이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                      “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                      &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」 <br /> <br />{' '}
-                      <br />
-                      제2조(정의) <br /> <br />
-                      “몰” 이란 (주)휴테크산업 재화 또는 용역(이하 “재화”이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를 이용하여
-                      재화등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.
-                      <br />
-                      “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.
-                      <br />
-                      ‘회원’이라 함은 “몰”에 개인정보를 제공하여 회원등록을 한 자로서, “몰”의 정보를 지속적으로 제공받으며, “몰”이 제공하는 서비스를
-                      계속적으로 이용할 수 있는 자를 말합니다.
-                      <br />
-                      ‘비회원’이라 함은 회원에 가입하지 않고 “몰”이 제공하는 서비스를 이용하는 자를 말합니다.
                     </p>
-                  </div>
-                  <div className='chk_area'>
-                    <input type='checkbox' name='termsChk' id='termsChk03' checked={terms.terms03} onChange={() => handleTermChange('terms03')} />
-                    <label htmlFor='termsChk03'>개인정보 수집 및 이용 (필수)</label>
-                    <Link to='javascript:void(0)' className='btn' onClick={() => setIsShowTerms({ ...isShowTerms, terms03: true })}>
-                      보기
-                    </Link>
-                    {isShowTerms.terms03 && (
+                    {isShowTerms.terms02 && (
                       <p className='txt_area' style={{ display: 'block' }}>
                         (주)루나스타 (이하 ‘회사’라 함)은 이용자의 개인정보를 ‘개인정보보호법’ 등 관계 법령에 의거하여 안전하게 관리 및 보호하고
                         있습니다. <br /> <br /> 회사의 스토어 서비스(이하 ‘서비스’라 함)에서는 개인정보의 수집 및 이용 등 처리에 있어서 아래의 사항을
@@ -205,36 +168,6 @@ function AgreementScreen() {
                         &nbsp;&nbsp;- 보유 기간 : 탈퇴 후 5 년간 보관 3. - 보유 정보: 개인 판매회원의 CI(암호화된 동일인 식별정보) <br />
                         &nbsp;&nbsp;-보유 이유: 밋유 스토어 부정 이용 및 가입방지 - 보존 기간: 3 년 그 밖의 사항은 (주)루나스타
                         &nbsp;&nbsp;&nbsp;&nbsp;Business Partner 개인정보 처리방침에 따릅니다.
-                      </p>
-                    )}
-                  </div>
-                  <div className='chk_area'>
-                    <input type='checkbox' name='termsChk' id='termsChk04' checked={terms.terms04} onChange={() => handleTermChange('terms04')} />
-                    <label htmlFor='termsChk04'>개인정보 취급위탁 (선택)</label>
-                    <Link to='javascript:void(0)' className='btn' onClick={() => setIsShowTerms({ ...isShowTerms, terms04: true })}>
-                      보기
-                    </Link>
-                    {isShowTerms.terms04 && (
-                      <p className='txt_area' style={{ display: 'block' }}>
-                        제1조(목적) <br />
-                        이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                        “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                        &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
-                      </p>
-                    )}
-                  </div>
-                  <div className='chk_area'>
-                    <input type='checkbox' name='termsChk' id='termsChk05' checked={terms.terms05} onChange={() => handleTermChange('terms05')} />
-                    <label htmlFor='termsChk05'>마케팅 정보 활용 (선택)</label>
-                    <Link to='javascript:void(0)' className='btn' onClick={() => setIsShowTerms({ ...isShowTerms, terms05: true })}>
-                      보기
-                    </Link>
-                    {isShowTerms.terms05 && (
-                      <p className='txt_area' style={{ display: 'block' }}>
-                        제1조(목적) <br />
-                        이 약관은 (주)휴테크산업(전자상거래 사업자)이 운영하는 휴테크(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하
-                        “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. <br /> <br /> <br />
-                        &nbsp;&nbsp;※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
                       </p>
                     )}
                   </div>

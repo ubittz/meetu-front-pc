@@ -9,8 +9,6 @@ import PaymentConsent from './paymentConsent';
 interface Agreement {
   all: boolean;
   chk01: boolean;
-  chk02: boolean;
-  chk03: boolean;
 }
 
 interface PaymentInfoProps {
@@ -24,8 +22,6 @@ function PaymentInfo({ onAgreeFinancialChange }: PaymentInfoProps) {
   const [agreement, setAgreement] = useState<Agreement>({
     all: false,
     chk01: false,
-    chk02: false,
-    chk03: false,
   });
 
   const handleLinkClick = () => {
@@ -37,8 +33,6 @@ function PaymentInfo({ onAgreeFinancialChange }: PaymentInfoProps) {
       setAgreement({
         all: value,
         chk01: value,
-        chk02: value,
-        chk03: value,
       });
       onAgreeFinancialChange(value); 
     } else {
@@ -46,7 +40,7 @@ function PaymentInfo({ onAgreeFinancialChange }: PaymentInfoProps) {
         ...agreement,
         [name]: value,
       };
-      updatedAgreement.all = updatedAgreement.chk01 && updatedAgreement.chk02 && updatedAgreement.chk03;
+      updatedAgreement.all = updatedAgreement.chk01;
       setAgreement(updatedAgreement);
       onAgreeFinancialChange(updatedAgreement.all); 
     }
@@ -82,26 +76,6 @@ function PaymentInfo({ onAgreeFinancialChange }: PaymentInfoProps) {
               보기
             </Link>
             {showTerms && <PaymentConsent />}
-          </div>
-          <div className='chk_area'>
-            <input
-              type='checkbox'
-              name='agreeChk02'
-              id='agreeChk02'
-              checked={agreement.chk02}
-              onChange={(e) => handleCheckboxChange('chk02', e.target.checked)}
-            />
-            <label htmlFor='agreeChk02'>개인정보 제3자 동의 (필수)</label>
-          </div>
-          <div className='chk_area'>
-            <input
-              type='checkbox'
-              name='agreeChk03'
-              id='agreeChk03'
-              checked={agreement.chk03}
-              onChange={(e) => handleCheckboxChange('chk03', e.target.checked)}
-            />
-            <label htmlFor='agreeChk03'>이용약관동의 (필수)</label>
           </div>
         </div>
       </div>
