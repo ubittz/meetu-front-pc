@@ -41,6 +41,8 @@ function Router() {
       {(token ? AUTH_ROUTES : UNAUTH_ROUTES).map((props) => (
         <Route {...props} key={props.path} />
       ))}
+
+      <Route path='*' element={<Navigate to={ROUTE_PREFIX} replace />} />
     </Routes>
   );
 }
