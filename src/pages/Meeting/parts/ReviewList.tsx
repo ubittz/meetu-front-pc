@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import CheckAuthorization from '@@components/CheckAuthorization';
 import UserPopup from '@@components/Popup/UserPopup';
 import Pagination from '@@pages/Meeting/parts/Pagination';
 import ReviewListItem from '@@pages/Meeting/parts/ReviewListItem';
@@ -69,11 +70,13 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(({ averageS
         <div className='star_area'>
           <span className='star' style={{ width: `${averageScore * 20}%` }}></span>
         </div>
-        {!isHost && (
-          <button className='btn' onClick={openPopup}>
-            리뷰 작성하기
-          </button>
-        )}
+        <CheckAuthorization>
+          {!isHost && (
+            <button className='btn' onClick={openPopup}>
+              리뷰 작성하기
+            </button>
+          )}
+        </CheckAuthorization>
       </div>
       <div className='detail_list'>
         <ul>{reviewList?.map((review) => <ReviewListItem key={review.reviewNo} review={review} />)}</ul>
