@@ -34,9 +34,11 @@ function Header() {
               <li>
                 <Link to='javascript:void(0);'>공지사항</Link>
               </li>
-              <li className='active'>
-                <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
-              </li>
+              <CheckAuthorization>
+                <li className='active'>
+                  <Link to={pathGenerator(PAGES.MEETING) + '/create'}>모임 개설하기</Link>
+                </li>
+              </CheckAuthorization>
             </ul>
           </nav>
         </div>

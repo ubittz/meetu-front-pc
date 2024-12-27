@@ -55,8 +55,14 @@ function MeetingDetail() {
   };
 
   const handleCheck = () => {
+    if (!authStore.token) {
+      alert('로그인 후 이용해주세요.');
+      navigate(pathGenerator(PAGES.LOGIN));
+      return;
+    }
     navigate(pathGenerator(PAGES.PURCHASE, `/${id}`));
   };
+
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -190,7 +196,6 @@ function MeetingDetail() {
                 {/* <!-- 1단 버튼 영역 --> */}
                 {user?.userId === authStore.me?.id && (
                   <div className='btn_area'>
-                    {/* <button type='button' className='btn' onClick={() => console.log('데이터: ', data)}> */}
                     <button type='button' className='btn' onClick={() => navigate(pathGenerator(`${PAGES.MEETING}/edit/${id}`))}>
                       수정하기
                     </button>
